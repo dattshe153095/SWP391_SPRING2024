@@ -41,7 +41,7 @@ namespace WebClient.Controllers
             if(admin != null)
             {
                 HttpContext.Session.SetInt32("Account", admin.Id);
-                return RedirectToAction("", "Admin");
+                return RedirectToAction("Index", "Admin");
             }
             else
             {
