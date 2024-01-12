@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BussinessObject.Models;
+using DataAccess.DAO;
+using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using WebClient.Models;
 
@@ -6,11 +8,9 @@ namespace WebClient.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController()
         {
-            _logger = logger;
+
         }
 
         public IActionResult Index()
@@ -22,6 +22,41 @@ namespace WebClient.Controllers
         {
             return View();
         }
+
+        #region
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Login(string username, string password)
+        {
+            //If not invalid info return Page
+            if (!ModelState.IsValid) return View();
+
+            Admin admin = new Admin();
+            admin = AdminDAO.LoginAdmin(username, password);
+
+            if(admin != null)
+            {
+                HttpContext.Session.SetInt32("Account", admin.Id);
+                return RedirectToAction("", "Admin");
+            }
+            else
+            {
+                Account account = new Account();
+                account = AccountDAO.Login(username, password);
+                if(account != null)
+                {
+                    HttpContext.Session.SetInt32("Account", account.Id);
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            return View();
+        }
+        #endregion
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
