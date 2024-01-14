@@ -26,9 +26,46 @@ namespace DataAccess.DAO
             return GetAllAdmin().FirstOrDefault(x => x.Username == username && x.Password == password);
         }
 
-        public static Admin GetAdminWithId(int id)
+        public static Admin GetAdminWithId(int? id)
         {
             return GetAllAdmin().FirstOrDefault(x => x.Id == id);
         }
+
+        public static void UpdateAdmin(Admin admin)
+        {
+            try
+            {
+                Admin c = GetAdminWithId(admin.Id);
+                if (c != null)
+                {
+                    using (var context = new Web_Trung_GianContext())
+                    {
+                        var accounts = context.Set<Admin>();
+                        accounts.Update(admin);
+                        context.SaveChanges();
+                    }
+                }
+                else
+                {
+                    throw new Exception("The Admin does not exist");
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        public static void AddAdmin(Admin admin)
+        {
+
+            using (var context = new Web_Trung_GianContext())
+            {
+                var accounts = context.Set<Admin>();
+                accounts.Add(admin);
+                context.SaveChanges();
+            }
+        }
+
     }
 }
