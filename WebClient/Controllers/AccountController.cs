@@ -1,18 +1,13 @@
 ﻿using BussinessObject.Models;
 using DataAccess.DAO;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Xml.Linq;
 
 namespace WebClient.Controllers
 {
-    public class AdminController : Controller
+    public class AccountController : Controller
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult ProfileAdmin()
+        public IActionResult Profile()
         {
             ViewBag.accountId = HttpContext.Session.GetInt32("Account");
             return View();
@@ -24,14 +19,14 @@ namespace WebClient.Controllers
             if (HttpContext.Session.GetInt32("Account") != null)
             {
                 int? id = HttpContext.Session.GetInt32("Account");
-                Admin admin = AdminDAO.GetAdminWithId(id);
-                admin.Name = name;
-                admin.Email = email;
-                AdminDAO.UpdateAdmin(admin);
-                return RedirectToAction("ProfileAdmin", "Admin");
+                Account account = AccountDAO.GetAccountWithId(id);
+                account.Name = name;
+                account.Email = email;
+                AccountDAO.UpdateAccount(account);
+                return RedirectToAction("Profile", "Account");
 
             }
-            return RedirectToAction("ProfileAdmin", "Admin");
+            return RedirectToAction("Profile", "Account");
         }
 
         [HttpPost]
@@ -40,18 +35,16 @@ namespace WebClient.Controllers
             if (HttpContext.Session.GetInt32("Account") != null)
             {
                 int? id = HttpContext.Session.GetInt32("Account");
-                Admin account = AdminDAO.GetAdminWithId(id);
+                Account account = AccountDAO.GetAccountWithId(id);
                 if (password.Equals(confirmPassword))
                 {
                     account.Password = password;
-                    AdminDAO.UpdateAdmin(account);
+                    AccountDAO.UpdateAccount(account);
                 }
-                return RedirectToAction("ProfileAdmin", "Admin");
+                return RedirectToAction("Profile", "Account");
 
             }
-            return RedirectToAction("ProfileAdmin", "Admin");
+            return RedirectToAction("Profile", "Account");
         }
     }
-
-
 }

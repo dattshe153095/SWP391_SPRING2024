@@ -1,3 +1,9 @@
+
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using BussinessObject.Models;
+
 namespace WebClient
 {
     public class Program
@@ -30,6 +36,7 @@ namespace WebClient
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseSession();

@@ -1,7 +1,9 @@
 ﻿using BussinessObject.Models;
 using DataAccess.DAO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Security.Principal;
 using WebClient.Models;
 
 namespace WebClient.Controllers
@@ -15,6 +17,7 @@ namespace WebClient.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.accountId = HttpContext.Session.GetInt32("Account");
             return View();
         }
 
@@ -38,7 +41,7 @@ namespace WebClient.Controllers
             Admin admin = new Admin();
             admin = AdminDAO.LoginAdmin(username, password);
 
-            if(admin != null)
+            if (admin != null)
             {
                 HttpContext.Session.SetInt32("Account", admin.Id);
                 return RedirectToAction("Index", "Admin");
@@ -47,7 +50,7 @@ namespace WebClient.Controllers
             {
                 Account account = new Account();
                 account = AccountDAO.Login(username, password);
-                if(account != null)
+                if (account != null)
                 {
                     HttpContext.Session.SetInt32("Account", account.Id);
                     return RedirectToAction("Index", "Home");
@@ -57,6 +60,11 @@ namespace WebClient.Controllers
         }
         #endregion
 
+        public IActionResult LogOut()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Login", "Home");
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
