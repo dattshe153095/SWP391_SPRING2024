@@ -60,6 +60,20 @@ namespace WebClient.Controllers
         }
         #endregion
 
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Register(Admin admin)
+        {
+            admin.IdRole = 1;
+            AdminDAO.AddAdmin(admin);
+            return RedirectToAction("Index", "Home");
+        }
+
         public IActionResult LogOut()
         {
             HttpContext.Session.Clear();

@@ -56,5 +56,16 @@ namespace DataAccess.DAO
             }
         }
 
+        public static void AddAdmin(Admin admin)
+        {
+
+            using (var context = new Web_Trung_GianContext())
+            {
+                var accounts = context.Set<Admin>();
+                accounts.Add(admin);
+                context.SaveChanges();
+            }
+        }
+
     }
 }
