@@ -38,24 +38,23 @@ namespace WebClient.Controllers
             //If not invalid info return Page
             if (!ModelState.IsValid) return View();
 
-            Admin admin = new Admin();
-            admin = AdminDAO.LoginAdmin(username, password);
-
-            if (admin != null)
+            Account account = new Account();
+            account = AccountDAO.Login(username, password);
+            if (account != null)
             {
-                HttpContext.Session.SetInt32("Account", admin.Id);
-                return RedirectToAction("Index", "Admin");
-            }
-            else
-            {
-                Account account = new Account();
-                account = AccountDAO.Login(username, password);
-                if (account != null)
+                HttpContext.Session.SetInt32("Account", account.Id);
+                if (account.IdRole == 2)
                 {
-                    HttpContext.Session.SetInt32("Account", account.Id);
                     return RedirectToAction("Index", "Home");
                 }
+                else
+                {
+                    return RedirectToAction("Index", "Admin");
+                }
+              
+              
             }
+
             return View();
         }
         #endregion
@@ -67,10 +66,8 @@ namespace WebClient.Controllers
         }
 
         [HttpPost]
-        public IActionResult Register(Admin admin)
+        public IActionResult Register(Account account)
         {
-            admin.IdRole = 1;
-            AdminDAO.AddAdmin(admin);
             return RedirectToAction("Index", "Home");
         }
 
