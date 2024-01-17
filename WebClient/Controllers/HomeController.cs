@@ -74,6 +74,11 @@ namespace WebClient.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public IActionResult ForgetPassword()
+        {
+            return View();
+        }
+
         public IActionResult LogOut()
         {
             HttpContext.Session.Clear();
