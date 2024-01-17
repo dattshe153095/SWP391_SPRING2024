@@ -4,9 +4,6 @@
 @using WebClient.Models
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
-@{
-    Admin user = AdminDAO.GetAdminWithId(ViewBag.accountId);
-}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -82,13 +79,13 @@
                         </tr>
                         <!-- Replace the data below with your actual data -->
                         <tr>
-                            <td>@user.Id</td>
-                            <td>@user.Name</td>
-                            <td>@user.Avatar</td>
-                            <td>@user.Username</td>
-                            <td>@user.Email</td>
-                            <td>@user.Password</td>
-                            <td>@user.IdRole</td>
+                            <td>user.Id</td>
+                            <td>user.Name</td>
+                            <td>user.Avatar</td>
+                            <td>user.Username</td>
+                            <td>user.Email</td>
+                            <td>user.Password</td>
+                            <td>user.IdRole</td>
                         </tr>
                         <!-- Add more rows as needed -->
 
