@@ -8,7 +8,6 @@ namespace BussinessObject.Models
         public AccountRole()
         {
             Accounts = new HashSet<Account>();
-            Admins = new HashSet<Admin>();
         }
 
         public int Id { get; set; }
@@ -16,6 +15,5 @@ namespace BussinessObject.Models
         public bool? IsDelete { get; set; }
 
         public virtual ICollection<Account> Accounts { get; set; }
-        public virtual ICollection<Admin> Admins { get; set; }
     }
 }

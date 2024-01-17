@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.Extensions.Configuration;
 
 namespace BussinessObject.Models
 {
@@ -19,14 +18,12 @@ namespace BussinessObject.Models
 
         public virtual DbSet<Account> Accounts { get; set; } = null!;
         public virtual DbSet<AccountRole> AccountRoles { get; set; } = null!;
-        public virtual DbSet<Admin> Admins { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                var config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
                 optionsBuilder.UseSqlServer("server=localhost;database=Web_Trung_Gian;uid=sa;pwd=123456;TrustServerCertificate=True;");
             }
         }
@@ -49,12 +46,18 @@ namespace BussinessObject.Models
                     .HasColumnName("created_at")
                     .HasDefaultValueSql("(getdate())");
 
+                entity.Property(e => e.Description)
+                    .HasMaxLength(500)
+                    .HasColumnName("description");
+
                 entity.Property(e => e.Email)
                     .HasMaxLength(500)
                     .IsUnicode(false)
                     .HasColumnName("email");
 
-                entity.Property(e => e.IdRole).HasColumnName("id_role");
+                entity.Property(e => e.IdRole)
+                    .HasColumnName("id_role")
+                    .HasDefaultValueSql("((2))");
 
                 entity.Property(e => e.IsDelete)
                     .HasColumnName("is_delete")
@@ -82,7 +85,7 @@ namespace BussinessObject.Models
                 entity.HasOne(d => d.IdRoleNavigation)
                     .WithMany(p => p.Accounts)
                     .HasForeignKey(d => d.IdRole)
-                    .HasConstraintName("FK__account__id_role__3F466844");
+                    .HasConstraintName("FK__account__id_role__3D5E1FD2");
             });
 
             modelBuilder.Entity<AccountRole>(entity =>
@@ -100,44 +103,6 @@ namespace BussinessObject.Models
                 entity.Property(e => e.Role)
                     .HasMaxLength(50)
                     .HasColumnName("role");
-            });
-
-            modelBuilder.Entity<Admin>(entity =>
-            {
-                entity.ToTable("admin");
-
-                entity.Property(e => e.Id).HasColumnName("id");
-
-                entity.Property(e => e.Avatar)
-                    .HasMaxLength(100)
-                    .IsUnicode(false)
-                    .HasColumnName("avatar");
-
-                entity.Property(e => e.Email)
-                    .HasMaxLength(500)
-                    .IsUnicode(false)
-                    .HasColumnName("email");
-
-                entity.Property(e => e.IdRole).HasColumnName("id_role");
-
-                entity.Property(e => e.Name)
-                    .HasMaxLength(100)
-                    .HasColumnName("name");
-
-                entity.Property(e => e.Password)
-                    .HasMaxLength(200)
-                    .IsUnicode(false)
-                    .HasColumnName("password");
-
-                entity.Property(e => e.Username)
-                    .HasMaxLength(50)
-                    .IsUnicode(false)
-                    .HasColumnName("username");
-
-                entity.HasOne(d => d.IdRoleNavigation)
-                    .WithMany(p => p.Admins)
-                    .HasForeignKey(d => d.IdRole)
-                    .HasConstraintName("FK__admin__id_role__398D8EEE");
             });
 
             OnModelCreatingPartial(modelBuilder);
