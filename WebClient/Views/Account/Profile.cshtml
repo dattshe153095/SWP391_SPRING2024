@@ -16,24 +16,11 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/WebClient.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/Home/Index.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Account/Profile.css" asp-append-version="true" />
 
-    <style>
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
+   
 
-        th, td {
-            border: 1px solid #dddddd;
-            text-align: left;
-            padding: 8px;
-        }
-
-        th {
-            background-color: #f2f2f2;
-        }
-    </style>
+    
 </head>
 <body>
     <header>
@@ -52,6 +39,8 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                    </ul>
+                    <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Login</a>
                         </li>
@@ -64,62 +53,104 @@
         </nav>
     </header>
     <div class="container">
-        <main role="main" class="pb-3">
-
+        <main role="main" class="main">
+            
             <div class="text-center">
-                <nav>
-                    <h2>User Table</h2>
+                <!-- Phần chứa bảng User Table -->
+                <div class="user-table-container">
+                    <nav class="user-table">
+                        <h2>User Table</h2>
+                        <table border="1">
+                            <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Avatar</th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Password</th>
+                                <th>Created At</th>
+                                <th>Updated At</th>
+                                <th>Description</th>
+                            </tr>
+                            <!-- Replace the data below with your actual data -->
+                            <tr>
+                                <td>@user.Id</td>
+                                <td>@user.Name</td>
+                                <td>@user.Avatar</td>
+                                <td>@user.Username</td>
+                                <td>@user.Email</td>
+                                <td>@user.Password</td>
+                                <td>@user.CreatedAt</td>
+                                <td>@user.UpdatedAt</td>
+                                <td>@user.Description</td>
+                            </tr>
+                            <!-- Add more rows as needed -->
+                        </table>
+                    </nav>
+                </div>
 
-                    <table border="1">
-                        <tr>
-                            <th>Id</th>
-                            <th>Name</th>
-                            <th>Avatar</th>
-                            <th>Username</th>
-                            <th>Email</th>
-                            <th>Password</th>
-                            <th>Created At</th>
-                            <th>Updated At</th>
-                            <th>Is Delete</th>
-                            <th>Id Role</th>
-                        </tr>
-                        <!-- Replace the data below with your actual data -->
-                        <tr>
-                            <td>@user.Id</td>
-                            <td>@user.Name</td>
-                            <td>@user.Avatar</td>
-                            <td>@user.Username</td>
-                            <td>@user.Email</td>
-                            <td>@user.Password</td>
-                            <td>@user.CreatedAt</td>
-                            <td>@user.UpdatedAt</td>
-                            <td>@user.IsDelete</td>
-                            <td>@user.IdRole</td>
-                        </tr>
-                        <!-- Add more rows as needed -->
+                <!-- Phần chứa biểu mẫu UpdateProfile và ChangePassword -->
+                <div class="forms-container">
+                    <!-- Biểu mẫu UpdateProfile -->
+                    <div class="update-profile-form">
+                        <h3>Update Profile</h3>
+                        <form method="post" asp-controller="Account" asp-action="UpdateProfile">
+                            <div class="form-group">
+                                <label for="id">Id:</label>
+                                <input type="number" name="id" value="@user.Id" readonly />
+                            </div>
 
-                    </table>
-                </nav>
+                            <div class="form-group">
+                                <label for="name">Name:</label>
+                                <input type="text" id="name" name="name" value="@user.Name" />
+                            </div>
 
-                <nav>
-                    <form method="post" asp-controller="Account" asp-action="UpdateProfile">
-                        <label for="name">Name:</label>
-                        <input type="text" id="name" name="name" />
-                        <label for="email">Email:</label>
-                        <input type="text" id="email" name="email" />
-                        <button type="submit">Update</button>
-                    </form>
-                </nav>
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <input type="text" id="email" name="email" value="@user.Email" readonly />
+                            </div>
 
-                <nav>
-                    <form method="post" asp-controller="Account" asp-action="ChangePassword">
-                        <label for="password">Password:</label>
-                        <input type="password" id="password" name="password" />
-                        <label for="confirmPassword">Confirm Password:</label>
-                        <input type="password" id="confirmPassword" name="confirmPassword" />
-                        <button type="submit">Update</button>
-                    </form>
-                </nav>
+                            <div class="form-group">
+                                <label for="description">Description:</label>
+                                <input type="text" id="description" name="description" value="@user.Description" placeholder="Giới thiệu bản thân" />
+                            </div>
+
+                            
+                                <button type="submit">Update</button>
+                            
+                        </form>
+                    </div>
+
+                    <!-- Biểu mẫu ChangePassword -->
+                    <div class="change-password-form">
+                        <h3>Change Password</h3>
+                        <form method="post" asp-controller="Account" asp-action="ChangePassword">
+                            <div class="form-group">
+                                <label for="Name">Name:</label>
+                                <input type="text" id="name" name="name" value="@user.Name" readonly />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="old_password">Old Password:</label>
+                                <input type="password" id="old_password" name="old_password" value="@user.Password" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="new_password">Password:</label>
+                                <input type="password" id="new_password" name="new_password" placeholder="New Password" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="confirmPassword">Confirm Password:</label>
+                                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Re-type new Password" />
+                            </div>
+
+                            
+                                <button type="submit">Change Password</button>
+                            
+                        </form>
+                    </div>
+                </div>
             </div>
         </main>
     </div>

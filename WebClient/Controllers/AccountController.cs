@@ -14,14 +14,15 @@ namespace WebClient.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdateProfile(string name, string email)
+        public IActionResult UpdateProfile(string name, string description)
         {
             if (HttpContext.Session.GetInt32("Account") != null)
             {
                 int? id = HttpContext.Session.GetInt32("Account");
                 Account account = AccountDAO.GetAccountWithId(id);
+                
                 account.Name = name;
-                account.Email = email;
+                account.Description = description;
                 AccountDAO.UpdateAccount(account);
                 return RedirectToAction("Profile", "Account");
 
@@ -30,15 +31,15 @@ namespace WebClient.Controllers
         }
 
         [HttpPost]
-        public IActionResult ChangePassword(string password, string confirmPassword)
+        public IActionResult ChangePassword(string new_password, string confirmPassword)
         {
             if (HttpContext.Session.GetInt32("Account") != null)
             {
                 int? id = HttpContext.Session.GetInt32("Account");
                 Account account = AccountDAO.GetAccountWithId(id);
-                if (password.Equals(confirmPassword))
+                if (new_password.Equals(confirmPassword))
                 {
-                    account.Password = password;
+                    account.Password = new_password;
                     AccountDAO.UpdateAccount(account);
                 }
                 return RedirectToAction("Profile", "Account");
