@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BussinessObject.Models;
+using DataAccess.DAO;
+using Microsoft.AspNetCore.Mvc;
 
 namespace WebClient.Controllers.Admin
 {
@@ -6,6 +8,8 @@ namespace WebClient.Controllers.Admin
     {
         public IActionResult ViewUserAccount()
         {
+            List<Account> accounts = AccountDAO.GetAllAccount();
+            ViewBag.Accounts = accounts;
             return View();
         }
     }
