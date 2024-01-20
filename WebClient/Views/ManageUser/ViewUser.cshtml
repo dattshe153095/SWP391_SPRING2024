@@ -88,26 +88,14 @@
             <div class="text-center" id="accountTable">
                 <table>
                     <tr>
-                        <th>
-                            ID
-                        </th>
-                        <th>
-                            Name
-                        </th>
-                        <th>
-                            Username
-                        </th>
-                        <th>
-                            Email
-                        </th>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Username</th>
+                        <th>Email</th>
                         <th>Password</th>
                         <th>Description</th>
-                        <th>
-                            Created At
-                        </th>
-                        <th>
-                            Updated At
-                        </th>
+                        <th>Created At</th>
+                        <th>Updated At</th>
                         <th>ID Role</th>
                         <th>Is Delete</th>
                         <th>Delete</th>
@@ -119,7 +107,7 @@
                         {
                             <tr id="row_@a.Id">
                                 <td>@a.Id</td>
-                                <td>@a.Name</td>
+                                <td id="name" data-name="@a.Name">@a.Name</td>
                                 <td>@a.Username</td>
                                 <td>@a.Email</td>
                                 <td>@a.Password</td>
@@ -130,7 +118,7 @@
                                 <td>@a.IsDelete</td>
                                 <td><a asp-controller="ManageUser" asp-action="DeleteAccount">Delete</a></td>
                                 <td><a asp-controller="ManageUser" asp-action="UserDetail" asp-route-userId="@a.Id">Detail</a></td>
-                                <td><button id="okButton">Delete</button></td>
+                                <td><a href="#" id="deleteAction" data-id="@a.Id">Delete</a></td>
                             </tr>
                         }
                     }
@@ -138,15 +126,6 @@
                 </table>
         </main>
     </div>
-    </div>
-    <div>
-        <a href="#" id="okLink">Delete</a>
-    </div>
-    <div>
-        <form>
-            <button id="buttonOK">Delete</button>
-        </form>
-      
     </div>
 
     <footer class="border-top footer text-muted">
@@ -162,19 +141,31 @@
 <script>
     $(document).ready(function () {
         console.log("Script is running...");
-        $("#okLink").click(function (e) {
+        $("#deleteAction").click(function (e) {
             e.preventDefault();
-            alert("Heello")
-            console.log("Button clicked!");
-        });
-    });
+            var userId = $(this).data("id");
 
-    $(document).ready(function () {
-        console.log("Script is running...");
-        $("#buttonOK").click(function (e) {
-            e.preventDefault();
-            alert("Heello")
-            console.log("Button clicked!");
+            var nameElement = document.getElementById("name");
+            var nameValue = nameElement.getAttribute("data-name");
+
+            var userConfirmed = confirm("Are you sure you want delete " + nameValue + " ?");
+            if (userConfirmed) {
+                $.ajax({
+                    url: '/ManageUser/DeleteAccount?userId=' + userId,
+                    type: 'POST',
+                    success: function (data) {
+                        if (data.success) {
+                            // Xóa dòng chứa thông tin tài khoản khỏi bảng
+                            $('#accountTable #row_' + userId).remove();
+                        } else {
+                            alert('Xóa không thành công. Lỗi: ' + data.error);
+                        }
+                    },
+                    error: function () {
+                        alert('Đã xảy ra lỗi khi gửi yêu cầu xóa.');
+                    }
+                });
+            }
         });
     });
 </script>

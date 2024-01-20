@@ -1,6 +1,8 @@
 ﻿@using WebClient
 @using WebClient.Models
+@using AspNetCore.ReCaptcha
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, AspNetCore.ReCaptcha
 
 <!DOCTYPE html>
 <html lang="en">
@@ -49,6 +51,9 @@
                 <input type="submit" value="Login" />
             </form>
         </main>
+    </div>
+    <div>
+        @Html.ReCaptcha() 
     </div>
 
     <footer class="border-top footer text-muted">
