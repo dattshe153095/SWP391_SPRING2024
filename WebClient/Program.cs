@@ -14,7 +14,7 @@ namespace WebClient
             var builder = WebApplication.CreateBuilder(args);
 
             //CAPCHA
-            builder.Services.AddReCaptcha(builder.Configuration.GetSection("ReCaptcha"));
+            builder.Services.AddReCaptcha(builder.Configuration.GetSection("ReCaptcha2"));
 
             //Author
             builder.Services.AddDbContext<Web_Trung_GianContext>();
