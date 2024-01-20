@@ -15,7 +15,6 @@
     <title>@ViewData["Title"] - WebClient</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/WebClient.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/Home/Index.css" asp-append-version="true" />
     <style>
         table {
@@ -86,51 +85,39 @@
     <div class="container">
         <main role="main" class="pb-3">
 
-            <div class="text-center">
+            <div class="text-center" id="accountTable">
                 <table>
                     <tr>
                         <th>
                             ID
-                            <br />
-                            <input type="text" placeholder="Search ID" />
-                            <span class="search-icon" onclick="search('Id')">🔍</span>
                         </th>
                         <th>
                             Name
-                            <br />
-                            <input type="text" placeholder="Search Name" />
-                            <span class="search-icon" onclick="search('Name')">🔍</span>
                         </th>
                         <th>
                             Username
-                            <br />
-                            <input type="text" placeholder="Search Username" />
-                            <span class="search-icon" onclick="search('Username')">🔍</span>
                         </th>
                         <th>
                             Email
-                            <br />
-                            <input type="text" placeholder="Search Email" />
-                            <span class="search-icon" onclick="search('Email')">🔍</span>
                         </th>
                         <th>Password</th>
                         <th>Description</th>
                         <th>
                             Created At
-
                         </th>
                         <th>
                             Updated At
-
                         </th>
                         <th>ID Role</th>
+                        <th>Is Delete</th>
                         <th>Delete</th>
                         <th>View Account</th>
+                        <th>Delete Account</th>
                     </tr>
                     @{
                         foreach (Account a in accounts)
                         {
-                            <tr>
+                            <tr id="row_@a.Id">
                                 <td>@a.Id</td>
                                 <td>@a.Name</td>
                                 <td>@a.Username</td>
@@ -140,15 +127,26 @@
                                 <td>@a.CreatedAt</td>
                                 <td>@a.UpdatedAt</td>
                                 <td>@a.IdRole</td>
-                                <td><a asp-controller="ManageUserAccount" asp-action="DeleteAccount"></a></td>
-                                <td><a asp-controller="ManageUserAccount" asp-action="ViewAccount"></a></td>
+                                <td>@a.IsDelete</td>
+                                <td><a asp-controller="ManageUser" asp-action="DeleteAccount">Delete</a></td>
+                                <td><a asp-controller="ManageUser" asp-action="UserDetail" asp-route-userId="@a.Id">Detail</a></td>
+                                <td><button id="okButton">Delete</button></td>
                             </tr>
                         }
                     }
 
                 </table>
-            </div>
         </main>
+    </div>
+    </div>
+    <div>
+        <a href="#" id="okLink">Delete</a>
+    </div>
+    <div>
+        <form>
+            <button id="buttonOK">Delete</button>
+        </form>
+      
     </div>
 
     <footer class="border-top footer text-muted">
@@ -160,4 +158,25 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 </body>
+
+<script>
+    $(document).ready(function () {
+        console.log("Script is running...");
+        $("#okLink").click(function (e) {
+            e.preventDefault();
+            alert("Heello")
+            console.log("Button clicked!");
+        });
+    });
+
+    $(document).ready(function () {
+        console.log("Script is running...");
+        $("#buttonOK").click(function (e) {
+            e.preventDefault();
+            alert("Heello")
+            console.log("Button clicked!");
+        });
+    });
+</script>
+
 </html>

@@ -12,6 +12,10 @@ namespace WebClient
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Services.AddDbContext<Web_Trung_GianContext>();
+            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<Web_Trung_GianContext>();
+
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
