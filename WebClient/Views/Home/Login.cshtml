@@ -43,14 +43,15 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
-            <form method="post" asp-controller="Home" asp-action="Login">
+            <form style="display: grid" method="post" asp-controller="Home" asp-action="Login">
                 <input type="text" placeholder="Username" id="username" name="username" />
 
                 <input type="password" placeholder="Password" id="password" name="password" />
                 <label><input type="checkbox" /> Remember me</label>
+                <input type="captcha" placeholder="Captcha" id="captcha" />
+                <input type="submit" value="Login" />
                 @Html.ActionLink("Forget your password", "ForgetPassword", "Home")
                 @Html.ActionLink("Create an Acount","Register", "Home")
-                <input type="submit" value="Login" />
             </form>
         </main>
     </div>
