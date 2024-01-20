@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using BussinessObject.Models;
+using AspNetCore.ReCaptcha;
 
 namespace WebClient
 {
@@ -11,6 +12,14 @@ namespace WebClient
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            //CAPCHA
+            builder.Services.AddReCaptcha(builder.Configuration.GetSection("ReCaptcha2"));
+
+            //Author
+            builder.Services.AddDbContext<Web_Trung_GianContext>();
+            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<Web_Trung_GianContext>();
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();

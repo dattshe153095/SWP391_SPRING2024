@@ -75,7 +75,7 @@ namespace DataAccess.DAO
             }
         }
 
-        public void DeleteAccount(int id)
+        public static void DeleteAccount(int id)
         {
             try
             {

@@ -1,0 +1,70 @@
+﻿@using BussinessObject.Models;
+@using DataAccess.DAO;
+@using WebClient
+@using WebClient.Models
+@model BussinessObject.Models.Account;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    Account account = ViewBag.Account;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - WebClient</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Home/Index.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <!-- Include your header content here -->
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            <div class="text-center">
+                <h1>User Information</h1>
+                <table class="table">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Password</th>
+                        <th>Description</th>
+                        <th>Created At</th>
+                        <th>Updated At</th>
+                        <th>ID Role</th>
+                        <th>Is Delete</th>
+                    </tr>
+                    <tr>
+                        <td>@Model.Id</td>
+                        <td>@Model.Name</td>
+                        <td>@Model.Username</td>
+                        <td>@Model.Email</td>
+                        <td>@Model.Password</td>
+                        <td>@Model.Description</td>
+                        <td>@Model.CreatedAt</td>
+                        <td>@Model.UpdatedAt</td>
+                        <td>@Model.IdRole</td>
+                        <td>@Model.IsDelete</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="text-center">
+
+                </div>
+        </main>
+    </div>
+    <footer class="border-top footer text-muted">
+        <!-- Include your footer content here -->
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>
