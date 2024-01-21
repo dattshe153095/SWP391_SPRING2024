@@ -9,6 +9,7 @@ using WebClient.Models;
 using Microsoft.AspNetCore.Hosting;
 using System.Drawing.Imaging;
 using BussinessObject.Models;
+using System.Security.Claims;
 
 namespace WebClient.Controllers
 {
@@ -65,6 +66,11 @@ namespace WebClient.Controllers
             account = AccountDAO.Login(username, password);
             if (account != null)
             {
+                // Cập nhật ClaimsPrincipal với vai trò
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, user.UserName)
+                };
                 HttpContext.Session.SetInt32("Account", account.id);
                 if (account.role_id == 2)
                 {
@@ -91,6 +97,9 @@ namespace WebClient.Controllers
         [HttpPost]
         public IActionResult Register(Account account)
         {
+            if (!ModelState.IsValid) return RedirectToAction("Index", "Home");
+            account.role_id = 2;
+            AccountDAO.Register(account);
             return RedirectToAction("Index", "Home");
         }
 

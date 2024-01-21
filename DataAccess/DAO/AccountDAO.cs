@@ -43,6 +43,8 @@ namespace DataAccess.DAO
         public static void Register(Account account)
         {
 
+            account.create_at = DateTime.Now;
+            account.update_at = DateTime.Now;
             using (var context = new Web_Trung_GianContext())
             {
                 var accounts = context.Set<Account>();
@@ -55,6 +57,7 @@ namespace DataAccess.DAO
         {
             try
             {
+                account.update_at = DateTime.Now;
                 Account c = GetAccountWithId(account.id);
                 if (c != null)
                 {

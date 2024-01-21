@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace BussinessObject
 {
-    public class Web_Trung_GianContext : IdentityDbContext
+    public class Web_Trung_GianContext : DbContext
     {
         public Web_Trung_GianContext()
         {
@@ -36,7 +36,6 @@ namespace BussinessObject
         public virtual DbSet<Withdrawal> Withdrawals { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
-        public virtual DbSet<ApplicationUser> ApplicationUsers{ get; set; }
 
 
 
@@ -157,15 +156,6 @@ namespace BussinessObject
 
             base.OnModelCreating(modelBuilder);
 
-            InitRoles(modelBuilder);
-        }
-
-        private void InitRoles(ModelBuilder builder)
-        {
-            builder.Entity<IdentityRole>().HasData(
-                new IdentityRole() { Name = "Admin", ConcurrencyStamp = "1", NormalizedName = "Admin" },
-                new IdentityRole() { Name = "User", ConcurrencyStamp = "2", NormalizedName = "User" }
-                );
         }
 
 
