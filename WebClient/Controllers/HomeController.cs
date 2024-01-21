@@ -1,5 +1,4 @@
-﻿using BussinessObject.Models;
-using DataAccess.Captcha;
+﻿using DataAccess.Captcha;
 using DataAccess.DAO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.FileProviders;
@@ -9,6 +8,7 @@ using System.Text;
 using WebClient.Models;
 using Microsoft.AspNetCore.Hosting;
 using System.Drawing.Imaging;
+using BussinessObject.Models;
 
 namespace WebClient.Controllers
 {
