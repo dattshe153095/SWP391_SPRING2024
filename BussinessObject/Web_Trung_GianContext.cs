@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using BussinessObject.Models;
+﻿using BussinessObject.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
 
 namespace BussinessObject
 {
-    public class Web_Trung_GianContext : DbContext
+    public class Web_Trung_GianContext : IdentityDbContext
     {
         public Web_Trung_GianContext()
         {
@@ -31,12 +30,14 @@ namespace BussinessObject
         }
 
         public virtual DbSet<Account> Accounts { get; set; }
-        public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<AccountRole> AccountRoles { get; set; }
         public virtual DbSet<Wallet> Wallets { get; set; }
         public virtual DbSet<Deposit> Deposits { get; set; }
         public virtual DbSet<Withdrawal> Withdrawals { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<ApplicationUser> ApplicationUsers{ get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -47,73 +48,68 @@ namespace BussinessObject
 
                 entity.HasOne(a => a.Role)
                     .WithMany(r => r.Accounts)
-                    .HasForeignKey(a => a.role_id);
+                    .HasForeignKey(a => a.role_id).OnDelete(DeleteBehavior.Restrict);
 
                 //WALLET
-                entity.HasOne(a => a.Wallet)
+                entity.HasMany(a => a.Wallets)
                     .WithOne(w => w.Account)
-                    .HasForeignKey<Wallet>(w => w.account_id);
+                    .HasForeignKey(w => w.account_id).OnDelete(DeleteBehavior.Restrict); ;
 
                 entity.HasMany(a => a.WalletUpdates)
-                .WithOne(o => o.Account)
-                .HasForeignKey(o => o.update_by);
+                    .WithOne(o => o.AccountUpdate)
+                    .HasForeignKey(o => o.update_by).OnDelete(DeleteBehavior.Restrict); ;
 
                 //ORDER
                 entity.HasMany(a => a.Orders)
                     .WithOne(o => o.Account)
-                    .HasForeignKey(o => o.account_id);
+                    .HasForeignKey(o => o.account_id).OnDelete(DeleteBehavior.Restrict); ;
 
                 entity.HasMany(a => a.OrderCreates)
                     .WithOne(o => o.AccountCreate)
-                    .HasForeignKey(o => o.create_by);
+                    .HasForeignKey(o => o.create_by).OnDelete(DeleteBehavior.Restrict); ;
 
                 entity.HasMany(a => a.OrderUpdate)
                     .WithOne(o => o.AccountUpdate)
-                    .HasForeignKey(o => o.update_by);
+                    .HasForeignKey(o => o.update_by).OnDelete(DeleteBehavior.Restrict); ;
 
                 //PRODUCT
                 entity.HasMany(a => a.ProductCreates)
                     .WithOne(o => o.AccountCreate)
-                    .HasForeignKey(o => o.create_by);
+                    .HasForeignKey(o => o.create_by).OnDelete(DeleteBehavior.Restrict); ;
 
 
                 entity.HasMany(a => a.ProductUpdates)
                     .WithOne(o => o.AccountUpdate)
-                    .HasForeignKey(o => o.update_by);
+                    .HasForeignKey(o => o.update_by).OnDelete(DeleteBehavior.Restrict);
 
                 //DEPOSIT
                 entity.HasMany(a => a.DepositCreates)
                     .WithOne(o => o.AccountCreate)
-                    .HasForeignKey(o => o.create_by);
+                    .HasForeignKey(o => o.create_by).OnDelete(DeleteBehavior.Restrict);
 
 
                 entity.HasMany(a => a.DepositUpdates)
                     .WithOne(o => o.AccountUpdate)
-                    .HasForeignKey(o => o.update_by);
+                    .HasForeignKey(o => o.update_by).OnDelete(DeleteBehavior.Restrict);
 
                 //WITHDRAWAL
                 entity.HasMany(a => a.WithdrawalCreates)
                     .WithOne(o => o.AccountCreate)
-                    .HasForeignKey(o => o.create_by);
+                    .HasForeignKey(o => o.create_by).OnDelete(DeleteBehavior.Restrict);
 
 
                 entity.HasMany(a => a.WithdrawalUpdates)
                     .WithOne(o => o.AccountUpdate)
-                    .HasForeignKey(o => o.update_by);
+                    .HasForeignKey(o => o.update_by).OnDelete(DeleteBehavior.Restrict);
 
             });
 
             modelBuilder.Entity<Wallet>(entity =>
             {
                 entity.HasKey(a => a.id);
-
-                entity.HasOne(w => w.Account)
-                     .WithOne(a => a.Wallet)
-                     .HasForeignKey<Account>(w => w.wallet_id);
-
             });
 
-            modelBuilder.Entity<Role>(entity =>
+            modelBuilder.Entity<AccountRole>(entity =>
             {
                 entity.HasKey(r => r.id);
             });
@@ -124,7 +120,7 @@ namespace BussinessObject
 
                 entity.HasOne(w => w.Wallet)
                 .WithMany(w => w.Deposits)
-                .HasForeignKey(d => d.wallet_id);
+                .HasForeignKey(d => d.wallet_id).OnDelete(DeleteBehavior.Restrict); ;
             });
 
             modelBuilder.Entity<Withdrawal>(entity =>
@@ -133,7 +129,7 @@ namespace BussinessObject
 
                 entity.HasOne(w => w.Wallet)
                 .WithMany(w => w.Withdrawals)
-                .HasForeignKey(d => d.wallet_id);
+                .HasForeignKey(d => d.wallet_id).OnDelete(DeleteBehavior.Restrict); ;
             });
 
             modelBuilder.Entity<Order>(entity =>
@@ -142,11 +138,11 @@ namespace BussinessObject
 
                 entity.HasOne(w => w.Product)
                 .WithMany(w => w.Orders)
-                .HasForeignKey(d => d.product_id);
+                .HasForeignKey(d => d.product_id).OnDelete(DeleteBehavior.Restrict); ;
 
                 entity.HasOne(a => a.Account)
                 .WithMany(w => w.Orders)
-                .HasForeignKey(o => o.account_id);
+                .HasForeignKey(o => o.account_id).OnDelete(DeleteBehavior.Restrict); ;
             });
 
             modelBuilder.Entity<Product>(entity =>
@@ -155,11 +151,21 @@ namespace BussinessObject
 
                 entity.HasMany(p => p.Orders)
                 .WithOne(w => w.Product)
-                .HasForeignKey(d => d.product_id);
+                .HasForeignKey(d => d.product_id).OnDelete(DeleteBehavior.Restrict); ;
             });
 
 
             base.OnModelCreating(modelBuilder);
+
+            InitRoles(modelBuilder);
+        }
+
+        private void InitRoles(ModelBuilder builder)
+        {
+            builder.Entity<IdentityRole>().HasData(
+                new IdentityRole() { Name = "Admin", ConcurrencyStamp = "1", NormalizedName = "Admin" },
+                new IdentityRole() { Name = "User", ConcurrencyStamp = "2", NormalizedName = "User" }
+                );
         }
 
 

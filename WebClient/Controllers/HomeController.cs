@@ -65,8 +65,8 @@ namespace WebClient.Controllers
             account = AccountDAO.Login(username, password);
             if (account != null)
             {
-                HttpContext.Session.SetInt32("Account", account.Id);
-                if (account.IdRole == 2)
+                HttpContext.Session.SetInt32("Account", account.id);
+                if (account.role_id == 2)
                 {
                     return RedirectToAction("Index", "Home");
                 }

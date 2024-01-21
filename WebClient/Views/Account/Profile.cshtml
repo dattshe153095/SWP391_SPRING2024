@@ -1,7 +1,7 @@
-﻿@    using BussinessObject.Models;
-@    using DataAccess.DAO;
-@    using WebClient
-@    using WebClient.Models
+﻿@using BussinessObject.Models;
+@using DataAccess.DAO;
+@using WebClient
+@using WebClient.Models
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
@@ -63,7 +63,6 @@
                             <tr>
                                 <th>Id</th>
                                 <th>Name</th>
-                                <th>Avatar</th>
                                 <th>Username</th>
                                 <th>Email</th>
                                 <th>Password</th>
@@ -73,15 +72,14 @@
                             </tr>
                             <!-- Replace the data below with your actual data -->
                             <tr>
-                                <td>@user.Id</td>
-                                <td>@user.Name</td>
-                                <td>@user.Avatar</td>
-                                <td>@user.Username</td>
-                                <td>@user.Email</td>
-                                <td>@user.Password</td>
-                                <td>@user.CreatedAt</td>
-                                <td>@user.UpdatedAt</td>
-                                <td>@user.Description</td>
+                                <td>@user.id</td>
+                                <td>@user.name</td>
+                                <td>@user.username</td>
+                                <td>@user.email</td>
+                                <td>@user.password</td>
+                                <td>@user.create_at</td>
+                                <td>@user.update_at</td>
+                                <td>@user.description</td>
                             </tr>
                             <!-- Add more rows as needed -->
                         </table>
@@ -96,22 +94,22 @@
                         <form method="post" asp-controller="Account" asp-action="UpdateProfile">
                             <div class="form-group">
                                 <label for="id">Id:</label>
-                                <input type="number" name="id" value="@user.Id" readonly />
+                                <input type="number" name="id" value="@user.id" readonly />
                             </div>
 
                             <div class="form-group">
                                 <label for="name">Name:</label>
-                                <input type="text" id="name" name="name" value="@user.Name" />
+                                <input type="text" id="name" name="name" value="@user.name" />
                             </div>
 
                             <div class="form-group">
                                 <label for="email">Email:</label>
-                                <input type="text" id="email" name="email" value="@user.Email" readonly />
+                                <input type="text" id="email" name="email" value="@user.email" readonly />
                             </div>
 
                             <div class="form-group">
                                 <label for="description">Description:</label>
-                                <input type="text" id="description" name="description" value="@user.Description" placeholder="Giới thiệu bản thân" />
+                                <input type="text" id="description" name="description" value="@user.description" placeholder="Giới thiệu bản thân" />
                             </div>
 
                             
@@ -126,12 +124,12 @@
                         <form method="post" asp-controller="Account" asp-action="ChangePassword">
                             <div class="form-group">
                                 <label for="Name">Name:</label>
-                                <input type="text" id="name" name="name" value="@user.Name" readonly />
+                                <input type="text" id="name" name="name" value="@user.name" readonly />
                             </div>
 
                             <div class="form-group">
                                 <label for="old_password">Old Password:</label>
-                                <input type="password" id="old_password" name="old_password" value="@user.Password" />
+                                <input type="password" id="old_password" name="old_password" value="@user.password" />
                             </div>
 
                             <div class="form-group">

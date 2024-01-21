@@ -1,7 +1,7 @@
-﻿@    using BussinessObject.Models;
-@    using DataAccess.DAO;
-@    using WebClient
-@    using WebClient.Models
+﻿@using BussinessObject.Models;
+@using DataAccess.DAO;
+@using WebClient
+@using WebClient.Models
 @model Account;
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
@@ -41,16 +41,16 @@
                         <th>Is Delete</th>
                     </tr>
                     <tr>
-                        <td>@Model.Id</td>
-                        <td>@Model.Name</td>
-                        <td>@Model.Username</td>
-                        <td>@Model.Email</td>
-                        <td>@Model.Password</td>
-                        <td>@Model.Description</td>
-                        <td>@Model.CreatedAt</td>
-                        <td>@Model.UpdatedAt</td>
-                        <td>@Model.IdRole</td>
-                        <td>@Model.IsDelete</td>
+                        <td>@Model.id</td>
+                        <td>@Model.name</td>
+                        <td>@Model.username</td>
+                        <td>@Model.email</td>
+                        <td>@Model.password</td>
+                        <td>@Model.description</td>
+                        <td>@Model.create_at</td>
+                        <td>@Model.update_at</td>
+                        <td>@Model.role_id</td>
+                        <td>@Model.is_delete</td>
                     </tr>
                 </table>
             </div>

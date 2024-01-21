@@ -29,22 +29,20 @@ namespace BussinessObject.Models
         public string? description { get; set; }
         [ForeignKey(nameof(Role))]
         public int role_id { get; set; }
-        public virtual Role? Role { get; set; }
-        [ForeignKey(nameof(Wallet))]
-        public int wallet_id { get; set; }
-        public virtual Wallet? Wallet { get; set; }
-
+        public virtual AccountRole? Role { get; set; }
         //==TRACK==
         public DateTime create_at { get; set; }
         public DateTime update_at { get; set; }
         public bool is_delete { get; set; }
 
         //======== Many ======
+
         public virtual ICollection<Order>? Orders { get; set; }
         public virtual ICollection<Order>? OrderCreates { get; set; }
         public virtual ICollection<Order>? OrderUpdate { get; set; }
         public virtual ICollection<Product>? ProductCreates { get; set; }
         public virtual ICollection<Product>? ProductUpdates { get; set; }
+        public virtual ICollection<Wallet>? Wallets { get; set; }
         public virtual ICollection<Wallet>? WalletUpdates { get; set; }
         public virtual ICollection<Deposit>? DepositCreates { get; set; }
         public virtual ICollection<Deposit>? DepositUpdates { get; set; }
