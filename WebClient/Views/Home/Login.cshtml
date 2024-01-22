@@ -1,4 +1,4 @@
-﻿@using WebClient
+@using WebClient
 @using WebClient.Models
 @using AspNetCore.ReCaptcha
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
@@ -9,16 +9,17 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - WebClient</title>
+    <title>@ViewData["Title"] Trade&DealHub Sign-in</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/Home/Index.css" asp-append-version="true" />
-</head>
+    <link rel="stylesheet" href="~/WebClient.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Home/Index.css" asp-append-version="true" /> 
+
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WebClient</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Trade&DealHub</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -34,6 +35,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Login</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Register">Register</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -41,14 +45,18 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
-            <form method="post" asp-controller="Home" asp-action="Login">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" />
+            <form style="display: grid" method="post" asp-controller="Home" asp-action="Login">
+                <input type="text" placeholder="Username" id="username" name="username" />
 
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" />
-
+                <input type="password" placeholder="Password" id="password" name="password" />
+                <label><input type="checkbox" /> Remember me</label>
+                <input type="captcha" placeholder="Captcha" id="captcha" />
                 <input type="submit" value="Login" />
+                @Html.ActionLink("Forget your password", "ForgetPassword", "Home")
+                @Html.ActionLink("Create an Acount","Register", "Home")
+                <div>
+                    <a asp-action="ForgotPassword">Forgot Password?</a>
+                </div>
             </form>
         </main>
     </div>

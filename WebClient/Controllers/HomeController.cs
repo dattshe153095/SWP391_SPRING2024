@@ -73,29 +73,16 @@ namespace WebClient.Controllers
             if (account != null)
             {
                 HttpContext.Session.SetInt32("Account", account.id);
-                if (username == "admin" && password == "admin")
+                string role = "User";
+                if (account.role_id == 1)
                 {
-                    var claims = new List<Claim>
-                {
-                new Claim(ClaimTypes.Name, username),
-                new Claim(ClaimTypes.Role, "Admin")
-                };
-
-                    var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                    var principal = new ClaimsPrincipal(identity);
-
-                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
-
-                    return RedirectToAction("Index", "Home");
+                    role = "Admin";
                 }
-            }
 
-            if (username == "user" && password == "user")
-            {
                 var claims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.Name, username),
-                    new Claim(ClaimTypes.Role, "User")
+                        new Claim(ClaimTypes.Name, username),
+                        new Claim(ClaimTypes.Role, role)
                 };
 
                 var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -106,7 +93,7 @@ namespace WebClient.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            return View();
+            return RedirectToAction("Login", "Home");
         }
         #endregion
 
@@ -119,10 +106,22 @@ namespace WebClient.Controllers
         [HttpPost]
         public IActionResult Register(Account account)
         {
-            if (!ModelState.IsValid) return RedirectToAction("Index", "Home");
-            account.role_id = 2;
-            AccountDAO.Register(account);
-            return RedirectToAction("Index", "Home");
+            if (ModelState.IsValid)
+            {
+                string passwordHash = BCrypt.Net.BCrypt.HashPassword(account.password);
+                account.password = passwordHash;
+                AccountDAO.Register(account);
+                return RedirectToAction("Login", "Home");
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        public IActionResult ForgetPassword()
+        {
+            return View();
         }
 
         public IActionResult LogOut()
@@ -135,6 +134,10 @@ namespace WebClient.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+        public IActionResult ForgotPassword()
+        {
+            return View();
         }
     }
 }
