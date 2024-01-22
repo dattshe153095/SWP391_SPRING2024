@@ -34,6 +34,11 @@ namespace DataAccess.DAO
             return GetAllAccount().FirstOrDefault(x => x.id == id);
         }
 
+        public static Account GetAccountWithUsernameMail(string username, string email)
+        {
+            return GetAllAccount().FirstOrDefault(x => x.username == username && x.email == email);
+        }
+
         public static bool CheckAccountExist(string user)
         {
             Account acc = GetAllAccount().FirstOrDefault(x => x.username == user);
