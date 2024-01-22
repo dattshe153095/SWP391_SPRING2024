@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
 using WebClient.ViewModel;
+using DataAccess.MailSender;
 
 namespace WebClient.Controllers
 {
@@ -58,7 +59,7 @@ namespace WebClient.Controllers
                 ViewBag.CaptchaImageBytes = Convert.ToBase64String(imageBytes);
             }
 
-           
+
 
             return View();
         }
@@ -108,7 +109,8 @@ namespace WebClient.Controllers
         [HttpPost]
         public IActionResult Register(RegisterViewModel model)
         {
-            if (ModelState.IsValid)
+            var sessionVerificationCode = HttpContext.Session.GetString("VerificationCode");
+            if (ModelState.IsValid && model.CodeValidate== sessionVerificationCode)
             {
                 Account account = new Account()
                 {
@@ -137,6 +139,13 @@ namespace WebClient.Controllers
         {
             HttpContext.Session.Clear();
             return RedirectToAction("Login", "Home");
+        }
+
+        [HttpPost]
+        public IActionResult SendEmail(string email)
+        {
+            HttpContext.Session.SetString("VerificationCode", EmailSender.SendEmailAsync(email, "", ""));
+            return Json(new { success = true, message = "Email sent successfully!" });
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

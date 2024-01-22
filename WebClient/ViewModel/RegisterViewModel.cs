@@ -18,6 +18,10 @@ namespace WebClient.ViewModel
         [Required(ErrorMessage = "Email cannot be blank")]
         [EmailAddress(ErrorMessage = "Invalid Email")]
         public string Email { get; set; }
+
+        [Required(ErrorMessage = "Code cannot be blank")]
+        public string CodeValidate { get; set; }
+
         [Required(ErrorMessage = "Phone cannot be blank")]
         public string Phone { get; set; }
 
