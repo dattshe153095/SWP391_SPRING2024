@@ -105,20 +105,20 @@
                     @{
                         foreach (Account a in accounts)
                         {
-                            <tr id="row_@a.Id">
-                                <td>@a.Id</td>
-                                <td id="name" data-name="@a.Name">@a.Name</td>
-                                <td>@a.Username</td>
-                                <td>@a.Email</td>
-                                <td>@a.Password</td>
-                                <td>@a.Description</td>
-                                <td>@a.CreatedAt</td>
-                                <td>@a.UpdatedAt</td>
-                                <td>@a.IdRole</td>
-                                <td>@a.IsDelete</td>
+                            <tr id="row_@a.id">
+                                <td>@a.id</td>
+                                <td id="name" data-name="@a.name">@a.name</td>
+                                <td>@a.username</td>
+                                <td>@a.email</td>
+                                <td>@a.password</td>
+                                <td>@a.description</td>
+                                <td>@a.create_at</td>
+                                <td>@a.update_at</td>
+                                <td>@a.role_id</td>
+                                <td>@a.is_delete</td>
                                 <td><a asp-controller="ManageUser" asp-action="DeleteAccount">Delete</a></td>
-                                <td><a asp-controller="ManageUser" asp-action="UserDetail" asp-route-userId="@a.Id">Detail</a></td>
-                                <td><a href="#" id="deleteAction" data-id="@a.Id">Delete</a></td>
+                                <td><a asp-controller="ManageUser" asp-action="UserDetail" asp-route-userId="@a.id">Detail</a></td>
+                                <td><a href="#" id="deleteAction" data-id="@a.id">Delete</a></td>
                             </tr>
                         }
                     }

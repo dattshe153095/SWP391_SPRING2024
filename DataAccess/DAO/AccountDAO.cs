@@ -1,4 +1,5 @@
-﻿using BussinessObject.Models;
+﻿using BussinessObject;
+using BussinessObject.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -25,23 +26,25 @@ namespace DataAccess.DAO
 
         public static Account Login(string username, string password)
         {
-            return GetAllAccount().FirstOrDefault(x => x.Username == username && x.Password == password);
+            return GetAllAccount().FirstOrDefault(x => x.username == username && x.username == password);
         }
 
         public static Account GetAccountWithId(int? id)
         {
-            return GetAllAccount().FirstOrDefault(x => x.Id == id);
+            return GetAllAccount().FirstOrDefault(x => x.id == id);
         }
 
         public static bool CheckAccountExist(string user)
         {
-            Account acc = GetAllAccount().FirstOrDefault(x => x.Username == user);
+            Account acc = GetAllAccount().FirstOrDefault(x => x.username == user);
             return acc != null ? true : false;
         }
 
         public static void Register(Account account)
         {
 
+            account.create_at = DateTime.Now;
+            account.update_at = DateTime.Now;
             using (var context = new Web_Trung_GianContext())
             {
                 var accounts = context.Set<Account>();
@@ -54,7 +57,8 @@ namespace DataAccess.DAO
         {
             try
             {
-                Account c = GetAccountWithId(account.Id);
+                account.update_at = DateTime.Now;
+                Account c = GetAccountWithId(account.id);
                 if (c != null)
                 {
                     using (var context = new Web_Trung_GianContext())
@@ -83,7 +87,7 @@ namespace DataAccess.DAO
                
                 if (account != null)
                 {
-                    account.IsDelete = true;
+                    account.is_delete = true;
                     using (var context = new Web_Trung_GianContext())
                     {
                         var accounts = context.Set<Account>();

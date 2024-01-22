@@ -1,10 +1,13 @@
 ﻿using BussinessObject.Models;
 using DataAccess.DAO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 using System.Xml.Linq;
 
 namespace WebClient.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AccountController : Controller
     {
         public IActionResult Profile()
@@ -21,8 +24,8 @@ namespace WebClient.Controllers
                 int? id = HttpContext.Session.GetInt32("Account");
                 Account account = AccountDAO.GetAccountWithId(id);
                 
-                account.Name = name;
-                account.Description = description;
+                account.name = name;
+                account.description = description;
                 AccountDAO.UpdateAccount(account);
                 return RedirectToAction("Profile", "Account");
 
@@ -39,7 +42,7 @@ namespace WebClient.Controllers
                 Account account = AccountDAO.GetAccountWithId(id);
                 if (new_password.Equals(confirmPassword))
                 {
-                    account.Password = new_password;
+                    account.password = new_password;
                     AccountDAO.UpdateAccount(account);
                 }
                 return RedirectToAction("Profile", "Account");
