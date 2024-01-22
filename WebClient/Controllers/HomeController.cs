@@ -110,7 +110,7 @@ namespace WebClient.Controllers
         public IActionResult Register(RegisterViewModel model)
         {
             var sessionVerificationCode = HttpContext.Session.GetString("VerificationCode");
-            if (ModelState.IsValid && model.CodeValidate== sessionVerificationCode)
+            if (ModelState.IsValid && model.CodeValidate == sessionVerificationCode)
             {
                 Account account = new Account()
                 {
@@ -148,9 +148,51 @@ namespace WebClient.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        [HttpGet]
         public IActionResult ForgotPassword()
         {
             return View();
+        }
+        [HttpPost]
+        public IActionResult ForgotPassword(string username, string email, string code, string password, string cfpassword)
+        {
+            var sessionVerificationCode = HttpContext.Session.GetString("ForgotPassword");
+            if (ModelState.IsValid && code == sessionVerificationCode)
+            {
+
+                Account account = AccountDAO.GetAccountWithUsernameMail(username, email);
+                if (account == null)
+                {
+                    return RedirectToAction("ForgotPassword", "Home");
+                }
+                else
+                {
+                    if (password == cfpassword)
+                    {
+                        account.password = password;
+                        AccountDAO.UpdateAccount(account);
+                        return RedirectToAction("Login", "Home");
+                    }
+                    else
+                    {
+                        return RedirectToAction("ForgotPassword", "Home");
+                    }
+
+                }
+
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public IActionResult SendEmailForgot(string email)
+        {
+            HttpContext.Session.SetString("ForgotPassword", EmailSender.SendEmailAsync(email, "", ""));
+            return Json(new { success = true, message = "Email sent successfully!" });
         }
 
 
