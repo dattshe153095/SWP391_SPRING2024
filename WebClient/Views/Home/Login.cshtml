@@ -13,8 +13,8 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/WebClient.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/Home/Index.css" asp-append-version="true" /> 
-<</head>>
+    <link rel="stylesheet" href="~/css/Home/Index.css" asp-append-version="true" />
+</head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
@@ -50,18 +50,15 @@
 
                 <input type="password" placeholder="Password" id="password" name="password" />
                 <label><input type="checkbox" /> Remember me</label>
-                <input type="captcha" placeholder="Captcha" id="captcha" />
+                <img src="data:image/png;base64,@ViewBag.CaptchaImageBytes" alt="Captcha Image" />
+                <input type="text" placeholder="Captcha" id="captcha" />
                 <input type="submit" value="Login" />
-                @Html.ActionLink("Forget your password", "ForgetPassword", "Home")
                 @Html.ActionLink("Create an Acount","Register", "Home")
                 <div>
                     <a asp-action="ForgotPassword">Forgot Password?</a>
                 </div>
             </form>
         </main>
-    </div>
-    <div>
-        <img src="data:image/png;base64,@ViewBag.CaptchaImageBytes" alt="Captcha Image" />
     </div>
 
     <footer class="border-top footer text-muted">
