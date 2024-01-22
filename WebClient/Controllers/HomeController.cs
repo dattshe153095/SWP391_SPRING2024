@@ -130,11 +130,6 @@ namespace WebClient.Controllers
             }
         }
 
-        public IActionResult ForgetPassword()
-        {
-            return View();
-        }
-
         public IActionResult LogOut()
         {
             HttpContext.Session.Clear();
@@ -157,5 +152,7 @@ namespace WebClient.Controllers
         {
             return View();
         }
+
+
     }
 }
