@@ -1,9 +1,12 @@
-
+﻿
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using BussinessObject.Models;
+using Microsoft.AspNetCore.Identity.UI;
 using AspNetCore.ReCaptcha;
+using BussinessObject;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
 
 namespace WebClient
 {
@@ -17,12 +20,31 @@ namespace WebClient
             builder.Services.AddReCaptcha(builder.Configuration.GetSection("ReCaptcha2"));
 
             //Author
-            builder.Services.AddDbContext<Web_Trung_GianContext>();
-            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<Web_Trung_GianContext>();
+            builder.Services.AddDbContext<Web_Trung_GianContext>(options => options.UseSqlServer("server=localhost;database=Web_Trung_Gian;uid=sa;pwd=123456;TrustServerCertificate=True;"));
+
+            builder.Services.Configure<CookiePolicyOptions>(options =>
+            {
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                    .AddCookie(options =>
+                    {
+                        options.Cookie.HttpOnly = true;
+                        options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+                        options.SlidingExpiration = true;
+                    });
+
+            builder.Services.AddAuthorization(options =>
+            {
+                options.AddPolicy("AdminPolicy", policy => policy.RequireRole("Admin"));
+                options.AddPolicy("UserPolicy", policy => policy.RequireRole("User"));
+            });
+
+            builder.Services.AddAuthorization();
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
 
 
             builder.Services.AddSession(opt =>
@@ -56,5 +78,6 @@ namespace WebClient
 
             app.Run();
         }
+
     }
 }

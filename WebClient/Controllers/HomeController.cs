@@ -1,5 +1,4 @@
-﻿using BussinessObject.Models;
-using DataAccess.Captcha;
+﻿using DataAccess.Captcha;
 using DataAccess.DAO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.FileProviders;
@@ -9,6 +8,12 @@ using System.Text;
 using WebClient.Models;
 using Microsoft.AspNetCore.Hosting;
 using System.Drawing.Imaging;
+using BussinessObject.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using System.Security.Claims;
 
 namespace WebClient.Controllers
 {
@@ -55,8 +60,10 @@ namespace WebClient.Controllers
 
             return View();
         }
+
         [HttpPost]
-        public IActionResult Login(string username, string password)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(string username, string password)
         {
             //If not invalid info return Page
             if (!ModelState.IsValid) return View();
@@ -65,17 +72,38 @@ namespace WebClient.Controllers
             account = AccountDAO.Login(username, password);
             if (account != null)
             {
-                HttpContext.Session.SetInt32("Account", account.Id);
-                if (account.IdRole == 2)
+                HttpContext.Session.SetInt32("Account", account.id);
+                if (username == "admin" && password == "admin")
                 {
+                    var claims = new List<Claim>
+                {
+                new Claim(ClaimTypes.Name, username),
+                new Claim(ClaimTypes.Role, "Admin")
+                };
+
+                    var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    var principal = new ClaimsPrincipal(identity);
+
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
                     return RedirectToAction("Index", "Home");
                 }
-                else
+            }
+
+            if (username == "user" && password == "user")
+            {
+                var claims = new List<Claim>
                 {
-                    return RedirectToAction("Index", "Admin");
-                }
+                    new Claim(ClaimTypes.Name, username),
+                    new Claim(ClaimTypes.Role, "User")
+                };
 
+                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                var principal = new ClaimsPrincipal(identity);
 
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
+                return RedirectToAction("Index", "Home");
             }
 
             return View();
@@ -91,6 +119,9 @@ namespace WebClient.Controllers
         [HttpPost]
         public IActionResult Register(Account account)
         {
+            if (!ModelState.IsValid) return RedirectToAction("Index", "Home");
+            account.role_id = 2;
+            AccountDAO.Register(account);
             return RedirectToAction("Index", "Home");
         }
 
