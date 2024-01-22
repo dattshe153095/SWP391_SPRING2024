@@ -73,29 +73,16 @@ namespace WebClient.Controllers
             if (account != null)
             {
                 HttpContext.Session.SetInt32("Account", account.id);
-                if (username == "admin" && password == "admin")
+                string role = "User";
+                if (account.role_id == 1)
                 {
-                    var claims = new List<Claim>
-                {
-                new Claim(ClaimTypes.Name, username),
-                new Claim(ClaimTypes.Role, "Admin")
-                };
-
-                    var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                    var principal = new ClaimsPrincipal(identity);
-
-                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
-
-                    return RedirectToAction("Index", "Home");
+                    role = "Admin";
                 }
-            }
 
-            if (username == "user" && password == "user")
-            {
                 var claims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.Name, username),
-                    new Claim(ClaimTypes.Role, "User")
+                        new Claim(ClaimTypes.Name, username),
+                        new Claim(ClaimTypes.Role, role)
                 };
 
                 var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -106,7 +93,7 @@ namespace WebClient.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            return View();
+            return RedirectToAction("Login", "Home");
         }
         #endregion
 
