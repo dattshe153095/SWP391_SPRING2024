@@ -9,6 +9,10 @@ using WebClient.Models;
 using Microsoft.AspNetCore.Hosting;
 using System.Drawing.Imaging;
 using BussinessObject.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
 
 namespace WebClient.Controllers
@@ -56,8 +60,10 @@ namespace WebClient.Controllers
 
             return View();
         }
+
         [HttpPost]
-        public IActionResult Login(string username, string password)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(string username, string password)
         {
             //If not invalid info return Page
             if (!ModelState.IsValid) return View();
@@ -66,22 +72,38 @@ namespace WebClient.Controllers
             account = AccountDAO.Login(username, password);
             if (account != null)
             {
-                // Cập nhật ClaimsPrincipal với vai trò
-                var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, user.UserName)
-                };
                 HttpContext.Session.SetInt32("Account", account.id);
-                if (account.role_id == 2)
+                if (username == "admin" && password == "admin")
                 {
+                    var claims = new List<Claim>
+                {
+                new Claim(ClaimTypes.Name, username),
+                new Claim(ClaimTypes.Role, "Admin")
+                };
+
+                    var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    var principal = new ClaimsPrincipal(identity);
+
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
                     return RedirectToAction("Index", "Home");
                 }
-                else
+            }
+
+            if (username == "user" && password == "user")
+            {
+                var claims = new List<Claim>
                 {
-                    return RedirectToAction("Index", "Admin");
-                }
+                    new Claim(ClaimTypes.Name, username),
+                    new Claim(ClaimTypes.Role, "User")
+                };
 
+                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                var principal = new ClaimsPrincipal(identity);
 
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
+                return RedirectToAction("Index", "Home");
             }
 
             return View();

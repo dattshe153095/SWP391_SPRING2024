@@ -1,10 +1,13 @@
 ﻿using BussinessObject.Models;
 using DataAccess.DAO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 using System.Xml.Linq;
 
 namespace WebClient.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AccountController : Controller
     {
         public IActionResult Profile()

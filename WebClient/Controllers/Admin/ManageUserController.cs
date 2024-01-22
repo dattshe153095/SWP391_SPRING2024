@@ -1,12 +1,11 @@
 ﻿using BussinessObject.Models;
-using DataAccess.Authorize;
 using DataAccess.DAO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebClient.Controllers.Admin
 {
-    [AuthorizeRoles("User")]
+    [Authorize(Roles = "Admin")]
     public class ManageUserController : Controller
     {
         public IActionResult ViewUser()

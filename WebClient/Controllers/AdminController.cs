@@ -13,10 +13,9 @@ using System.Text;
 
 namespace WebClient.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
-        private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly UserManager<ApplicationUser> _userManager;
 
         public IActionResult Index()
         {
@@ -47,12 +46,14 @@ namespace WebClient.Controllers
                 ViewBag.CaptchaImageBytes = Convert.ToBase64String(imageBytes);
             }
 
+            ClaimsIdentity identity = null;
+
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Login(string username, string password)
+        public async Task<IActionResult> Login(string username, string password)
         {
             //If not invalid info return Page
             if (!ModelState.IsValid) return View();
@@ -62,16 +63,37 @@ namespace WebClient.Controllers
             if (account != null)
             {
                 HttpContext.Session.SetInt32("Account", account.id);
-                if (account.role_id == 2)
+                if (username == "admin" && password == "admin")
                 {
+                    var claims = new List<Claim>
+                {
+                new Claim(ClaimTypes.Name, username),
+                new Claim(ClaimTypes.Role, "Admin")
+                };
+
+                    var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    var principal = new ClaimsPrincipal(identity);
+
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
                     return RedirectToAction("Index", "Home");
                 }
-                else
+            }
+
+            if (username == "user" && password == "user")
+            {
+                var claims = new List<Claim>
                 {
-                    return RedirectToAction("Index", "Admin");
-                }
+                    new Claim(ClaimTypes.Name, username),
+                    new Claim(ClaimTypes.Role, "User")
+                };
 
+                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                var principal = new ClaimsPrincipal(identity);
 
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
+                return RedirectToAction("Index", "Home");
             }
 
             return View();

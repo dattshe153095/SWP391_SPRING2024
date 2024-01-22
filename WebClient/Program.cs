@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
 using AspNetCore.ReCaptcha;
 using BussinessObject;
-using DataAccess.Authorize;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
 
 namespace WebClient
 {
@@ -22,11 +22,22 @@ namespace WebClient
             //Author
             builder.Services.AddDbContext<Web_Trung_GianContext>(options => options.UseSqlServer("server=localhost;database=Web_Trung_Gian;uid=sa;pwd=123456;TrustServerCertificate=True;"));
 
-            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-            .AddCookie(options =>
+            builder.Services.Configure<CookiePolicyOptions>(options =>
             {
-                options.LoginPath = "/Home/Login";
-                options.AccessDeniedPath = "/Home/Index";
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                    .AddCookie(options =>
+                    {
+                        options.Cookie.HttpOnly = true;
+                        options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+                        options.SlidingExpiration = true;
+                    });
+
+            builder.Services.AddAuthorization(options =>
+            {
+                options.AddPolicy("AdminPolicy", policy => policy.RequireRole("Admin"));
+                options.AddPolicy("UserPolicy", policy => policy.RequireRole("User"));
             });
 
             builder.Services.AddAuthorization();
@@ -67,5 +78,6 @@ namespace WebClient
 
             app.Run();
         }
+
     }
 }
