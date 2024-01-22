@@ -3,6 +3,7 @@
 @using WebClient
 @using WebClient.Models
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model WebClient.ViewModel.RegisterViewModel
 
 @{
 
@@ -53,17 +54,31 @@
 
             <div class="text-center">
                 <form method="post" asp-controller="Home" asp-action="Register">
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" name="name" />
+                    <div class="row">
+                        <div class="col-md-6">
+                            @Html.LabelFor(temp => temp.Username)
+                            @Html.TextBoxFor(temp => temp.Username, new { placeholder = "Username", @class = "form-control" })
+                            @Html.ValidationMessageFor(temp => temp.Username)
+                        </div>
+                        <div class="col-md-6">
+                            @Html.LabelFor(temp => temp.Email)
+                            @Html.TextBoxFor(temp => temp.Email, new { placeholder = "Email", @class = "form-control" })
+                            @Html.ValidationMessageFor(temp => temp.Email)
+                        </div>
+                        <div class="col-md-6">
+                            @Html.LabelFor(temp => temp.Password)
+                            @Html.PasswordFor(temp => temp.Password, new { placeholder = "Password", @class = "form-control" })
+                            @Html.ValidationMessageFor(temp => temp.Password)
+                        </div>
+                        <div class="col-md-6">
+                            @Html.LabelFor(temp => temp.ConnfirmPassword)
+                            @Html.PasswordFor(temp => temp.ConnfirmPassword, new { placeholder = "Confirm Password", @class = "form-control" })
+                            @Html.ValidationMessageFor(temp => temp.ConnfirmPassword)
+                        </div>
 
-                    <label for="name">Username:</label>
-                    <input type="text" id="username" name="username" />
-                    <label for="email">Email:</label>
-                    <input type="text" id="email" name="email" />
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" />
+                    </div>
+                    <button type="submit" class="btn btn-success">Register</button>
 
-                    <button type="submit">Register</button>
                 </form>
             </div>
         </main>

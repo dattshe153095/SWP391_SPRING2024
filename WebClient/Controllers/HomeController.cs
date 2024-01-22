@@ -9,6 +9,7 @@ using System.Text;
 using WebClient.Models;
 using Microsoft.AspNetCore.Hosting;
 using System.Drawing.Imaging;
+using Microsoft.AspNetCore.Identity;
 
 namespace WebClient.Controllers
 {
@@ -91,6 +92,24 @@ namespace WebClient.Controllers
         [HttpPost]
         public IActionResult Register(Account account)
         {
+            if (ModelState.IsValid)
+            {
+                
+                string passwordHash = BCrypt.Net.BCrypt.HashPassword(account.Password);
+                var user = new Account()
+                {
+                    Email = account.Email,
+                    Username = account.Username,
+                    Password = passwordHash,
+                
+                };
+                
+                
+            }
+            else
+            {
+
+            }
             return RedirectToAction("Index", "Home");
         }
 
