@@ -1,24 +1,24 @@
 ﻿using DataAccess.Captcha;
 using DataAccess.DAO;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.FileProviders;
 using System.Diagnostics;
 using System.Drawing;
 using System.Text;
 using WebClient.Models;
-using Microsoft.AspNetCore.Hosting;
 using System.Drawing.Imaging;
 using BussinessObject.Models;
-using Microsoft.AspNetCore.Authorization;
 using System.Data;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
+using WebClient.ViewModel;
+using DataAccess.MailSender;
 
 namespace WebClient.Controllers
 {
     public class HomeController : Controller
     {
+        public string captchaCode = "";
         private readonly IWebHostEnvironment webHostEnvironment;
         public HomeController(IWebHostEnvironment webHostEnvironment)
         {
@@ -50,6 +50,7 @@ namespace WebClient.Controllers
                 sb.Append(s[rnd.Next(1, s.Length)]);
             }
             Bitmap bm = oCaptcha.MakeCaptchaImage(sb.ToString(), 200, 100, "Arial");
+            captchaCode = bm.ToString();
 
             using (MemoryStream ms = new MemoryStream())
             {
@@ -58,15 +59,17 @@ namespace WebClient.Controllers
                 ViewBag.CaptchaImageBytes = Convert.ToBase64String(imageBytes);
             }
 
+
+
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(string username, string password)
+        public async Task<IActionResult> Login(string username, string password, string captcha)
         {
             //If not invalid info return Page
-            if (!ModelState.IsValid) return View();
+            if (!ModelState.IsValid && captchaCode != captcha) return RedirectToAction("Login", "Home");
 
             Account account = new Account();
             account = AccountDAO.Login(username, password);
@@ -82,8 +85,8 @@ namespace WebClient.Controllers
 
                 var claims = new List<Claim>
                 {
-                        new Claim(ClaimTypes.Name, username),
-                        new Claim(ClaimTypes.Role, role)
+                   new Claim(ClaimTypes.Name, username),
+                   new Claim(ClaimTypes.Role, role)
                 };
 
                 var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -105,24 +108,27 @@ namespace WebClient.Controllers
         }
 
         [HttpPost]
-        public IActionResult Register(Account account)
+        public IActionResult Register(RegisterViewModel model)
         {
-            if (ModelState.IsValid)
+            var sessionVerificationCode = HttpContext.Session.GetString("VerificationCode");
+            if (ModelState.IsValid && model.CodeValidate == sessionVerificationCode)
             {
-                string passwordHash = BCrypt.Net.BCrypt.HashPassword(account.password);
-                account.password = passwordHash;
+                Account account = new Account()
+                {
+                    name = model.Name,
+                    username = model.Username,
+                    email = model.Email,
+                    phone = model.Phone,
+                    password = model.Password,
+                    role_id = 2,
+                };
                 AccountDAO.Register(account);
-                return RedirectToAction("Login", "Home");
+                return RedirectToAction("Index", "Home");
             }
             else
             {
                 return View();
             }
-        }
-
-        public IActionResult ForgetPassword()
-        {
-            return View();
         }
 
         public IActionResult LogOut()
@@ -131,14 +137,65 @@ namespace WebClient.Controllers
             return RedirectToAction("Login", "Home");
         }
 
+        [HttpPost]
+        public IActionResult SendEmail(string email)
+        {
+            HttpContext.Session.SetString("VerificationCode", EmailSender.SendEmailAsync(email, "", ""));
+            return Json(new { success = true, message = "Email sent successfully!" });
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        [HttpGet]
         public IActionResult ForgotPassword()
         {
             return View();
         }
+        [HttpPost]
+        public IActionResult ForgotPassword(string username, string email, string code, string password, string cfpassword)
+        {
+            var sessionVerificationCode = HttpContext.Session.GetString("ForgotPassword");
+            if (ModelState.IsValid && code == sessionVerificationCode)
+            {
+
+                Account account = AccountDAO.GetAccountWithUsernameMail(username, email);
+                if (account == null)
+                {
+                    return RedirectToAction("ForgotPassword", "Home");
+                }
+                else
+                {
+                    if (password == cfpassword)
+                    {
+                        account.password = password;
+                        AccountDAO.UpdateAccount(account);
+                        return RedirectToAction("Login", "Home");
+                    }
+                    else
+                    {
+                        return RedirectToAction("ForgotPassword", "Home");
+                    }
+
+                }
+
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public IActionResult SendEmailForgot(string email)
+        {
+            HttpContext.Session.SetString("ForgotPassword", EmailSender.SendEmailAsync(email, "", ""));
+            return Json(new { success = true, message = "Email sent successfully!" });
+        }
+
+
     }
 }

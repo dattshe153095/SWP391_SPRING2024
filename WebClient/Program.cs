@@ -7,6 +7,7 @@ using AspNetCore.ReCaptcha;
 using BussinessObject;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
+using DataAccess.MailSender;
 
 namespace WebClient
 {
@@ -16,8 +17,6 @@ namespace WebClient
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            //CAPCHA
-            builder.Services.AddReCaptcha(builder.Configuration.GetSection("ReCaptcha2"));
 
             //Author
             builder.Services.AddDbContext<Web_Trung_GianContext>(options => options.UseSqlServer("server=localhost;database=Web_Trung_Gian;uid=sa;pwd=123456;TrustServerCertificate=True;"));
