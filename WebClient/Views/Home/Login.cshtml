@@ -13,8 +13,8 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/WebClient.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/Home/Index.css" asp-append-version="true" /> 
-
+    <link rel="stylesheet" href="~/css/Home/Index.css" asp-append-version="true" />
+</head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
@@ -50,6 +50,9 @@
 
                 <input type="password" placeholder="Password" id="password" name="password" />
                 <label><input type="checkbox" /> Remember me</label>
+                <div>
+                    <img src="data:image/png;base64,@ViewBag.CaptchaImageBytes" alt="Captcha Image" />
+                </div>
                 <input type="captcha" placeholder="Captcha" id="captcha" />
                 <input type="submit" value="Login" />
                 @Html.ActionLink("Forget your password", "ForgetPassword", "Home")
@@ -61,7 +64,6 @@
         </main>
     </div>
     <div>
-        <img src="data:image/png;base64,@ViewBag.CaptchaImageBytes" alt="Captcha Image" />
     </div>
 
     <footer class="border-top footer text-muted">
@@ -73,4 +75,5 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 </body>
+
 </html>
