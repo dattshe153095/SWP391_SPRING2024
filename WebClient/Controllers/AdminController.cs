@@ -45,9 +45,6 @@ namespace WebClient.Controllers
                 byte[] imageBytes = ms.ToArray();
                 ViewBag.CaptchaImageBytes = Convert.ToBase64String(imageBytes);
             }
-
-            ClaimsIdentity identity = null;
-
             return View();
         }
 

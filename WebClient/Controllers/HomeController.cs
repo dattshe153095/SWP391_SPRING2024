@@ -81,8 +81,8 @@ namespace WebClient.Controllers
 
                 var claims = new List<Claim>
                 {
-                        new Claim(ClaimTypes.Name, username),
-                        new Claim(ClaimTypes.Role, role)
+                   new Claim(ClaimTypes.Name, username),
+                  new Claim(ClaimTypes.Role, role)
                 };
 
                 var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -111,7 +111,7 @@ namespace WebClient.Controllers
                 string passwordHash = BCrypt.Net.BCrypt.HashPassword(account.password);
                 account.password = passwordHash;
                 AccountDAO.Register(account);
-                return RedirectToAction("Login", "Home");
+                return RedirectToAction("Index", "Home");
             }
             else
             {
