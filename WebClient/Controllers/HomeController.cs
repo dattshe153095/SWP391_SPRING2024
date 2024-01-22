@@ -73,16 +73,29 @@ namespace WebClient.Controllers
             if (account != null)
             {
                 HttpContext.Session.SetInt32("Account", account.id);
-                string role = "User";
-                if (account.role_id == 1)
+                if (username == "admin" && password == "admin")
                 {
-                    role = "Admin";
-                }
+                    var claims = new List<Claim>
+                {
+                new Claim(ClaimTypes.Name, username),
+                new Claim(ClaimTypes.Role, "Admin")
+                };
 
+                    var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    var principal = new ClaimsPrincipal(identity);
+
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+
+            if (username == "user" && password == "user")
+            {
                 var claims = new List<Claim>
                 {
-                        new Claim(ClaimTypes.Name, username),
-                        new Claim(ClaimTypes.Role, role)
+                    new Claim(ClaimTypes.Name, username),
+                    new Claim(ClaimTypes.Role, "User")
                 };
 
                 var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -93,7 +106,7 @@ namespace WebClient.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            return RedirectToAction("Login", "Home");
+            return View();
         }
         #endregion
 
@@ -108,23 +121,15 @@ namespace WebClient.Controllers
         {
             if (ModelState.IsValid)
             {
-                
-                string passwordHash = BCrypt.Net.BCrypt.HashPassword(account.Password);
-                var user = new Account()
-                {
-                    Email = account.Email,
-                    Username = account.Username,
-                    Password = passwordHash,
-                
-                };
-                
-                
+                string passwordHash = BCrypt.Net.BCrypt.HashPassword(account.password);
+                account.password = passwordHash;
+                AccountDAO.Register(account);
+                return RedirectToAction("Login", "Home");
             }
             else
             {
-
+                return View();
             }
-            return RedirectToAction("Index", "Home");
         }
 
         public IActionResult LogOut()
