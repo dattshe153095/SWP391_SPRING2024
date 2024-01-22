@@ -14,6 +14,7 @@ using System.Data;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
+using WebClient.ViewModel;
 
 namespace WebClient.Controllers
 {
@@ -104,12 +105,19 @@ namespace WebClient.Controllers
         }
 
         [HttpPost]
-        public IActionResult Register(Account account)
+        public IActionResult Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-                string passwordHash = BCrypt.Net.BCrypt.HashPassword(account.password);
-                account.password = passwordHash;
+                Account account = new Account()
+                {
+                    name = model.Name,
+                    username = model.Username,
+                    email = model.Email,
+                    phone = model.Phone,
+                    password = model.Password,
+                    role_id = 2,
+                };
                 AccountDAO.Register(account);
                 return RedirectToAction("Index", "Home");
             }

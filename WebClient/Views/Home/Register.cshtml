@@ -56,6 +56,11 @@
                 <form method="post" asp-controller="Home" asp-action="Register">
                     <div class="row">
                         <div class="col-md-6">
+                            @Html.LabelFor(temp => temp.Name)
+                            @Html.TextBoxFor(temp => temp.Name, new { placeholder = "Name", @class = "form-control" })
+                            @Html.ValidationMessageFor(temp => temp.Name)
+                        </div>
+                        <div class="col-md-6">
                             @Html.LabelFor(temp => temp.Username)
                             @Html.TextBoxFor(temp => temp.Username, new { placeholder = "Username", @class = "form-control" })
                             @Html.ValidationMessageFor(temp => temp.Username)
@@ -64,6 +69,11 @@
                             @Html.LabelFor(temp => temp.Email)
                             @Html.TextBoxFor(temp => temp.Email, new { placeholder = "Email", @class = "form-control" })
                             @Html.ValidationMessageFor(temp => temp.Email)
+                        </div>
+                        <div class="col-md-6">
+                            @Html.LabelFor(temp => temp.Phone)
+                            @Html.TextBoxFor(temp => temp.Phone, new { placeholder = "Phone", @class = "form-control" })
+                            @Html.ValidationMessageFor(temp => temp.Phone)
                         </div>
                         <div class="col-md-6">
                             @Html.LabelFor(temp => temp.Password)
@@ -75,6 +85,7 @@
                             @Html.PasswordFor(temp => temp.ConnfirmPassword, new { placeholder = "Confirm Password", @class = "form-control" })
                             @Html.ValidationMessageFor(temp => temp.ConnfirmPassword)
                         </div>
+
                     </div>
                     <button type="submit" class="btn btn-success">Register</button>
                 </form>
