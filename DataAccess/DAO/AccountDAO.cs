@@ -26,7 +26,7 @@ namespace DataAccess.DAO
 
         public static Account Login(string username, string password)
         {
-            return GetAllAccount().FirstOrDefault(x => x.username == username && x.username == password);
+            return GetAllAccount().FirstOrDefault(x => x.username == username && x.password == password);   
         }
 
         public static Account GetAccountWithId(int? id)
