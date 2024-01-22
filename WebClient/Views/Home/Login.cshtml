@@ -50,18 +50,15 @@
 
                 <input type="password" placeholder="Password" id="password" name="password" />
                 <label><input type="checkbox" /> Remember me</label>
+                <img src="data:image/png;base64,@ViewBag.CaptchaImageBytes" alt="Captcha Image" />
                 <input type="text" placeholder="Captcha" id="captcha" />
                 <input type="submit" value="Login" />
-                @Html.ActionLink("Forget your password", "ForgetPassword", "Home")
                 @Html.ActionLink("Create an Acount","Register", "Home")
                 <div>
                     <a asp-action="ForgotPassword">Forgot Password?</a>
                 </div>
             </form>
         </main>
-    </div>
-    <div>
-        <img src="data:image/png;base64,@ViewBag.CaptchaImageBytes" alt="Captcha Image" />
     </div>
 
     <footer class="border-top footer text-muted">
