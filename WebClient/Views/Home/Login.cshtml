@@ -1,4 +1,4 @@
-﻿@using WebClient
+@using WebClient
 @using WebClient.Models
 @using AspNetCore.ReCaptcha
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
@@ -54,6 +54,9 @@
                 <input type="submit" value="Login" />
                 @Html.ActionLink("Forget your password", "ForgetPassword", "Home")
                 @Html.ActionLink("Create an Acount","Register", "Home")
+                <div>
+                    <a asp-action="ForgotPassword">Forgot Password?</a>
+                </div>
             </form>
         </main>
     </div>

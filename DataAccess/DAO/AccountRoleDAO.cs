@@ -1,4 +1,5 @@
 ﻿using BussinessObject.Models;
+using BussinessObject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,9 +22,10 @@ namespace DataAccess.DAO
             return list;
         }
 
-        public static AccountRole GetAccountRoleWithId(int id)
+        public static AccountRole GetAccountRoleById(int id)
         {
-            return GetAllAccountRole().FirstOrDefault(x => x.Id == id);
+            return GetAllAccountRole().FirstOrDefault(x=>x.id==id);
         }
+
     }
 }

@@ -55,9 +55,17 @@
                 <form method="post" asp-controller="Home" asp-action="Register">
                     <input type="text" placeholder="Name" id="name" name="name" />
 
-                    <input type="text" placeholder="Username" id="username" name="username" />
-                    <input type="text" placeholder="Email" id="email" name="email" />
-                    <input type="password" placeholder="Password" id="password" name="password" />
+
+
+                    <label for="name">Username:</label>
+                    <input type="text" id="username" name="username" />
+                    <label for="email">Email:</label>
+                    <input type="text" id="email" name="email" />
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" />
+                    <label for="phone">Phone:</label>
+                    <input type="text" id="phone" name="phone" />
+
 
                     <button type="submit">Register</button>
                 </form>
