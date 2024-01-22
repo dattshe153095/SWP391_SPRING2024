@@ -67,7 +67,7 @@ namespace WebClient.Controllers
         public async Task<IActionResult> Login(string username, string password)
         {
             //If not invalid info return Page
-            if (!ModelState.IsValid) return View();
+            if (!ModelState.IsValid) return RedirectToAction("Login", "Home");
 
             Account account = new Account();
             account = AccountDAO.Login(username, password);
