@@ -1,15 +1,12 @@
 ﻿using DataAccess.Captcha;
 using DataAccess.DAO;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.FileProviders;
 using System.Diagnostics;
 using System.Drawing;
 using System.Text;
 using WebClient.Models;
-using Microsoft.AspNetCore.Hosting;
 using System.Drawing.Imaging;
 using BussinessObject.Models;
-using Microsoft.AspNetCore.Authorization;
 using System.Data;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
@@ -20,6 +17,7 @@ namespace WebClient.Controllers
 {
     public class HomeController : Controller
     {
+        public string captchaCode = "";
         private readonly IWebHostEnvironment webHostEnvironment;
         public HomeController(IWebHostEnvironment webHostEnvironment)
         {
@@ -51,6 +49,7 @@ namespace WebClient.Controllers
                 sb.Append(s[rnd.Next(1, s.Length)]);
             }
             Bitmap bm = oCaptcha.MakeCaptchaImage(sb.ToString(), 200, 100, "Arial");
+            captchaCode = bm.ToString();
 
             using (MemoryStream ms = new MemoryStream())
             {
@@ -59,15 +58,17 @@ namespace WebClient.Controllers
                 ViewBag.CaptchaImageBytes = Convert.ToBase64String(imageBytes);
             }
 
+           
+
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(string username, string password)
+        public async Task<IActionResult> Login(string username, string password, string captcha)
         {
             //If not invalid info return Page
-            if (!ModelState.IsValid) return RedirectToAction("Login", "Home");
+            if (!ModelState.IsValid && captchaCode != captcha) return RedirectToAction("Login", "Home");
 
             Account account = new Account();
             account = AccountDAO.Login(username, password);
@@ -83,7 +84,7 @@ namespace WebClient.Controllers
                 var claims = new List<Claim>
                 {
                    new Claim(ClaimTypes.Name, username),
-                  new Claim(ClaimTypes.Role, role)
+                   new Claim(ClaimTypes.Role, role)
                 };
 
                 var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
