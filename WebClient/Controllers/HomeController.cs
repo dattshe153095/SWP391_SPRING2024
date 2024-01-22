@@ -78,10 +78,7 @@ namespace WebClient.Controllers
                 {
                     role = "Admin";
                 }
-                else
-                {
-                    role = "User";
-                }
+
 
                 var claims = new List<Claim>
                 {
