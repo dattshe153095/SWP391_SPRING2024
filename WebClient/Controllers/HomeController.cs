@@ -158,6 +158,7 @@ namespace WebClient.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public IActionResult ForgotPassword(string username, string email, string code, string password, string cfpassword)
         {
@@ -191,6 +192,7 @@ namespace WebClient.Controllers
                 return View();
             }
         }
+
 
         [HttpPost]
         public IActionResult SendEmailForgot(string email)
