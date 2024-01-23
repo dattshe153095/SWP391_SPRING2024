@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/WebClient.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/Home/Index.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Home/Login.css" asp-append-version="true" />
 </head>
 <body>
     <header>
@@ -44,21 +44,61 @@
         </nav>
     </header>
     <div class="container">
-        <main role="main" class="pb-3">
-            <form style="display: grid" method="post" asp-controller="Home" asp-action="Login">
-                <input type="text" placeholder="Username" id="username" name="username" />
+        <div class="row" role="main" class="pb-3">
+            <div class="col-md-6 offset-md-3">
+                <div class="card my-5">
 
-                <input type="password" placeholder="Password" id="password" name="password" />
-                <label><input type="checkbox" /> Remember me</label>
-                <img src="data:image/png;base64,@ViewBag.CaptchaImageBytes" alt="Captcha Image" />
-                <input type="text" placeholder="Captcha" id="captcha" name="captcha" />
-                <input type="submit" value="Login" />
-                @Html.ActionLink("Create an Acount","Register", "Home")
-                <div>
-                    <a asp-action="ForgotPassword">Forgot Password?</a>
+                    <form method="post" asp-controller="Home" asp-action="Login"
+                          class="card-body cardbody-color p-lg-5">
+
+                        <div class="text-center">
+                            <img src="https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png"
+                                 class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3" width="200px"
+                                 alt="profile">
+                        </div>
+
+                        <div class="mb-3">
+                            <input type="text" class="form-control" id="Username" aria-describedby="emailHelp"
+                                   placeholder="User Name">
+                        </div>
+                        <div class="mb-3">
+                            <input type="password" class="form-control" id="password" placeholder="password">
+                        </div>
+                        <div class="captcha-div">
+                            <span id="Captcha-image">
+                                <img src="data:image/png;base64,@ViewBag.CaptchaImageBytes"
+                                     alt="Captcha Image" />
+                            </span>
+                            <div class="input-group">
+                                <input type="text" class="captcha-form" placeholder="Input capcha">
+                                <span class="input-group-text" id="refresh-captcha">
+                                    <button>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                             class="bi bi-arrow-counterclockwise" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd"
+                                                  d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2z"></path>
+                                            <path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466">
+                                            </path>
+                                        </svg>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <input value="Login" type="submit"
+                                   class="btn btn-color px-5 mb-5 w-100"></input>
+                        </div>
+                        <div id="emailHelp" class="form-text text-center mb-5 text-dark">
+                            @Html.ActionLink("Forget your password", "ForgetPassword", "Home")
+                            <div>
+                                <a asp-action="ForgotPassword">Forgot Password?</a>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-            </form>
-        </main>
+
+            </div>
+        </div>
     </div>
 
     <footer class="border-top footer text-muted">

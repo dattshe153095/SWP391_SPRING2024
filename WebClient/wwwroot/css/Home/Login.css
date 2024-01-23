@@ -10,11 +10,12 @@
 }
 
 
+.btn-color {
+    background-color: #e75c9d;
+    color: #fff;
+}
 
 .cardbody-color {
-    background-color: #FFAEB9;
+    background-color: #ff8be6;
 }
 
-a {
-    text-decoration: none;
-}
