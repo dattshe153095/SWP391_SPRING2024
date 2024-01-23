@@ -16,7 +16,7 @@ namespace WebClient.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdateProfile(string name, string description)
+        public IActionResult UpdateProfile(string name, string description,String phone)
         {
             if (HttpContext.Session.GetInt32("Account") != null)
             {
@@ -25,6 +25,7 @@ namespace WebClient.Controllers
                 
                 account.name = name;
                 account.description = description;
+                account.phone = phone;
                 AccountDAO.UpdateAccount(account);
                 return RedirectToAction("Profile", "Account");
 
