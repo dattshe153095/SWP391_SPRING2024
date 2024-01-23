@@ -93,6 +93,10 @@ namespace WebClient.Controllers
 
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
+                if (account.role_id == 1)
+                {
+                    return RedirectToAction("Index", "Admin");
+                }
                 return RedirectToAction("Index", "Home");
             }
 
@@ -154,6 +158,7 @@ namespace WebClient.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public IActionResult ForgotPassword(string username, string email, string code, string password, string cfpassword)
         {
@@ -187,6 +192,7 @@ namespace WebClient.Controllers
                 return View();
             }
         }
+
 
         [HttpPost]
         public IActionResult SendEmailForgot(string email)
