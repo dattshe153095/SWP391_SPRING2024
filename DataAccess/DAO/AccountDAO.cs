@@ -107,5 +107,10 @@ namespace DataAccess.DAO
                 throw new Exception("The category doesn't exist");
             }
         }
+
+        public static List<Account> GetAccountWithUsername(string? username)
+        {
+            return GetAllAccount().Where(x => x.username.Contains(username.Trim())).ToList();
+        }
     }
 }
