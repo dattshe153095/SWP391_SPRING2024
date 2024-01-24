@@ -18,7 +18,6 @@ namespace WebClient.Controllers
 {
     public class HomeController : Controller
     {
-        public string captchaCode = "";
         private readonly IWebHostEnvironment webHostEnvironment;
         public HomeController(IWebHostEnvironment webHostEnvironment)
         {
@@ -50,7 +49,7 @@ namespace WebClient.Controllers
                 sb.Append(s[rnd.Next(1, s.Length)]);
             }
             Bitmap bm = oCaptcha.MakeCaptchaImage(sb.ToString(), 200, 100, "Arial");
-            captchaCode = bm.ToString();
+            HttpContext.Session.SetString("CaptchaLogin", sb.ToString());
 
             using (MemoryStream ms = new MemoryStream())
             {
@@ -58,9 +57,6 @@ namespace WebClient.Controllers
                 byte[] imageBytes = ms.ToArray();
                 ViewBag.CaptchaImageBytes = Convert.ToBase64String(imageBytes);
             }
-
-
-
             return View();
         }
 
@@ -69,7 +65,8 @@ namespace WebClient.Controllers
         public async Task<IActionResult> Login(string username, string password, string captcha)
         {
             //If not invalid info return Page
-            if (!ModelState.IsValid && captchaCode != captcha) return RedirectToAction("Login", "Home");
+            if (!ModelState.IsValid && HttpContext.Session.GetString("CaptchaLogin") != captcha) return RedirectToAction("Login", "Home");
+
 
             Account account = new Account();
             account = AccountDAO.Login(username, password);
