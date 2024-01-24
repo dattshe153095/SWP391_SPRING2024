@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
 using WebClient.ViewModel;
 using DataAccess.MailSender;
+using Microsoft.AspNetCore.Identity;
 
 namespace WebClient.Controllers
 {
@@ -62,15 +63,17 @@ namespace WebClient.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(string username, string password, string captcha)
+        public async Task<IActionResult> Login(string username, string password, string captcha,LoginViewModel login)
         {
             //If not invalid info return Page
             if (!ModelState.IsValid && HttpContext.Session.GetString("CaptchaLogin") != captcha) return RedirectToAction("Login", "Home");
 
 
             Account account = new Account();
+            
+            
             account = AccountDAO.Login(username, password);
-            if (account != null)
+            if (account != null )
             {
                 HttpContext.Session.SetInt32("Account", account.id);
                 string role = "User";
@@ -78,6 +81,7 @@ namespace WebClient.Controllers
                 {
                     role = "Admin";
                 }
+
 
                 var claims = new List<Claim>
                 {
@@ -96,10 +100,34 @@ namespace WebClient.Controllers
                 }
                 return RedirectToAction("Index", "Home");
             }
-
+            ViewBag.Message = "Login Failed";
             return RedirectToAction("Login", "Home");
         }
         #endregion
+        [HttpPost]
+
+        public IActionResult RefreshCaptcha()
+        {
+            Captcha oCaptcha = new Captcha();
+            Random rnd = new Random();
+            string[] s = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" };
+            int i;
+            StringBuilder sb = new StringBuilder(4);
+            for (i = 0; i <= 4; i++)
+            {
+                sb.Append(s[rnd.Next(1, s.Length)]);
+            }
+            Bitmap bm = oCaptcha.MakeCaptchaImage(sb.ToString(), 200, 100, "Arial");
+            captchaCode = bm.ToString();
+            string imageCaptcha = "";
+            using (MemoryStream ms = new MemoryStream())
+            {
+                bm.Save(ms, ImageFormat.Png);
+                byte[] imageBytes = ms.ToArray();
+                imageCaptcha = Convert.ToBase64String(imageBytes);
+            }
+            return Json(imageCaptcha);
+        }
 
         [HttpGet]
         public IActionResult Register()

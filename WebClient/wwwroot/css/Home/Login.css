@@ -1,0 +1,17 @@
+﻿
+.profile-image-pic {
+    height: 200px;
+    width: 200px;
+    object-fit: cover;
+}
+
+
+.btn-color {
+    background-color: hotpink;
+    color: #fff;
+}
+
+.cardbody-color {
+    background-color: pink;
+}
+
