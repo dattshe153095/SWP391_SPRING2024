@@ -63,10 +63,10 @@ namespace WebClient.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(string username, string password, string captcha,LoginViewModel login)
+        public async Task<IActionResult> Login(string username, string password, string captcha)
         {
             //If not invalid info return Page
-            if (!ModelState.IsValid && HttpContext.Session.GetString("CaptchaLogin") != captcha) return RedirectToAction("Login", "Home");
+            if ( HttpContext.Session.GetString("CaptchaLogin") != captcha) return RedirectToAction("Login", "Home");
 
 
             Account account = new Account();
@@ -105,8 +105,7 @@ namespace WebClient.Controllers
         }
         #endregion
         [HttpPost]
-
-        public IActionResult RefreshCaptcha()
+        public IActionResult RefreshCaptchaLogin()
         {
             Captcha oCaptcha = new Captcha();
             Random rnd = new Random();
@@ -118,7 +117,7 @@ namespace WebClient.Controllers
                 sb.Append(s[rnd.Next(1, s.Length)]);
             }
             Bitmap bm = oCaptcha.MakeCaptchaImage(sb.ToString(), 200, 100, "Arial");
-            captchaCode = bm.ToString();
+            HttpContext.Session.SetString("CaptchaLogin", sb.ToString());
             string imageCaptcha = "";
             using (MemoryStream ms = new MemoryStream())
             {
@@ -181,6 +180,7 @@ namespace WebClient.Controllers
         [HttpGet]
         public IActionResult ForgotPassword()
         {
+
             Captcha oCaptcha = new Captcha();
             Random rnd = new Random();
             string[] s = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" };
@@ -190,8 +190,8 @@ namespace WebClient.Controllers
             {
                 sb.Append(s[rnd.Next(1, s.Length)]);
             }
+            HttpContext.Session.SetString("CaptchaForgot", sb.ToString());
             Bitmap bm = oCaptcha.MakeCaptchaImage(sb.ToString(), 200, 100, "Arial");
-            captchaCode = bm.ToString();
 
             using (MemoryStream ms = new MemoryStream())
             {
@@ -207,10 +207,11 @@ namespace WebClient.Controllers
         }
 
         [HttpPost]
-        public IActionResult ForgotPassword( string email, string code, string password, string cfpassword)
+        public IActionResult ForgotPassword( string email, string code, string password, string cfpassword, string captcha)
         {
             var sessionVerificationCode = HttpContext.Session.GetString("ForgotPassword");
-            if (ModelState.IsValid && code == sessionVerificationCode)
+            var captchaForgot = HttpContext.Session.GetString("CaptchaForgot");
+            if (code == sessionVerificationCode && captcha == captchaForgot)
             {
 
                 Account account = AccountDAO.GetAccountWithUsernameMail( email);
@@ -255,8 +256,8 @@ namespace WebClient.Controllers
         }
 
         [HttpPost]
-        
-        public IActionResult RefreshCaptcha()
+
+        public IActionResult RefreshCaptchaForgotPassword()
         {
             Captcha oCaptcha = new Captcha();
             Random rnd = new Random();
@@ -268,8 +269,7 @@ namespace WebClient.Controllers
                 sb.Append(s[rnd.Next(1, s.Length)]);
             }
             Bitmap bm = oCaptcha.MakeCaptchaImage(sb.ToString(), 200, 100, "Arial");
-            captchaCode = bm.ToString();
-
+            HttpContext.Session.SetString("CaptchaForgot", sb.ToString());
             string imageCaptcha = "";
             using (MemoryStream ms = new MemoryStream())
             {
@@ -279,7 +279,5 @@ namespace WebClient.Controllers
             }
             return Json(imageCaptcha);
         }
-
-
     }
 }
