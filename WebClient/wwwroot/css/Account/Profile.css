@@ -73,3 +73,28 @@ button {
     .form-group input {
         flex: 1;
     }
+
+/* CSS cho ảnh Captcha, ô nhập Captcha và nút Refresh Captcha */
+.captcha-div {
+    display: flex;
+    align-items: center;
+}
+
+#captchaImage {
+    width: 150px; /* Điều chỉnh kích thước ảnh captcha theo mong muốn */
+    margin-right: 10px;
+}
+
+.captcha-form {
+    flex: 1;
+    max-width: 170px; /* Điều chỉnh chiều rộng tối đa của ô nhập captcha */
+    margin-right: 10px;
+    padding: 8px;
+    font-size: 16px;
+}
+
+#refreshCaptcha {
+    padding: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}

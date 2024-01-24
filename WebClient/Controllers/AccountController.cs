@@ -70,7 +70,7 @@ namespace WebClient.Controllers
         [HttpPost]
         public IActionResult ChangePassword(string new_password, string confirmPassword, string captcha)
         {
-
+            if (!ModelState.IsValid && captchaCode != captcha) return RedirectToAction("Profile", "Account");
             if (HttpContext.Session.GetInt32("Account") != null)
             {
                 int? id = HttpContext.Session.GetInt32("Account");
