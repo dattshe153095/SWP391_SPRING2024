@@ -13,9 +13,7 @@
     background: pink;
 }
 
-
 .forms-container {
-    
     display: flex;
     justify-content: space-between;
 }
@@ -25,7 +23,9 @@
     border: 1px solid #ccc;
     padding: 10px;
     width: 48%; /* 48% để giữ khoảng trống giữa 2 form */
+    box-sizing: border-box; /* Giữ nguyên kích thước total width bao gồm padding và border */
 }
+
 .user-table table {
     border-collapse: collapse; /* Để kẻ ô bảng */
     width: 100%; /* Để bảng rộng 100% của phần tử cha */
@@ -39,6 +39,7 @@
 .user-table th {
     background-color: #f2f2f2; /* Màu nền cho hàng tiêu đề */
 }
+
 /* Điều chỉnh vị trí của biểu mẫu ChangePassword */
 .change-password-form {
     margin-left: auto; /* Đẩy về phía bên phải */
@@ -47,8 +48,8 @@
 input[readonly] {
     background-color: #e4e7ea; /* Màu nền xám cho trường chỉ đọc */
 }
+
 button {
-    
     padding: 10px;
     background-color: #4caf50; /* Màu xanh lá */
     color: #fff;
@@ -73,3 +74,48 @@ button {
     .form-group input {
         flex: 1;
     }
+
+/* CSS cho ảnh Captcha, ô nhập Captcha và nút Refresh Captcha */
+.captcha-div {
+    display: flex;
+    align-items: center;
+}
+
+#captchaImage {
+    width: 150px; /* Điều chỉnh kích thước ảnh captcha theo mong muốn */
+    margin-right: 10px;
+}
+
+.captcha-form {
+    flex: 1;
+    max-width: 170px; /* Điều chỉnh chiều rộng tối đa của ô nhập captcha */
+    margin-right: 10px;
+    padding: 8px;
+    font-size: 16px;
+}
+
+#refreshCaptcha {
+    padding: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+}
+
+/* CSS để căn giữa footer */
+body {
+    margin-bottom: 50px; /* Đảm bảo không bị che phủ bởi footer */
+}
+
+.main {
+    min-height: calc(100vh - 50px); /* 50px là chiều cao của footer */
+    position: relative;
+}

@@ -19,7 +19,6 @@ namespace WebClient.Controllers
 {
     public class HomeController : Controller
     {
-        public string captchaCode = "";
         private readonly IWebHostEnvironment webHostEnvironment;
         public HomeController(IWebHostEnvironment webHostEnvironment)
         {
@@ -51,7 +50,7 @@ namespace WebClient.Controllers
                 sb.Append(s[rnd.Next(1, s.Length)]);
             }
             Bitmap bm = oCaptcha.MakeCaptchaImage(sb.ToString(), 200, 100, "Arial");
-            captchaCode = bm.ToString();
+            HttpContext.Session.SetString("CaptchaLogin", sb.ToString());
 
             using (MemoryStream ms = new MemoryStream())
             {
@@ -59,9 +58,6 @@ namespace WebClient.Controllers
                 byte[] imageBytes = ms.ToArray();
                 ViewBag.CaptchaImageBytes = Convert.ToBase64String(imageBytes);
             }
-
-
-
             return View();
         }
 
@@ -70,7 +66,8 @@ namespace WebClient.Controllers
         public async Task<IActionResult> Login(string username, string password, string captcha)
         {
             //If not invalid info return Page
-            if (!ModelState.IsValid && captchaCode != captcha) return RedirectToAction("Login", "Home");
+            if ( HttpContext.Session.GetString("CaptchaLogin") != captcha) return RedirectToAction("Login", "Home");
+
 
             Account account = new Account();
             
@@ -97,6 +94,10 @@ namespace WebClient.Controllers
 
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
+                if (account.role_id == 1)
+                {
+                    return RedirectToAction("Index", "Admin");
+                }
                 return RedirectToAction("Index", "Home");
             }
             ViewBag.Message = "Login Failed";
@@ -104,8 +105,7 @@ namespace WebClient.Controllers
         }
         #endregion
         [HttpPost]
-
-        public IActionResult RefreshCaptcha()
+        public IActionResult RefreshCaptchaLogin()
         {
             Captcha oCaptcha = new Captcha();
             Random rnd = new Random();
@@ -117,7 +117,7 @@ namespace WebClient.Controllers
                 sb.Append(s[rnd.Next(1, s.Length)]);
             }
             Bitmap bm = oCaptcha.MakeCaptchaImage(sb.ToString(), 200, 100, "Arial");
-            captchaCode = bm.ToString();
+            HttpContext.Session.SetString("CaptchaLogin", sb.ToString());
             string imageCaptcha = "";
             using (MemoryStream ms = new MemoryStream())
             {
@@ -180,16 +180,41 @@ namespace WebClient.Controllers
         [HttpGet]
         public IActionResult ForgotPassword()
         {
+
+            Captcha oCaptcha = new Captcha();
+            Random rnd = new Random();
+            string[] s = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" };
+            int i;
+            StringBuilder sb = new StringBuilder(4);
+            for (i = 0; i <= 4; i++)
+            {
+                sb.Append(s[rnd.Next(1, s.Length)]);
+            }
+            HttpContext.Session.SetString("CaptchaForgot", sb.ToString());
+            Bitmap bm = oCaptcha.MakeCaptchaImage(sb.ToString(), 200, 100, "Arial");
+
+            using (MemoryStream ms = new MemoryStream())
+            {
+                bm.Save(ms, ImageFormat.Png);
+                byte[] imageBytes = ms.ToArray();
+                ViewBag.CaptchaImageBytes = Convert.ToBase64String(imageBytes);
+            }
+
+
+
             return View();
+
         }
+
         [HttpPost]
-        public IActionResult ForgotPassword(string username, string email, string code, string password, string cfpassword)
+        public IActionResult ForgotPassword( string email, string code, string password, string cfpassword, string captcha)
         {
             var sessionVerificationCode = HttpContext.Session.GetString("ForgotPassword");
-            if (ModelState.IsValid && code == sessionVerificationCode)
+            var captchaForgot = HttpContext.Session.GetString("CaptchaForgot");
+            if (code == sessionVerificationCode && captcha == captchaForgot)
             {
 
-                Account account = AccountDAO.GetAccountWithUsernameMail(username, email);
+                Account account = AccountDAO.GetAccountWithUsernameMail( email);
                 if (account == null)
                 {
                     return RedirectToAction("ForgotPassword", "Home");
@@ -200,7 +225,7 @@ namespace WebClient.Controllers
                     {
                         account.password = password;
                         AccountDAO.UpdateAccount(account);
-                        return RedirectToAction("Login", "Home");
+                        return RedirectToAction("ForgotPasswordNotification", "Home");
                     }
                     else
                     {
@@ -212,9 +237,16 @@ namespace WebClient.Controllers
             }
             else
             {
-                return View();
+                return RedirectToAction("ForgotPassword", "Home");
+
             }
         }
+        [HttpGet]
+        public IActionResult ForgotPasswordNotification()
+        {
+            return View();
+        }
+
 
         [HttpPost]
         public IActionResult SendEmailForgot(string email)
@@ -223,6 +255,29 @@ namespace WebClient.Controllers
             return Json(new { success = true, message = "Email sent successfully!" });
         }
 
+        [HttpPost]
 
+        public IActionResult RefreshCaptchaForgotPassword()
+        {
+            Captcha oCaptcha = new Captcha();
+            Random rnd = new Random();
+            string[] s = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" };
+            int i;
+            StringBuilder sb = new StringBuilder(4);
+            for (i = 0; i <= 4; i++)
+            {
+                sb.Append(s[rnd.Next(1, s.Length)]);
+            }
+            Bitmap bm = oCaptcha.MakeCaptchaImage(sb.ToString(), 200, 100, "Arial");
+            HttpContext.Session.SetString("CaptchaForgot", sb.ToString());
+            string imageCaptcha = "";
+            using (MemoryStream ms = new MemoryStream())
+            {
+                bm.Save(ms, ImageFormat.Png);
+                byte[] imageBytes = ms.ToArray();
+                imageCaptcha = Convert.ToBase64String(imageBytes);
+            }
+            return Json(imageCaptcha);
+        }
     }
 }
