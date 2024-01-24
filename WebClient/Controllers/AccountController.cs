@@ -13,9 +13,9 @@ namespace WebClient.Controllers
 {
     public class AccountController : Controller
     {
-        private string captchaCode = "";
         public IActionResult Profile()
         {
+
             ViewBag.accountId = HttpContext.Session.GetInt32("Account");
             Captcha oCaptcha = new Captcha();
             Random rnd = new Random();
@@ -27,7 +27,7 @@ namespace WebClient.Controllers
                 sb.Append(s[rnd.Next(1, s.Length)]);
             }
             Bitmap bm = oCaptcha.MakeCaptchaImage(sb.ToString(), 200, 100, "Arial");
-            captchaCode = bm.ToString();
+            HttpContext.Session.SetString("CaptchaChangePass", sb.ToString());
 
             using (MemoryStream ms = new MemoryStream())
             {
@@ -70,7 +70,8 @@ namespace WebClient.Controllers
         [HttpPost]
         public IActionResult ChangePassword(string new_password, string confirmPassword, string captcha)
         {
-            if (!ModelState.IsValid && captchaCode != captcha) return RedirectToAction("Profile", "Account");
+            if ( HttpContext.Session.GetString("CaptchaChangePass") != captcha)
+            { return RedirectToAction("Profile", "Account"); }
             if (HttpContext.Session.GetInt32("Account") != null)
             {
                 int? id = HttpContext.Session.GetInt32("Account");
@@ -99,7 +100,7 @@ namespace WebClient.Controllers
                 sb.Append(s[rnd.Next(1, s.Length)]);
             }
             Bitmap bm = oCaptcha.MakeCaptchaImage(sb.ToString(), 200, 100, "Arial");
-            captchaCode = bm.ToString();
+            HttpContext.Session.SetString("CaptchaChangePass", sb.ToString());
 
             string imageCaptcha = "";
             using (MemoryStream ms = new MemoryStream())
