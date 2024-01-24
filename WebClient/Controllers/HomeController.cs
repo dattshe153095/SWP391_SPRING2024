@@ -156,17 +156,39 @@ namespace WebClient.Controllers
         [HttpGet]
         public IActionResult ForgotPassword()
         {
+            Captcha oCaptcha = new Captcha();
+            Random rnd = new Random();
+            string[] s = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" };
+            int i;
+            StringBuilder sb = new StringBuilder(4);
+            for (i = 0; i <= 4; i++)
+            {
+                sb.Append(s[rnd.Next(1, s.Length)]);
+            }
+            Bitmap bm = oCaptcha.MakeCaptchaImage(sb.ToString(), 200, 100, "Arial");
+            captchaCode = bm.ToString();
+
+            using (MemoryStream ms = new MemoryStream())
+            {
+                bm.Save(ms, ImageFormat.Png);
+                byte[] imageBytes = ms.ToArray();
+                ViewBag.CaptchaImageBytes = Convert.ToBase64String(imageBytes);
+            }
+
+
+
             return View();
+
         }
 
         [HttpPost]
-        public IActionResult ForgotPassword(string username, string email, string code, string password, string cfpassword)
+        public IActionResult ForgotPassword( string email, string code, string password, string cfpassword)
         {
             var sessionVerificationCode = HttpContext.Session.GetString("ForgotPassword");
             if (ModelState.IsValid && code == sessionVerificationCode)
             {
 
-                Account account = AccountDAO.GetAccountWithUsernameMail(username, email);
+                Account account = AccountDAO.GetAccountWithUsernameMail( email);
                 if (account == null)
                 {
                     return RedirectToAction("ForgotPassword", "Home");
@@ -177,7 +199,7 @@ namespace WebClient.Controllers
                     {
                         account.password = password;
                         AccountDAO.UpdateAccount(account);
-                        return RedirectToAction("Login", "Home");
+                        return RedirectToAction("ForgotPasswordNotification", "Home");
                     }
                     else
                     {
@@ -189,8 +211,14 @@ namespace WebClient.Controllers
             }
             else
             {
-                return View();
+                return RedirectToAction("ForgotPassword", "Home");
+
             }
+        }
+        [HttpGet]
+        public IActionResult ForgotPasswordNotification()
+        {
+            return View();
         }
 
 
@@ -201,6 +229,31 @@ namespace WebClient.Controllers
             return Json(new { success = true, message = "Email sent successfully!" });
         }
 
+        [HttpPost]
+        
+        public IActionResult RefreshCaptcha()
+        {
+            Captcha oCaptcha = new Captcha();
+            Random rnd = new Random();
+            string[] s = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" };
+            int i;
+            StringBuilder sb = new StringBuilder(4);
+            for (i = 0; i <= 4; i++)
+            {
+                sb.Append(s[rnd.Next(1, s.Length)]);
+            }
+            Bitmap bm = oCaptcha.MakeCaptchaImage(sb.ToString(), 200, 100, "Arial");
+            captchaCode = bm.ToString();
+
+            string imageCaptcha = "";
+            using (MemoryStream ms = new MemoryStream())
+            {
+                bm.Save(ms, ImageFormat.Png);
+                byte[] imageBytes = ms.ToArray();
+                imageCaptcha = Convert.ToBase64String(imageBytes);
+            }
+            return Json(imageCaptcha);
+        }
 
     }
 }
