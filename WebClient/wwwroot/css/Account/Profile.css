@@ -13,9 +13,7 @@
     background: pink;
 }
 
-
 .forms-container {
-    
     display: flex;
     justify-content: space-between;
 }
@@ -25,7 +23,9 @@
     border: 1px solid #ccc;
     padding: 10px;
     width: 48%; /* 48% để giữ khoảng trống giữa 2 form */
+    box-sizing: border-box; /* Giữ nguyên kích thước total width bao gồm padding và border */
 }
+
 .user-table table {
     border-collapse: collapse; /* Để kẻ ô bảng */
     width: 100%; /* Để bảng rộng 100% của phần tử cha */
@@ -39,6 +39,7 @@
 .user-table th {
     background-color: #f2f2f2; /* Màu nền cho hàng tiêu đề */
 }
+
 /* Điều chỉnh vị trí của biểu mẫu ChangePassword */
 .change-password-form {
     margin-left: auto; /* Đẩy về phía bên phải */
@@ -47,8 +48,8 @@
 input[readonly] {
     background-color: #e4e7ea; /* Màu nền xám cho trường chỉ đọc */
 }
+
 button {
-    
     padding: 10px;
     background-color: #4caf50; /* Màu xanh lá */
     color: #fff;
@@ -118,4 +119,3 @@ body {
     min-height: calc(100vh - 50px); /* 50px là chiều cao của footer */
     position: relative;
 }
-
