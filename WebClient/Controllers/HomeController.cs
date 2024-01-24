@@ -67,7 +67,7 @@ namespace WebClient.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(string username, string password, string captcha,LoginViewModel login)
+        public async Task<IActionResult> Login(string username, string password, string captcha)
         {
             //If not invalid info return Page
             if (!ModelState.IsValid && captchaCode != captcha) return RedirectToAction("Login", "Home");

@@ -14,4 +14,8 @@
 .cardbody-color {
     background-color: pink;
 }
+.form-text text-center mb-5 text-dark {
+    display: flex;
+    justify-content: space-evenly;
+}
 
