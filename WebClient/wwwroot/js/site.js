@@ -11,11 +11,13 @@ $(document).ready(function () {
 
 function refreshCaptchaImage() {
     $.ajax({
+        
         type: "POST",
         url: "/Home/RefreshCaptchaLogin", // Thay thế bằng đường dẫn của action cập nhật captcha
         success: function (result) {
             // Cập nhật ảnh captcha mới
             $("#captchaImage").attr("src", "data:image/png;base64," + result);
+            $('#captcha').val('');
         },
         error: function (error) {
             console.log(error);
