@@ -15,8 +15,8 @@ namespace WebClient.Controllers
     {
         public IActionResult Profile()
         {
-
             ViewBag.accountId = HttpContext.Session.GetInt32("Account");
+            //CAPTCHA
             Captcha oCaptcha = new Captcha();
             Random rnd = new Random();
             string[] s = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" };
@@ -35,6 +35,9 @@ namespace WebClient.Controllers
                 byte[] imageBytes = ms.ToArray();
                 ViewBag.CaptchaImageBytes = Convert.ToBase64String(imageBytes);
             }
+
+            //MESSAGE
+            ViewBag.ChangePasswordSuccess = TempData["SuccessMessage"];
             return View();
         }
 
@@ -86,7 +89,7 @@ namespace WebClient.Controllers
                     account.password = new_password;
                     AccountDAO.UpdateAccount(account);
                 }
-                ViewBag.ChangePasswordSuccess = "Mật khẩu đã được đổi thành công.";
+                TempData["SuccessMessage"] = "Mật khẩu đã được đổi thành công.";
                 return RedirectToAction("Profile", "Account");
 
             }
