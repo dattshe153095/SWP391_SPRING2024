@@ -105,7 +105,8 @@ footer {
     position: fixed;
     bottom: 0;
     width: 100%;
-    background-color: #000;
+    background-color: #fe9fe5;
+    
     color: #fff;
     text-align: center;
     padding: 10px;
@@ -139,3 +140,9 @@ body {
 body{
     background-color: #ffd8ed;
 }
+header {
+    background-color: #fe9fe5;
+}
+    header nav div a {
+        color: black;
+    }
