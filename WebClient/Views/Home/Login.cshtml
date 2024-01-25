@@ -1,4 +1,4 @@
-﻿@using WebClient
+@using WebClient
 @using WebClient.Models
 @using AspNetCore.ReCaptcha
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
@@ -63,17 +63,16 @@
                         <div class="mb-3">
                             <input type="text" placeholder="Username" id="username" class="form-control" name="username"  required/>
                             <div class="a-alert-content" id="usernameError" style="color: red;"></div>
-                        </div>
 
+                        </div>
                         <div class="mb-3">
                             <input type="password" placeholder="Password" id="password" class="form-control" name="password" required />
                             <div class="a-alert-content" id="passwordError" style="color: red;"></div>
                         </div>
-
                         <div class="captcha-div">
                             <span id="Captcha-image">
-                                <img id="captchaImage" src="data:image/png;base64,@ViewBag.CaptchaImageBytes" alt="Captcha Image" />
-                                <div class="a-alert-content" id="captchaError" style="color: red;"></div>
+                                <img id="captchaImage" src="data:image/png;base64,@ViewBag.CaptchaImageBytes"
+                                     alt="Captcha Image" />
                             </span>
                             <div class="input-group">
                                 <input type="text" id="captcha" name="captcha" class="captcha-form form-control" placeholder="Input capcha" required>
@@ -81,11 +80,14 @@
                             </div>
                         </div>
                         <div class="text-center">
-                            <input value="Login" type="submit" class="btn btn-color px-5 mb-5 w-100"/>
+                            <input value="Login" type="submit"
+                                   class="btn btn-color px-5 mb-5 w-100"/>
                         </div>
-                        <div class="form-text text-center mb-5 text-dark">
-                            @Html.ActionLink("Forget your password", "ForgotPassword", "Home")
-                            @Html.ActionLink("Register your account", "Register", "Home")
+                        <div id="emailHelp" class="form-text text-center mb-5 text-dark">
+                            @Html.ActionLink("Register", "Register", "Home")
+                            <div>
+                                <a asp-action="ForgotPassword">Forgot Password?</a>
+                            </div>
                         </div>
                     </form>
                 </div>
