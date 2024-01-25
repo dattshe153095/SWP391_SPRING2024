@@ -121,15 +121,21 @@
                     <!-- Biểu mẫu ChangePassword -->
                     <div class="change-password-form">
                         <h3>Change Password</h3>
+                        @if (ViewBag.ChangePasswordSuccess != null)
+                        {
+                            <div class="alert alert-success" role="alert">
+                                @ViewBag.ChangePasswordSuccess
+                            </div>
+                        }
                         <form method="post" asp-controller="Account" asp-action="ChangePassword">
                             <div class="form-group">
-                                <label for="Name">Name:</label>
-                                <input type="text" id="name" name="name" value="@user.name" readonly />
+                                <label for="UserName">UserName:</label>
+                                <input type="text" id="UserName" name="UserName" value="@user.username" readonly />
                             </div>
 
                             <div class="form-group">
                                 <label for="old_password">Old Password:</label>
-                                <input type="password" id="old_password" name="old_password" value="@user.password" />
+                                <input type="password" id="old_password" name="old_password" required />
                             </div>
 
                             <div class="form-group">

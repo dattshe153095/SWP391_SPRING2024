@@ -68,18 +68,25 @@ namespace WebClient.Controllers
         }
 
         [HttpPost]
-        public IActionResult ChangePassword(string new_password, string confirmPassword, string captcha)
+        public IActionResult ChangePassword(string new_password, string confirmPassword, string captcha,string old_password)
         {
             if ( HttpContext.Session.GetString("CaptchaChangePass") != captcha) { return RedirectToAction("Profile", "Account"); }
             if (HttpContext.Session.GetInt32("Account") != null)
             {
                 int? id = HttpContext.Session.GetInt32("Account");
                 Account account = AccountDAO.GetAccountWithId(id);
+                if (!old_password.Equals(account.password))
+                {
+
+                    return RedirectToAction("Profile", "Account");
+
+                }
                 if (new_password.Equals(confirmPassword))
                 {
                     account.password = new_password;
                     AccountDAO.UpdateAccount(account);
                 }
+                ViewBag.ChangePasswordSuccess = "Mật khẩu đã được đổi thành công.";
                 return RedirectToAction("Profile", "Account");
 
             }
