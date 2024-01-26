@@ -10,6 +10,7 @@ namespace BussinessObject
     {
         public Web_Trung_GianContext()
         {
+
         }
 
         public Web_Trung_GianContext(DbContextOptions<Web_Trung_GianContext> options)
@@ -17,6 +18,7 @@ namespace BussinessObject
         {
         }
 
+       
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var builder = new ConfigurationBuilder()

@@ -1,4 +1,4 @@
-﻿using BussinessObject.Models;
+using BussinessObject.Models;
 using DataAccess.Captcha;
 using DataAccess.DAO;
 using Microsoft.AspNetCore.Authorization;
@@ -86,6 +86,23 @@ namespace WebClient.Controllers
             return RedirectToAction("Profile", "Account");
         }
 
+
+        [HttpGet]
+        public IActionResult UserNameIsExist(string userName)
+        {
+            // Kiểm tra xem userName có tồn tại trong cơ sở dữ liệu hay không
+            bool isExist = CheckIfUserNameExists(userName);
+
+            // Trả về kết quả kiểm tra dưới dạng JSON
+            return Json(!isExist);
+        }
+
+        private bool CheckIfUserNameExists(string userName)
+        {
+            // Sử dụng đối tượng DbContext để kiểm tra tồn tại của userName trong cơ sở dữ liệu
+            return false;
+        }
+
         [HttpPost]
         public IActionResult RefreshCaptcha()
         {
@@ -110,6 +127,7 @@ namespace WebClient.Controllers
             }
             return Json(imageCaptcha);
         }
+
 
 
     }

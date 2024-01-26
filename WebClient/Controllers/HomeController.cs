@@ -12,6 +12,9 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
 using WebClient.ViewModel;
+using BussinessObject;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
 using DataAccess.MailSender;
 using Microsoft.AspNetCore.Identity;
 
@@ -85,8 +88,8 @@ namespace WebClient.Controllers
 
                 var claims = new List<Claim>
                 {
-                   new Claim(ClaimTypes.Name, username),
-                   new Claim(ClaimTypes.Role, role)
+                        new Claim(ClaimTypes.Name, username),
+                        new Claim(ClaimTypes.Role, role)
                 };
 
                 var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -131,6 +134,24 @@ namespace WebClient.Controllers
         [HttpGet]
         public IActionResult Register()
         {
+            Captcha oCaptcha = new Captcha();
+            Random rnd = new Random();
+            string[] s = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" };
+            int i;
+            StringBuilder sb = new StringBuilder(4);
+            for (i = 0; i <= 4; i++)
+            {
+                sb.Append(s[rnd.Next(1, s.Length)]);
+            }
+            Bitmap bm = oCaptcha.MakeCaptchaImage(sb.ToString(), 200, 100, "Arial");
+
+            using (MemoryStream ms = new MemoryStream())
+            {
+                bm.Save(ms, ImageFormat.Png);
+                byte[] imageBytes = ms.ToArray();
+                ViewBag.CaptchaImageBytes = Convert.ToBase64String(imageBytes);
+            }
+
             return View();
         }
 
@@ -145,12 +166,13 @@ namespace WebClient.Controllers
                     name = model.Name,
                     username = model.Username,
                     email = model.Email,
-                    phone = model.Phone,
                     password = model.Password,
-                    role_id = 2,
-                };
-                AccountDAO.Register(account);
-                return RedirectToAction("Index", "Home");
+                    phone = model.Phone,
+                    role_id=2
+                };  
+
+                
+                return RedirectToAction("Login", "Home");
             }
             else
             {
