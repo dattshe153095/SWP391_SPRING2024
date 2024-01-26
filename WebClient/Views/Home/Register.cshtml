@@ -83,11 +83,13 @@
                                                     @Html.LabelFor(temp => temp.Email)
                                                     @Html.TextBoxFor(temp => temp.Email, new { placeholder = "Email", @class = "form-control form-control-lg" })
                                                     @Html.ValidationMessageFor(temp => temp.Email)
+                                                    <button type="button" onclick="sendEmail()">Send Email</button> <!-- Thêm nút gửi email -->
                                                 </div>
                                                 <div class="form-outline mb-6">
                                                     @Html.LabelFor(temp => temp.Phone)
                                                     @Html.TextBoxFor(temp => temp.Phone, new { placeholder = "Phone", @class = "form-control form-control-lg" })
                                                     @Html.ValidationMessageFor(temp => temp.Phone)
+                                                    
                                                 </div>
                                                 <div class="password-fields-row">
                                                     <div class="form-outline mb-6" style="margin-right: 15px">
@@ -102,29 +104,14 @@
                                                     </div>
                                                 </div>
                                                 <div class="captcha-div">
-
-                                                    <div class="input-group">
-                                                        <input type="text" id="captcha" name="captcha" class="captcha-form form-control" placeholder="Enter captcha here">
-                                                        <span class="input-group-text" id="refresh-captcha">
-                                                            <button>
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                                                     class="bi bi-arrow-counterclockwise" viewBox="0 0 16 16">
-                                                                    <path fill-rule="evenodd"
-                                                                          d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2z"></path>
-                                                                    <path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466">
-                                                                    </path>
-                                                                </svg>
-                                                            </button>
-                                                        </span>
-                                                    </div>
-
-
                                                     <span id="Captcha-image">
-                                                        <div class="center-container">
-                                                            <img src="data:image/png;base64,@ViewBag.CaptchaImageBytes"
-                                                                 alt="Captcha Image" class="center-image" />
-                                                        </div>
+                                                        <img id="captchaImage" src="data:image/png;base64,@ViewBag.CaptchaImageBytes"
+                                                             alt="Captcha Image" />
                                                     </span>
+                                                    <div class="input-group">
+                                                        <input type="text" id="captcha" name="captcha" class="captcha-form form-control" placeholder="Input capcha" required>
+                                                        <button type="button" id="refreshCaptcha"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+                                                    </div>
                                                 </div>
 
                                             </div>
@@ -137,7 +124,7 @@
                     </div>
                 </div>
             </section>
-            <button type="button" onclick="sendEmail()">Send Email</button> <!-- Thêm nút gửi email -->
+           
     </div>
     </main>
     </div>
@@ -150,6 +137,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://kit.fontawesome.com/6ae4d71e22.js" crossorigin="anonymous"></script>
 </body>
 
 <script>
@@ -167,6 +155,21 @@
             },
             error: function (error) {
                 // Xử lý lỗi nếu có
+                console.log(error);
+            }
+        });
+    }
+    function refreshCaptchaImage() {
+        $.ajax({
+
+            type: "POST",
+            url: "/Home/RefreshCaptchaLogin", // Thay thế bằng đường dẫn của action cập nhật captcha
+            success: function (result) {
+                // Cập nhật ảnh captcha mới
+                $("#captchaImage").attr("src", "data:image/png;base64," + result);
+                $('#captcha').val('');
+            },
+            error: function (error) {
                 console.log(error);
             }
         });
