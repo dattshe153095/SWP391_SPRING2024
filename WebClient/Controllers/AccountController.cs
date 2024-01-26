@@ -56,16 +56,6 @@ namespace WebClient.Controllers
             return RedirectToAction("Profile", "Account");
         }
 
-        [HttpGet]
-
-        public IActionResult ChangePassword()
-        {
-
-
-
-
-            return RedirectToAction("Profile", "Account");
-        }
 
         [HttpPost]
         public IActionResult ChangePassword(string new_password, string confirmPassword, string captcha)
