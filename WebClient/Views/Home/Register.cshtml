@@ -17,7 +17,14 @@
     <title>@ViewData["Title"] Trade&DealHub Registration </title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/Home/Index.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Home/Register.css" asp-append-version="true" />
+    <style>
+        
+        img{
+            border: 2px solid #3498db; /* Màu và kích thước của viền */
+            border-radius: 8px; /* Đường cong góc của viền (tuỳ chọn) */
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -49,47 +56,88 @@
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="container-fluid">
         <main role="main" class="pb-3">
+            <section class="vh-100 bg-image"
+                     style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
+                <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+                    <div class="container h-100">
+                        <div class="row d-flex justify-content-center align-items-center h-100">
+                            <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+                                <div class="card" style="border-radius: 15px;">
+                                    <div class="card-body p-5">
+                                        <h2 class="text-uppercase text-center mb-6">Create an account</h2>
+                                        <form style="display: grid" method="post" asp-controller="Home" asp-action="Register">
+                                            <div class="row">
+                                                <div class="form-outline mb-6">
+                                                    @Html.LabelFor(temp => temp.Name)
+                                                    @Html.TextBoxFor(temp => temp.Name, new { placeholder = "Name", @class = "form-control form-control-lg" })
+                                                    @Html.ValidationMessageFor(temp => temp.Name)
+                                                </div>
+                                                <div class="form-outline mb-6">
+                                                    @Html.LabelFor(temp => temp.Username)
+                                                    @Html.TextBoxFor(temp => temp.Username, new { placeholder = "Username", @class = "form-control form-control-lg" })
+                                                    @Html.ValidationMessageFor(temp => temp.Username)
+                                                </div>
+                                                <div class="form-outline mb-6">
+                                                    @Html.LabelFor(temp => temp.Email) 
+                                                    @Html.TextBoxFor(temp => temp.Email, new { placeholder = "Email", @class = "form-control form-control-lg" })
+                                                    @Html.ValidationMessageFor(temp => temp.Email)
+                                                </div>
+                                                <div class="form-outline mb-6">
+                                                    @Html.LabelFor(temp => temp.Phone)
+                                                    @Html.TextBoxFor(temp => temp.Phone, new { placeholder = "Phone", @class = "form-control form-control-lg" })
+                                                    @Html.ValidationMessageFor(temp => temp.Phone)
+                                                </div>
+                                                <div class="password-fields-row">
+                                                    <div class="form-outline mb-6" style="margin-right: 15px">
+                                                        @Html.LabelFor(model => model.Password)
+                                                        @Html.PasswordFor(model => model.Password, new { placeholder = "Password", @class = "form-control form-control-lg" })
+                                                        @Html.ValidationMessageFor(model => model.Password)
+                                                    </div>
+                                                    <div class="form-outline mb-6">
+                                                        @Html.LabelFor(model => model.ConfirmPassword)  <!-- Corrected typo here -->
+                                                        @Html.PasswordFor(model => model.ConfirmPassword, new { placeholder = "Confirm Password", @class = "form-control form-control-lg" })
+                                                        @Html.ValidationMessageFor(model => model.ConfirmPassword)
+                                                    </div>
+                                                </div>
+                                                <div class="captcha-div">
+                                                    
+                                                    <div class="input-group">
+                                                        <input type="text" id="captcha" name="captcha" class="captcha-form form-control" placeholder="Enter captcha here">
+                                                        <span class="input-group-text" id="refresh-captcha">
+                                                            <button>
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                                                     class="bi bi-arrow-counterclockwise" viewBox="0 0 16 16">
+                                                                    <path fill-rule="evenodd"
+                                                                          d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2z"></path>
+                                                                    <path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466">
+                                                                    </path>
+                                                                </svg>
+                                                            </button>
+                                                        </span>
+                                                    </div>
 
-            <div class="text-center">
-                <form method="post" asp-controller="Home" asp-action="Register">
-                    <div class="row">
-                        <div class="col-md-6">
-                            @Html.LabelFor(temp => temp.Name)
-                            @Html.TextBoxFor(temp => temp.Name, new { placeholder = "Name", @class = "form-control" })
-                            @Html.ValidationMessageFor(temp => temp.Name)
-                        </div>
-                        <div class="col-md-6">
-                            @Html.LabelFor(temp => temp.Username)
-                            @Html.TextBoxFor(temp => temp.Username, new { placeholder = "Username", @class = "form-control" })
-                            @Html.ValidationMessageFor(temp => temp.Username)
-                        </div>
-                        <div class="col-md-6">
-                            @Html.LabelFor(temp => temp.Email)
-                            @Html.TextBoxFor(temp => temp.Email, new { placeholder = "Email", @class = "form-control" })
-                            @Html.ValidationMessageFor(temp => temp.Email)
-                        </div>
-                        <div class="col-md-6">
-                            @Html.LabelFor(temp => temp.Phone)
-                            @Html.TextBoxFor(temp => temp.Phone, new { placeholder = "Phone", @class = "form-control" })
-                            @Html.ValidationMessageFor(temp => temp.Phone)
-                        </div>
-                        <div class="col-md-6">
-                            @Html.LabelFor(temp => temp.Password)
-                            @Html.PasswordFor(temp => temp.Password, new { placeholder = "Password", @class = "form-control" })
-                            @Html.ValidationMessageFor(temp => temp.Password)
-                        </div>
-                        <div class="col-md-6">
-                            @Html.LabelFor(temp => temp.ConnfirmPassword)
-                            @Html.PasswordFor(temp => temp.ConnfirmPassword, new { placeholder = "Confirm Password", @class = "form-control" })
-                            @Html.ValidationMessageFor(temp => temp.ConnfirmPassword)
-                        </div>
+                                                    <span id="Captcha-image">
+                                                        <div class="center-container">
+                                                            <img src="data:image/png;base64,@ViewBag.CaptchaImageBytes"
+                                                                 alt="Captcha Image" class="center-image" />
+                                                        </div>
+                                                    </span>
+                                                </div>
 
+                                            </div>
+                                            <button type="submit" class="btn btn-success">Register</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <button type="submit" class="btn btn-success">Register</button>
-                </form>
-            </div>
+                </div>
+                
+            </section>
+                
         </main>
     </div>
 

@@ -1,0 +1,29 @@
+﻿.gradient-custom-3 {
+    /* fallback for old browsers */
+    background: #ffd8ed;
+    /* Chrome 10-25, Safari 5.1-6 */
+    
+}
+
+.gradient-custom-4 {
+    /* fallback for old browsers */
+    background: #ffd8ed;
+    /* Chrome 10-25, Safari 5.1-6 */
+   
+}
+
+.center-container {
+    text-align: center;
+}
+
+.center-image {
+    display: inline-block;
+    /* Thêm các thuộc tính CSS khác tùy thuộc vào yêu cầu của bạn */
+}
+
+.password-fields-row {
+    display: flex;
+    justify-content: space-between; /* Adjust as needed */
+    align-items: center; /* Adjust vertical alignment as needed */
+}
+
