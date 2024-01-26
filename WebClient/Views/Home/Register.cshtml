@@ -19,9 +19,9 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/Home/Register.css" asp-append-version="true" />
     <style>
-        
-        img{
-            border: 2px solid #3498db; 
+
+        img {
+            border: 2px solid #3498db;
             border-radius: 8px; /* Đường cong góc của viền (tuỳ chọn) */
         }
     </style>
@@ -80,7 +80,7 @@
                                                     @Html.ValidationMessageFor(temp => temp.Username)
                                                 </div>
                                                 <div class="form-outline mb-6">
-                                                    @Html.LabelFor(temp => temp.Email) 
+                                                    @Html.LabelFor(temp => temp.Email)
                                                     @Html.TextBoxFor(temp => temp.Email, new { placeholder = "Email", @class = "form-control form-control-lg" })
                                                     @Html.ValidationMessageFor(temp => temp.Email)
                                                 </div>
@@ -102,7 +102,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="captcha-div">
-                                                    
+
                                                     <div class="input-group">
                                                         <input type="text" id="captcha" name="captcha" class="captcha-form form-control" placeholder="Enter captcha here">
                                                         <span class="input-group-text" id="refresh-captcha">
@@ -127,46 +127,6 @@
                                                     </span>
                                                 </div>
 
-            <div class="text-center">
-                <form method="post" asp-controller="Home" asp-action="Register">
-                    <div class="row">
-                        <div class="col-md-6">
-                            @Html.LabelFor(temp => temp.Name)
-                            @Html.TextBoxFor(temp => temp.Name, new { placeholder = "Name", @class = "form-control" })
-                            @Html.ValidationMessageFor(temp => temp.Name)
-                        </div>
-                        <div class="col-md-6">
-                            @Html.LabelFor(temp => temp.Username)
-                            @Html.TextBoxFor(temp => temp.Username, new { placeholder = "Username", @class = "form-control" })
-                            @Html.ValidationMessageFor(temp => temp.Username)
-                        </div>
-                        <div class="col-md-6">
-                            @Html.LabelFor(temp => temp.Email)
-                            @Html.TextBoxFor(temp => temp.Email, new { id = "email", placeholder = "Email", @class = "form-control" })
-                            @Html.ValidationMessageFor(temp => temp.Email)
-                        </div>
-                        <div class="col-md-6">
-                            @Html.LabelFor(temp => temp.CodeValidate)
-                            @Html.TextBoxFor(temp => temp.CodeValidate, new { placeholder = "Code Validate", @class = "form-control" })
-                            @Html.ValidationMessageFor(temp => temp.CodeValidate)
-                        </div>
-                        <div class="col-md-6">
-                            @Html.LabelFor(temp => temp.Phone)
-                            @Html.TextBoxFor(temp => temp.Phone, new { placeholder = "Phone", @class = "form-control" })
-                            @Html.ValidationMessageFor(temp => temp.Phone)
-                        </div>
-                        <div class="col-md-6">
-                            @Html.LabelFor(temp => temp.Password)
-                            @Html.PasswordFor(temp => temp.Password, new { placeholder = "Password", @class = "form-control" })
-                            @Html.ValidationMessageFor(temp => temp.Password)
-                        </div>
-                        <div class="col-md-6">
-                            @Html.LabelFor(temp => temp.ConnfirmPassword)
-                            @Html.PasswordFor(temp => temp.ConnfirmPassword, new { placeholder = "Confirm Password", @class = "form-control" })
-                            @Html.ValidationMessageFor(temp => temp.ConnfirmPassword)
-                        </div>
-
-
                                             </div>
                                             <button type="submit" class="btn btn-success">Register</button>
                                         </form>
@@ -176,15 +136,10 @@
                         </div>
                     </div>
                 </div>
-                
             </section>
-                
-                    <button type="submit" class="btn btn-success">Register</button>
-                </form>
-
-                <button type="button" onclick="sendEmail()">Send Email</button> <!-- Thêm nút gửi email -->
-            </div>
-        </main>
+            <button type="button" onclick="sendEmail()">Send Email</button> <!-- Thêm nút gửi email -->
+    </div>
+    </main>
     </div>
 
     <footer class="border-top footer text-muted">
