@@ -49,7 +49,7 @@ namespace DataAccess.Captcha
             br = new HatchBrush(HatchStyle.LargeConfetti, Color.LightGray, Color.DarkGray);
             gr.FillPath(br, graphics_path);
 
-            // Mess things up a bit.
+            // Mess things up
             int max_dimension = System.Math.Max(width, hight);
             for (int i = 0; i <= (int)width * hight / 30; i++)
             {
