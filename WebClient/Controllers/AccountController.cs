@@ -68,9 +68,9 @@ namespace WebClient.Controllers
         }
 
         [HttpPost]
-        public IActionResult ChangePassword(string new_password, string confirmPassword, string captcha,string old_password)
+        public IActionResult ChangePassword(string new_password, string confirmPassword, string captcha, string old_password)
         {
-            if ( HttpContext.Session.GetString("CaptchaChangePass") != captcha) { return RedirectToAction("Profile", "Account"); }
+            if (HttpContext.Session.GetString("CaptchaChangePass") != captcha) { return RedirectToAction("Profile", "Account"); }
             if (HttpContext.Session.GetInt32("Account") != null)
             {
                 int? id = HttpContext.Session.GetInt32("Account");
@@ -107,7 +107,8 @@ namespace WebClient.Controllers
         private bool CheckIfUserNameExists(string userName)
         {
             // Sử dụng đối tượng DbContext để kiểm tra tồn tại của userName trong cơ sở dữ liệu
-            return false;
+            Account account = AccountDAO.GetAccountWithUser(userName);
+            return account == null ? false : true;
         }
 
         [HttpPost]
