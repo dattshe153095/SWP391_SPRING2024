@@ -112,5 +112,10 @@ namespace DataAccess.DAO
         {
             return GetAllAccount().Where(x => x.username.Contains(username.Trim())).ToList();
         }
+
+        public static Account GetAccountWithUser(string? username)
+        {
+            return GetAllAccount().FirstOrDefault(x => x.username == username);
+        }
     }
 }
