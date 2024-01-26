@@ -10,6 +10,7 @@ namespace BussinessObject
     {
         public Web_Trung_GianContext()
         {
+
         }
 
         public Web_Trung_GianContext(DbContextOptions<Web_Trung_GianContext> options)
@@ -17,6 +18,7 @@ namespace BussinessObject
         {
         }
 
+       
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var builder = new ConfigurationBuilder()
@@ -25,7 +27,7 @@ namespace BussinessObject
             IConfigurationRoot configuration = builder.Build();
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("server=localhost;database=Web_Trung_Gian;uid=sa;pwd=123;TrustServerCertificate=True;");
+                optionsBuilder.UseSqlServer("server=localhost;database=Web_Trung_Gian;uid=sa;pwd=123e456;TrustServerCertificate=True;");
             }
         }
 

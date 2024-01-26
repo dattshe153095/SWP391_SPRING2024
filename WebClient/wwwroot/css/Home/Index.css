@@ -10,7 +10,9 @@ a.navbar-brand {
 a {
     color: #0077cc;
 }
-
+header {
+    background-color: #fe9fe5;
+}
 .btn-primary {
     color: #fff;
     background-color: #1b6ec2;
@@ -41,9 +43,28 @@ button.accept-policy {
 }
 
 .footer {
+    background-color: #ff9de5;
     position: absolute;
     bottom: 0;
     width: 100%;
     white-space: nowrap;
     line-height: 60px;
+    margin-top: 29px;
 }
+.body {
+    background-image: url('/image/Trade&DealHub.png'); /* Replace 'path/to/your/image.jpg' with the actual path to your image file */
+    background-size: cover; /* Ensures the background image covers the entire body */
+    background-position: center; /* Centers the background image */
+    background-repeat: no-repeat; /* Prevents the background image from repeating */
+}
+header nav div a {
+    color: black;
+}
+
+body {
+    background-color: #ffd8ed;
+}
+div main div img{
+height: 785px;
+}
+

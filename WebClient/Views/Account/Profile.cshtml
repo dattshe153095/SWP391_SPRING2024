@@ -13,16 +13,16 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - WebClient</title>
+    <title>@ViewData["Title"] - Acoount Profile</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/Account/Profile.css" asp-append-version="true" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WebClient</a>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3">
+            <div class="container-fluid"> 
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Trade&Deal Hub </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -94,12 +94,12 @@
 
                             <div class="form-group">
                                 <label for="name">Name:</label>
-                                <input type="text" id="name" name="name" value="@user.name" />
+                                <input type="text" id="name" name="name" value="@user.name" required/>
                             </div>
 
                             <div class="form-group">
                                 <label for="name">Phone Number:</label>
-                                <input type="text" id="phone" name="phone" value="@user.phone" />
+                                <input type="text" id="phone" name="phone" value="@user.phone" required />
                             </div>
 
                             <div class="form-group">
@@ -109,7 +109,7 @@
 
                             <div class="form-group">
                                 <label for="description">Description:</label>
-                                <input type="text" id="description" name="description" value="@user.description" placeholder="Giới thiệu bản thân" />
+                                <input type="text" id="description" name="description" value="@user.description" placeholder="Giới thiệu bản thân" required />
                             </div>
 
 
@@ -121,25 +121,31 @@
                     <!-- Biểu mẫu ChangePassword -->
                     <div class="change-password-form">
                         <h3>Change Password</h3>
+                        @if (ViewBag.ChangePasswordSuccess != null)
+                        {
+                            <div class="alert alert-success" role="alert">
+                                @ViewBag.ChangePasswordSuccess
+                            </div>
+                        }
                         <form method="post" asp-controller="Account" asp-action="ChangePassword">
                             <div class="form-group">
-                                <label for="Name">Name:</label>
-                                <input type="text" id="name" name="name" value="@user.name" readonly />
+                                <label for="UserName">UserName:</label>
+                                <input type="text" id="UserName" name="UserName" value="@user.username" readonly />
                             </div>
 
                             <div class="form-group">
                                 <label for="old_password">Old Password:</label>
-                                <input type="password" id="old_password" name="old_password" value="@user.password" />
+                                <input type="password" id="old_password" name="old_password" required />
                             </div>
 
                             <div class="form-group">
                                 <label for="new_password">Password:</label>
-                                <input type="password" id="new_password" name="new_password" placeholder="New Password" />
+                                <input type="password" id="new_password" name="new_password" placeholder="New Password" required />
                             </div>
 
                             <div class="form-group">
                                 <label for="confirmPassword">Confirm Password:</label>
-                                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Re-type new Password" />
+                                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Re-type new Password" required />
                             </div>
 
                             
@@ -164,7 +170,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - WebClient - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2024 - Trade Deal Hub - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -187,6 +193,7 @@
             success: function (result) {
                 // Cập nhật ảnh captcha mới
                 $("#captchaImage").attr("src", "data:image/png;base64," + result);
+                $('#captcha').val('');
             },
             error: function (error) {
                 console.log(error);

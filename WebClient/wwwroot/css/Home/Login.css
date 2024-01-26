@@ -1,5 +1,4 @@
-﻿
-.profile-image-pic {
+﻿.profile-image-pic {
     height: 200px;
     width: 200px;
     object-fit: cover;
@@ -18,4 +17,21 @@
     display: flex;
     justify-content: space-evenly;
 }
-
+header nav div a{
+    color: black;
+}
+body {
+    background-color: #ffd8ed;
+}
+footer {
+    background-color: #ff9de5;
+    margin-top: 29px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px;
+}
+header{
+    background-color: #fe9fe5;
+}
