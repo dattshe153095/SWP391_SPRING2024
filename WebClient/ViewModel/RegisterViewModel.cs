@@ -22,7 +22,11 @@ namespace WebClient.ViewModel
         [EmailAddress(ErrorMessage ="Invalid Email")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "Please enter mobile number")]
+       
+        [Required(ErrorMessage = "Code cannot be blank")]
+        public string CodeValidate { get; set; }
+
+         [Required(ErrorMessage = "Please enter mobile number")]
         [Display(Name = "Mobile Number")]
         [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Mobile number is not valid.")]
         public string Phone { get; set; }

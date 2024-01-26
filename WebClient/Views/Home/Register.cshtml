@@ -118,6 +118,7 @@
                                                         </span>
                                                     </div>
 
+
                                                     <span id="Captcha-image">
                                                         <div class="center-container">
                                                             <img src="data:image/png;base64,@ViewBag.CaptchaImageBytes"
@@ -125,6 +126,46 @@
                                                         </div>
                                                     </span>
                                                 </div>
+
+            <div class="text-center">
+                <form method="post" asp-controller="Home" asp-action="Register">
+                    <div class="row">
+                        <div class="col-md-6">
+                            @Html.LabelFor(temp => temp.Name)
+                            @Html.TextBoxFor(temp => temp.Name, new { placeholder = "Name", @class = "form-control" })
+                            @Html.ValidationMessageFor(temp => temp.Name)
+                        </div>
+                        <div class="col-md-6">
+                            @Html.LabelFor(temp => temp.Username)
+                            @Html.TextBoxFor(temp => temp.Username, new { placeholder = "Username", @class = "form-control" })
+                            @Html.ValidationMessageFor(temp => temp.Username)
+                        </div>
+                        <div class="col-md-6">
+                            @Html.LabelFor(temp => temp.Email)
+                            @Html.TextBoxFor(temp => temp.Email, new { id = "email", placeholder = "Email", @class = "form-control" })
+                            @Html.ValidationMessageFor(temp => temp.Email)
+                        </div>
+                        <div class="col-md-6">
+                            @Html.LabelFor(temp => temp.CodeValidate)
+                            @Html.TextBoxFor(temp => temp.CodeValidate, new { placeholder = "Code Validate", @class = "form-control" })
+                            @Html.ValidationMessageFor(temp => temp.CodeValidate)
+                        </div>
+                        <div class="col-md-6">
+                            @Html.LabelFor(temp => temp.Phone)
+                            @Html.TextBoxFor(temp => temp.Phone, new { placeholder = "Phone", @class = "form-control" })
+                            @Html.ValidationMessageFor(temp => temp.Phone)
+                        </div>
+                        <div class="col-md-6">
+                            @Html.LabelFor(temp => temp.Password)
+                            @Html.PasswordFor(temp => temp.Password, new { placeholder = "Password", @class = "form-control" })
+                            @Html.ValidationMessageFor(temp => temp.Password)
+                        </div>
+                        <div class="col-md-6">
+                            @Html.LabelFor(temp => temp.ConnfirmPassword)
+                            @Html.PasswordFor(temp => temp.ConnfirmPassword, new { placeholder = "Confirm Password", @class = "form-control" })
+                            @Html.ValidationMessageFor(temp => temp.ConnfirmPassword)
+                        </div>
+
 
                                             </div>
                                             <button type="submit" class="btn btn-success">Register</button>
@@ -138,6 +179,11 @@
                 
             </section>
                 
+                    <button type="submit" class="btn btn-success">Register</button>
+                </form>
+
+                <button type="button" onclick="sendEmail()">Send Email</button> <!-- Thêm nút gửi email -->
+            </div>
         </main>
     </div>
 
@@ -150,4 +196,26 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 </body>
+
+<script>
+    function sendEmail() {
+        var email = $("#email").val();
+
+        $.ajax({
+            type: "POST", // hoặc "GET" tùy thuộc vào loại yêu cầu của bạn
+            url: "/Home/SendEmail", // Thay thế bằng đường dẫn của action bạn muốn gọi
+            data: { email: email },
+            success: function (result) {
+                // Xử lý kết quả từ action nếu cần
+                console.log(result);
+                alert("Email Have Send Check Email To Get Code");
+            },
+            error: function (error) {
+                // Xử lý lỗi nếu có
+                console.log(error);
+            }
+        });
+    }
+</script>
+
 </html>

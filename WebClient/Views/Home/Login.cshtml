@@ -1,4 +1,4 @@
-@using WebClient
+﻿@using WebClient
 @using WebClient.Models
 @using AspNetCore.ReCaptcha
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/WebClient.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/Home/Index.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Home/Login.css" asp-append-version="true" />
 </head>
 <body>
     <header>
@@ -32,6 +32,8 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                    </ul>
+                    <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Login</a>
                         </li>
@@ -43,21 +45,55 @@
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            <form style="display: grid" method="post" asp-controller="Home" asp-action="Login">
-                <input type="text" placeholder="Username" id="username" name="username" />
 
-                <input type="password" placeholder="Password" id="password" name="password" />
-                <label><input type="checkbox" /> Remember me</label>
-                <img src="data:image/png;base64,@ViewBag.CaptchaImageBytes" alt="Captcha Image" />
-                <input type="text" placeholder="Captcha" id="captcha" />
-                <input type="submit" value="Login" />
-                @Html.ActionLink("Create an Acount","Register", "Home")
-                <div>
-                    <a asp-action="ForgotPassword">Forgot Password?</a>
+    <div class="container">
+        <main class="row" role="main" class="pb-3">
+            <div class="col-md-6 offset-md-3">
+                <div class="card my-5">
+
+                    <form method="post" asp-controller="Home" asp-action="Login"
+                          class="card-body cardbody-color p-lg-5">
+
+                        <div class="text-center">
+                            <img src="~/image/rose.jpg"
+                                 class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3" width="200px"
+                                 alt="profile">
+                        </div>
+
+                        <div class="mb-3">
+                            <input type="text" placeholder="Username" id="username" class="form-control" name="username" />
+                            <div class="a-alert-content" id="usernameError" style="color: red;"></div>
+
+                        </div>
+                        <div class="mb-3">
+                            <input type="password" placeholder="Password" id="password" class="form-control" name="password" />
+                            <div class="a-alert-content" id="passwordError" style="color: red;"></div>
+                        </div>
+                        <div class="captcha-div">
+                            <span id="Captcha-image">
+                                <img id="captchaImage" src="data:image/png;base64,@ViewBag.CaptchaImageBytes"
+                                     alt="Captcha Image" />
+                            </span>
+                            <div class="input-group">
+                                <input type="text" id="captcha" name="captcha" class="captcha-form form-control" placeholder="Input capcha">
+                                <div class="a-alert-content" id="captchaError" style="color: red;"></div>
+                                <button type="button" id="refreshCaptcha"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <input value="Login" type="submit"
+                                   class="btn btn-color px-5 mb-5 w-100"></input>
+                        </div>
+                        <div id="emailHelp" class="form-text text-center mb-5 text-dark">
+                            @Html.ActionLink("Register", "Register", "Home")
+                            <div>
+                                <a asp-action="ForgotPassword">Forgot Password?</a>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-            </form>
+
+            </div>
         </main>
     </div>
 
@@ -69,5 +105,6 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://kit.fontawesome.com/6ae4d71e22.js" crossorigin="anonymous"></script>
 </body>
 </html>

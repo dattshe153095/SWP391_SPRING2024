@@ -84,9 +84,11 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
-
             <div class="text-center" id="accountTable">
-                <table>
+                <label for="searchUsername">Search by Username:</label>
+                <input type="text" id="searchUsername" />
+                <button type="button" onclick="searchByUsername()">Search</button>
+                <table id="accountTableBody">
                     <tr>
                         <th>ID</th>
                         <th>Name</th>
@@ -98,9 +100,7 @@
                         <th>Updated At</th>
                         <th>ID Role</th>
                         <th>Is Delete</th>
-                        <th>Delete</th>
                         <th>View Account</th>
-                        <th>Delete Account</th>
                     </tr>
                     @{
                         foreach (Account a in accounts)
@@ -116,17 +116,17 @@
                                 <td>@a.update_at</td>
                                 <td>@a.role_id</td>
                                 <td>@a.is_delete</td>
-                                <td><a asp-controller="ManageUser" asp-action="DeleteAccount">Delete</a></td>
                                 <td><a asp-controller="ManageUser" asp-action="UserDetail" asp-route-userId="@a.id">Detail</a></td>
-                                <td><a href="#" id="deleteAction" data-id="@a.id">Delete</a></td>
                             </tr>
                         }
                     }
 
                 </table>
+            </div>
+
         </main>
     </div>
-    </div>
+
 
     <footer class="border-top footer text-muted">
         <div class="container">
@@ -139,35 +139,46 @@
 </body>
 
 <script>
-    $(document).ready(function () {
-        console.log("Script is running...");
-        $("#deleteAction").click(function (e) {
-            e.preventDefault();
-            var userId = $(this).data("id");
+    function searchByUsername() {
+        var username = $("#searchUsername").val();
 
-            var nameElement = document.getElementById("name");
-            var nameValue = nameElement.getAttribute("data-name");
-
-            var userConfirmed = confirm("Are you sure you want delete " + nameValue + " ?");
-            if (userConfirmed) {
-                $.ajax({
-                    url: '/ManageUser/DeleteAccount?userId=' + userId,
-                    type: 'POST',
-                    success: function (data) {
-                        if (data.success) {
-                            // Xóa dòng chứa thông tin tài khoản khỏi bảng
-                            $('#accountTable #row_' + userId).remove();
-                        } else {
-                            alert('Xóa không thành công. Lỗi: ' + data.error);
-                        }
-                    },
-                    error: function () {
-                        alert('Đã xảy ra lỗi khi gửi yêu cầu xóa.');
-                    }
-                });
+        $.ajax({
+            type: "GET",
+            url: "/ManageUser/SearchByUsername",
+            data: { username: username },
+            success: function (result) {
+                updateTable(result);
+            },
+            error: function (error) {
+                console.log(error);
             }
         });
-    });
+    }
+
+    function updateTable(result) {
+        var tableBody = $("#accountTableBody");
+        tableBody.empty(); // Xóa tất cả các dòng hiện tại trong bảng
+        console.log(result);
+        for (var i = 0; i < result.length; i++) {
+            var account = result[i];
+
+            var row = "<tr id='row_" + account.id + "'>" +
+                "<td>" + account.id + "</td>" +
+                "<td id='name' data-name='" + account.name + "'>" + account.name + "</td>" +
+                "<td>" + account.username + "</td>" +
+                "<td>" + account.email + "</td>" +
+                "<td>" + account.password + "</td>" +
+                "<td>" + account.description + "</td>" +
+                "<td>" + account.create_at + "</td>" +
+                "<td>" + account.update_at + "</td>" +
+                "<td>" + account.role_id + "</td>" +
+                "<td>" + account.is_delete + "</td>" +
+                "<td><a asp-controller='ManageUser' asp-action='UserDetail' asp-route-userId='" + account.id + "'>Detail</a></td>" +
+                "</tr>";
+
+            tableBody.append(row); // Thêm các dòng mới từ kết quả tìm kiếm
+        }
+    }
 </script>
 
 </html>

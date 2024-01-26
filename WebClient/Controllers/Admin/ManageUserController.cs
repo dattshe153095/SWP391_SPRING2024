@@ -18,7 +18,7 @@ namespace WebClient.Controllers.Admin
         public IActionResult UserDetail(int userId)
         {
             Account account = AccountDAO.GetAccountWithId(userId);
-            
+
             ViewBag.Account = account;
             return View(account);
         }
@@ -28,6 +28,15 @@ namespace WebClient.Controllers.Admin
         {
             AccountDAO.DeleteAccount(userId);
             return Json(new { success = true });
+        }
+
+        public IActionResult SearchByUsername(string username)
+        {
+            // Thực hiện tìm kiếm theo tên người dùng
+            List<Account> result = AccountDAO.GetAccountWithUsername(username);
+
+            // Trả về kết quả dưới dạng JSON
+            return Json(result);
         }
     }
 }

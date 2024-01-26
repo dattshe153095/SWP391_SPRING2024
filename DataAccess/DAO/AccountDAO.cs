@@ -26,12 +26,17 @@ namespace DataAccess.DAO
 
         public static Account Login(string username, string password)
         {
-            return GetAllAccount().FirstOrDefault(x => x.username == username && x.password == password);
+            return GetAllAccount().FirstOrDefault(x => x.username == username && x.password == password);   
         }
 
         public static Account GetAccountWithId(int? id)
         {
             return GetAllAccount().FirstOrDefault(x => x.id == id);
+        }
+
+        public static Account GetAccountWithUsernameMail( string email)
+        {
+            return GetAllAccount().FirstOrDefault(x =>  x.email == email);
         }
 
         public static bool CheckAccountExist(string user)
@@ -101,6 +106,11 @@ namespace DataAccess.DAO
             {
                 throw new Exception("The category doesn't exist");
             }
+        }
+
+        public static List<Account> GetAccountWithUsername(string? username)
+        {
+            return GetAllAccount().Where(x => x.username.Contains(username.Trim())).ToList();
         }
     }
 }

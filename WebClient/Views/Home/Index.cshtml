@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/Home/Index.css" asp-append-version="true" />
+
 </head>
 <body>
     <header>
@@ -35,12 +36,16 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                    </ul>
+
+                    <ul class="navbar-nav ml-auto">
+                        <!-- Added ml-auto class here -->
                         @if (ViewBag.accountId == null)
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Login</a>
                             </li>
-                              <li class="nav-item">
+                            <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Register">Register</a>
                             </li>
                         }
@@ -53,12 +58,12 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Profile">@AccountDAO.GetAccountWithId(ViewBag.accountId).name</a>
                             </li>
                         }
-
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
+
     <div class="container">
         <main role="main" class="pb-3">
 
