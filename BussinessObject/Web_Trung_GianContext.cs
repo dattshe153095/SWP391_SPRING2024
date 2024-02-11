@@ -202,20 +202,20 @@ namespace BussinessObject
              );
 
             modelBuilder.Entity<Wallet>().HasData(
-                new Wallet { id = 1, balance = 0, account_id = 1, update_by = 1, update_at = DateTime.Now },
-                new Wallet { id = 2, balance = 0, account_id = 2, update_by = 2, update_at = DateTime.Now },
-                new Wallet { id = 3, balance = 0, account_id = 3, update_by = 3, update_at = DateTime.Now },
-                new Wallet { id = 4, balance = 0, account_id = 4, update_by = 4, update_at = DateTime.Now },
-                new Wallet { id = 5, balance = 0, account_id = 5, update_by = 5, update_at = DateTime.Now },
-                new Wallet { id = 6, balance = 0, account_id = 6, update_by = 6, update_at = DateTime.Now },
-                new Wallet { id = 7, balance = 0, account_id = 7, update_by = 7, update_at = DateTime.Now },
-                new Wallet { id = 8, balance = 0, account_id = 8, update_by = 8, update_at = DateTime.Now },
-                new Wallet { id = 9, balance = 0, account_id = 9, update_by = 9, update_at = DateTime.Now },
-                new Wallet { id = 10, balance = 0, account_id = 10, update_by = 10, update_at = DateTime.Now },
-                new Wallet { id = 11, balance = 0, account_id = 11, update_by = 11, update_at = DateTime.Now },
-                new Wallet { id = 12, balance = 0, account_id = 12, update_by = 12, update_at = DateTime.Now },
-                new Wallet { id = 13, balance = 0, account_id = 13, update_by = 13, update_at = DateTime.Now },
-                new Wallet { id = 14, balance = 0, account_id = 14, update_by = 14, update_at = DateTime.Now }
+                new Wallet { id = 1, balance = 10000, account_id = 1, update_by = 1, update_at = DateTime.Now },
+                new Wallet { id = 2, balance = 10000, account_id = 2, update_by = 2, update_at = DateTime.Now },
+                new Wallet { id = 3, balance = 10000, account_id = 3, update_by = 3, update_at = DateTime.Now },
+                new Wallet { id = 4, balance = 10000, account_id = 4, update_by = 4, update_at = DateTime.Now },
+                new Wallet { id = 5, balance = 10000, account_id = 5, update_by = 5, update_at = DateTime.Now },
+                new Wallet { id = 6, balance = 10000, account_id = 6, update_by = 6, update_at = DateTime.Now },
+                new Wallet { id = 7, balance = 10000, account_id = 7, update_by = 7, update_at = DateTime.Now },
+                new Wallet { id = 8, balance = 10000, account_id = 8, update_by = 8, update_at = DateTime.Now },
+                new Wallet { id = 9, balance = 10000, account_id = 9, update_by = 9, update_at = DateTime.Now },
+                new Wallet { id = 10, balance = 10000, account_id = 10, update_by = 10, update_at = DateTime.Now },
+                new Wallet { id = 11, balance = 10000, account_id = 11, update_by = 11, update_at = DateTime.Now },
+                new Wallet { id = 12, balance = 10000, account_id = 12, update_by = 12, update_at = DateTime.Now },
+                new Wallet { id = 13, balance = 10000, account_id = 13, update_by = 13, update_at = DateTime.Now },
+                new Wallet { id = 14, balance = 10000, account_id = 14, update_by = 14, update_at = DateTime.Now }
                 );
 
             modelBuilder.Entity<Deposit>().HasData(
@@ -271,10 +271,10 @@ namespace BussinessObject
                 );
 
             modelBuilder.Entity<ProcessedTransactionInfo>().HasData(
-        new ProcessedTransactionInfo { id = 1, transaction_error_id = 4, processed_message = "Đã xử lí", create_at = DateTime.Now, create_by = 14 },
-        new ProcessedTransactionInfo { id = 2, transaction_error_id = 3, processed_message = "Đã xử lí", create_at = DateTime.Now, create_by = 14 },
-        new ProcessedTransactionInfo { id = 3, transaction_error_id = 1, processed_message = "Đã xử lí", create_at = DateTime.Now, create_by = 14 },
-        new ProcessedTransactionInfo { id = 4, transaction_error_id = 2, processed_message = "Đã xử lí", create_at = DateTime.Now, create_by = 14 }
+                new ProcessedTransactionInfo { id = 1, transaction_error_id = 4, processed_message = "Đã xử lí", create_at = DateTime.Now, create_by = 14 },
+                new ProcessedTransactionInfo { id = 2, transaction_error_id = 3, processed_message = "Đã xử lí", create_at = DateTime.Now, create_by = 14 },
+                new ProcessedTransactionInfo { id = 3, transaction_error_id = 1, processed_message = "Đã xử lí", create_at = DateTime.Now, create_by = 14 },
+                new ProcessedTransactionInfo { id = 4, transaction_error_id = 2, processed_message = "Đã xử lí", create_at = DateTime.Now, create_by = 14 }
         );
 
             base.OnModelCreating(modelBuilder);
