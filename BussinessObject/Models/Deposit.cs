@@ -21,9 +21,6 @@ namespace BussinessObject.Models
         [MaxLength(200)]
         public string? desctiption { get; set; }
         public bool status { get; set; }
-        public DateTime createdAt { get; set; }
-        public DateTime updatedAt { get; set; }
-
 
         //==TRACK==
         #region TRACKING
