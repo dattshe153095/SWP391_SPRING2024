@@ -31,9 +31,9 @@ namespace BussinessObject.Models
         public int role_id { get; set; }
         public virtual AccountRole? Role { get; set; }
         //==TRACK==
-        public DateTime create_at { get; set; }
-        public DateTime update_at { get; set; }
-        public bool is_delete { get; set; }
+        public DateTime create_at { get; set; } = DateTime.Now;
+        public DateTime update_at { get; set; } = DateTime.Now;
+        public bool is_delete { get; set; } = false;
 
         //======== Many ======
 

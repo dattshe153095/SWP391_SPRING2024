@@ -29,14 +29,14 @@ namespace BussinessObject.Models
         [ForeignKey(nameof(AccountCreate))]
         public int create_by { get; set; }
         public virtual Account? AccountCreate { get; set; }
-        public DateTime create_at { get; set; }
+        public DateTime create_at { get; set; } = DateTime.Now;
 
 
         [ForeignKey(nameof(AccountUpdate))]
         public int update_by { get; set; }
         public virtual Account? AccountUpdate { get; set; }
-        public DateTime update_at { get; set; }
-        public bool is_delete { get; set; }
+        public DateTime update_at { get; set; } = DateTime.Now;
+        public bool is_delete { get; set; } = false;
         #endregion
 
 
