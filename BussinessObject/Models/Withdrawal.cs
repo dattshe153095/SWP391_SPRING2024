@@ -30,20 +30,20 @@ namespace BussinessObject.Models
         [MaxLength(500)]
         [Column(TypeName = "varchar")]
         public string bank_name { get; set; }
-        public bool status { get; set; }
+        public string status { get; set; }
 
         //==TRACK==
         #region TRACKING
         [ForeignKey(nameof(AccountCreate))]
         public int create_by { get; set; }
         public virtual Account? AccountCreate { get; set; }
-        public DateTime create_at { get; set; }
+        public DateTime create_at { get; set; } = DateTime.Now;
 
         [ForeignKey(nameof(AccountUpdate))]
         public int update_by { get; set; }
         public virtual Account? AccountUpdate { get; set; }
-        public DateTime update_at { get; set; }
-        public bool is_delete { get; set; }
+        public DateTime update_at { get; set; } = DateTime.Now;
+        public bool is_delete { get; set; } = false;
         #endregion
     }
 }

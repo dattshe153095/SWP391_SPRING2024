@@ -8,36 +8,30 @@ using System.Threading.Tasks;
 
 namespace BussinessObject.Models
 {
-    public class Deposit
+    public class TransactionError
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
         [ForeignKey(nameof(Wallet))]
         public int wallet_id { get; set; }
         public virtual Wallet? Wallet { get; set; }
-        public int amount { get; set; }
-        public int fee { get; set; }
+        public string type { get; set; } = "Deposit";
+        [Required]
         [Column(TypeName = "nvarchar")]
         [MaxLength(200)]
-        public string? desctiption { get; set; }
+        public string title { get; set; }
+        [Required]
+        [Column(TypeName = "nvarchar")]
+        [MaxLength(200)]
+        public string description { get; set; }
         [Required]
         [Column(TypeName = "varchar")]
         [MaxLength(100)]
-        public string status { get; set; }
-
-        //==TRACK==
-        #region TRACKING
-        [ForeignKey(nameof(AccountCreate))]
-        public int create_by { get; set; }
-        public virtual Account? AccountCreate { get; set; }
+        public string status { get; set; } = "Pending";
         public DateTime create_at { get; set; } = DateTime.Now;
+        public int create_by { get; set; }
+        public virtual ICollection<ProcessedTransactionInfo>? ProcessedTransactionInfos { get; set; }
 
-        [ForeignKey(nameof(AccountUpdate))]
-        public int update_by { get; set; }
-        public virtual Account? AccountUpdate { get; set; }
-        public DateTime update_at { get; set; } = DateTime.Now;
 
-        public bool is_delete { get; set; } = false;
-        #endregion
     }
 }
