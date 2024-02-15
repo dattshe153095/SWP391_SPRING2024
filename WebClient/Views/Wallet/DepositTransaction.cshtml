@@ -5,7 +5,7 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
-    List<Wallet> wallets = ViewBag.Wallets;
+    List<Deposit> deposits = ViewBag.Deposits;
 
 }
 <!DOCTYPE html>
@@ -17,6 +17,43 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/Home/Index.css" asp-append-version="true" />
+
+    <style>
+        body {
+            margin: 0;
+        }
+
+        .ul-side-bar {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            max-width: 100%;
+            background-color: #f1f1f1;
+            max-height 100%;
+            overflow: auto;
+        }
+
+            .ul-side-bar li {
+                margin: 0;
+            }
+
+                .ul-side-bar li a {
+                    display: block;
+                    color: #000;
+                    padding: 8px 16px;
+                    text-decoration: none;
+                }
+
+                    .ul-side-bar li a.active {
+                        background-color: #04AA6D;
+                        color: white;
+                    }
+
+                    .ul-side-bar li a:hover:not(.active) {
+                        background-color: #555;
+                        color: white;
+                    }
+    </style>
 
 </head>
 <body>
@@ -40,7 +77,7 @@
 
                     <ul class="navbar-nav ml-auto">
                         <!-- Added ml-auto class here -->
-   @*                     @if (ViewBag.accountId == null)
+                        @if (ViewBag.accountId == null)
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Login</a>
@@ -57,7 +94,7 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Profile">@AccountDAO.GetAccountWithId(ViewBag.accountId).name</a>
                             </li>
-                        }*@
+                        }
                     </ul>
                 </div>
             </div>
@@ -68,16 +105,13 @@
         <main role="main" class="pb-3">
             <div class="text-center">
                 <div class="row">
-                    <div class="col-sm-2 bg-primary p-3">
+                    <div class="col-sm-2">
                         <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Transaction Manager</h3>
-                            </div>
                             <div class="panel-body">
-                                <ul class="list-unstyled" style="text-align: left;">
-                                    <li><a class="btn btn-primary btn-block" asp-controller="Wallet" asp-action="WithdrawalTransaction">All Deposit</a></li>
-                                    <li><a  class="btn btn-primary btn-block" asp-controller="Wallet" asp-action="DepositTransaction">All Withdraw</a></li>
-                                    <li><a  class="btn btn-primary btn-block" asp-controller="Wallet" asp-action="ReportTransaction">All Report</a></li>
+                                <ul class="ul-side-bar" style="text-align: left;">
+                                    <li><a class="active" asp-controller="Wallet" asp-action="WithdrawalTransaction">All Deposit</a></li>
+                                    <li><a asp-controller="Wallet" asp-action="DepositTransaction">All Withdraw</a></li>
+                                    <li><a asp-controller="Wallet" asp-action="ReportTransaction">All Report</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -93,25 +127,20 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Name</th>
-                                    <th>Username</th>
-                                    <th>Email</th>
-
-                                    <th>Description</th>
-
-                                    <th>View Account</th>
+                                    <th>Balance</th>
+                                    <th>Detail</th>
                                 </tr>
                                 @{
-                                    foreach (Wallet w in wallets)
+                                    foreach (Deposit d in deposits)
                                     {
-                                        <tr id="row_@w.id">
-                                            <td>@w.id</td>
-                                            <td id="balance" data-name="@w.balance">@w.balance</td>
-                                            <td>@AccountDAO.GetAccountWithId(w.account_id).name</td>
-                                            <td><a asp-controller="Wallet" asp-action="Transaction" asp-route-userId="@w.id">Detail</a></td>
+                                        <tr id="row_@d.id">
+                                            <td>@d.id</td>
+                                            <td>@AccountDAO.GetAccountWithId(d.account_id).name</td>
+                                            <td id="balance" data-name="@d.balance">@d.balance</td>
+                                            <td><a asp-controller="Wallet" asp-action="Transaction" asp-route-userId="@d.id">Detail</a></td>
                                         </tr>
                                     }
                                 }
-
                             </table>
                         </div>
                     </div>

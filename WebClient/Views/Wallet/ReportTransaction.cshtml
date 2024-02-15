@@ -5,7 +5,7 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
-
+    List<TransactionError> transactionErrors = ViewBag.TransactionErrors;
 
 }
 <!DOCTYPE html>
@@ -17,6 +17,43 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/Home/Index.css" asp-append-version="true" />
+
+    <style>
+        body {
+            margin: 0;
+        }
+
+        .ul-side-bar {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            max-width: 100%;
+            background-color: #f1f1f1;
+            max-height 100%;
+            overflow: auto;
+        }
+
+            .ul-side-bar li {
+                margin: 0;
+            }
+
+                .ul-side-bar li a {
+                    display: block;
+                    color: #000;
+                    padding: 8px 16px;
+                    text-decoration: none;
+                }
+
+                    .ul-side-bar li a.active {
+                        background-color: #04AA6D;
+                        color: white;
+                    }
+
+                    .ul-side-bar li a:hover:not(.active) {
+                        background-color: #555;
+                        color: white;
+                    }
+    </style>
 
 </head>
 <body>
@@ -68,16 +105,13 @@
         <main role="main" class="pb-3">
             <div class="text-center">
                 <div class="row">
-                    <div class="col-sm-2 bg-primary p-3">
+                    <div class="col-sm-2">
                         <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Transaction Manager</h3>
-                            </div>
                             <div class="panel-body">
-                                <ul class="list-unstyled" style="text-align: left;">
-                                    <li><a class="btn btn-primary btn-block" asp-controller="Wallet" asp-action="WithdrawalTransaction">All Deposit</a></li>
-                                    <li><a  class="btn btn-primary btn-block" asp-controller="Wallet" asp-action="DepositTransaction">All Withdraw</a></li>
-                                    <li><a  class="btn btn-primary btn-block" asp-controller="Wallet" asp-action="ReportTransaction">All Report</a></li>
+                                <ul class="ul-side-bar" style="text-align: left;">
+                                    <li><a asp-controller="Wallet" asp-action="WithdrawalTransaction">All Deposit</a></li>
+                                    <li><a asp-controller="Wallet" asp-action="DepositTransaction">All Withdraw</a></li>
+                                    <li><a class="active" asp-controller="Wallet" asp-action="ReportTransaction">All Report</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -85,6 +119,38 @@
                     <div class="col-sm-6">
                         <!-- Phần trung tâm -->
                         <h1>Phần Trung Tâm</h1>
+                        <div class="text-center" id="accountTable">
+                            <label for="searchUsername">Search by Username:</label>
+                            <input type="text" id="searchUsername" />
+                            <button type="button" onclick="searchByUsername()">Search</button>
+                            <table id="accountTableBody">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>Title</th>
+                                    <th>Description</th>
+                                    <th>Status</th>
+                                    <th>Create Time</th>
+                                    <th>Detail</th>
+                                </tr>
+                                @{
+                                    foreach (TransactionError e in transactionErrors)
+                                    {
+                                        <tr id="row_@e.id">
+                                            <td>@e.id</td>
+                                            <td>@WalletDAO.GetWalletAccountById(e.wallet_id).name</td>
+                                            <td>@e.type</td>
+                                            <td>@e.title</td>
+                                            <td>@e.description</td>
+                                            <td>@e.status</td>
+                                            <td>@e.create_at</td>
+                                            <td><a asp-controller="Wallet" asp-action="DetailTransactionError" asp-route-userId="@e.id">Detail</a></td>
+                                        </tr>
+                                    }
+                                }
+                            </table>
+                        </div>
                     </div>
                     <div class="col-sm-4">
                         <!-- Phần phải -->

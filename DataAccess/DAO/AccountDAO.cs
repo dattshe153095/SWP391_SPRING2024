@@ -113,9 +113,9 @@ namespace DataAccess.DAO
             return GetAllAccount().Where(x => x.username.Contains(username.Trim())).ToList();
         }
 
-        public static Account GetAccountWithUser(string? username)
+        public static List<Account> GetAccountWithName(string? name)
         {
-            return GetAllAccount().FirstOrDefault(x => x.username == username);
+            return GetAllAccount().Where(x => x.name.ToLower().Contains(name.Trim().ToLower())).ToList();
         }
     }
 }

@@ -27,6 +27,9 @@ namespace WebClient.Controllers
 
         public ActionResult ReportTransaction()
         {
+            List<TransactionError> transactionErrors = new List<TransactionError>();
+            transactionErrors = TransactionErrorDAO.GetAllTransactionError();
+            ViewBag.TransactionErrors = transactionErrors;
             return View();
         }
     }

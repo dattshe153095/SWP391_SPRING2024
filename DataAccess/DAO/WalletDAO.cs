@@ -24,14 +24,12 @@ namespace DataAccess.DAO
 
         public static Wallet GetWalletById(int id)
         {
-            Wallet wallet = new Wallet();
+            return GetAllWallet().FirstOrDefault(x => x.id == id);
+        }
 
-            using (var context = new Web_Trung_GianContext())
-            {
-                wallet = context.Wallets.ToList().FirstOrDefault(x => x.id == id);
-
-            }
-            return wallet;
+        public static Account GetWalletAccountById(int id)
+        {
+            return AccountDAO.GetAccountWithId(GetWalletById(id).account_id);
         }
     }
 }
