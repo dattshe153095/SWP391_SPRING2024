@@ -19,9 +19,9 @@ namespace WebClient.Controllers
 
         public ActionResult DepositTransaction()
         {
-            List<Wallet> wallets = new List<Wallet>();
-            wallets = WalletDAO.GetAllWallet();
-            ViewBag.Wallets = wallets;
+            List<Deposit> deposits = new List<Deposit>();
+            deposits = DepositDAO.GetAllDeposit();
+            ViewBag.Deposits = deposits;
             return View();
         }
 

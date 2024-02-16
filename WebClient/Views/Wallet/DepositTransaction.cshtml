@@ -135,8 +135,13 @@
                                     {
                                         <tr id="row_@d.id">
                                             <td>@d.id</td>
-                                            <td>@AccountDAO.GetAccountWithId(d.account_id).name</td>
-                                            <td id="balance" data-name="@d.balance">@d.balance</td>
+                                            <td>@WalletDAO.GetWalletAccountById(d.wallet_id).name</td>
+                                            <td id="amount" data-name="@d.amount">@d.amount</td>
+                                            <td id="fee" data-name="@d.fee">@d.fee</td>
+                                            <td id="fee" data-name="@d.desctiption">@d.desctiption</td>
+                                            <td id="fee" data-name="@d.status">@d.status</td>
+                                            <td id="create_at" data-name="@d.create_at">@d.create_at.ToString("dd/MM/yyyy")</td>
+                                            <td id="update_at" data-name="@d.update_at">@d.update_at.ToString("dd/MM/yyyy")</td>
                                             <td><a asp-controller="Wallet" asp-action="Transaction" asp-route-userId="@d.id">Detail</a></td>
                                         </tr>
                                     }
