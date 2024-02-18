@@ -1,0 +1,194 @@
+﻿@using BussinessObject.Models;
+@using DataAccess.DAO;
+@using WebClient
+@using WebClient.Models
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+
+    List<Withdrawal> withdrawals = ViewBag.Withdrawals;
+
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] Trade&Deal Hub</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Home/Index.css" asp-append-version="true" />
+
+    <style>
+        body {
+            margin: 0;
+        }
+
+        .ul-side-bar {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            max-width: 100%;
+            background-color: #f1f1f1;
+            max-height 100%;
+            overflow: auto;
+        }
+
+            .ul-side-bar li {
+                margin: 0;
+            }
+
+                .ul-side-bar li a {
+                    display: block;
+                    color: #000;
+                    padding: 8px 16px;
+                    text-decoration: none;
+                }
+
+                    .ul-side-bar li a.active {
+                        background-color: #04AA6D;
+                        color: white;
+                    }
+
+                    .ul-side-bar li a:hover:not(.active) {
+                        background-color: #555;
+                        color: white;
+                    }
+    </style>
+
+
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Trade&DealHub</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                    </ul>
+
+                    <ul class="navbar-nav ml-auto">
+                        <!-- Added ml-auto class here -->
+                        @if (ViewBag.accountId == null)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Register">Register</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="LogOut">LogOut</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Profile">@AccountDAO.GetAccountWithId(ViewBag.accountId).name</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container-body">
+        <main role="main" class="pb-3">
+            <div class="text-center">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <ul class="ul-side-bar" style="text-align: left;">
+                                    <li><a asp-controller="Wallet" asp-action="WalletUser">All Wallet</a></li>
+                                    <li><a class="active" asp-controller="Wallet" asp-action="WithdrawalTransaction">All Withdrawal</a></li>
+                                    <li><a asp-controller="Wallet" asp-action="DepositTransaction">All Deposit</a></li>
+                                    <li><a asp-controller="Wallet" asp-action="ReportTransaction">All Report</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <!-- Phần trung tâm -->
+                        <h1>Phần Trung Tâm</h1>
+                        <div class="text-center" id="accountTable">
+                            <label for="searchUsername">Search by Username:</label>
+                            <input type="text" id="searchUsername" />
+                            <button type="button" onclick="searchByUsername()">Search</button>
+                            <table class="table" id="withdrawalTable">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Amount</th>
+                                        <th>Fee</th>
+                                        <th>Bank User</th>
+                                        <th>Bank Number</th>
+                                        <th>Bank Name</th>
+                                        <th>Status</th>
+                                        <th>Create At</th>
+                                        <th>Update At</th>
+                                        <th>Detail</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        foreach (Withdrawal w in withdrawals)
+                                        {
+                                            <tr id="row_@w.id">
+                                                <td>@w.id</td>
+                                                @{
+                                                    string name = @WalletDAO.GetWalletAccountById(w.id).name;
+                                                }
+                                                <td id="name" data-name="@name">@name</td>
+                                                <td id="amount" data-name="@w.amount">@w.amount</td>
+                                                <td id="fee" data-name="@w.fee">@w.fee</td>
+                                                <td id="bank_user" data-name="@w.bank_user">@w.bank_user</td>
+                                                <td id="bank_number" data-name="@w.bank_number">@w.bank_number</td>
+                                                <td id="bank_name" data-name="@w.bank_name">@w.bank_name</td>
+                                                <td id="status" data-name="@w.status">@w.status</td>
+                                                <td id="create_at" data-name="@w.create_at">@w.create_at</td>
+                                                <td id="update_at" data-name="@w.update_at">@w.update_at</td>
+                                                <td><a asp-controller="Wallet" asp-action="Transaction" asp-route-userId="@w.id">Detail</a></td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <!-- Phần phải -->
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2024 - Trade%Deal Hub - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>

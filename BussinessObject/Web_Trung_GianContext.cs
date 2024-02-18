@@ -9,6 +9,7 @@ namespace BussinessObject
 {
     public class Web_Trung_GianContext : DbContext
     {
+
         public Web_Trung_GianContext()
         {
 
@@ -28,7 +29,7 @@ namespace BussinessObject
             IConfigurationRoot configuration = builder.Build();
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("server=localhost;database=Web_Trung_Gian;uid=sa;pwd=123;TrustServerCertificate=True;");
+                optionsBuilder.UseSqlServer("server=localhost;database=Web_Trung_Gian;uid=sa;pwd=123456;TrustServerCertificate=True;");
             }
         }
 
@@ -39,6 +40,10 @@ namespace BussinessObject
         public virtual DbSet<Withdrawal> Withdrawals { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
+
+        public virtual DbSet<TransactionError> TransactionErrors { get; set; }
+        public virtual DbSet<ProcessedTransactionInfo> ProcessedTransactionInfos { get; set; }
+
 
 
 

@@ -40,4 +40,5 @@ namespace BussinessObject.Models
         public bool is_delete { get; set; } = false;
         #endregion
     }
+
 }
