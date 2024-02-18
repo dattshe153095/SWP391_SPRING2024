@@ -22,5 +22,6 @@ namespace BussinessObject.Models
         public DateTime create_at { get; set; } = DateTime.Now;
         public int create_by { get; set; }
 
+
     }
 }

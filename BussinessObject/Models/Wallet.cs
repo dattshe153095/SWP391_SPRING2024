@@ -30,3 +30,4 @@ namespace BussinessObject.Models
         public virtual ICollection<TransactionError>? TransactionErrors { get; set; }
     }
 }
+
