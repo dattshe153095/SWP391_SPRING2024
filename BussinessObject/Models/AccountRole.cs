@@ -16,4 +16,5 @@ namespace BussinessObject.Models
         public virtual ICollection<Account>? Accounts { get; set; }
 
     }
+
 }

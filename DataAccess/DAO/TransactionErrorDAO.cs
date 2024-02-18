@@ -27,5 +27,6 @@ namespace DataAccess.DAO
             return GetAllTransactionError().FirstOrDefault(x => x.id == id);
         }
 
+
     }
 }

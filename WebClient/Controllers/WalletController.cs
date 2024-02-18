@@ -14,7 +14,7 @@ namespace WebClient.Controllers
 
         public ActionResult WalletUser()
         {
-            List<Wallet> wallets = new List<Wallet>();
+            List<Wallet> wallets  = new List<Wallet>();
             wallets = WalletDAO.GetAllWallet();
             ViewBag.Wallets = wallets;
             return View();

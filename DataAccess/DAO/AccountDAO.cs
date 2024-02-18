@@ -19,7 +19,6 @@ namespace DataAccess.DAO
             using (var context = new Web_Trung_GianContext())
             {
                 list = context.Accounts.ToList();
-
             }
             return list;
         }

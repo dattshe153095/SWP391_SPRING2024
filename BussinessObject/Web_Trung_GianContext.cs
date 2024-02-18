@@ -9,6 +9,7 @@ namespace BussinessObject
 {
     public class Web_Trung_GianContext : DbContext
     {
+
         public Web_Trung_GianContext()
         {
 

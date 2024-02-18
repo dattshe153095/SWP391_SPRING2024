@@ -31,5 +31,6 @@ namespace DataAccess.DAO
         {
             return AccountDAO.GetAccountWithId(GetWalletById(id).account_id);
         }
+
     }
 }

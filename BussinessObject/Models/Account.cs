@@ -49,4 +49,5 @@ namespace BussinessObject.Models
         public virtual ICollection<Withdrawal>? WithdrawalCreates { get; set; }
         public virtual ICollection<Withdrawal>? WithdrawalUpdates { get; set; }
     }
+
 }

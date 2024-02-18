@@ -17,7 +17,6 @@ namespace DataAccess.DAO
             using (var context = new Web_Trung_GianContext())
             {
                 list = context.ProcessedTransactionInfos.ToList();
-
             }
             return list;
         }
