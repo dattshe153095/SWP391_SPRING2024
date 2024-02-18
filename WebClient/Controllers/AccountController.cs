@@ -13,6 +13,10 @@ namespace WebClient.Controllers
 {
     public class AccountController : Controller
     {
+        public IActionResult Wallet()
+        {
+            return View();
+        }
         public IActionResult Profile()
         {
             ViewBag.accountId = HttpContext.Session.GetInt32("Account");

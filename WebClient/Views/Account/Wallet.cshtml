@@ -67,17 +67,16 @@
                                 <li class="nav-item">
                                     <div class="dropdown">
                                         <button class="dropbtn">
-                                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Profile">@AccountDAO.GetAccountWithId(ViewBag.accountId).name</a>
+                                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Profile"><p>Command:</p>@AccountDAO.GetAccountWithId(ViewBag.accountId).name</a>
                                         </button>
                                         <div class="dropdown-content">
                                             <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Profile">Profile</a>
                                             <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Wallet">Wallet</a>
-                                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="LogOut"> LogOut</a>
+                                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="LogOut">LogOut</a>
                                         </div>
                                     </div>
                                 </li>
                             </ul>
-  
                         }
                     </ul>
                 </div>
@@ -88,7 +87,8 @@
     <div class="container-body">
         <main role="main" class="pb-3">
             <div class="text-center">
-                <img src="/image/Trade&Deal Hub.png" alt="Description of the image" />
+                <h1>Day la trang vi tien cua tai khoan dang login</h1>
+                
             </div>
 
         </main>
