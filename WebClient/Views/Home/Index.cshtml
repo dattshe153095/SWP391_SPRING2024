@@ -18,7 +18,6 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/Home/Index.css" asp-append-version="true" />
 
-
 </head>
 <body>
     <header>
@@ -34,19 +33,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        @if (ViewBag.accountId == null)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Market</a>
-                            </li>
-                        }
-
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
                     </ul>
 
                     <ul class="navbar-nav ml-auto">
@@ -62,22 +51,12 @@
                         }
                         else
                         {
-                            <ul class="ml-auto navbar-nav">
-                                <li class="dropdown nav-item"><a aria-haspopup="true" href="#" class="nav-link" aria-expanded="false"><i class="fa-regular fa-bell" style="color:black;"></i></a></li>
-                                <li class="nav-item">
-                                    <div class="dropdown">
-                                        <button class="dropbtn">
-                                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Profile">@AccountDAO.GetAccountWithId(ViewBag.accountId).name</a>
-                                        </button>
-                                        <div class="dropdown-content">
-                                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Profile">Profile</a>
-                                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Wallet">Wallet</a>
-                                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="LogOut"> LogOut</a>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-  
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="LogOut">LogOut</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Profile">@AccountDAO.GetAccountWithId(ViewBag.accountId).name</a>
+                            </li>
                         }
                     </ul>
                 </div>
@@ -88,9 +67,9 @@
     <div class="container-body">
         <main role="main" class="pb-3">
             <div class="text-center">
-                <img src="/image/Trade&Deal Hub.png" alt="Description of the image" />
+                <img src="/image/Trade&Deal Hub.png" alt="Description of the image"  />
             </div>
-
+            
         </main>
     </div>
 
@@ -102,7 +81,5 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="https://kit.fontawesome.com/6ae4d71e22.js" crossorigin="anonymous"></script>
-
 </body>
 </html>
