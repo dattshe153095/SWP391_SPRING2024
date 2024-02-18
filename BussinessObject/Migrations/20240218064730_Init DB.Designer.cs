@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BussinessObject.Migrations
 {
     [DbContext(typeof(Web_Trung_GianContext))]
-    [Migration("20240215164104_Update DB Set Transaction")]
-    partial class UpdateDBSetTransaction
+    [Migration("20240218064730_Init DB")]
+    partial class InitDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -80,183 +80,183 @@ namespace BussinessObject.Migrations
                         new
                         {
                             id = 1,
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4201),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2364),
                             email = "waterball208@gmail.com",
                             is_delete = false,
                             name = "Quốc tổ Hùng Vương",
                             password = "hungvuong123",
                             phone = "0987654321",
                             role_id = 2,
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4202),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2365),
                             username = "hungvuong"
                         },
                         new
                         {
                             id = 2,
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4205),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2368),
                             email = "waterball208@gmail.com",
                             is_delete = false,
                             name = "Hai Bà Trưng",
                             password = "haibatrung123",
                             phone = "0987654321",
                             role_id = 2,
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4206),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2368),
                             username = "haibatrung"
                         },
                         new
                         {
                             id = 3,
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4208),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2370),
                             email = "waterball208@gmail.com",
                             is_delete = false,
                             name = "Lý Nam Đế",
                             password = "lynamde123",
                             phone = "0987654321",
                             role_id = 2,
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4208),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2371),
                             username = "lynamde"
                         },
                         new
                         {
                             id = 4,
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4210),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2373),
                             email = "waterball208@gmail.com",
                             is_delete = false,
                             name = "Ngô Quyền",
                             password = "pass123",
                             phone = "0987654321",
                             role_id = 2,
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4211),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2373),
                             username = "ngoquyen"
                         },
                         new
                         {
                             id = 5,
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4213),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2375),
                             email = "waterball208@gmail.com",
                             is_delete = false,
                             name = "Đinh Bộ Lĩnh",
                             password = "pass123",
                             phone = "0987654321",
                             role_id = 2,
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4213),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2375),
                             username = "dinhbolinh"
                         },
                         new
                         {
                             id = 6,
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4216),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2377),
                             email = "waterball208@gmail.com",
                             is_delete = false,
                             name = "Lê Hoàn",
                             password = "pass123",
                             phone = "0987654321",
                             role_id = 2,
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4216),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2378),
                             username = "lehoan123"
                         },
                         new
                         {
                             id = 7,
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4219),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2379),
                             email = "waterball208@gmail.com",
                             is_delete = false,
                             name = "Lý Công Uẩn",
                             password = "pass123",
                             phone = "0987654321",
                             role_id = 2,
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4219),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2380),
                             username = "lyconguan"
                         },
                         new
                         {
                             id = 8,
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4221),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2382),
                             email = "waterball208@gmail.com",
                             is_delete = false,
                             name = "Lý Thường Kiệt",
                             password = "pass123",
                             phone = "0987654321",
                             role_id = 2,
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4222),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2383),
                             username = "lythuongkiet"
                         },
                         new
                         {
                             id = 9,
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4224),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2385),
                             email = "waterball208@gmail.com",
                             is_delete = false,
                             name = "Trần Nhân Tông",
                             password = "pass123",
                             phone = "0987654321",
                             role_id = 2,
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4224),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2385),
                             username = "trannhantong"
                         },
                         new
                         {
                             id = 10,
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4227),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2387),
                             email = "waterball208@gmail.com",
                             is_delete = false,
                             name = "Trần Hưng Đạo",
                             password = "pass123",
                             phone = "0987654321",
                             role_id = 2,
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4228),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2387),
                             username = "tranhungdao"
                         },
                         new
                         {
                             id = 11,
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4229),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2389),
                             email = "waterball208@gmail.com",
                             is_delete = false,
                             name = "Lê Lợi",
                             password = "pass123",
                             phone = "0987654321",
                             role_id = 2,
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4230),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2390),
                             username = "leloi123"
                         },
                         new
                         {
                             id = 12,
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4232),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2392),
                             email = "waterball208@gmail.com",
                             is_delete = false,
                             name = "Nguyễn Trãi",
                             password = "pass123",
                             phone = "0987654321",
                             role_id = 2,
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4232),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2392),
                             username = "nguyentrai"
                         },
                         new
                         {
                             id = 13,
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4234),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2394),
                             email = "waterball208@gmail.com",
                             is_delete = false,
                             name = "Nguyễn Huệ",
                             password = "pass123",
                             phone = "0987654321",
                             role_id = 2,
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4235),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2394),
                             username = "quangtrung"
                         },
                         new
                         {
                             id = 14,
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4237),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2396),
                             email = "waterball208@gmail.com",
                             is_delete = false,
                             name = "Admin",
                             password = "admin",
                             phone = "0987654321",
                             role_id = 1,
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4238),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2397),
                             username = "admin"
                         });
                 });
@@ -346,12 +346,12 @@ namespace BussinessObject.Migrations
                         {
                             id = 1,
                             amount = 10000,
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4295),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2456),
                             create_by = 1,
                             fee = 500,
                             is_delete = false,
                             status = "done",
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4296),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2457),
                             update_by = 1,
                             wallet_id = 1
                         },
@@ -359,12 +359,12 @@ namespace BussinessObject.Migrations
                         {
                             id = 2,
                             amount = 10000,
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4298),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2459),
                             create_by = 2,
                             fee = 500,
                             is_delete = false,
                             status = "pending",
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4299),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2460),
                             update_by = 2,
                             wallet_id = 2
                         },
@@ -372,12 +372,12 @@ namespace BussinessObject.Migrations
                         {
                             id = 3,
                             amount = 10000,
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4301),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2461),
                             create_by = 3,
                             fee = 500,
                             is_delete = false,
                             status = "error",
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4301),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2462),
                             update_by = 3,
                             wallet_id = 3
                         },
@@ -385,12 +385,12 @@ namespace BussinessObject.Migrations
                         {
                             id = 4,
                             amount = 10000,
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4303),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2464),
                             create_by = 4,
                             fee = 500,
                             is_delete = false,
                             status = "pending",
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4304),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2465),
                             update_by = 4,
                             wallet_id = 4
                         },
@@ -398,12 +398,12 @@ namespace BussinessObject.Migrations
                         {
                             id = 5,
                             amount = 10000,
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4306),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2467),
                             create_by = 5,
                             fee = 500,
                             is_delete = false,
                             status = "pending",
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4306),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2467),
                             update_by = 5,
                             wallet_id = 5
                         },
@@ -411,12 +411,12 @@ namespace BussinessObject.Migrations
                         {
                             id = 6,
                             amount = 10000,
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4309),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2469),
                             create_by = 6,
                             fee = 500,
                             is_delete = false,
                             status = "pending",
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4309),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2469),
                             update_by = 6,
                             wallet_id = 6
                         },
@@ -424,12 +424,12 @@ namespace BussinessObject.Migrations
                         {
                             id = 7,
                             amount = 10000,
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4311),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2471),
                             create_by = 7,
                             fee = 500,
                             is_delete = false,
                             status = "pending",
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4311),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2471),
                             update_by = 7,
                             wallet_id = 7
                         },
@@ -437,12 +437,12 @@ namespace BussinessObject.Migrations
                         {
                             id = 8,
                             amount = 10000,
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4313),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2473),
                             create_by = 8,
                             fee = 500,
                             is_delete = false,
                             status = "done",
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4314),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2474),
                             update_by = 8,
                             wallet_id = 8
                         },
@@ -450,12 +450,12 @@ namespace BussinessObject.Migrations
                         {
                             id = 9,
                             amount = 10000,
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4322),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2475),
                             create_by = 9,
                             fee = 500,
                             is_delete = false,
                             status = "done",
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4322),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2476),
                             update_by = 9,
                             wallet_id = 9
                         },
@@ -463,12 +463,12 @@ namespace BussinessObject.Migrations
                         {
                             id = 10,
                             amount = 10000,
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4324),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2478),
                             create_by = 10,
                             fee = 500,
                             is_delete = false,
                             status = "done",
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4325),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2478),
                             update_by = 10,
                             wallet_id = 10
                         },
@@ -476,12 +476,12 @@ namespace BussinessObject.Migrations
                         {
                             id = 11,
                             amount = 10000,
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4326),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2480),
                             create_by = 11,
                             fee = 500,
                             is_delete = false,
                             status = "pending",
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4327),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2480),
                             update_by = 11,
                             wallet_id = 11
                         },
@@ -489,12 +489,12 @@ namespace BussinessObject.Migrations
                         {
                             id = 12,
                             amount = 10000,
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4329),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2483),
                             create_by = 12,
                             fee = 500,
                             is_delete = false,
                             status = "error",
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4329),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2484),
                             update_by = 12,
                             wallet_id = 12
                         },
@@ -502,12 +502,12 @@ namespace BussinessObject.Migrations
                         {
                             id = 13,
                             amount = 10000,
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4331),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2485),
                             create_by = 13,
                             fee = 500,
                             is_delete = false,
                             status = "error",
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4332),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2486),
                             update_by = 13,
                             wallet_id = 13
                         },
@@ -515,12 +515,12 @@ namespace BussinessObject.Migrations
                         {
                             id = 14,
                             amount = 10000,
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4334),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2487),
                             create_by = 14,
                             fee = 500,
                             is_delete = false,
                             status = "done",
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4334),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2488),
                             update_by = 14,
                             wallet_id = 14
                         });
@@ -606,7 +606,7 @@ namespace BussinessObject.Migrations
                         new
                         {
                             id = 1,
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4459),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2605),
                             create_by = 14,
                             processed_message = "Đã xử lí",
                             transaction_error_id = 4
@@ -614,7 +614,7 @@ namespace BussinessObject.Migrations
                         new
                         {
                             id = 2,
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4461),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2607),
                             create_by = 14,
                             processed_message = "Đã xử lí",
                             transaction_error_id = 3
@@ -622,7 +622,7 @@ namespace BussinessObject.Migrations
                         new
                         {
                             id = 3,
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4463),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2608),
                             create_by = 14,
                             processed_message = "Đã xử lí",
                             transaction_error_id = 1
@@ -630,7 +630,7 @@ namespace BussinessObject.Migrations
                         new
                         {
                             id = 4,
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4464),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2610),
                             create_by = 14,
                             processed_message = "Đã xử lí",
                             transaction_error_id = 2
@@ -701,13 +701,13 @@ namespace BussinessObject.Migrations
                             id = 1,
                             categories = 1,
                             code = "DH31UIHI3",
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4406),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2558),
                             create_by = 14,
                             is_delete = false,
                             link = "#",
                             price = 1000,
                             quantity = 100,
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4407),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2559),
                             update_by = 14
                         },
                         new
@@ -715,13 +715,13 @@ namespace BussinessObject.Migrations
                             id = 2,
                             categories = 2,
                             code = "SOD2IF6AP8F",
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4410),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2562),
                             create_by = 14,
                             is_delete = false,
                             link = "#",
                             price = 1000,
                             quantity = 100,
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4410),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2562),
                             update_by = 14
                         },
                         new
@@ -729,13 +729,13 @@ namespace BussinessObject.Migrations
                             id = 3,
                             categories = 3,
                             code = "AL6HEB14E",
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4412),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2564),
                             create_by = 14,
                             is_delete = false,
                             link = "#",
                             price = 1000,
                             quantity = 100,
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4413),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2565),
                             update_by = 14
                         },
                         new
@@ -743,13 +743,13 @@ namespace BussinessObject.Migrations
                             id = 4,
                             categories = 1,
                             code = "IH189AOFA31OH",
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4415),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2567),
                             create_by = 14,
                             is_delete = false,
                             link = "#",
                             price = 1000,
                             quantity = 100,
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4415),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2567),
                             update_by = 14
                         },
                         new
@@ -757,13 +757,13 @@ namespace BussinessObject.Migrations
                             id = 5,
                             categories = 2,
                             code = "JVY8F1KB4VOL",
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4417),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2569),
                             create_by = 14,
                             is_delete = false,
                             link = "#",
                             price = 1000,
                             quantity = 100,
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4418),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2569),
                             update_by = 14
                         },
                         new
@@ -771,13 +771,13 @@ namespace BussinessObject.Migrations
                             id = 6,
                             categories = 3,
                             code = "PO0PM7MO9J",
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4420),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2571),
                             create_by = 14,
                             is_delete = false,
                             link = "#",
                             price = 1000,
                             quantity = 100,
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4420),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2572),
                             update_by = 14
                         },
                         new
@@ -785,13 +785,13 @@ namespace BussinessObject.Migrations
                             id = 7,
                             categories = 1,
                             code = "ATF142DW4YT",
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4423),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2574),
                             create_by = 14,
                             is_delete = false,
                             link = "#",
                             price = 1000,
                             quantity = 100,
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4424),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2574),
                             update_by = 14
                         });
                 });
@@ -842,7 +842,7 @@ namespace BussinessObject.Migrations
                         new
                         {
                             id = 1,
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4440),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2587),
                             create_by = 1,
                             description = "Lỗi Nạp tiền",
                             status = "done",
@@ -853,7 +853,7 @@ namespace BussinessObject.Migrations
                         new
                         {
                             id = 2,
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4444),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2589),
                             create_by = 4,
                             description = "Lỗi rút tiền",
                             status = "pending",
@@ -864,7 +864,7 @@ namespace BussinessObject.Migrations
                         new
                         {
                             id = 3,
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4445),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2591),
                             create_by = 7,
                             description = "Lỗi Nạp tiền",
                             status = "done",
@@ -875,7 +875,7 @@ namespace BussinessObject.Migrations
                         new
                         {
                             id = 4,
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4447),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2593),
                             create_by = 10,
                             description = "Lỗi rút tiền",
                             status = "pending",
@@ -919,7 +919,7 @@ namespace BussinessObject.Migrations
                             id = 1,
                             account_id = 1,
                             balance = 10000,
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4258),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2415),
                             update_by = 1
                         },
                         new
@@ -927,7 +927,7 @@ namespace BussinessObject.Migrations
                             id = 2,
                             account_id = 2,
                             balance = 10000,
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4260),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2417),
                             update_by = 2
                         },
                         new
@@ -935,7 +935,7 @@ namespace BussinessObject.Migrations
                             id = 3,
                             account_id = 3,
                             balance = 10000,
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4261),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2418),
                             update_by = 3
                         },
                         new
@@ -943,7 +943,7 @@ namespace BussinessObject.Migrations
                             id = 4,
                             account_id = 4,
                             balance = 10000,
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4263),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2419),
                             update_by = 4
                         },
                         new
@@ -951,7 +951,7 @@ namespace BussinessObject.Migrations
                             id = 5,
                             account_id = 5,
                             balance = 10000,
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4264),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2420),
                             update_by = 5
                         },
                         new
@@ -959,7 +959,7 @@ namespace BussinessObject.Migrations
                             id = 6,
                             account_id = 6,
                             balance = 10000,
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4265),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2422),
                             update_by = 6
                         },
                         new
@@ -967,7 +967,7 @@ namespace BussinessObject.Migrations
                             id = 7,
                             account_id = 7,
                             balance = 10000,
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4267),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2423),
                             update_by = 7
                         },
                         new
@@ -975,7 +975,7 @@ namespace BussinessObject.Migrations
                             id = 8,
                             account_id = 8,
                             balance = 10000,
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4268),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2424),
                             update_by = 8
                         },
                         new
@@ -983,7 +983,7 @@ namespace BussinessObject.Migrations
                             id = 9,
                             account_id = 9,
                             balance = 10000,
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4270),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2425),
                             update_by = 9
                         },
                         new
@@ -991,7 +991,7 @@ namespace BussinessObject.Migrations
                             id = 10,
                             account_id = 10,
                             balance = 10000,
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4271),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2426),
                             update_by = 10
                         },
                         new
@@ -999,7 +999,7 @@ namespace BussinessObject.Migrations
                             id = 11,
                             account_id = 11,
                             balance = 10000,
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4272),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2428),
                             update_by = 11
                         },
                         new
@@ -1007,7 +1007,7 @@ namespace BussinessObject.Migrations
                             id = 12,
                             account_id = 12,
                             balance = 10000,
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4273),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2430),
                             update_by = 12
                         },
                         new
@@ -1015,7 +1015,7 @@ namespace BussinessObject.Migrations
                             id = 13,
                             account_id = 13,
                             balance = 10000,
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4275),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2431),
                             update_by = 13
                         },
                         new
@@ -1023,7 +1023,7 @@ namespace BussinessObject.Migrations
                             id = 14,
                             account_id = 14,
                             balance = 10000,
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4276),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2432),
                             update_by = 14
                         });
                 });
@@ -1042,7 +1042,7 @@ namespace BussinessObject.Migrations
                     b.Property<string>("bank_name")
                         .IsRequired()
                         .HasMaxLength(500)
-                        .HasColumnType("varchar(500)");
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("bank_number")
                         .IsRequired()
@@ -1052,7 +1052,7 @@ namespace BussinessObject.Migrations
                     b.Property<string>("bank_user")
                         .IsRequired()
                         .HasMaxLength(500)
-                        .HasColumnType("varchar(500)");
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<DateTime>("create_at")
                         .HasColumnType("datetime2");
@@ -1097,12 +1097,12 @@ namespace BussinessObject.Migrations
                             bank_name = "TP Bank",
                             bank_number = "789654312",
                             bank_user = "Quốc Tổ Hùng Vương",
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4352),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2507),
                             create_by = 1,
                             fee = 500,
                             is_delete = false,
                             status = "done",
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4353),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2508),
                             update_by = 1,
                             wallet_id = 1
                         },
@@ -1113,12 +1113,12 @@ namespace BussinessObject.Migrations
                             bank_name = "TP Bank",
                             bank_number = "789654312",
                             bank_user = "Hai Bà Trưng",
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4356),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2511),
                             create_by = 2,
                             fee = 500,
                             is_delete = false,
                             status = "error",
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4356),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2512),
                             update_by = 2,
                             wallet_id = 2
                         },
@@ -1129,12 +1129,12 @@ namespace BussinessObject.Migrations
                             bank_name = "TP Bank",
                             bank_number = "789654312",
                             bank_user = "Lý Nam Đế",
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4359),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2514),
                             create_by = 3,
                             fee = 500,
                             is_delete = false,
                             status = "done",
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4359),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2514),
                             update_by = 3,
                             wallet_id = 3
                         },
@@ -1145,12 +1145,12 @@ namespace BussinessObject.Migrations
                             bank_name = "TP Bank",
                             bank_number = "789654312",
                             bank_user = "Bank User Name",
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4361),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2516),
                             create_by = 4,
                             fee = 500,
                             is_delete = false,
                             status = "error",
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4362),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2517),
                             update_by = 4,
                             wallet_id = 4
                         },
@@ -1161,12 +1161,12 @@ namespace BussinessObject.Migrations
                             bank_name = "TP Bank",
                             bank_number = "789654312",
                             bank_user = "Bank User Name",
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4365),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2519),
                             create_by = 5,
                             fee = 500,
                             is_delete = false,
                             status = "pending",
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4365),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2520),
                             update_by = 5,
                             wallet_id = 5
                         },
@@ -1177,12 +1177,12 @@ namespace BussinessObject.Migrations
                             bank_name = "TP Bank",
                             bank_number = "789654312",
                             bank_user = "Bank User Name",
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4367),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2521),
                             create_by = 6,
                             fee = 500,
                             is_delete = false,
                             status = "done",
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4368),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2522),
                             update_by = 6,
                             wallet_id = 6
                         },
@@ -1193,12 +1193,12 @@ namespace BussinessObject.Migrations
                             bank_name = "TP Bank",
                             bank_number = "789654312",
                             bank_user = "Bank User Name",
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4370),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2524),
                             create_by = 7,
                             fee = 500,
                             is_delete = false,
                             status = "done",
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4370),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2524),
                             update_by = 7,
                             wallet_id = 7
                         },
@@ -1209,12 +1209,12 @@ namespace BussinessObject.Migrations
                             bank_name = "TP Bank",
                             bank_number = "789654312",
                             bank_user = "Bank User Name",
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4372),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2526),
                             create_by = 8,
                             fee = 500,
                             is_delete = false,
                             status = "pending",
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4373),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2527),
                             update_by = 8,
                             wallet_id = 8
                         },
@@ -1225,12 +1225,12 @@ namespace BussinessObject.Migrations
                             bank_name = "TP Bank",
                             bank_number = "789654312",
                             bank_user = "Bank User Name",
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4376),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2529),
                             create_by = 9,
                             fee = 500,
                             is_delete = false,
                             status = "pending",
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4377),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2530),
                             update_by = 9,
                             wallet_id = 9
                         },
@@ -1241,12 +1241,12 @@ namespace BussinessObject.Migrations
                             bank_name = "TP Bank",
                             bank_number = "789654312",
                             bank_user = "Bank User Name",
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4379),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2532),
                             create_by = 10,
                             fee = 500,
                             is_delete = false,
                             status = "pending",
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4380),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2532),
                             update_by = 10,
                             wallet_id = 10
                         },
@@ -1257,12 +1257,12 @@ namespace BussinessObject.Migrations
                             bank_name = "TP Bank",
                             bank_number = "789654312",
                             bank_user = "Bank User Name",
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4382),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2534),
                             create_by = 11,
                             fee = 500,
                             is_delete = false,
                             status = "pending",
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4382),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2535),
                             update_by = 11,
                             wallet_id = 11
                         },
@@ -1273,12 +1273,12 @@ namespace BussinessObject.Migrations
                             bank_name = "TP Bank",
                             bank_number = "789654312",
                             bank_user = "Bank User Name",
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4384),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2536),
                             create_by = 12,
                             fee = 500,
                             is_delete = false,
                             status = "done",
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4385),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2537),
                             update_by = 12,
                             wallet_id = 12
                         },
@@ -1289,12 +1289,12 @@ namespace BussinessObject.Migrations
                             bank_name = "TP Bank",
                             bank_number = "789654312",
                             bank_user = "Bank User Name",
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4387),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2539),
                             create_by = 13,
                             fee = 500,
                             is_delete = false,
                             status = "pending",
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4387),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2539),
                             update_by = 13,
                             wallet_id = 13
                         },
@@ -1305,12 +1305,12 @@ namespace BussinessObject.Migrations
                             bank_name = "TP Bank",
                             bank_number = "789654312",
                             bank_user = "Bank User Name",
-                            create_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4389),
+                            create_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2541),
                             create_by = 14,
                             fee = 500,
                             is_delete = false,
                             status = "error",
-                            update_at = new DateTime(2024, 2, 15, 23, 41, 3, 147, DateTimeKind.Local).AddTicks(4390),
+                            update_at = new DateTime(2024, 2, 18, 13, 47, 30, 347, DateTimeKind.Local).AddTicks(2542),
                             update_by = 14,
                             wallet_id = 14
                         });

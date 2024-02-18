@@ -109,50 +109,55 @@
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <ul class="ul-side-bar" style="text-align: left;">
-                                    <li><a asp-controller="Wallet" asp-action="WithdrawalTransaction">All Deposit</a></li>
-                                    <li><a asp-controller="Wallet" asp-action="DepositTransaction">All Withdraw</a></li>
+                                    <li><a asp-controller="Wallet" asp-action="WalletUser">All Wallet</a></li>
+                                    <li><a asp-controller="Wallet" asp-action="WithdrawalTransaction">All Withdrawal</a></li>
+                                    <li><a asp-controller="Wallet" asp-action="DepositTransaction">All Deposit</a></li>
                                     <li><a class="active" asp-controller="Wallet" asp-action="ReportTransaction">All Report</a></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-8">
                         <!-- Phần trung tâm -->
                         <h1>Phần Trung Tâm</h1>
                         <div class="text-center" id="accountTable">
                             <label for="searchUsername">Search by Username:</label>
                             <input type="text" id="searchUsername" />
                             <button type="button" onclick="searchByUsername()">Search</button>
-                            <table id="accountTableBody">
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Type</th>
-                                    <th>Title</th>
-                                    <th>Description</th>
-                                    <th>Status</th>
-                                    <th>Create Time</th>
-                                    <th>Detail</th>
-                                </tr>
-                                @{
-                                    foreach (TransactionError e in transactionErrors)
-                                    {
-                                        <tr id="row_@e.id">
-                                            <td>@e.id</td>
-                                            <td>@WalletDAO.GetWalletAccountById(e.wallet_id).name</td>
-                                            <td>@e.type</td>
-                                            <td>@e.title</td>
-                                            <td>@e.description</td>
-                                            <td>@e.status</td>
-                                            <td>@e.create_at</td>
-                                            <td><a asp-controller="Wallet" asp-action="DetailTransactionError" asp-route-userId="@e.id">Detail</a></td>
-                                        </tr>
+                            <table class="table" id="waleltTable">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Title</th>
+                                        <th>Description</th>
+                                        <th>Status</th>
+                                        <th>Create Time</th>
+                                        <th>Detail</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        foreach (TransactionError t in transactionErrors)
+                                        {
+                                            <tr id="row_@t.id">
+                                                <td>@t.id</td>
+                                                <td>@WalletDAO.GetWalletAccountById(t.wallet_id).name</td>
+                                                <td>@t.type</td>
+                                                <td>@t.title</td>
+                                                <td>@t.description</td>
+                                                <td>@t.status</td>
+                                                <td>@t.create_at</td>
+                                                <td><a asp-controller="Wallet" asp-action="ReportTransactionDetail" asp-route-id="@t.id">Detail</a></td>
+                                            </tr>
+                                        }
                                     }
-                                }
+                                </tbody>
                             </table>
                         </div>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-2">
                         <!-- Phần phải -->
                     </div>
                 </div>

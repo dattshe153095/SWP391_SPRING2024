@@ -5,8 +5,7 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
-    List<Deposit> deposits = ViewBag.Deposits;
-
+    List<Wallet> wallets = ViewBag.Wallets;
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -109,9 +108,9 @@
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <ul class="ul-side-bar" style="text-align: left;">
-                                    <li><a asp-controller="Wallet" asp-action="WalletUser">All Wallet</a></li>
-                                    <li><a asp-controller="Wallet" asp-action="WithdrawalTransaction">All Withdrawal</a></li>
-                                    <li><a class="active" asp-controller="Wallet" asp-action="DepositTransaction">All Deposit</a></li>
+                                    <li><a class="active" asp-controller="Wallet" asp-action="WalletUser">All Wallet</a></li>
+                                    <li><a asp-controller="Wallet" asp-action="WithdrawalTransaction">All Deposit</a></li>
+                                    <li><a asp-controller="Wallet" asp-action="DepositTransaction">All Withdraw</a></li>
                                     <li><a asp-controller="Wallet" asp-action="ReportTransaction">All Report</a></li>
                                 </ul>
                             </div>
@@ -125,34 +124,29 @@
                             <input type="text" id="searchUsername" />
                             <button type="button" onclick="searchByUsername()">Search</button>
 
-                            <table class="table" id="depositTable">
+                            <table class="table" id="waleltTable">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
                                         <th>Name</th>
-                                        <th>Amount</th>
-                                        <th>Fee</th>
-                                        <th>Desctiption</th>
-                                        <th>Status</th>
-                                        <th>Create At</th>
+                                        <th>Balance</th>
                                         <th>Update At</th>
                                         <th>Detail</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @{
-                                        foreach (Deposit d in deposits)
+                                        foreach (Wallet w in wallets)
                                         {
-                                            <tr id="row_@d.id">
-                                                <td>@d.id</td>
-                                                <td>@WalletDAO.GetWalletAccountById(d.wallet_id).name</td>
-                                                <td id="amount" data-name="@d.amount">@d.amount</td>
-                                                <td id="fee" data-name="@d.fee">@d.fee</td>
-                                                <td id="fee" data-name="@d.desctiption">@d.desctiption</td>
-                                                <td id="fee" data-name="@d.status">@d.status</td>
-                                                <td id="create_at" data-name="@d.create_at">@d.create_at.ToString("dd/MM/yyyy")</td>
-                                                <td id="update_at" data-name="@d.update_at">@d.update_at.ToString("dd/MM/yyyy")</td>
-                                                <td><a asp-controller="Wallet" asp-action="Transaction" asp-route-userId="@d.id">Detail</a></td>
+                                            <tr id="row_@w.id">
+                                                <td>@w.id</td>
+                                                @{
+                                                    string name = @WalletDAO.GetWalletAccountById(w.id).name;
+                                                }
+                                                <td id="name" data-name="@name">@name</td>
+                                                <td id="balance" data-name="@w.balance">@w.balance</td>
+                                                <td id="update_at" data-name="@w.update_at">@w.update_at</td>
+                                                <td><a asp-controller="Wallet" asp-action="Transaction" asp-route-userId="@w.id">Detail</a></td>
                                             </tr>
                                         }
                                     }

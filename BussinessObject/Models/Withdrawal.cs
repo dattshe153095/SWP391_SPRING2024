@@ -20,7 +20,7 @@ namespace BussinessObject.Models
         public int fee { get; set; }
         [Required]
         [MaxLength(500)]
-        [Column(TypeName = "varchar")]
+        [Column(TypeName = "nvarchar")]
         public string bank_user { get; set; }
         [Required]
         [MaxLength(50)]
@@ -28,7 +28,7 @@ namespace BussinessObject.Models
         public string bank_number { get; set; }
         [Required]
         [MaxLength(500)]
-        [Column(TypeName = "varchar")]
+        [Column(TypeName = "nvarchar")]
         public string bank_name { get; set; }
         public string status { get; set; }
 
