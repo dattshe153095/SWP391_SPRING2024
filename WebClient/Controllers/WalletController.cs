@@ -62,7 +62,7 @@ namespace WebClient.Controllers
             processedTransactionInfo = ProcessedTransactionInfoDAO.GetProcessedTransactionInfoById(id_processedTransactionInfo);
             processedTransactionInfo.processed_message = processed_message;
             ProcessedTransactionInfoDAO.UpdateProcessedTransactionInfo(processedTransactionInfo);
-            return RedirectToAction("ReportTransactionDetail", new {id = id_processedTransactionInfo });
+            return RedirectToAction("ReportTransactionDetail", new {id = processedTransactionInfo.transaction_error_id });
         }
     }
 }
