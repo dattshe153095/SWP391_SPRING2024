@@ -40,6 +40,7 @@ namespace BussinessObject
         public virtual DbSet<Withdrawal> Withdrawals { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
+
         public virtual DbSet<TransactionError> TransactionErrors { get; set; }
         public virtual DbSet<ProcessedTransactionInfo> ProcessedTransactionInfos { get; set; }
 
