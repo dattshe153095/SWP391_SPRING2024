@@ -1,0 +1,148 @@
+﻿.text-center {
+    text-align: center;
+}
+
+.user-table-container {
+    margin-bottom: 20px; /* Khoảng cách giữa bảng và biểu mẫu */
+}
+
+.user-table {
+    border: 1px solid #ccc;
+    padding: 10px;
+    display: inline-block;
+    background: pink;
+}
+
+.forms-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.update-profile-form,
+.change-password-form {
+    background: #6EC2F7;
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 48%; /* 48% để giữ khoảng trống giữa 2 form */
+    box-sizing: border-box; /* Giữ nguyên kích thước total width bao gồm padding và border */
+}
+
+.user-table table {
+    border-collapse: collapse; /* Để kẻ ô bảng */
+    width: 100%; /* Để bảng rộng 100% của phần tử cha */
+}
+
+.user-table th, .user-table td {
+    border: 1px solid #000; /* Đường viền 1 pixel đen */
+    padding: 8px; /* Khoảng cách giữa nội dung và đường viền */
+}
+
+.user-table th {
+    background-color: #f2f2f2; /* Màu nền cho hàng tiêu đề */
+}
+
+/* Điều chỉnh vị trí của biểu mẫu ChangePassword */
+.change-password-form {
+    margin-left: auto; /* Đẩy về phía bên phải */
+}
+
+input[readonly] {
+    background-color: #e4e7ea; /* Màu nền xám cho trường chỉ đọc */
+}
+
+button {
+    padding: 10px;
+    background-color: #4caf50; /* Màu xanh lá */
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+}
+
+/* thẳng hàng form */
+.form-group {
+    margin-bottom: 15px; /* Adjust as needed for spacing between groups */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+    .form-group label {
+        margin-right: 10px; /* Adjust as needed for spacing between label and input */
+        min-width: 100px; /* Adjust as needed for label width */
+    }
+
+    .form-group input {
+        flex: 1;
+    }
+
+/* CSS cho ảnh Captcha, ô nhập Captcha và nút Refresh Captcha */
+.captcha-div {
+    display: flex;
+    align-items: center;
+}
+
+#captchaImage {
+    width: 150px; /* Điều chỉnh kích thước ảnh captcha theo mong muốn */
+    margin-right: 10px;
+}
+
+.captcha-form {
+    flex: 1;
+    max-width: 170px; /* Điều chỉnh chiều rộng tối đa của ô nhập captcha */
+    margin-right: 10px;
+    padding: 8px;
+    font-size: 16px;
+}
+
+#refreshCaptcha {
+    padding: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #fe9fe5;
+    
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+}
+
+/* CSS để căn giữa footer */
+body {
+    margin-bottom: 50px; /* Đảm bảo không bị che phủ bởi footer */
+}
+
+.main {
+    min-height: calc(100vh - 50px); /* 50px là chiều cao của footer */
+    position: relative;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center; /* Align items in the center vertically */
+}
+
+    .form-group label {
+        margin-right: 11%; /* Increase the margin between label and input using a percentage */
+        min-width: 100px;
+    }
+
+    .form-group input {
+        flex: 1.5; /* Make the input wider */
+        max-width: 300px; /* Set the maximum width of the input field */
+    }
+body{
+    background-color: #ffd8ed;
+}
+header {
+    background-color: #fe9fe5;
+}
+    header nav div a {
+        color: black;
+    }
