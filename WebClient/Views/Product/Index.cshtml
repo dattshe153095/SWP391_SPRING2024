@@ -120,7 +120,7 @@
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">Thông Tin Sản Phẩm</h4>
-                    <button type="button" class="mr-1 btn-white-space btn btn-success">
+                    <button type="button" class="mr-1 btn-white-space btn btn-success" id="btnBuy">
                         <i class="fa fa-shopping-cart"></i>Buy
                     </button>
                 </div>
@@ -150,6 +150,7 @@
             // When the button is clicked
             $(".btnShowModal").click(function () {
                 var id = $(this).data('id');
+                selectedProductId = id;
                 // Perform an AJAX request to get the content
                 $.ajax({
                     url: '/Product/GetProductDetail',
@@ -177,6 +178,26 @@
 
             $(".closeModal").off('click').on('click', function () {
                 $("#myModal").modal('hide');
+            });
+
+
+            var selectedProductId;
+
+            $("#btnBuy").click(function () {
+                var productId = $(this).data('product-id');
+
+                $.ajax({
+                    url: '/Product/BuyProduct',
+                    type: 'POST',
+                    data: { id: selectedProductId },
+                    success: function (response) {
+                        // Hiển thị thông báo dựa trên response từ server
+                        alert(response.message);
+                    },
+                    error: function () {
+                        alert("Có lỗi xảy ra khi gửi yêu cầu mua sản phẩm.");
+                    }
+                });
             });
 
         });

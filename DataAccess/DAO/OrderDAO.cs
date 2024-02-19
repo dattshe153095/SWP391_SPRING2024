@@ -27,15 +27,22 @@ namespace DataAccess.DAO
             return GetAllOrder().FirstOrDefault(x => x.id == id);
         }
 
-        public static void BuyProductOrder(int accountId, int productId)
+        public static void BuyProductOrder(int accountId = 14, int productId = 1)
         {
             Product product = ProductDAO.GetProductWithId(productId);
-            Order order = new Order() { product_id = productId, quantity = 1, total_price = product.price, account_id = 14, create_by = accountId, create_at = DateTime.Now, update_by = accountId, update_at = DateTime.Now };
+            Order order = new Order() { product_id = productId, quantity = 1, total_price = product.price, account_id = accountId, create_by = accountId, create_at = DateTime.Now, update_by = accountId, update_at = DateTime.Now };
             using (var context = new Web_Trung_GianContext())
             {
                 var orders = context.Set<Order>();
                 orders.Add(order);
+
+                product.quantity--;
+                var products = context.Set<Product>();
+                products.Update(product);
+
                 context.SaveChanges();
+
+         
             }
         }
     }

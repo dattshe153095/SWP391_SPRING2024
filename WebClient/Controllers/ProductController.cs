@@ -68,13 +68,13 @@ namespace WebClient.Controllers
             {
                 if (product.quantity > 0)
                 {
+                    OrderDAO.BuyProductOrder(id);
 
                 }
                 return Json(new { message = "Mua thành công" });
             }
             else
             {
-
                 return Json(new { message = "Mua thất bại" });
             }
         }
