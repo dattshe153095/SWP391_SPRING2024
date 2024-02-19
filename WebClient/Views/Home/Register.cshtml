@@ -1,0 +1,179 @@
+﻿@using BussinessObject.Models;
+@using DataAccess.DAO;
+@using WebClient
+@using WebClient.Models
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model WebClient.ViewModel.RegisterViewModel
+
+@{
+
+
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] Trade&DealHub Registration </title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Home/Register.css" asp-append-version="true" />
+    <style>
+
+        img {
+            border: 2px solid #3498db;
+            border-radius: 8px; /* Đường cong góc của viền (tuỳ chọn) */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Trade&DealHub</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Register">Register</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container-fluid">
+        <main role="main" class="pb-3">
+            <section class="vh-100 bg-image"
+                     style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
+                <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+                    <div class="container h-100">
+                        <div class="row d-flex justify-content-center align-items-center h-100">
+                            <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+                                <div class="card" style="border-radius: 15px;">
+                                    <div class="card-body p-5">
+                                        <h2 class="text-uppercase text-center mb-6">Create an account</h2>
+                                        <form style="display: grid" method="post" asp-controller="Home" asp-action="Register">
+                                            <div class="row">
+                                                <div class="form-outline mb-6">
+                                                    @Html.LabelFor(temp => temp.Name)
+                                                    @Html.TextBoxFor(temp => temp.Name, new { placeholder = "Name", @class = "form-control form-control-lg" })
+                                                    @Html.ValidationMessageFor(temp => temp.Name)
+                                                </div>
+                                                <div class="form-outline mb-6">
+                                                    @Html.LabelFor(temp => temp.Username)
+                                                    @Html.TextBoxFor(temp => temp.Username, new { placeholder = "Username", @class = "form-control form-control-lg" })
+                                                    @Html.ValidationMessageFor(temp => temp.Username)
+                                                </div>
+                                                <div class="form-outline mb-6">
+                                                    @Html.LabelFor(temp => temp.Email)
+                                                    @Html.TextBoxFor(temp => temp.Email, new { placeholder = "Email", @class = "form-control form-control-lg" })
+                                                    @Html.ValidationMessageFor(temp => temp.Email)
+                                                    <button type="button" onclick="sendEmail()">Send Email</button> <!-- Thêm nút gửi email -->
+                                                </div>
+                                                <div class="form-outline mb-6">
+                                                    @Html.LabelFor(temp => temp.Phone)
+                                                    @Html.TextBoxFor(temp => temp.Phone, new { placeholder = "Phone", @class = "form-control form-control-lg" })
+                                                    @Html.ValidationMessageFor(temp => temp.Phone)
+                                                    
+                                                </div>
+                                                <div class="password-fields-row">
+                                                    <div class="form-outline mb-6" style="margin-right: 15px">
+                                                        @Html.LabelFor(model => model.Password)
+                                                        @Html.PasswordFor(model => model.Password, new { placeholder = "Password", @class = "form-control form-control-lg" })
+                                                        @Html.ValidationMessageFor(model => model.Password)
+                                                    </div>
+                                                    <div class="form-outline mb-6">
+                                                        @Html.LabelFor(model => model.ConfirmPassword)  <!-- Corrected typo here -->
+                                                        @Html.PasswordFor(model => model.ConfirmPassword, new { placeholder = "Confirm Password", @class = "form-control form-control-lg" })
+                                                        @Html.ValidationMessageFor(model => model.ConfirmPassword)
+                                                    </div>
+                                                </div>
+                                                <div class="captcha-div">
+                                                    <span id="Captcha-image">
+                                                        <img id="captchaImage" src="data:image/png;base64,@ViewBag.CaptchaImageBytes"
+                                                             alt="Captcha Image" />
+                                                    </span>
+                                                    <div class="input-group">
+                                                        <input type="text" id="captcha" name="captcha" class="captcha-form form-control" placeholder="Input capcha" required>
+                                                        <button type="button" id="refreshCaptcha"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <button type="submit" class="btn btn-success">Register</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+           
+    </div>
+    </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2024 - WebClient - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://kit.fontawesome.com/6ae4d71e22.js" crossorigin="anonymous"></script>
+</body>
+
+<script>
+    function sendEmail() {
+        var email = $("#email").val();
+
+        $.ajax({
+            type: "POST", // hoặc "GET" tùy thuộc vào loại yêu cầu của bạn
+            url: "/Home/SendEmail", // Thay thế bằng đường dẫn của action bạn muốn gọi
+            data: { email: email },
+            success: function (result) {
+                // Xử lý kết quả từ action nếu cần
+                console.log(result);
+                alert("Email Have Send Check Email To Get Code");
+            },
+            error: function (error) {
+                // Xử lý lỗi nếu có
+                console.log(error);
+            }
+        });
+    }
+    function refreshCaptchaImage() {
+        $.ajax({
+
+            type: "POST",
+            url: "/Home/RefreshCaptchaLogin", // Thay thế bằng đường dẫn của action cập nhật captcha
+            success: function (result) {
+                // Cập nhật ảnh captcha mới
+                $("#captchaImage").attr("src", "data:image/png;base64," + result);
+                $('#captcha').val('');
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+</script>
+
+</html>
