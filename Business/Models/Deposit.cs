@@ -8,37 +8,29 @@ using System.Threading.Tasks;
 
 namespace BussinessObject.Models
 {
-    public class Product
+    public class Deposit
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
-        [MaxLength(30)]
-        [Column(TypeName = "varchar")]
-        public string code { get; set; }
-        public int price { get; set; }
-        public int quantity { get; set; }
-        public int categories { get; set; }
-        [MaxLength(500)]
+        [ForeignKey(nameof(Wallet))]
+        public int wallet_id { get; set; }
+        public virtual Wallet? Wallet { get; set; }
+        public int amount { get; set; }
+        public int fee { get; set; }
         [Column(TypeName = "nvarchar")]
+        [MaxLength(200)]
         public string? desctiption { get; set; }
         [Required]
-        [MaxLength(500)]
         [Column(TypeName = "varchar")]
-        public string link { get; set; }
-        [MaxLength(500)]
-        [Column(TypeName = "varchar")]
-        public string? image { get; set; }
+        [MaxLength(100)]
+        public string status { get; set; }
 
-        public virtual ICollection<Order>? Orders { get; set; }
-
-
-        //===TRACKING===
+        //==TRACK==
         #region TRACKING
         [ForeignKey(nameof(AccountCreate))]
         public int create_by { get; set; }
         public virtual Account? AccountCreate { get; set; }
         public DateTime create_at { get; set; } = DateTime.Now;
-
 
         [ForeignKey(nameof(AccountUpdate))]
         public int update_by { get; set; }
@@ -47,8 +39,6 @@ namespace BussinessObject.Models
 
         public bool is_delete { get; set; } = false;
         #endregion
-
-
-
     }
+
 }

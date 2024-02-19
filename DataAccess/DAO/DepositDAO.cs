@@ -8,23 +8,22 @@ using System.Threading.Tasks;
 
 namespace DataAccess.DAO
 {
-    public class AccountRoleDAO
+    public class DepositDAO
     {
-        public static List<AccountRole> GetAllAccountRole()
+        public static List<Deposit> GetAllDeposit()
         {
-            List<AccountRole> list = new List<AccountRole>();
+            List<Deposit> list = new List<Deposit>();
 
             using (var context = new Web_Trung_GianContext())
             {
-                list = context.AccountRoles.ToList();
+                list = context.Deposits.ToList();
             }
             return list;
         }
 
-        public static AccountRole GetAccountRoleById(int id)
+        public static Deposit GetDepositById(int id)
         {
-            return GetAllAccountRole().FirstOrDefault(x=>x.id==id);
+            return GetAllDeposit().FirstOrDefault(x => x.id == id);
         }
-
     }
 }
