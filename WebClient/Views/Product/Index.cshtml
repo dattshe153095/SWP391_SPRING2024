@@ -109,25 +109,38 @@
     <script>
         function showProductDetail(productId) {
             var productDetail = getProductDetail(productId);
-            $("#productDetailContent").html(productDetail);
             $("#productDetailDialog").modal("show");
         }
 
         function getProductDetail(productId) {
-            var product = products.find(p => p.id == productId);
-            if (product) {
-                var html = '<div>';
-                html += '<img src="' + product.image + '" alt="' + product.name + '" style="max-width: 100px;" />';
-                html += '<p><strong>Mã số hàng hóa:</strong> ' + product.code + '</p>';
-                html += '<p><strong>Tên sản phẩm:</strong> ' + product.name + '</p>';
-                html += '<p><strong>Đơn giá:</strong> ' + product.price + '</p>';
-                html += '<p><strong>Số lượng:</strong> ' + product.quantity + '</p>';
-                html += '<p><strong>Hành động:</strong> ' + product.action + '</p>';
-                html += '</div>';
-                return html;
-            } else {
-                return "<p>Không tìm thấy thông tin sản phẩm.</p>";
-            }
+                        $.ajax({
+                url: '/Product/GetProductDetail',
+                type: 'GET',
+                data: { productId: productId },
+                success: function (data) {
+                    if (data.hasOwnProperty('message')) {
+                        // Xử lý thông báo không tìm thấy sản phẩm
+                        console.log(data.message);
+                    } else {
+                        var product = data;
+                        var html = '<div>';
+                        html += '<img src="' + product.image + '" alt="' + product.name + '" style="max-width: 100px;" />';
+                        html += '<p><strong>Mã số hàng hóa:</strong> ' + product.code + '</p>';
+                        html += '<p><strong>Tên sản phẩm:</strong> ' + product.name + '</p>';
+                        html += '<p><strong>Đơn giá:</strong> ' + product.price + '</p>';
+                        html += '<p><strong>Số lượng:</strong> ' + product.quantity + '</p>';
+                        html += '<p><strong>Hành động:</strong> ' + product.action + '</p>';
+                        html += '</div>';
+                        // Xử lý hiển thị thông tin sản phẩm
+                        console.log(html);
+                        $('#productDetailContent').html(html);
+                    }
+                },
+                error: function () {
+                    // Xử lý lỗi
+                    console.log('Đã xảy ra lỗi khi lấy thông tin sản phẩm.');
+                }
+                });
         }
     </script>
 
