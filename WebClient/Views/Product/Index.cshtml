@@ -100,7 +100,7 @@
                                 <td>@product.id</td>
                                 <td>@product.price</td>
                                 <td>@product.quantity</td>
-                                <td><button type="button" class="btn btn-primary" onclick="showProductDetail('@product.id')">Thông tin</button></td>
+                                <td><button type="button" id="btnShowModal" class=" btnShowModal btn btn-primary" data-id="@product.id">Thông tin</button></td>
                                 <td><a asp-controller="Product" asp-action="UpdateProduct" asp-route-id="@product.id">Update</a></td>
                             </tr>
                         }
@@ -112,77 +112,77 @@
     </div>
 
 
-    <!-- Modal -->
-    <div class="modal fade" id="productDetailDialog" tabindex="-1" role="dialog" aria-labelledby="productDetailDialogTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+
+    <!-- The Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
+                <!-- Modal Header -->
                 <div class="modal-header">
-                    <h5 class="modal-title" id="productDetailDialogTitle">Thông tin sản phẩm</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                    <h4 class="modal-title">Thông Tin Sản Phẩm</h4>
+                    <button type="button" class="mr-1 btn-white-space btn btn-success">
+                        <i class="fa fa-shopping-cart"></i>Buy
                     </button>
                 </div>
-                <div class="modal-body" id="productDetailContent">
-                    <!-- Nội dung chi tiết sản phẩm sẽ được thêm vào đây -->
+                <!-- Modal body -->
+                <div class="modal-body" id="modalContent">
+                    <!-- Content will be loaded here via AJAX -->
                 </div>
+                <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-secondary closeModal" data-dismiss="modal" aria-label="Close">
+                        Close
+                    </button>
                 </div>
             </div>
         </div>
     </div>
-
-
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2024 - Trade&Deal Hub - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
-    <script>
-        function showProductDetail(productId) {
-            var productDetail = getProductDetail(productId);
-            $("#productDetailDialog").modal("show");
-        }
 
-        function getProductDetail(productId) {
-            $.ajax({
-                url: '/Product/GetProductDetail',
-                type: 'GET',
-                data: { productId: productId },
-                success: function (data) {
-                    if (data.hasOwnProperty('message')) {
-                        // Xử lý thông báo không tìm thấy sản phẩm
-                        console.log(data.message);
-                    } else {
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // When the button is clicked
+            $(".btnShowModal").click(function () {
+                var id = $(this).data('id');
+                // Perform an AJAX request to get the content
+                $.ajax({
+                    url: '/Product/GetProductDetail',
+                    type: 'GET',
+                    data: { productId: id },
+                    success: function (data) {
                         var product = data;
                         var html = '<div>';
-                        html += '<img src="' + product.image + '" alt="' + product.name + '" style ="max-width: 100px;" /> ';
                         html += '<p><strong>Mã số hàng hóa:</strong> ' + product.code + '</p>';
                         html += '<p><strong>Tên sản phẩm:</strong> ' + product.name + '</p>';
                         html += '<p><strong>Đơn giá:</strong> ' + product.price + '</p>';
                         html += '<p><strong>Số lượng:</strong> ' + product.quantity + '</p>';
                         html += '<p><strong>Hành động:</strong> ' + product.action + '</p>';
                         html += '</div>';
-                        // Xử lý hiển thị thông tin sản phẩm
-                        console.log(html);
-                        $('#productDetailContent').html(html);
+                        // Inject the received content into the modal body
+                        $("#modalContent").html(html);
+                        // Show the modal
+                        $("#myModal").modal('show');
+                    },
+                    error: function () {
+                        alert("Error loading content");
                     }
-                },
-                error: function () {
-                    // Xử lý lỗi
-                    console.log('Đã xảy ra lỗi khi lấy thông tin sản phẩm.');
-                }
                 });
-        }
-        $(document).ready(function () {
-            $('#productDetailDialog .modal-footer button').click(function () {
-                $('#productDetailDialog').modal('hide');
             });
+
+            $(".closeModal").off('click').on('click', function () {
+                $("#myModal").modal('hide');
+            });
+
         });
+
     </script>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    
+
 </body>
 </html>

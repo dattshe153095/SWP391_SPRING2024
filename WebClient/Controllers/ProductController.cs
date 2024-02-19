@@ -8,6 +8,7 @@ using System.Drawing.Imaging;
 using System.Drawing;
 using System.Text;
 using System.Xml.Linq;
+using Microsoft.CodeAnalysis;
 
 namespace WebClient.Controllers
 {
@@ -56,6 +57,26 @@ namespace WebClient.Controllers
             ViewBag.Product = product;
 
             return RedirectToAction("UpdateProduct", new { id = product.id });
+        }
+
+        [HttpPost]
+        public IActionResult BuyProduct(int id)
+        {
+            var product = ProductDAO.GetProductWithId(id);
+
+            if (product != null)
+            {
+                if (product.quantity > 0)
+                {
+
+                }
+                return Json(new { message = "Mua thành công" });
+            }
+            else
+            {
+
+                return Json(new { message = "Mua thất bại" });
+            }
         }
     }
 }
