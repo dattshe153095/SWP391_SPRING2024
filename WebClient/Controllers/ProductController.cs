@@ -35,5 +35,27 @@ namespace WebClient.Controllers
             }
         }
 
+
+        [HttpGet]
+        public IActionResult UpdateProduct(int id)
+        {
+            var product = ProductDAO.GetProductWithId(id);
+
+            ViewBag.Product = product;
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult UpdateProduct(int id, string code, int price, int quantity, int categories, string desctiption)
+        {
+            var product = ProductDAO.GetProductWithId(id);
+
+            product.code = code; product.price = price; product.quantity = quantity; product.categories = categories; product.desctiption = desctiption;
+            ProductDAO.UpdateProduct(product);
+            ViewBag.Product = product;
+
+            return RedirectToAction("UpdateProduct", new { id = product.id });
+        }
     }
 }

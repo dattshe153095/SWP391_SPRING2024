@@ -58,7 +58,8 @@
                             <th scope="col">Tên Sản Phẩm</th>
                             <th scope="col">Đơn Giá</th>
                             <th scope="col">Số Lượng</th>
-                            <th scope="col">Hành Động</th>
+                            <th scope="col">View</th>
+                            <th scope="col">Update</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -71,6 +72,7 @@
                                 <td>@product.price</td>
                                 <td>@product.quantity</td>
                                 <td><button type="button" class="btn btn-primary" onclick="showProductDetail('@product.id')">Thông tin</button></td>
+                                <td><a asp-controller="Product" asp-action="UpdateProduct" asp-route-id="@product.id">Update</a></td>
                             </tr>
                         }
                     </tbody>

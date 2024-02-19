@@ -6,8 +6,7 @@
 
 @{
 
-
-
+    List<Wallet> wallets = ViewBag.Wallets;
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -18,6 +17,43 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/Home/Index.css" asp-append-version="true" />
+
+    <style>
+        body {
+            margin: 0;
+        }
+
+        .ul-side-bar {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            max-width: 100%;
+            background-color: #f1f1f1;
+            max-height 100%;
+            overflow: auto;
+        }
+
+            .ul-side-bar li {
+                margin: 0;
+            }
+
+                .ul-side-bar li a {
+                    display: block;
+                    color: #000;
+                    padding: 8px 16px;
+                    text-decoration: none;
+                }
+
+                    .ul-side-bar li a.active {
+                        background-color: #04AA6D;
+                        color: white;
+                    }
+
+                    .ul-side-bar li a:hover:not(.active) {
+                        background-color: #555;
+                        color: white;
+                    }
+    </style>
 
 </head>
 <body>
@@ -69,25 +105,57 @@
         <main role="main" class="pb-3">
             <div class="text-center">
                 <div class="row">
-                    <div class="col-sm-2 bg-primary p-3">
+                    <div class="col-sm-2">
                         <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Transaction Manager</h3>
-                            </div>
                             <div class="panel-body">
-                                <ul class="list-unstyled" style="text-align: left;">
-                                    <li><a class="btn btn-primary btn-block" asp-controller="Wallet" asp-action="WithdrawalTransaction">All Deposit</a></li>
-                                    <li><a  class="btn btn-primary btn-block" asp-controller="Wallet" asp-action="DepositTransaction">All Withdraw</a></li>
-                                    <li><a  class="btn btn-primary btn-block" asp-controller="Wallet" asp-action="ReportTransaction">All Report</a></li>
+                                <ul class="ul-side-bar" style="text-align: left;">
+                                    <li><a class="active" asp-controller="Wallet" asp-action="WalletUser">All Wallet</a></li>
+                                    <li><a asp-controller="Wallet" asp-action="WithdrawalTransaction">All Withdrawal</a></li>
+                                    <li><a asp-controller="Wallet" asp-action="DepositTransaction">All Deposit</a></li>
+                                    <li><a asp-controller="Wallet" asp-action="ReportTransaction">All Report</a></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-8">
                         <!-- Phần trung tâm -->
                         <h1>Phần Trung Tâm</h1>
+                        <div class="text-center" id="accountTable">
+                            <label for="searchUsername">Search by Username:</label>
+                            <input type="text" id="searchUsername" />
+                            <button type="button" onclick="searchByUsername()">Search</button>
+
+                            <table class="table" id="waleltTable">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Balance</th>
+                                        <th>Update At</th>
+                                        <th>Detail</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        foreach (Wallet w in wallets)
+                                        {
+                                            <tr id="row_@w.id">
+                                                <td>@w.id</td>
+                                                @{
+                                                    string name = @WalletDAO.GetWalletAccountById(w.id).name;
+                                                }
+                                                <td id="name" data-name="@name">@name</td>
+                                                <td id="balance" data-name="@w.balance">@w.balance</td>
+                                                <td id="update_at" data-name="@w.update_at">@w.update_at</td>
+                                                <td><a asp-controller="Wallet" asp-action="Transaction" asp-route-userId="@w.id">Detail</a></td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-2">
                         <!-- Phần phải -->
                     </div>
                 </div>
