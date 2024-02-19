@@ -13,10 +13,38 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Admin</title>
+    <title>@ViewData["Title"] Product</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/Home/Index.css" asp-append-version="true" />
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2; /* Màu nền cho tiêu đề cột */
+        }
+
+        .table-container {
+            border: 1px solid #ccc; /* Đóng khung cho div chứa bảng */
+            border-radius: 5px; /* Bo góc */
+            padding: 15px; /* Khoảng cách nội dung với khung */
+            background-color: #f2f2f2; /* Màu nền xám nhạt */
+        }
+
+        .product-heading {
+            background-color: rgba(255, 255, 255, 0.7); /* Màu nền xám nhạt cho phần tiêu đề */
+            padding: 10px; /* Khoảng cách nội dung với khung */
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -48,8 +76,9 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
-            <div class="text-center" id="ProductTable">
-                <div>Thông tin sản phẩm</div>
+            <div class="text-center position-relative table-container" id="ProductTable">
+                <div class="overlay"></div>
+                <div class="product-heading"> <h1>Thông tin sản phẩm</h1></div>
                 <table class="table">
                     <thead>
                         <tr>
@@ -68,7 +97,7 @@
                             <tr>
                                 <td><img src="@product.image" alt="@product." style="max-width: 100px;" /></td>
                                 <td>@product.code</td>
-                                <td>name</td>
+                                <td>@product.id</td>
                                 <td>@product.price</td>
                                 <td>@product.quantity</td>
                                 <td><button type="button" class="btn btn-primary" onclick="showProductDetail('@product.id')">Thông tin</button></td>
@@ -78,10 +107,11 @@
                     </tbody>
                 </table>
             </div>
+
         </main>
     </div>
 
-    
+
     <!-- Modal -->
     <div class="modal fade" id="productDetailDialog" tabindex="-1" role="dialog" aria-labelledby="productDetailDialogTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -115,7 +145,7 @@
         }
 
         function getProductDetail(productId) {
-                        $.ajax({
+            $.ajax({
                 url: '/Product/GetProductDetail',
                 type: 'GET',
                 data: { productId: productId },
@@ -126,7 +156,7 @@
                     } else {
                         var product = data;
                         var html = '<div>';
-                        html += '<img src="' + product.image + '" alt="' + product.name + '" style="max-width: 100px;" />';
+                        html += '<img src="' + product.image + '" alt="' + product.name + '" style ="max-width: 100px;" /> ';
                         html += '<p><strong>Mã số hàng hóa:</strong> ' + product.code + '</p>';
                         html += '<p><strong>Tên sản phẩm:</strong> ' + product.name + '</p>';
                         html += '<p><strong>Đơn giá:</strong> ' + product.price + '</p>';
@@ -144,6 +174,11 @@
                 }
                 });
         }
+        $(document).ready(function () {
+            $('#productDetailDialog .modal-footer button').click(function () {
+                $('#productDetailDialog').modal('hide');
+            });
+        });
     </script>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
