@@ -7,6 +7,7 @@ namespace WebClient.Controllers
 {
     public class WalletController : Controller
     {
+        #region WALLET
         public ActionResult Index()
         {
             List<Wallet> wallets = new List<Wallet>();
@@ -15,6 +16,16 @@ namespace WebClient.Controllers
             return View();
         }
 
+        public ActionResult WalletDetail(int userId)
+        {
+            Wallet wallet = new Wallet();
+            wallet = WalletDAO.GetWalletByAccountId(userId);
+            ViewBag.Wallet = wallet;
+            return View();
+        }
+        #endregion
+
+        #region WITHDRAWAL
         public ActionResult WithdrawalTransaction()
         {
             List<Withdrawal> withdrawals = new List<Withdrawal>();
@@ -23,6 +34,35 @@ namespace WebClient.Controllers
             return View();
         }
 
+        public ActionResult WithdrawalDetail(int withdrawal_id)
+        {
+            Withdrawal withdrawal = new Withdrawal();
+            withdrawal = WithdrawalDAO.GetWithdrawalById(withdrawal_id);
+            ViewBag.Withdrawal = withdrawal;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult WithdrawalHandle(int withdrawal_id, string status)
+        {
+            Withdrawal withdrawal = new Withdrawal();
+            withdrawal = WithdrawalDAO.GetWithdrawalById(withdrawal_id);
+            if (WalletDAO.GetWalletById(withdrawal.wallet_id).balance >= (withdrawal.amount + withdrawal.fee))
+            {
+                WalletDAO.RemoveBalanceWallet(withdrawal.wallet_id, withdrawal.amount + withdrawal.fee);
+                withdrawal.status = status;
+                WithdrawalDAO.UpdateWithdrawal(withdrawal);
+
+                return RedirectToAction("WithdrawalDetail", new { withdrawal_id = withdrawal_id });
+            }
+            else
+            {
+                return RedirectToAction("WithdrawalDetail", new { withdrawal_id = withdrawal_id });
+            }
+          
+        }
+
+        #endregion
         #region DEPOSIT
         public ActionResult DepositTransaction()
         {

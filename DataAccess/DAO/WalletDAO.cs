@@ -38,12 +38,33 @@ namespace DataAccess.DAO
             return GetAllWallet().FirstOrDefault(x=>x.account_id==id);
         }
 
-        public static string AddBalanceWallet(int id, int balance)
+        public static string AddBalanceWallet(int id, int amount)
         {
             Wallet wallet = GetWalletById(id);
             if (wallet != null)
             {
-                wallet.balance += balance;
+                wallet.balance += amount;
+                wallet.update_at = DateTime.Now;
+                using (var context = new Web_Trung_GianContext())
+                {
+                    var wallets = context.Set<Wallet>();
+                    wallets.Update(wallet);
+                    context.SaveChanges();
+                }
+                return "done";
+            }
+            else
+            {
+                return "error";
+            }
+        }
+
+        public static string RemoveBalanceWallet(int id, int amount)
+        {
+            Wallet wallet = GetWalletById(id);
+            if (wallet != null)
+            {
+                wallet.balance -= amount;
                 wallet.update_at = DateTime.Now;
                 using (var context = new Web_Trung_GianContext())
                 {

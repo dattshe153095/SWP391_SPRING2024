@@ -119,12 +119,8 @@
                     </div>
                     <div class="col-sm-8">
                         <!-- Phần trung tâm -->
-                        <h1>Phần Trung Tâm</h1>
+                        <h1>Wallets User</h1>
                         <div class="text-center" id="accountTable">
-                            <label for="searchUsername">Search by Username:</label>
-                            <input type="text" id="searchUsername" />
-                            <button type="button" onclick="searchByUsername()">Search</button>
-
                             <table class="table" id="waleltTable">
                                 <thead>
                                     <tr>
@@ -147,7 +143,7 @@
                                                 <td id="name" data-name="@name">@name</td>
                                                 <td id="balance" data-name="@w.balance">@w.balance</td>
                                                 <td id="update_at" data-name="@w.update_at">@w.update_at</td>
-                                                <td><a asp-controller="Wallet" asp-action="Transaction" asp-route-userId="@w.id">Detail</a></td>
+                                                <td><a asp-controller="Wallet" asp-action="WalletDetail" asp-route-userId="@w.id">Detail</a></td>
                                             </tr>
                                         }
                                     }

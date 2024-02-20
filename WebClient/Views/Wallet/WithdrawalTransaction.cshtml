@@ -123,9 +123,6 @@
                         <!-- Phần trung tâm -->
                         <h1>Phần Trung Tâm</h1>
                         <div class="text-center" id="accountTable">
-                            <label for="searchUsername">Search by Username:</label>
-                            <input type="text" id="searchUsername" />
-                            <button type="button" onclick="searchByUsername()">Search</button>
                             <table class="table" id="withdrawalTable">
                                 <thead>
                                     <tr>
@@ -160,7 +157,7 @@
                                                 <td id="status" data-name="@w.status">@w.status</td>
                                                 <td id="create_at" data-name="@w.create_at">@w.create_at.ToString("dd/MM/yyyy")</td>
                                                 <td id="update_at" data-name="@w.update_at">@w.update_at.ToString("dd/MM/yyyy")</td>
-                                                <td><a asp-controller="Wallet" asp-action="Transaction" asp-route-userId="@w.id">Detail</a></td>
+                                                <td><a asp-controller="Wallet" asp-action="WithdrawalDetail" asp-route-withdrawal_id="@w.id">Detail</a></td>
                                             </tr>
                                         }
                                     }
