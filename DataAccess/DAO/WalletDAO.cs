@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Security.Principal;
 
 namespace DataAccess.DAO
 {
@@ -35,6 +36,27 @@ namespace DataAccess.DAO
         public static Wallet GetWalletByAccountId(int id)
         {
             return GetAllWallet().FirstOrDefault(x=>x.account_id==id);
+        }
+
+        public static string AddBalanceWallet(int id, int balance)
+        {
+            Wallet wallet = GetWalletById(id);
+            if (wallet != null)
+            {
+                wallet.balance += balance;
+                wallet.update_at = DateTime.Now;
+                using (var context = new Web_Trung_GianContext())
+                {
+                    var wallets = context.Set<Wallet>();
+                    wallets.Update(wallet);
+                    context.SaveChanges();
+                }
+                return "done";
+            }
+            else
+            {
+                return "error";
+            }
         }
 
     }
