@@ -11,10 +11,35 @@ namespace WebClient.Controllers
         {
             return View();
         }
+        public IActionResult SearchByName(string username,int id)
+        {
+            // Thực hiện tìm kiếm theo tên người dùng
+            List<Account> result = AccountDAO.GetAccountWithUsername(username);
+            List<Wallet> wallets = new List<Wallet>();
+            wallets = WalletDAO.GetAllWallet();
+            ViewBag.Wallets = wallets;
+            foreach (var Wallet in wallets)
+            {
+                
+            }
+            // Trả về kết quả dưới dạng JSON
+            return Json(result);
+        }
+        public IActionResult TransactionEdit() 
+        {
+            return View();
+        }
 
         public ActionResult WalletUser()
         {
             List<Wallet> wallets  = new List<Wallet>();
+            wallets = WalletDAO.GetAllWallet();
+            ViewBag.Wallets = wallets;
+            return View();
+        }
+        public IActionResult RefreshWalletUser()
+        {
+            List<Wallet> wallets = new List<Wallet>();
             wallets = WalletDAO.GetAllWallet();
             ViewBag.Wallets = wallets;
             return View();

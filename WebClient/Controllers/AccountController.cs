@@ -13,6 +13,14 @@ namespace WebClient.Controllers
 {
     public class AccountController : Controller
     {
+        public IActionResult Wallet()
+        {
+            ViewBag.accountId = HttpContext.Session.GetInt32("Account");
+            List<Wallet> wallets = new List<Wallet>();
+            wallets = WalletDAO.GetAllWallet();
+            ViewBag.Wallets = wallets;
+            return View();
+        }
         public IActionResult Profile()
         {
             ViewBag.accountId = HttpContext.Session.GetInt32("Account");

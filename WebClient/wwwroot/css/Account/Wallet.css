@@ -10,9 +10,11 @@ a.navbar-brand {
 a {
     color: #0077cc;
 }
+
 header {
     background-color: #fe9fe5;
 }
+
 .btn-primary {
     color: #fff;
     background-color: #1b6ec2;
@@ -51,12 +53,14 @@ button.accept-policy {
     line-height: 60px;
     margin-top: 29px;
 }
+
 .body {
     background-image: url('/image/Trade&DealHub.png'); /* Replace 'path/to/your/image.jpg' with the actual path to your image file */
     background-size: cover; /* Ensures the background image covers the entire body */
     background-position: center; /* Centers the background image */
     background-repeat: no-repeat; /* Prevents the background image from repeating */
 }
+
 header nav div a {
     color: black;
 }
@@ -64,8 +68,9 @@ header nav div a {
 body {
     background-color: #ffd8ed;
 }
-div main div img{
-height: 785px;
+
+div main div img {
+    height: 785px;
 }
 
 .dropbtn {
@@ -118,4 +123,24 @@ height: 785px;
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {
     background-color: #ff9de5;
+}
+
+.sidebar {
+    position: fixed;
+    top: 56px;
+    left: 0;
+    height: 100%;
+    width: 260px;
+    background: #fa90c6;
+    overflow-y: auto;
+}
+
+.sidebar .nav .nav-item .nav-link i{
+    color: black;
+}
+.sidebar .nav .nav-item a{
+    color: black;
+}
+.card-header{
+    background-color: pink;
 }

@@ -109,10 +109,10 @@
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <ul class="ul-side-bar" style="text-align: left;">
-                                    <li><a class="active" asp-controller="Wallet" asp-action="WalletUser">All Wallet</a></li>
-                                    <li><a asp-controller="Wallet" asp-action="WithdrawalTransaction">All Withdrawal</a></li>
-                                    <li><a asp-controller="Wallet" asp-action="DepositTransaction">All Deposit</a></li>
-                                    <li><a asp-controller="Wallet" asp-action="ReportTransaction">All Report</a></li>
+                                    <li><a class="active ajax-link" id="walletuser" onclick="refreshwallet()" asp-controller="Wallet" asp-action="WalletUser">All Wallet</a></li>
+                                    <li><a class="ajax-link-one" asp-controller="Wallet" asp-action="WithdrawalTransaction">All Withdrawal</a></li>
+                                    <li><a class="ajax-link-two" asp-controller="Wallet" asp-action="DepositTransaction">All Deposit</a></li>
+                                    <li><a class="ajax-link-three" asp-controller="Wallet" asp-action="ReportTransaction">All Report</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -125,7 +125,7 @@
                             <input type="text" id="searchUsername" />
                             <button type="button" onclick="searchByUsername()">Search</button>
 
-                            <table class="table" id="waleltTable">
+                            <table class="table" id="walletTable">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
@@ -147,7 +147,7 @@
                                                 <td id="name" data-name="@name">@name</td>
                                                 <td id="balance" data-name="@w.balance">@w.balance</td>
                                                 <td id="update_at" data-name="@w.update_at">@w.update_at</td>
-                                                <td><a asp-controller="Wallet" asp-action="Transaction" asp-route-userId="@w.id">Detail</a></td>
+                                                <td><a asp-controller="Wallet" asp-action="TransactionEdit" asp-route-userId="@w.id">Detail</a></td>
                                             </tr>
                                         }
                                     }
@@ -161,21 +161,45 @@
                 </div>
             </div>
 
-
-
-
-
-
         </main>
     </div>
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - Trade%Deal Hub - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2024 - Trade&Deal Hub - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+<script>
+        $(document).ready(function () {
+            $(".ajax-link").click(function (event) {
+                event.preventDefault(); // Prevent default form submission behavior
+
+                var url = $(this).attr("href"); // Get the clicked link's URL
+                var targetId = $(this).parent().attr("id"); // Identify the target container
+
+                // Clear any existing content in the target container
+                $("#" + targetId).empty();
+
+                $.ajax({
+                    url: url,
+                    method: "GET", // Adjust if your server-side action requires a different method
+                    dataType: "html", // Adjust if your server returns something other than HTML
+                    success: function (response) {
+                        $("#" + targetId).html(response); // Update the target container with the server's response
+                        $("li a").removeClass("active"); // Remove active class from all links
+                        $(this).addClass("active"); // Add active class to the clicked link
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.error("AJAX error:", errorThrown);
+                        // Handle errors appropriately, e.g., display an error message to the user
+                    }
+                });
+            });
+        });
+</script>
 </body>
+
 </html>
