@@ -62,21 +62,46 @@ namespace WebClient.Controllers
         [HttpPost]
         public IActionResult BuyProduct(int id)
         {
-            var product = ProductDAO.GetProductWithId(id);
-
-            if (product != null)
+            int id_account = 0;
+            if (HttpContext.Session.GetInt32("Account") == null)
             {
-                if (product.quantity > 0)
+                return Json(new { message = "Hãy đăng nhập" });
+            }
+            else if (id_account != null)
+            {
+                id_account = HttpContext.Session.GetInt32("Account").Value;
+                Wallet wallet = WalletDAO.GetWalletByAccountId(id_account);
+
+                var product = ProductDAO.GetProductWithId(id);
+
+                if (product != null)
                 {
-                    OrderDAO.BuyProductOrder(id);
+                    if (product.quantity > 0)
+                    {
+                        if (wallet.balance >= product.price)
+                        {
+                            OrderDAO.BuyProductOrder(id_account, id);
+                            return Json(new { message = "Mua thành công" });
+                        }
+                        else
+                        {
+                            return Json(new { message = "Không đủ tiền" });
+                        }
+
+
+                    }
+                    else
+                    {
+                        return Json(new { message = "Hết hàng" });
+                    }
 
                 }
-                return Json(new { message = "Mua thành công" });
+                else
+                {
+                    return Json(new { message = "Mua thất bại" });
+                }
             }
-            else
-            {
-                return Json(new { message = "Mua thất bại" });
-            }
+            return Json(new { message = "Mua thất bại có lỗi xảy ra" });
         }
     }
 }

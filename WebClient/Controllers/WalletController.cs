@@ -9,6 +9,9 @@ namespace WebClient.Controllers
     {
         public ActionResult Index()
         {
+            List<Wallet> wallets = new List<Wallet>();
+            wallets = WalletDAO.GetAllWallet();
+            ViewBag.Wallets = wallets;
             return View();
         }
 

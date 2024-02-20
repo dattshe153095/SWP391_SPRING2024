@@ -32,5 +32,10 @@ namespace DataAccess.DAO
             return AccountDAO.GetAccountWithId(GetWalletById(id).account_id);
         }
 
+        public static Wallet GetWalletByAccountId(int id)
+        {
+            return GetAllWallet().FirstOrDefault(x=>x.account_id==id);
+        }
+
     }
 }

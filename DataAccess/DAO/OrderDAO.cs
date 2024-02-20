@@ -27,14 +27,20 @@ namespace DataAccess.DAO
             return GetAllOrder().FirstOrDefault(x => x.id == id);
         }
 
-        public static void BuyProductOrder(int accountId = 14, int productId = 1)
+        public static void BuyProductOrder(int accountId, int productId)
         {
+            Wallet wallet = WalletDAO.GetWalletById(accountId);
             Product product = ProductDAO.GetProductWithId(productId);
             Order order = new Order() { product_id = productId, quantity = 1, total_price = product.price, account_id = accountId, create_by = accountId, create_at = DateTime.Now, update_by = accountId, update_at = DateTime.Now };
+            
             using (var context = new Web_Trung_GianContext())
             {
                 var orders = context.Set<Order>();
                 orders.Add(order);
+
+                wallet.balance -= product.price;
+                var wallets = context.Set<Wallet>();
+                wallets.Update(wallet);
 
                 product.quantity--;
                 var products = context.Set<Product>();
@@ -42,7 +48,7 @@ namespace DataAccess.DAO
 
                 context.SaveChanges();
 
-         
+
             }
         }
     }
