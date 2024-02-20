@@ -13,10 +13,38 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Admin</title>
+    <title>@ViewData["Title"] Product</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/Home/Index.css" asp-append-version="true" />
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2; /* Màu nền cho tiêu đề cột */
+        }
+
+        .table-container {
+            border: 1px solid #ccc; /* Đóng khung cho div chứa bảng */
+            border-radius: 5px; /* Bo góc */
+            padding: 15px; /* Khoảng cách nội dung với khung */
+            background-color: #f2f2f2; /* Màu nền xám nhạt */
+        }
+
+        .product-heading {
+            background-color: rgba(255, 255, 255, 0.7); /* Màu nền xám nhạt cho phần tiêu đề */
+            padding: 10px; /* Khoảng cách nội dung với khung */
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -48,8 +76,9 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
-            <div class="text-center" id="ProductTable">
-                <div>Thông tin sản phẩm</div>
+            <div class="text-center position-relative table-container" id="ProductTable">
+                <div class="overlay"></div>
+                <div class="product-heading"> <h1>Thông tin sản phẩm</h1></div>
                 <table class="table">
                     <thead>
                         <tr>
@@ -58,7 +87,8 @@
                             <th scope="col">Tên Sản Phẩm</th>
                             <th scope="col">Đơn Giá</th>
                             <th scope="col">Số Lượng</th>
-                            <th scope="col">Hành Động</th>
+                            <th scope="col">View</th>
+                            <th scope="col">Update</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -67,85 +97,113 @@
                             <tr>
                                 <td><img src="@product.image" alt="@product." style="max-width: 100px;" /></td>
                                 <td>@product.code</td>
-                                <td>name</td>
+                                <td>@product.id</td>
                                 <td>@product.price</td>
                                 <td>@product.quantity</td>
-                                <td><button type="button" class="btn btn-primary" onclick="showProductDetail('@product.id')">Thông tin</button></td>
+                                <td><button type="button" id="btnShowModal" class=" btnShowModal btn btn-primary" data-id="@product.id">Thông tin</button></td>
+                                <td><a asp-controller="Product" asp-action="UpdateProduct" asp-route-id="@product.id">Update</a></td>
                             </tr>
                         }
                     </tbody>
                 </table>
             </div>
+
         </main>
     </div>
 
-    
-    <!-- Modal -->
-    <div class="modal fade" id="productDetailDialog" tabindex="-1" role="dialog" aria-labelledby="productDetailDialogTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+
+
+    <!-- The Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
+                <!-- Modal Header -->
                 <div class="modal-header">
-                    <h5 class="modal-title" id="productDetailDialogTitle">Thông tin sản phẩm</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                    <h4 class="modal-title">Thông Tin Sản Phẩm</h4>
+                    <button type="button" class="mr-1 btn-white-space btn btn-success" id="btnBuy">
+                        <i class="fa fa-shopping-cart"></i>Buy
                     </button>
                 </div>
-                <div class="modal-body" id="productDetailContent">
-                    <!-- Nội dung chi tiết sản phẩm sẽ được thêm vào đây -->
+                <!-- Modal body -->
+                <div class="modal-body" id="modalContent">
+                    <!-- Content will be loaded here via AJAX -->
                 </div>
+                <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-secondary closeModal" data-dismiss="modal" aria-label="Close">
+                        Close
+                    </button>
                 </div>
             </div>
         </div>
     </div>
-
-
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2024 - Trade&Deal Hub - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
-    <script>
-        function showProductDetail(productId) {
-            var productDetail = getProductDetail(productId);
-            $("#productDetailDialog").modal("show");
-        }
 
-        function getProductDetail(productId) {
-                        $.ajax({
-                url: '/Product/GetProductDetail',
-                type: 'GET',
-                data: { productId: productId },
-                success: function (data) {
-                    if (data.hasOwnProperty('message')) {
-                        // Xử lý thông báo không tìm thấy sản phẩm
-                        console.log(data.message);
-                    } else {
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // When the button is clicked
+            $(".btnShowModal").click(function () {
+                var id = $(this).data('id');
+                selectedProductId = id;
+                // Perform an AJAX request to get the content
+                $.ajax({
+                    url: '/Product/GetProductDetail',
+                    type: 'GET',
+                    data: { productId: id },
+                    success: function (data) {
                         var product = data;
                         var html = '<div>';
-                        html += '<img src="' + product.image + '" alt="' + product.name + '" style="max-width: 100px;" />';
                         html += '<p><strong>Mã số hàng hóa:</strong> ' + product.code + '</p>';
                         html += '<p><strong>Tên sản phẩm:</strong> ' + product.name + '</p>';
                         html += '<p><strong>Đơn giá:</strong> ' + product.price + '</p>';
                         html += '<p><strong>Số lượng:</strong> ' + product.quantity + '</p>';
                         html += '<p><strong>Hành động:</strong> ' + product.action + '</p>';
                         html += '</div>';
-                        // Xử lý hiển thị thông tin sản phẩm
-                        console.log(html);
-                        $('#productDetailContent').html(html);
+                        // Inject the received content into the modal body
+                        $("#modalContent").html(html);
+                        // Show the modal
+                        $("#myModal").modal('show');
+                    },
+                    error: function () {
+                        alert("Error loading content");
                     }
-                },
-                error: function () {
-                    // Xử lý lỗi
-                    console.log('Đã xảy ra lỗi khi lấy thông tin sản phẩm.');
-                }
                 });
-        }
+            });
+
+            $(".closeModal").off('click').on('click', function () {
+                $("#myModal").modal('hide');
+            });
+
+
+            var selectedProductId;
+
+            $("#btnBuy").click(function () {
+                var productId = $(this).data('product-id');
+
+                $.ajax({
+                    url: '/Product/BuyProduct',
+                    type: 'POST',
+                    data: { id: selectedProductId },
+                    success: function (response) {
+                        // Hiển thị thông báo dựa trên response từ server
+                        alert(response.message);
+                    },
+                    error: function () {
+                        alert("Có lỗi xảy ra khi gửi yêu cầu mua sản phẩm.");
+                    }
+                });
+            });
+
+        });
+
     </script>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    
+
 </body>
 </html>
