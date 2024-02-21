@@ -7,6 +7,10 @@ namespace WebClient.Controllers
 {
     public class WalletController : Controller
     {
+        public IActionResult SearchByName(string username)
+        {
+            return View();
+        }
         #region WALLET
         public ActionResult Index()
         {
