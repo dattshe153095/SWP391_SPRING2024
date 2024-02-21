@@ -259,13 +259,13 @@ namespace BussinessObject
          );
 
             modelBuilder.Entity<Product>().HasData(
-                new Product { id = 1, code = "DH31UIHI3", price = 1000, quantity = 100, categories = 1, link = "#", create_by = 14, create_at = DateTime.Now, update_by = 14, update_at = DateTime.Now },
-                new Product { id = 2, code = "SOD2IF6AP8F", price = 1000, quantity = 100, categories = 2, link = "#", create_by = 14, create_at = DateTime.Now, update_by = 14, update_at = DateTime.Now },
-                new Product { id = 3, code = "AL6HEB14E", price = 1000, quantity = 100, categories = 3, link = "#", create_by = 14, create_at = DateTime.Now, update_by = 14, update_at = DateTime.Now },
-                new Product { id = 4, code = "IH189AOFA31OH", price = 1000, quantity = 100, categories = 1, link = "#", create_by = 14, create_at = DateTime.Now, update_by = 14, update_at = DateTime.Now },
-                new Product { id = 5, code = "JVY8F1KB4VOL", price = 1000, quantity = 100, categories = 2, link = "#", create_by = 14, create_at = DateTime.Now, update_by = 14, update_at = DateTime.Now },
-                new Product { id = 6, code = "PO0PM7MO9J", price = 1000, quantity = 100, categories = 3, link = "#", create_by = 14, create_at = DateTime.Now, update_by = 14, update_at = DateTime.Now },
-                new Product { id = 7, code = "ATF142DW4YT", price = 1000, quantity = 100, categories = 1, link = "#", create_by = 14, create_at = DateTime.Now, update_by = 14, update_at = DateTime.Now }
+                new Product { id = 1, code = "DH31UIHI3", name = "Tài khoản Chat GBT", price = 1000, quantity = 100, categories = 1, content = "Tài khoản Chat GBT /n TK: admin /n MK: admin", link = "#", create_by = 14, create_at = DateTime.Now, update_by = 14, update_at = DateTime.Now },
+                new Product { id = 2, code = "SOD2IF6AP8F", name = "Tài khoản Canvas", price = 1000, quantity = 100, categories = 2, content = "Tài khoản Chat GBT /n TK: admin /n MK: admin", link = "#", create_by = 14, create_at = DateTime.Now, update_by = 14, update_at = DateTime.Now },
+                new Product { id = 3, code = "AL6HEB14E", name = "Code Game", price = 1000, quantity = 100, categories = 3, content = "Tài khoản Chat GBT /n TK: admin /n MK: admin", link = "#", create_by = 14, create_at = DateTime.Now, update_by = 14, update_at = DateTime.Now },
+                new Product { id = 4, code = "IH189AOFA31OH", name = "Tài Khoản Game", price = 1000, quantity = 100, categories = 1, content = "Tài khoản Chat GBT /n TK: admin /n MK: admin", link = "#", create_by = 14, create_at = DateTime.Now, update_by = 14, update_at = DateTime.Now },
+                new Product { id = 5, code = "JVY8F1KB4VOL", name = "Tài Khoản Facebook", price = 1000, quantity = 100, categories = 2, content = "Tài khoản Chat GBT /n TK: admin /n MK: admin", link = "#", create_by = 14, create_at = DateTime.Now, update_by = 14, update_at = DateTime.Now },
+                new Product { id = 6, code = "PO0PM7MO9J", name = "Win bản quyền", price = 1000, quantity = 100, categories = 3, content = "Tài khoản Chat GBT /n TK: admin /n MK: admin", link = "#", create_by = 14, create_at = DateTime.Now, update_by = 14, update_at = DateTime.Now },
+                new Product { id = 7, code = "ATF142DW4YT", name = "Office bản quyền", price = 1000, quantity = 100, categories = 1, content = "Tài khoản Chat GBT /n TK: admin /n MK: admin", link = "#", create_by = 14, create_at = DateTime.Now, update_by = 14, update_at = DateTime.Now }
                 );
 
             modelBuilder.Entity<TransactionError>().HasData(
