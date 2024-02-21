@@ -28,6 +28,21 @@ namespace DataAccess.DAO
             return GetAllWithdrawal().FirstOrDefault(x => x.id == id);
         }
 
+        public static void UpdateWithdrawal(Withdrawal withdrawal)
+        {
+            Withdrawal d = GetWithdrawalById(withdrawal.id);
+            if (d != null)
+            {
+                d.update_at = DateTime.Now;
+                using (var context = new Web_Trung_GianContext())
+                {
+                    var withdrawals = context.Set<Withdrawal>();
+                    withdrawals.Update(withdrawal);
+                    context.SaveChanges();
+                }
+            }
+        }
+
         public static List<Withdrawal> SearchWithdrawal(DateTime? create_at, DateTime? update_at, string account_name = "", int id = 0, string bank_user = "", string bank_number = "", string bank_name = "", string status = "")
         {
             List<Withdrawal> list = GetAllWithdrawal();

@@ -25,5 +25,20 @@ namespace DataAccess.DAO
         {
             return GetAllDeposit().FirstOrDefault(x => x.id == id);
         }
+
+        public static void UpdateDeposit(Deposit deposit)
+        {
+            Deposit d = GetDepositById(deposit.id);
+            if (d != null)
+            {
+                d.update_at = DateTime.Now;
+                using (var context = new Web_Trung_GianContext())
+                {
+                    var deposits = context.Set<Deposit>();
+                    deposits.Update(deposit);
+                    context.SaveChanges();
+                }
+            }
+        }
     }
 }

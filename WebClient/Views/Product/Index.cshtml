@@ -13,10 +13,208 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Admin</title>
+    <title>@ViewData["Title"] Product</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/Home/Index.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Home/Product.css" asp-append-version="true" />
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2; /* Màu nền cho tiêu đề cột */
+        }
+
+        .table-container {
+            border: 1px solid #ccc; /* Đóng khung cho div chứa bảng */
+            border-radius: 5px; /* Bo góc */
+            padding: 15px; /* Khoảng cách nội dung với khung */
+            background-color: #f2f2f2; /* Màu nền xám nhạt */
+        }
+
+        .product-heading {
+            background-color: rgba(255, 255, 255, 0.7); /* Màu nền xám nhạt cho phần tiêu đề */
+            padding: 10px; /* Khoảng cách nội dung với khung */
+        }
+
+
+        a.navbar-brand {
+            white-space: normal;
+            text-align: center;
+            word-break: break-all;
+        }
+
+        a {
+            color: #0077cc;
+        }
+
+        header {
+            background-color: #fe9fe5;
+        }
+
+        .btn-primary {
+            color: #fff;
+            background-color: #1b6ec2;
+            border-color: #1861ac;
+        }
+
+        .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+            color: #fff;
+            background-color: #1b6ec2;
+            border-color: #1861ac;
+        }
+
+        .border-top {
+            border-top: 1px solid #e5e5e5;
+        }
+
+        .border-bottom {
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .box-shadow {
+            box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+        }
+
+        button.accept-policy {
+            font-size: 1rem;
+            line-height: inherit;
+        }
+
+        .footer {
+            background-color: #ff9de5;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            white-space: nowrap;
+            line-height: 60px;
+            margin-top: 29px;
+        }
+
+        .body {
+            background-image: url('/image/Trade&DealHub.png'); /* Replace 'path/to/your/image.jpg' with the actual path to your image file */
+            background-size: cover; /* Ensures the background image covers the entire body */
+            background-position: center; /* Centers the background image */
+            background-repeat: no-repeat; /* Prevents the background image from repeating */
+        }
+
+        header nav div a {
+            color: black;
+        }
+
+        body {
+            background-color: #ffd8ed;
+        }
+
+        div main div img {
+            height: 785px;
+        }
+
+        .dropbtn {
+            background-color: #ff9de5;
+            color: black;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+            /* Dropdown button on hover & focus */
+            .dropbtn:hover, .dropbtn:focus {
+                background-color: #ffd8ed;
+            }
+
+        /* The container <div> - needed to position the dropdown content */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Dropdown content (hidden by default) */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #ffd8ed;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+            /* Links inside the dropdown */
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+                /* Change color of dropdown links on hover */
+                .dropdown-content a:hover {
+                    background-color: #f1f1f1;
+                }
+
+        /* Show the dropdown menu on hover */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Change the background color of the dropdown button when the dropdown content is shown */
+        .dropdown:hover .dropbtn {
+            background-color: #ff9de5;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 56px;
+            left: 0;
+            height: 100%;
+            width: 260px;
+            background: #fa90c6;
+            overflow-y: auto;
+        }
+
+            .sidebar .nav .nav-item .nav-link i {
+                color: black;
+            }
+
+            .sidebar .nav .nav-item a {
+                color: black;
+            }
+
+        .card-header {
+            background-color: pink;
+        }
+
+        .table tbody tr:hover {
+            background-color: hotpink; /* Màu nền bạn muốn áp dụng khi trỏ vào */
+        }
+
+        .modal-dialog {
+            max-width: 800px; /* Điều chỉnh kích thước tối đa của modal */
+        }
+
+        
+
+        
+
+        .product-heading {
+            text-align: center; /* Căn giữa tiêu đề bảng */
+            margin-bottom: 20px; /* Khoảng cách giữa tiêu đề và bảng */
+        }
+
+        table th,
+        table td {
+            white-space: nowrap; /* Ngăn chặn từng hàng trong bảng bị ngắt dòng */
+        }
+        
+    </style>
 </head>
 <body>
     <header>
@@ -47,9 +245,73 @@
         </nav>
     </header>
     <div class="container">
+        <div class="sidebar">
+            <ul class="nav">
+                <li class="nav-item nav-dropdown">
+                    <a class="nav-link nav-dropdown-toggle" href="#">
+                        <i class="navbar-toggler-icon fa fa-credit-card"></i>
+                        Quản lý thanh toán
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </a>
+                    <ul class="nav-dropdown-item">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Wallet"><i class="fa-solid fa-wallet"></i> Ví của tôi</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Wallet"><i class="nav-icon fa fa-cc-visa"></i> Nạp Tiền</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Wallet"><i class="nav-icon fa fa-exchange"></i> Lịch sử giao dịch </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Wallet"><i class="nav-icon fa fa-send-o"></i> Yêu Cầu Rút Tiền</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item nav-dropdown">
+                    <a class="nav-link nav-dropdown-toggle" href="#">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        Mua Hàng
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </a>
+                    <ul class="nav-dropdown-item">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Product" asp-action="Index"><i class="fa-brands fa-product-hunt"></i> Sản Phẩm</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Product" asp-action="Index"><i class="nav-icon fa fa-list"></i> Đơn Hàng</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item nav-dropdown">
+                    <a class="nav-link nav-dropdown-toggle" href="#">
+                        <i class="nav-icon fa fa-handshake-o"></i>
+                        Trung Gian
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </a>
+                    <ul class="nav-dropdown-item">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="WalletUser"><i class="fa-solid fa-shop"></i> Chợ Công Khai</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Wallet"><i class="fa-solid fa-bag-shopping"></i> Đơn bán của tôi</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Wallet"><i class="nav-icon fa fa-shopping-cart"></i> Đơn mua của tôi </a>
+                        </li>
+                    </ul>
+                </li>
+
+            </ul>
+            <button onclick="toggleSidebar()">Toggle Sidebar</button>
+        </div>
         <main role="main" class="pb-3">
-            <div class="text-center" id="ProductTable">
-                <div>Thông tin sản phẩm</div>
+            <marquee behavior="sroll" direction="left">
+                <h6 style="color: red;">Thông báo: Nạp tiền hình thức chuyển khoản VNPay trong khoảng 12h đêm đến 1 giờ sáng có thể sẽ nhận lâu hơn bình thường<br />Nếu chưa thấy tiền thì có thể liên hệ vào email trade.dealhub@gmail.com</h6>
+            </marquee>
+            <div class="text-center position-relative table-container" id="ProductTable">
+                <div class="overlay"></div>
+                <div class="product-heading"> <h1>Thông tin sản phẩm</h1></div>
                 <table class="table">
                     <thead>
                         <tr>
@@ -58,7 +320,9 @@
                             <th scope="col">Tên Sản Phẩm</th>
                             <th scope="col">Đơn Giá</th>
                             <th scope="col">Số Lượng</th>
+                            <th scope="col">Ngày Tạo</th>
                             <th scope="col">Hành Động</th>
+                            <th scope="col">Update</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -67,85 +331,153 @@
                             <tr>
                                 <td><img src="@product.image" alt="@product." style="max-width: 100px;" /></td>
                                 <td>@product.code</td>
-                                <td>name</td>
+                                <td>@product.id</td>
                                 <td>@product.price</td>
                                 <td>@product.quantity</td>
-                                <td><button type="button" class="btn btn-primary" onclick="showProductDetail('@product.id')">Thông tin</button></td>
+                                <td>@product.create_at</td>
+                                <td>
+                                    
+                                    <button type="button" id="btnShowModal" class=" btnShowModal btn btn-primary" data-id="@product.id">Thông tin</button>
+                                    <button type="button" class="mr-1 btn-white-space btn btn-success" id="btnBuy">
+                                        <i class="fa fa-shopping-cart"></i>Buy
+                                    </button>
+                                </td>
+                                <td><a asp-controller="Product" asp-action="UpdateProduct" asp-route-id="@product.id">Update</a></td>
                             </tr>
                         }
                     </tbody>
                 </table>
             </div>
+
         </main>
     </div>
 
-    
-    <!-- Modal -->
-    <div class="modal fade" id="productDetailDialog" tabindex="-1" role="dialog" aria-labelledby="productDetailDialogTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+
+
+    <!-- The Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
+                <!-- Modal Header -->
                 <div class="modal-header">
-                    <h5 class="modal-title" id="productDetailDialogTitle">Thông tin sản phẩm</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                    <h4 class="modal-title">Thông Tin Sản Phẩm</h4>
+                    <button type="button" class="mr-1 btn-white-space btn btn-success" id="btnBuy">
+                        <i class="fa fa-shopping-cart"></i>Buy
                     </button>
                 </div>
-                <div class="modal-body" id="productDetailContent">
-                    <!-- Nội dung chi tiết sản phẩm sẽ được thêm vào đây -->
+                <!-- Modal body -->
+                <div class="modal-body" id="modalContent">
+                    <!-- Content will be loaded here via AJAX -->
                 </div>
+                <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-secondary closeModal" data-dismiss="modal" aria-label="Close">
+                        Close
+                    </button>
                 </div>
             </div>
         </div>
     </div>
-
-
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2024 - Trade&Deal Hub - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
-    <script>
-        function showProductDetail(productId) {
-            var productDetail = getProductDetail(productId);
-            $("#productDetailDialog").modal("show");
-        }
-
-        function getProductDetail(productId) {
-                        $.ajax({
-                url: '/Product/GetProductDetail',
-                type: 'GET',
-                data: { productId: productId },
-                success: function (data) {
-                    if (data.hasOwnProperty('message')) {
-                        // Xử lý thông báo không tìm thấy sản phẩm
-                        console.log(data.message);
-                    } else {
-                        var product = data;
-                        var html = '<div>';
-                        html += '<img src="' + product.image + '" alt="' + product.name + '" style="max-width: 100px;" />';
-                        html += '<p><strong>Mã số hàng hóa:</strong> ' + product.code + '</p>';
-                        html += '<p><strong>Tên sản phẩm:</strong> ' + product.name + '</p>';
-                        html += '<p><strong>Đơn giá:</strong> ' + product.price + '</p>';
-                        html += '<p><strong>Số lượng:</strong> ' + product.quantity + '</p>';
-                        html += '<p><strong>Hành động:</strong> ' + product.action + '</p>';
-                        html += '</div>';
-                        // Xử lý hiển thị thông tin sản phẩm
-                        console.log(html);
-                        $('#productDetailContent').html(html);
-                    }
-                },
-                error: function () {
-                    // Xử lý lỗi
-                    console.log('Đã xảy ra lỗi khi lấy thông tin sản phẩm.');
-                }
-                });
-        }
-    </script>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/6ae4d71e22.js" crossorigin="anonymous"></script>
+   
+    <script>
+        $(document).ready(function () {
+            // When the button is clicked
+            $(".btnShowModal").click(function () {
+                var id = $(this).data('id');
+                selectedProductId = id;
+                // Perform an AJAX request to get the content
+                $.ajax({
+                    url: '/Product/GetProductDetail',
+                    type: 'GET',
+                    data: { productId: id },
+                    success: function (data) {
+                        var product = data;
+                        var html = '<div>';
+                        html += '<table class="table form-table" id="chi-tiet-san-pham">';
+                        html += '<tr class="id-row">'; // Thêm class 'id-row' cho thẻ tr này
+                        html += '<td><b>ID</b></td>';
+                        html += '<td><input id="id" name="id" class="form-control" value="' + product.id + '" readonly></td>';
+                        html += '</tr>';
+                        html += '<tr class="code-row">'; // Thêm class 'code-row' cho thẻ tr này
+                        html += '<td><b>Code</b></td>';
+                        html += '<td><input id="code" name="code" class="form-control" value="' + product.code + '" readonly></td>';
+                        html += '</tr>';
+                        html += '<tr class="price-row">'; // Thêm class 'price-row' cho thẻ tr này
+                        html += '<td><b>Price</b></td>';
+                        html += '<td><input type="number" id="price" name="price" class="form-control" value="' + product.price + '" readonly></td>';
+                        html += '</tr>';
+                        html += '<tr class="quantity-row">'; // Thêm class 'quantity-row' cho thẻ tr này
+                        html += '<td><b>Quantity</b></td>';
+                        html += '<td><input type="number" id="quantity" name="quantity" class="form-control" value="' + product.quantity + '" readonly></td>';
+                        html += '</tr>';
+                        html += '<tr class="categories-row">'; // Thêm class 'categories-row' cho thẻ tr này
+                        html += '<td><b>Category</b></td>';
+                        html += '<td><input type="text" id="categories" name="categories" class="form-control" value="' + product.categories + '" readonly></td>';
+                        html += '</tr>';
+                        html += '<tr class="description-row">'; // Thêm class 'description-row' cho thẻ tr này
+                        html += '<td><b>Description</b></td>';
+                        html += '<td><input type="text" id="description" name="description" class="form-control" value="' + product.description + '" readonly></td>';
+                        html += '</tr>';
+                        html += '<tr class="create-at-row">'; // Thêm class 'create-at-row' cho thẻ tr này
+                        html += '<td><b>Create day</b></td>';
+                        html += '<td><input type="text" id="create_at" name="create_at" class="form-control" value="' + product.create_at + '" readonly></td>';
+                        html += '</tr>';
+                        html += '<tr class="update-at-row">'; // Thêm class 'update-at-row' cho thẻ tr này
+                        html += '<td><b>Update day</b></td>';
+                        html += '<td><input type="text" id="update_at" name="update_at" class="form-control" value="' + product.update_at + '" readonly></td>';
+                        html += '</tr>';
+                        html += '</table>';
+                        html += '</div>';
+
+
+                        // Inject the received content into the modal body
+                        $("#modalContent").html(html);
+                        // Show the modal
+                        $("#myModal").modal('show');
+                    },
+                    error: function () {
+                        alert("Error loading content");
+                    }
+                });
+            });
+
+            $(".closeModal").off('click').on('click', function () {
+                $("#myModal").modal('hide');
+            });
+
+
+            var selectedProductId;
+
+            $("#btnBuy").click(function () {
+                var productId = $(this).data('product-id');
+
+                $.ajax({
+                    url: '/Product/BuyProduct',
+                    type: 'POST',
+                    data: { id: selectedProductId },
+                    success: function (response) {
+                        // Hiển thị thông báo dựa trên response từ server
+                        alert(response.message);
+                    },
+                    error: function () {
+                        alert("Có lỗi xảy ra khi gửi yêu cầu mua sản phẩm.");
+                    }
+                });
+            });
+
+        });
+        
+    </script>
     
+
 </body>
 </html>
