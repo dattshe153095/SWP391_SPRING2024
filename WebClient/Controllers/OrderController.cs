@@ -11,12 +11,12 @@ using System.Xml.Linq;
 
 namespace WebClient.Controllers
 {
-    public class HistoryOrderController : Controller
+    public class OrderController : Controller
     {
         public IActionResult Index()
         {
-            List<Product> products = ProductDAO.GetAllProduct();
-            ViewBag.Products = products;
+            List<Order> orders = OrderDAO.GetAllOrder();
+            ViewBag.Orders = orders;
             return View();
         }
 
