@@ -19,40 +19,53 @@
     <link rel="stylesheet" href="~/css/Account/Profile.css" asp-append-version="true" />
 
     <style>
-        body {
-            margin: 0;
+        .update-profile-form {
+            width: 50%; /* Độ rộng của form */
+            margin: 0 auto; /* Canh giữa form */
+            padding: 20px; /* Khoảng cách giữa nội dung và viền form */
+            background-color: #fff; /* Màu nền */
+            border: 1px solid #ddd; /* Viền */
+            border-radius: 5px; /* Độ cong viền */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Đổ bóng */
         }
 
-        .ul-side-bar {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            max-width: 100%;
-            background-color: #f1f1f1;
-            max-height 100%;
-            overflow: auto;
+        .form-table {
+            width: 100%; /* Độ rộng của bảng */
+            border-collapse: collapse; /* Gộp viền của ô */
         }
 
-            .ul-side-bar li {
-                margin: 0;
+            .form-table th,
+            .form-table td {
+                padding: 8px; /* Khoảng cách giữa nội dung và viền */
+                border: 1px solid #ddd; /* Viền */
             }
 
-                .ul-side-bar li a {
-                    display: block;
-                    color: #000;
-                    padding: 8px 16px;
-                    text-decoration: none;
+            .form-table th {
+                background-color: #f2f2f2; /* Màu nền của tiêu đề cột */
+                text-align: left; /* Căn lề văn bản */
+            }
+
+            .form-table input[type="text"],
+            .form-table input[type="number"] {
+                width: 100%; /* Độ rộng của input */
+                padding: 6px; /* Khoảng cách giữa nội dung và viền */
+                border: 1px solid #ddd; /* Viền */
+                border-radius: 3px; /* Độ cong viền */
+                box-sizing: border-box; /* Đảm bảo kích thước input không bị thay đổi */
+            }
+
+            .form-table button {
+                padding: 8px 16px; /* Khoảng cách giữa nội dung và viền */
+                border: none; /* Loại bỏ viền */
+                background-color: #007bff; /* Màu nền */
+                color: #fff; /* Màu chữ */
+                border-radius: 3px; /* Độ cong viền */
+                cursor: pointer; /* Con trỏ chuột khi rê chuột qua */
+            }
+
+                .form-table button:hover {
+                    background-color: #0056b3; /* Màu nền khi rê chuột qua */
                 }
-
-                    .ul-side-bar li a.active {
-                        background-color: #04AA6D;
-                        color: white;
-                    }
-
-                    .ul-side-bar li a:hover:not(.active) {
-                        background-color: #555;
-                        color: white;
-                    }
     </style>
 </head>
 <body>
@@ -73,52 +86,56 @@
 
             <div class="text-center">
 
-
+                <marquee behavior="sroll" direction="left">
+                    <h6 style="color: red;">Thông báo: Nạp tiền hình thức chuyển khoản VNPay trong khoảng 12h đêm đến 1 giờ sáng có thể sẽ nhận lâu hơn bình thường<br />Nếu chưa thấy tiền thì có thể liên hệ vào email trade.dealhub@gmail.com</h6>
+                </marquee>
                 <!-- Phần chứa biểu mẫu UpdateProfile và ChangePassword -->
                 <div class="forms-container">
                     <!-- Biểu mẫu UpdateProfile -->
                     <div class="update-profile-form">
-                        <h3>Update Profile</h3>
+                        <h1>Update Product</h1>
                         <form method="post" asp-controller="Product" asp-action="UpdateProduct">
-                            <table class="table">
+                            <table class="table form-table">
                                 <tr>
-                                    <td>ID</td>
-                                    <td><input id="id" name="id" class="form-control" value="@product.id"></td>
+                                    <td><b>ID</b></td>
+                                    <td><input id="id" name="id" class="form-control" value="@product.id" readonly></td>
                                 </tr>
                                 <tr>
-                                    <td>Code</td>
-                                    <td><input id="code" name="code" class="form-control" value="@product.code"></td>
+                                    <td><b>Code</b></td>
+                                    <td><input id="code" name="code" class="form-control" value="@product.code" readonly></td>
                                 </tr>
                                 <tr>
-                                    <td>Price</td>
-                                    <td><input type="number" id="price" name="price" class="form-control" value="@product.price"</td>
+                                    <td><b>Price</b></td>
+                                    <td><input type="number" id="price" name="price" class="form-control" value="@product.price"></td>
                                 </tr>
                                 <tr>
-                                    <td>Quantity</td>
+                                    <td><b>Quantity</b></td>
                                     <td><input type="number" id="quantity" name="quantity" class="form-control" value="@product.quantity"></td>
                                 </tr>
                                 <tr>
-                                    <td>Category</td>
-                                    <td><input type="text" id="categories" name="categories" class="form-control" value="@product.categories"></td>
+                                    <td><b>Category</b></td>
+                                    <td><input type="text" id="categories" name="categories" class="form-control" value="@product.categories" readonly></td>
                                 </tr>
                                 <tr>
-                                    <td>Description</td>
-                                    <td><input type="text" id="desctiption" name="desctiption" class="form-control" value="@product.desctiption"></td>
+                                    <td><b>Description</b></td>
+                                    <td><input type="text" id="description" name="description" class="form-control" value="@product.desctiption"></td>
                                 </tr>
                                 <tr>
-                                    <td>Create day</td>
-                                    <td><input type="text" id="create_at" name="create_at" class="form-control" value="@product.create_at" disabled></td>
+                                    <td><b>Create day</b></td>
+                                    <td><input type="text" id="create_at" name="create_at" class="form-control" value="@product.create_at" disabled readonly></td>
                                 </tr>
                                 <tr>
-                                    <td>Update day</td>
-                                    <td><input type="text" id="update_at" name="update_at" class="form-control" value="@product.update_at" disabled></td>
+                                    <td><b>Update day</b></td>
+                                    <td><input type="text" id="update_at" name="update_at" class="form-control" value="@product.update_at" disabled readonly></td>
                                 </tr>
                                 <tr>
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <td></td>
+                                    <td><button type="submit" class="btn btn-primary">Submit</button></td>
                                 </tr>
                             </table>
                         </form>
                     </div>
+
 
 
                 </div>
