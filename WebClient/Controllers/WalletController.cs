@@ -10,6 +10,7 @@ namespace WebClient.Controllers
         #region WALLET
         public ActionResult Index()
         {
+            ViewBag.accountId = HttpContext.Session.GetInt32("Account");
             List<Wallet> wallets = new List<Wallet>();
             wallets = WalletDAO.GetAllWallet();
             ViewBag.Wallets = wallets;
@@ -18,6 +19,7 @@ namespace WebClient.Controllers
 
         public ActionResult WalletDetail(int userId)
         {
+            ViewBag.accountId = HttpContext.Session.GetInt32("Account");
             Wallet wallet = new Wallet();
             wallet = WalletDAO.GetWalletByAccountId(userId);
             ViewBag.Wallet = wallet;
@@ -28,6 +30,7 @@ namespace WebClient.Controllers
         #region WITHDRAWAL
         public ActionResult WithdrawalTransaction()
         {
+            ViewBag.accountId = HttpContext.Session.GetInt32("Account");
             List<Withdrawal> withdrawals = new List<Withdrawal>();
             withdrawals = WithdrawalDAO.GetAllWithdrawal();
             ViewBag.Withdrawals = withdrawals;
@@ -36,6 +39,7 @@ namespace WebClient.Controllers
 
         public ActionResult WithdrawalDetail(int withdrawal_id)
         {
+            ViewBag.accountId = HttpContext.Session.GetInt32("Account");
             Withdrawal withdrawal = new Withdrawal();
             withdrawal = WithdrawalDAO.GetWithdrawalById(withdrawal_id);
             ViewBag.Withdrawal = withdrawal;
@@ -66,6 +70,7 @@ namespace WebClient.Controllers
         #region DEPOSIT
         public ActionResult DepositTransaction()
         {
+            ViewBag.accountId = HttpContext.Session.GetInt32("Account");
             List<Deposit> deposits = new List<Deposit>();
             deposits = DepositDAO.GetAllDeposit();
             ViewBag.Deposits = deposits;
@@ -75,6 +80,7 @@ namespace WebClient.Controllers
         [HttpGet]
         public ActionResult DepositDetail(int deposit_id)
         {
+            ViewBag.accountId = HttpContext.Session.GetInt32("Account");
             Deposit deposit = new Deposit();
             deposit = DepositDAO.GetDepositById(deposit_id);
             ViewBag.Deposit = deposit;
@@ -96,6 +102,7 @@ namespace WebClient.Controllers
 
         public ActionResult ReportTransaction()
         {
+            ViewBag.accountId = HttpContext.Session.GetInt32("Account");
             List<TransactionError> transactionErrors = new List<TransactionError>();
             transactionErrors = TransactionErrorDAO.GetAllTransactionError();
             ViewBag.TransactionErrors = transactionErrors;
@@ -104,6 +111,7 @@ namespace WebClient.Controllers
 
         public ActionResult ReportTransactionDetail(int id)
         {
+            ViewBag.accountId = HttpContext.Session.GetInt32("Account");
             TransactionError transactionError = new TransactionError();
             transactionError = TransactionErrorDAO.GetTransactionErrorById(id);
             ViewBag.TransactionError = transactionError;

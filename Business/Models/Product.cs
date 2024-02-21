@@ -15,9 +15,15 @@ namespace BussinessObject.Models
         [MaxLength(30)]
         [Column(TypeName = "varchar")]
         public string code { get; set; }
+        [MaxLength(100)]
+        [Column(TypeName = "nvarchar")]
+        public string name { get; set; }
         public int price { get; set; }
         public int quantity { get; set; }
         public int categories { get; set; }
+        [MaxLength(500)]
+        [Column(TypeName = "nvarchar")]
+        public string content { get; set; }
         [MaxLength(500)]
         [Column(TypeName = "nvarchar")]
         public string? desctiption { get; set; }
