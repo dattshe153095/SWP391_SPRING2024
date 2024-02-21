@@ -123,5 +123,14 @@ namespace WebClient.Controllers
             ProcessedTransactionInfoDAO.UpdateProcessedTransactionInfo(processedTransactionInfo);
             return RedirectToAction("ReportTransactionDetail", new { id = processedTransactionInfo.transaction_error_id });
         }
+        [HttpGet]
+        public IActionResult UpdateWallet(int id)
+        {
+            var product = ProductDAO.GetProductWithId(id);
+
+            ViewBag.Product = product;
+
+            return View();
+        }
     }
 }

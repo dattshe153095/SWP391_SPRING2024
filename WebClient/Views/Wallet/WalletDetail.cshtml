@@ -130,11 +130,14 @@
                             </tr>
                             <tr>
                                 <td>Balance</td>
-                                <td><input type="text" id="title" name="title" class="form-control" value="@wallet.balance" disabled></td>
+                                <td><input type="text" id="balance" name="title" class="form-control" value="@wallet.balance" ></td>
                             </tr>
                             <tr>
                                 <td>Update at</td>
                                 <td><input type="text" id="update_at" name="update_at" class="form-control" value="@wallet.update_at" disabled></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"> <button id="submitBalance" type="submit" class="btn btn-primary">Submit</button></td>
                             </tr>
                         </table>
                     </div>
@@ -177,6 +180,29 @@
                     error: function (jqXHR, textStatus, errorThrown) {
                         console.error("AJAX error:", errorThrown);
                         // Handle errors appropriately, e.g., display an error message to the user
+                    }
+                });
+            });
+        });
+        $(document).ready(function () {
+            $("#submitBalance").click(function () {
+                var newBalance = $("#balance").val();
+                var walletId = $("#wallet_id").val();
+
+                $.ajax({
+                    url: "/Wallet/UpdateBalance", // Địa chỉ URL của endpoint xử lý yêu cầu cập nhật balance
+                    method: "GET",
+                    data: {
+                        balance: newBalance,
+                        walletId: walletId
+                    },
+                    success: function (response) {
+                        // Xử lý phản hồi từ server nếu cần
+                        console.log("Balance updated successfully");
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.error("AJAX error:", errorThrown);
+                        // Xử lý lỗi nếu có
                     }
                 });
             });
