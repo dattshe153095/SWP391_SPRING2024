@@ -347,7 +347,7 @@
                                 <td>
                                     
                                     <button type="button" id="btnShowModal" class=" btnShowModal btn btn-primary" data-id="@product.id">Thông tin</button>
-                                    <button type="button" class="mr-1 btn-white-space btn btn-success" id="btnBuy">
+                                    <button type="button" class="btnBuy mr-1 btn-white-space btn btn-success" id="btnBuy">
                                         <i class="fa fa-shopping-cart"></i>Buy
                                     </button>
                                 </td>
@@ -370,7 +370,7 @@
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">Thông Tin Sản Phẩm</h4>
-                    <button type="button" class="mr-1 btn-white-space btn btn-success" id="btnBuy">
+                    <button type="button" class="btnBuy mr-1 btn-white-space btn btn-success" id="btnBuy">
                         <i class="fa fa-shopping-cart"></i>Buy
                     </button>
                 </div>
@@ -467,7 +467,7 @@
 
             var selectedProductId;
 
-            $("#btnBuy").click(function () {
+            $(".btnBuy").click(function () {
                 var productId = $(this).data('product-id');
 
                 $.ajax({
