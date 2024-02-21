@@ -213,7 +213,10 @@
         table td {
             white-space: nowrap; /* Ngăn chặn từng hàng trong bảng bị ngắt dòng */
         }
-        
+
+        .pb-3{
+            margin-right : -21%;
+        }
     </style>
 </head>
 <body>
@@ -278,6 +281,10 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Product" asp-action="Index"><i class="fa-brands fa-product-hunt"></i> Sản Phẩm</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Product" asp-action="InsertProduct"><i class="fa-brands fa-product-hunt"></i>Tạo sản phẩm mới</a>
+                        </li>
+                        
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Product" asp-action="Index"><i class="nav-icon fa fa-list"></i> Đơn Hàng</a>
                         </li>
@@ -427,7 +434,8 @@
                         html += '</tr>';
                         html += '<tr class="description-row">'; // Thêm class 'description-row' cho thẻ tr này
                         html += '<td><b>Description</b></td>';
-                        html += '<td><input type="text" id="description" name="description" class="form-control" value="' + product.description + '" readonly></td>';
+                        html += '<td><input type="text" id="description" name="description" class="form-control" value="' + product.desctiption + '" readonly></td>';
+                        
                         html += '</tr>';
                         html += '<tr class="create-at-row">'; // Thêm class 'create-at-row' cho thẻ tr này
                         html += '<td><b>Create day</b></td>';

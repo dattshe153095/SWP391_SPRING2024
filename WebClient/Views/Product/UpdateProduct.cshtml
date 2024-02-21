@@ -13,7 +13,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Acount Profile</title>
+    <title>@ViewData["Title"] Update Product</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/Account/Profile.css" asp-append-version="true" />
@@ -118,7 +118,8 @@
                                 </tr>
                                 <tr>
                                     <td><b>Description</b></td>
-                                    <td><input type="text" id="description" name="description" class="form-control" value="@product.desctiption"></td>
+                                    
+                                    <td><textarea id="desctiption" name="desctiption" class="form-control" value="@product.desctiption"></textarea></td>
                                 </tr>
                                 <tr>
                                     <td><b>Create day</b></td>
