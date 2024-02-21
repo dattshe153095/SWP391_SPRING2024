@@ -315,12 +315,13 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">Hình ảnh</th>
+                            
                             <th scope="col">Mã Số Hàng Hóa</th>
                             <th scope="col">Tên Sản Phẩm</th>
                             <th scope="col">Đơn Giá</th>
                             <th scope="col">Số Lượng</th>
                             <th scope="col">Ngày Tạo</th>
+                            <th scope="col">Ngày Cập nhật</th>
                             <th scope="col">Hành Động</th>
                             <th scope="col">Update</th>
                         </tr>
@@ -329,12 +330,13 @@
                         @foreach (Product product in products)
                         {
                             <tr>
-                                <td><img src="@product.image" alt="@product." style="max-width: 100px;" /></td>
+                                
                                 <td>@product.code</td>
-                                <td>@product.id</td>
+                                <td>@product.name</td>
                                 <td>@product.price</td>
                                 <td>@product.quantity</td>
                                 <td>@product.create_at</td>
+                                <td>@product.update_at</td>
                                 <td>
                                     
                                     <button type="button" id="btnShowModal" class=" btnShowModal btn btn-primary" data-id="@product.id">Thông tin</button>
