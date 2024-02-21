@@ -25,7 +25,7 @@ namespace DataAccess.DAO
 
         public static Account Login(string username, string password)
         {
-            return GetAllAccount().FirstOrDefault(x => x.username == username && x.password == password);   
+            return GetAllAccount().FirstOrDefault(x => x.username == username && x.password == password);
         }
 
         public static Account GetAccountWithId(int? id)
@@ -33,9 +33,9 @@ namespace DataAccess.DAO
             return GetAllAccount().FirstOrDefault(x => x.id == id);
         }
 
-        public static Account GetAccountWithUsernameMail( string email)
+        public static Account GetAccountWithUsernameMail(string email)
         {
-            return GetAllAccount().FirstOrDefault(x =>  x.email == email);
+            return GetAllAccount().FirstOrDefault(x => x.email == email);
         }
 
         public static bool CheckAccountExist(string user)
@@ -49,10 +49,20 @@ namespace DataAccess.DAO
 
             account.create_at = DateTime.Now;
             account.update_at = DateTime.Now;
+
+            Wallet w = new Wallet()
+            {
+                account_id = account.id,
+                balance = 0,
+                update_at = DateTime.Now,
+                update_by = account.id,
+            };
             using (var context = new Web_Trung_GianContext())
             {
                 var accounts = context.Set<Account>();
                 accounts.Add(account);
+                var wallets= context.Set<Wallet>();
+                wallets.Add(w);
                 context.SaveChanges();
             }
         }
@@ -88,7 +98,7 @@ namespace DataAccess.DAO
             try
             {
                 Account account = GetAccountWithId(id);
-               
+
                 if (account != null)
                 {
                     account.is_delete = true;

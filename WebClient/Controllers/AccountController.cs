@@ -13,10 +13,6 @@ namespace WebClient.Controllers
 {
     public class AccountController : Controller
     {
-        public IActionResult Wallet()
-        {
-            return View();
-        }
         public IActionResult Profile()
         {
             ViewBag.accountId = HttpContext.Session.GetInt32("Account");
@@ -130,6 +126,11 @@ namespace WebClient.Controllers
                 imageCaptcha = Convert.ToBase64String(imageBytes);
             }
             return Json(imageCaptcha);
+        }
+
+        public IActionResult Wallet()
+        {
+            return View();
         }
 
 

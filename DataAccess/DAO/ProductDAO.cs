@@ -53,5 +53,18 @@ namespace DataAccess.DAO
             }
         }
 
+        public static void InsertProduct(Product product)
+        {
+            product.create_at = DateTime.Now;
+            product.update_at = DateTime.Now;
+
+            using (var context = new Web_Trung_GianContext())
+            {
+                var products = context.Set<Product>();
+                products.Add(product);
+                context.SaveChanges();
+            }
+        }
+
     }
 }

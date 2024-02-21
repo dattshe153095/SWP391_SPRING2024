@@ -5,8 +5,7 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
-     TransactionError transactionError = ViewBag.TransactionError;
-    ProcessedTransactionInfo processedTransactionInfo = ViewBag.ProcessedTransactionInfo;
+    Deposit deposit = ViewBag.Deposit;
 
 }
 <!DOCTYPE html>
@@ -110,10 +109,10 @@
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <ul class="ul-side-bar" style="text-align: left;">
-                                    <li><a asp-controller="Wallet" asp-action="WalletUser">All Wallet</a></li>
+                                    <li><a asp-controller="Wallet" asp-action="Index">All Wallet</a></li>
                                     <li><a asp-controller="Wallet" asp-action="WithdrawalTransaction">All Withdrawal</a></li>
-                                    <li><a asp-controller="Wallet" asp-action="DepositTransaction">All Deposit</a></li>
-                                    <li><a class="active" asp-controller="Wallet" asp-action="ReportTransaction">All Report</a></li>
+                                    <li><a class="active" asp-controller="Wallet" asp-action="DepositTransaction">All Deposit</a></li>
+                                    <li><a asp-controller="Wallet" asp-action="ReportTransaction">All Report</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -121,45 +120,65 @@
                     <div class="col-sm-8">
                         <!-- Phần trung tâm -->
                         <h1>Phần Trung Tâm</h1>
-                        <form method="post" asp-controller="Wallet" asp-action="HandleReportWallet">
+                        <form method="post" asp-controller="Wallet" asp-action="DepositHandle">
                             <table class="table">
                                 <tr>
-                                    <td><input type="hidden" id="id_transactionError" name="id_transactionError" class="form-control" value="@transactionError.id"></td>
-                                </tr>
-                                <tr>
-                                    <td><input type="hidden" id="id_processedTransactionInfo" name="id_processedTransactionInfo" class="form-control" value="@processedTransactionInfo.id"></td>
+                                    <td><input type="hidden" id="deposit_id" name="deposit_id" class="form-control" value="@deposit.id"></td>
                                 </tr>
                                 <tr>
                                     <td>Name</td>
-                                    <td><input type="text" id="name" name="name" class="form-control" value="@WalletDAO.GetWalletAccountById(transactionError.wallet_id).name" disabled></td>
+                                    <td><input type="text" id="name" name="name" class="form-control" value="@WalletDAO.GetWalletAccountById(deposit.wallet_id).name" disabled></td>
                                 </tr>
                                 <tr>
-                                    <td>Title</td>
-                                    <td><input type="text" id="title" name="title" class="form-control" value="@transactionError.title" disabled></td>
+                                    <td>Amount</td>
+                                    <td><input type="text" id="title" name="title" class="form-control" value="@deposit.amount" disabled></td>
                                 </tr>
                                 <tr>
-                                    <td>Type</td>
-                                    <td><input type="text" id="type" name="type" class="form-control" value="@transactionError.type" disabled></td>
+                                    <td>fee</td>
+                                    <td><input type="text" id="type" name="type" class="form-control" value="@deposit.fee" disabled></td>
                                 </tr>
                                 <tr>
                                     <td>Description</td>
-                                    <td><input type="text" id="description" name="description" class="form-control" value="@transactionError.description" disabled></td>
+                                    <td><input type="text" id="description" name="description" class="form-control" value="@deposit.desctiption" disabled></td>
                                 </tr>
                                 <tr>
                                     <td>Status</td>
-                                    <td><input type="text" id="status" name="status" class="form-control" value="@transactionError.status" disabled></td>
+                                    <td>
+                                        <select id="status" name="status" class="form-control">
+                                            @{
+                                                if (deposit.status == "pending")
+                                                {
+                                                    <option value="pending" selected>pending</option>
+                                                    <option value="done">done</option>
+                                                    <option value="error">error</option>
+                                                }
+                                                else if (deposit.status == "done")
+                                                {
+                                                    <option value="pending">pending</option>
+                                                    <option value="done" selected>done</option>
+                                                    <option value="error">error</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="pending">pending</option>
+                                                    <option value="done">done</option>
+                                                    <option value="error" selected>error</option>
+                                                }
+
+                                            }
+
+                                            <!-- Thêm các option khác nếu cần -->
+                                        </select>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>Message</td>
-                                    <td><input type="text" id="processed_message" name="processed_message" class="form-control" value="@processedTransactionInfo.processed_message"></td>
+                                    <td>Create at</td>
+                                    <td><input type="text" id="create_at" name="create_at" class="form-control" value="@deposit.create_at" disabled></td>
                                 </tr>
                                 <tr>
-                                    <td>Time response</td>
-                                    <td><input type="text" id="create_at" name="create_at" class="form-control" value="@processedTransactionInfo.create_at" disabled></td>
+                                    <td colspan="2"> <button type="submit" class="btn btn-primary">Submit</button></td>
                                 </tr>
-                                <tr>
-                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                </tr>
+
                             </table>
                         </form>
                     </div>

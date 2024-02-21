@@ -5,7 +5,7 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
-    Withdrawal withdrawal = ViewBag.Withdrawal;
+    Wallet wallet = ViewBag.Wallet;
 
 }
 <!DOCTYPE html>
@@ -109,9 +109,9 @@
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <ul class="ul-side-bar" style="text-align: left;">
-                                    <li><a asp-controller="Wallet" asp-action="Index">All Wallet</a></li>
+                                    <li><a class="active" asp-controller="Wallet" asp-action="Index">All Wallet</a></li>
                                     <li><a asp-controller="Wallet" asp-action="WithdrawalTransaction">All Withdrawal</a></li>
-                                    <li><a class="active" asp-controller="Wallet" asp-action="DepositTransaction">All Deposit</a></li>
+                                    <li><a asp-controller="Wallet" asp-action="DepositTransaction">All Deposit</a></li>
                                     <li><a asp-controller="Wallet" asp-action="ReportTransaction">All Report</a></li>
                                 </ul>
                             </div>
@@ -120,74 +120,23 @@
                     <div class="col-sm-8">
                         <!-- Phần trung tâm -->
                         <h1>Phần Trung Tâm</h1>
-                        <form method="post" asp-controller="Wallet" asp-action="WithdrawalHandle">
-                            <table class="table">
-                                <tr>
-                                    <td><input type="hidden" id="withdrawal_id" name="withdrawal_id" class="form-control" value="@withdrawal.id"></td>
-                                </tr>
-                                <tr>
-                                    <td>Name</td>
-                                    <td><input type="text" id="name" name="name" class="form-control" value="@WalletDAO.GetWalletAccountById(withdrawal.wallet_id).name" disabled></td>
-                                </tr>
-                                <tr>
-                                    <td>Amount</td>
-                                    <td><input type="text" id="title" name="title" class="form-control" value="@withdrawal.amount" disabled></td>
-                                </tr>
-                                <tr>
-                                    <td>Fee</td>
-                                    <td><input type="text" id="type" name="type" class="form-control" value="@withdrawal.fee" disabled></td>
-                                </tr>
-                                <tr>
-                                    <td>Bank User</td>
-                                    <td><input type="text" id="bank_number" name="bank_number" class="form-control" value="@withdrawal.bank_number" disabled></td>
-                                </tr>
-                                <tr>
-                                    <td>Bank Number</td>
-                                    <td><input type="text" id="bank_number" name="bank_number" class="form-control" value="@withdrawal.bank_number" disabled></td>
-                                </tr>
-                                <tr>
-                                    <td>Bank Name</td>
-                                    <td><input type="text" id="bank_number" name="bank_number" class="form-control" value="@withdrawal.bank_number" disabled></td>
-                                </tr>
-                                <tr>
-                                    <td>Status</td>
-                                    <td>
-                                        <select id="status" name="status" class="form-control">
-                                            @{
-                                                if (withdrawal.status == "pending")
-                                                {
-                                                    <option value="pending" selected>pending</option>
-                                                    <option value="done">done</option>
-                                                    <option value="error">error</option>
-                                                }
-                                                else if (withdrawal.status == "done")
-                                                {
-                                                    <option value="pending">pending</option>
-                                                    <option value="done" selected>done</option>
-                                                    <option value="error">error</option>
-                                                }
-                                                else
-                                                {
-                                                    <option value="pending">pending</option>
-                                                    <option value="done">done</option>
-                                                    <option value="error" selected>error</option>
-                                                }
-
-                                            }
-
-                                            <!-- Thêm các option khác nếu cần -->
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Create at</td>
-                                    <td><input type="text" id="create_at" name="create_at" class="form-control" value="@withdrawal.create_at" disabled></td>
-                                </tr>
+                        <table class="table">
                             <tr>
-                                <td colspan="2"> <button type="submit" class="btn btn-primary">Submit</button></td>
+                                <td><input type="hidden" id="wallet_id" name="wallet_id" class="form-control" value="@wallet.id"></td>
                             </tr>
-                            </table>
-                        </form>
+                            <tr>
+                                <td>Name</td>
+                                <td><input type="text" id="name" name="name" class="form-control" value="@WalletDAO.GetWalletAccountById(wallet.id).name" disabled></td>
+                            </tr>
+                            <tr>
+                                <td>Balance</td>
+                                <td><input type="text" id="title" name="title" class="form-control" value="@wallet.balance" disabled></td>
+                            </tr>
+                            <tr>
+                                <td>Update at</td>
+                                <td><input type="text" id="update_at" name="update_at" class="form-control" value="@wallet.update_at" disabled></td>
+                            </tr>
+                        </table>
                     </div>
                     <div class="col-sm-2">
                         <!-- Phần phải -->
