@@ -361,10 +361,10 @@
                                 <td>@product.update_at</td>
                                 <td>
 
-                                    <button type="button" id="btnShowModal" class=" btnShowModal btn btn-primary" data-id="@product.id">Thông tin</button>
-                                    <button type="button" class="btnBuy mr-1 btn-white-space btn btn-success" id="btnBuy">
+                                    <button type="button" id="btnShowModal" class="btnShowModal btn btn-primary" data-id="@product.id">Thông tin</button>
+                                   @*  <button type="button" class="btnBuy mr-1 btn-white-space btn btn-success" id="btnBuy">
                                         <i class="fa fa-shopping-cart"></i>Buy
-                                    </button>
+                                    </button> *@
                                 </td>
                                 <td><a asp-controller="Product" asp-action="UpdateProduct" asp-route-id="@product.id">Update</a></td>
                             </tr>
