@@ -10,6 +10,10 @@ namespace WebClient.Controllers
     [Authorize(Roles = "Admin")]
     public class WalletController : Controller
     {
+        public IActionResult SearchByName(string username)
+        {
+            return View();
+        }
         #region WALLET
         public ActionResult Index()
         {
@@ -133,6 +137,15 @@ namespace WebClient.Controllers
             processedTransactionInfo.processed_message = processed_message;
             ProcessedTransactionInfoDAO.UpdateProcessedTransactionInfo(processedTransactionInfo);
             return RedirectToAction("ReportTransactionDetail", new { id = processedTransactionInfo.transaction_error_id });
+        }
+        [HttpGet]
+        public IActionResult UpdateWallet(int id)
+        {
+            var product = ProductDAO.GetProductWithId(id);
+
+            ViewBag.Product = product;
+
+            return View();
         }
     }
 }

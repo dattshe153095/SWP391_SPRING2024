@@ -43,51 +43,20 @@ namespace DataAccess.DAO
             }
         }
 
-        public static List<Withdrawal> SearchWithdrawal(DateTime? create_at, DateTime? update_at, string account_name = "", int id = 0, string bank_user = "", string bank_number = "", string bank_name = "", string status = "")
+        public static void CreateWithdrawal(Withdrawal withdrawal)
         {
-            List<Withdrawal> list = GetAllWithdrawal();
-            if (create_at != null)
+            withdrawal.create_at = DateTime.Now;
+            withdrawal.update_at = DateTime.Now;
+            if (withdrawal != null)
             {
-                list = GetAllWithdrawal().Where(x => x.create_at <= create_at).ToList();
+
+                using (var context = new Web_Trung_GianContext())
+                {
+                    var withdrawals = context.Set<Withdrawal>();
+                    withdrawals.Add(withdrawal);
+                    context.SaveChanges();
+                }
             }
-            if (update_at != null)
-            {
-                list = GetAllWithdrawal().Where(x => x.update_at <= update_at).ToList();
-            }
-            //if (account_name != "")
-            //{
-            //    List<Account> accounts = AccountDAO.GetAccountWithName(account_name);
-            //    list = GetAllWithdrawal().Where(x => accounts.Any(a => a.id == x.id)).ToList();
-            //}
-
-            if (id != 0)
-            {
-                list = GetAllWithdrawal().Where(x => x.id == id).ToList();
-            }
-
-
-            if (bank_user != "")
-            {
-                list = GetAllWithdrawal().Where(x => x.bank_user.ToLower().Contains(bank_user.Trim().ToLower())).ToList();
-            }
-
-            if (bank_number != "")
-            {
-                list = GetAllWithdrawal().Where(x => x.bank_number.ToLower().Contains(bank_number.Trim().ToLower())).ToList();
-            }
-
-            if (bank_name != "")
-            {
-                list = GetAllWithdrawal().Where(x => x.bank_name.ToLower().Contains(bank_name.Trim().ToLower())).ToList();
-            }
-
-            if (status != "")
-            {
-                list = GetAllWithdrawal().Where(x => x.status.ToLower().Contains(status.Trim().ToLower())).ToList();
-            }
-
-            return list;
-
         }
     }
 }

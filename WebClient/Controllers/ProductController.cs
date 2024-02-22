@@ -95,8 +95,7 @@ namespace WebClient.Controllers
             return RedirectToAction("UpdateProduct", new { id = product.id });
         }
 
-        [Authorize(Roles = "Admin")]
-        [Authorize(Roles = "User")]
+        [Authorize(Roles = "Admin,User")]
         [HttpPost]
         public IActionResult BuyProduct(int id)
         {

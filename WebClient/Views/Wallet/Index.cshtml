@@ -1,4 +1,4 @@
-﻿@using BussinessObject.Models;
+@using BussinessObject.Models;
 @using DataAccess.DAO;
 @using WebClient
 @using WebClient.Models
@@ -116,7 +116,7 @@
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <ul class="ul-side-bar" style="text-align: left;">
-                                    <li><a class="active" asp-controller="Wallet" asp-action="Index">All Wallet</a></li>
+                                    <li><a class="nav-link" id="wallet-link" asp-controller="Wallet" asp-action="Index">All Wallet</a></li>
                                     <li><a asp-controller="Wallet" asp-action="WithdrawalTransaction">All Withdrawal</a></li>
                                     <li><a asp-controller="Wallet" asp-action="DepositTransaction">All Deposit</a></li>
                                     <li><a asp-controller="Wallet" asp-action="ReportTransaction">All Report</a></li>
@@ -181,4 +181,21 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 </body>
+<script>
+    $(document).ready(function() {
+    // Load "Ví của tôi" content using Ajax
+    $('#wallet-link').click(function(e) {
+    e.preventDefault(); // Prevent default anchor behavior
+
+    $.ajax({
+                url: "/Wallet/WalletDetail",
+    method: "GET",
+    success: function(data) {
+    // Replace the content of a specific div with the loaded data
+                    $('#wallet-link').html(data);
+    }
+    });
+    });
+    });
+</script>
 </html>
