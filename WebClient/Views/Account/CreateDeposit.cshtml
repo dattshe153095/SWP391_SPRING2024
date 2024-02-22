@@ -213,6 +213,17 @@
         table td {
             white-space: nowrap; /* Ngăn chặn từng hàng trong bảng bị ngắt dòng */
         }
+
+        .main {
+            overflow: auto; /* Tạo thanh cuộn cho nội dung khi vượt quá kích thước */
+            max-width: calc(100% - 260px); /* Chiều rộng tối đa của phần content trừ đi chiều rộng của sidebar */
+            margin-left: 260px; /* Để tránh bị che bởi sidebar */
+        }
+
+        .table-container {
+            overflow-x: auto; /* Tạo thanh cuộn ngang cho bảng khi nội dung bị tràn */
+            max-width: 100%; /* Chiều rộng tối đa của bảng */
+        }
     </style>
 </head>
 <body>

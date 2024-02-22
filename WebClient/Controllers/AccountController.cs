@@ -128,12 +128,29 @@ namespace WebClient.Controllers
             return Json(imageCaptcha);
         }
 
+
+        #region Wallet
         public IActionResult Wallet()
         {
             return View();
         }
 
+        public IActionResult CreateDeposit()
+        {
+            ViewBag.accountId = HttpContext.Session.GetInt32("Account");
+            List<Product> products = ProductDAO.GetAllProduct();
+            ViewBag.Products = products;
+            return View();
+        }
 
+        public IActionResult CreateReport()
+        {
+            ViewBag.accountId = HttpContext.Session.GetInt32("Account");
+            List<Product> products = ProductDAO.GetAllProduct();
+            ViewBag.Products = products;
+            return View();
+        }
+        #endregion
 
     }
 }
