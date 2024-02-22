@@ -146,7 +146,7 @@
                                             <tr id="row_@w.id">
                                                 <td>@w.id</td>
                                                 @{
-                                                    string name = @WalletDAO.GetWalletAccountById(w.id).name;
+                                                    string name = @WalletDAO.GetWalletAccountById(w.wallet_id).name;
                                                 }
                                                 <td id="name" data-name="@name">@name</td>
                                                 <td id="amount" data-name="@w.amount">@w.amount</td>
