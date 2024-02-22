@@ -207,9 +207,9 @@
             max-width: 800px; /* Điều chỉnh kích thước tối đa của modal */
         }
 
-        
 
-        
+
+
 
         .product-heading {
             text-align: center; /* Căn giữa tiêu đề bảng */
@@ -370,8 +370,54 @@
                     </tbody>
                 </table>
             </div>
+            <div class="col-lg-9 col-md-8 col-sm-12">
+                <main role="main" class="pb-3">
+                    <marquee behavior="sroll" direction="left">
+                        <h6 style="color: red;">Thông báo: Nạp tiền hình thức chuyển khoản VNPay trong khoảng 12h đêm đến 1 giờ sáng có thể sẽ nhận lâu hơn bình thường<br />Nếu chưa thấy tiền thì có thể liên hệ vào email trade.dealhub@gmail.com</h6>
+                    </marquee>
+                    <div class="text-center table-container" id="ProductTable">
+                        <div class="overlay"></div>
+                        <div class="product-heading"> <h1>Thông tin sản phẩm</h1></div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Hình ảnh</th>
+                                    <th scope="col">Mã Số Hàng Hóa</th>
+                                    <th scope="col">Tên Sản Phẩm</th>
+                                    <th scope="col">Đơn Giá</th>
+                                    <th scope="col">Số Lượng</th>
+                                    <th scope="col">Ngày Tạo</th>
+                                    <th scope="col">Hành Động</th>
+                                    <th scope="col">Update</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (Product product in products)
+                                {
+                                    <tr>
+                                        <td><img src="@product.image" alt="@product." style="max-width: 100px;" /></td>
+                                        <td>@product.code</td>
+                                        <td>@product.id</td>
+                                        <td>@product.price</td>
+                                        <td>@product.quantity</td>
+                                        <td>@product.create_at</td>
+                                        <td>
 
-        </main>
+                                            <button type="button" id="btnShowModal" class="btnShowModal btn btn-primary" data-id="@product.id">Thông tin</button>
+                                            <button type="button" class="mr-1 btn-white-space btn btn-success" id="btnBuy">
+                                                <i class="fa fa-shopping-cart"></i>Buy
+                                            </button>
+                                        </td>
+                                        <td><a asp-controller="Product" asp-action="UpdateProduct" asp-route-id="@product.id">Update</a></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                </main>
+            </div>
+        </div>
     </div>
 
 
