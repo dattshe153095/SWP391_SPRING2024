@@ -40,5 +40,22 @@ namespace DataAccess.DAO
                 }
             }
         }
+
+        public static void CreateDeposit(Deposit deposit)
+        {
+            deposit.create_at = DateTime.Now;
+            deposit.update_at = DateTime.Now;
+            deposit.status = "pending";
+            if (deposit != null)
+            {
+              
+                using (var context = new Web_Trung_GianContext())
+                {
+                    var deposits = context.Set<Deposit>();
+                    deposits.Add(deposit);
+                    context.SaveChanges();
+                }
+            }
+        }
     }
 }

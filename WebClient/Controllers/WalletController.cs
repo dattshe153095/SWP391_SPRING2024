@@ -3,11 +3,11 @@ using DataAccess.DAO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace WebClient.Controllers
 {
     [Authorize(Roles = "Admin")]
-
     public class WalletController : Controller
     {
         public IActionResult SearchByName(string username)

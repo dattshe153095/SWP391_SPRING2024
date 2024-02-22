@@ -11,6 +11,7 @@ using System.Xml.Linq;
 
 namespace WebClient.Controllers
 {
+    [Authorize(Roles = "Admin,User")]
     public class AccountController : Controller
     {
         public IActionResult Profile()
@@ -142,8 +143,23 @@ namespace WebClient.Controllers
         public IActionResult CreateDeposit()
         {
             ViewBag.accountId = HttpContext.Session.GetInt32("Account");
-            List<Product> products = ProductDAO.GetAllProduct();
-            ViewBag.Products = products;
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateDeposit(int wallet_id, int amount)
+        {
+            ViewBag.accountId = HttpContext.Session.GetInt32("Account");
+            Deposit deposit = new Deposit()
+            {
+                wallet_id = wallet_id,
+                amount = amount,
+                fee = Convert.ToInt32(amount * 0.05f),
+                status = "pending",
+                create_by = HttpContext.Session.GetInt32("Account").Value,
+                update_by = HttpContext.Session.GetInt32("Account").Value,
+            };
+            DepositDAO.CreateDeposit(deposit);
             return View();
         }
 
@@ -152,6 +168,19 @@ namespace WebClient.Controllers
             ViewBag.accountId = HttpContext.Session.GetInt32("Account");
             List<Product> products = ProductDAO.GetAllProduct();
             ViewBag.Products = products;
+            return View();
+        }
+
+        public IActionResult TransactionHistory()
+        {
+            int id = HttpContext.Session.GetInt32("Account").Value;
+            if (id==null) return RedirectToAction("Login", "Home");
+            ViewBag.accountId = HttpContext.Session.GetInt32("Account");
+            List<Deposit> deposits = DepositDAO.GetAllDeposit().Where(x => x.wallet_id == WalletDAO.GetWalletByAccountId(id).id).ToList();
+            ViewBag.Deposits = deposits;
+
+            List<Withdrawal> withdrawals = WithdrawalDAO.GetAllWithdrawal().Where(x => x.wallet_id == WalletDAO.GetWalletByAccountId(id).id).ToList();
+            ViewBag.Withdrawals = withdrawals;
             return View();
         }
         #endregion
