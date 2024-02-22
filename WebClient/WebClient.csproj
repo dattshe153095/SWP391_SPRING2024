@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Controllers\OrderController.cs~RF9ebf167.TMP" />
+    <None Remove="Views\Account\CreateDeposit.cshtml~RF9a71682.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AspNetCore.ReCaptcha" Version="1.8.1" />
     <PackageReference Include="BCrypt.Net-Core" Version="1.6.0" />
     <PackageReference Include="Bootstrap" Version="5.3.2" />

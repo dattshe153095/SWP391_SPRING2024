@@ -39,7 +39,7 @@ namespace WebClient.Controllers
             return View();
         }
 
-        #region
+        #region LOGIN
         [HttpGet]
         public IActionResult Login()
         {

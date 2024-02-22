@@ -38,6 +38,7 @@ namespace WebClient.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult InsertProduct()
         {
@@ -70,6 +71,7 @@ namespace WebClient.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult UpdateProduct(int id)
         {
@@ -80,6 +82,7 @@ namespace WebClient.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult UpdateProduct(int id, string code, int price, int quantity, int categories, string desctiption)
         {
@@ -92,6 +95,8 @@ namespace WebClient.Controllers
             return RedirectToAction("UpdateProduct", new { id = product.id });
         }
 
+        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "User")]
         [HttpPost]
         public IActionResult BuyProduct(int id)
         {

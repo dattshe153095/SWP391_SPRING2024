@@ -11,6 +11,8 @@ using System.Xml.Linq;
 
 namespace WebClient.Controllers
 {
+    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "User")]
     public class OrderController : Controller
     {
         public IActionResult Index()
