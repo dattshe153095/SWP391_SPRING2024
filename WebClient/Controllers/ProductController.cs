@@ -9,6 +9,7 @@ using System.Drawing;
 using System.Text;
 using System.Xml.Linq;
 using Microsoft.CodeAnalysis;
+using WebClient.ViewModel;
 
 namespace WebClient.Controllers
 {
@@ -16,6 +17,7 @@ namespace WebClient.Controllers
     {
         public IActionResult Index()
         {
+            ViewBag.accountId = HttpContext.Session.GetInt32("Account");
             List<Product> products = ProductDAO.GetAllProduct();
             ViewBag.Products = products;
             return View();
@@ -36,12 +38,43 @@ namespace WebClient.Controllers
             }
         }
 
+        [HttpGet]
+        public IActionResult InsertProduct()
+        {
+            ViewBag.accountId = HttpContext.Session.GetInt32("Account");
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult InsertProduct(ProductViewModel p)
+        {
+            int id_account = 0;
+            if (HttpContext.Session.GetInt32("Account") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            id_account = HttpContext.Session.GetInt32("Account").Value;
+            Product product = new Product();
+            product.name = p.name;
+            product.code = "UIA3HFIU3";
+            product.name = p.name;
+            product.price = p.price;
+            product.quantity = p.quantity;
+            product.categories = 1;
+            product.content = p.content;
+            product.desctiption = p.description;
+            product.link = "#";
+            product.create_by = id_account;
+            product.update_by = id_account;
+            ProductDAO.InsertProduct(product);
+            return View();
+        }
 
         [HttpGet]
         public IActionResult UpdateProduct(int id)
         {
+            ViewBag.accountId = HttpContext.Session.GetInt32("Account");
             var product = ProductDAO.GetProductWithId(id);
-
             ViewBag.Product = product;
 
             return View();

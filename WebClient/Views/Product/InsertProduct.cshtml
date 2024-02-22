@@ -1,12 +1,12 @@
-@using BussinessObject.Models;
+﻿@using BussinessObject.Models;
 @using DataAccess.DAO;
 @using WebClient
 @using WebClient.Models
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
+    Withdrawal withdrawal = ViewBag.Withdrawal;
 
-    List<Wallet> wallets = ViewBag.Wallets;
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -29,7 +29,7 @@
             padding: 0;
             max-width: 100%;
             background-color: #f1f1f1;
-            max-height: 100%;
+            max-height 100%;
             overflow: auto;
         }
 
@@ -109,9 +109,9 @@
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <ul class="ul-side-bar" style="text-align: left;">
-                                    <li><a class="active" asp-controller="Wallet" asp-action="Index">All Wallet</a></li>
+                                    <li><a asp-controller="Wallet" asp-action="Index">All Wallet</a></li>
                                     <li><a asp-controller="Wallet" asp-action="WithdrawalTransaction">All Withdrawal</a></li>
-                                    <li><a asp-controller="Wallet" asp-action="DepositTransaction">All Deposit</a></li>
+                                    <li><a class="active" asp-controller="Wallet" asp-action="DepositTransaction">All Deposit</a></li>
                                     <li><a asp-controller="Wallet" asp-action="ReportTransaction">All Report</a></li>
                                 </ul>
                             </div>
@@ -119,49 +119,36 @@
                     </div>
                     <div class="col-sm-8">
                         <!-- Phần trung tâm -->
-                        <h1>Wallets User</h1>
-                        <div class="text-center" id="accountTable">
-                            <table class="table" id="waleltTable">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Balance</th>
-                                        <th>Update At</th>
-                                        <th>Detail</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @{
-                                        foreach (Wallet w in wallets)
-                                        {
-                                            <tr id="row_@w.id">
-                                                <td>@w.id</td>
-                                                @{
-                                                    string name = @WalletDAO.GetWalletAccountById(w.id).name;
-                                                }
-                                                <td id="name" data-name="@name">@name</td>
-                                                <td id="balance" data-name="@w.balance">@w.balance</td>
-                                                <td id="update_at" data-name="@w.update_at">@w.update_at</td>
-                                                <td><a asp-controller="Wallet" asp-action="WalletDetail" asp-route-userId="@w.id">Detail</a></td>
-                                            </tr>
-                                        }
-                                    }
-                                </tbody>
+                        <h1>Phần Trung Tâm</h1>
+                        <form method="post" asp-controller="Product" asp-action="InsertProduct">
+                            <table class="table">
+                                <tr>
+                                    <td>Name</td>
+                                    <td><input type="text" id="name" name="name" class="form-control" value="" placeholder="Name Product"></td>
+                                </tr>
+                                <tr>
+                                    <td>Price</td>
+                                    <td><input type="number" id="price" name="price" class="form-control" value="" placeholder="0000"></td>
+                                </tr>
+                                <tr>
+                                    <td>Quantity</td>
+                                    <td><input type="number" id="quantity" name="quantity" class="form-control" value="" placeholder="0"></td>
+                                </tr>
+                                <tr>
+                                    <td>Content</td>
+                                    <td><input type="text" id="content" name="content" class="form-control" value="" placeholder="content"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"> <button type="submit" class="btn btn-primary">Submit</button></td>
+                                </tr>
                             </table>
-                        </div>
+                        </form>
                     </div>
                     <div class="col-sm-2">
                         <!-- Phần phải -->
                     </div>
                 </div>
             </div>
-
-
-
-
-
-
         </main>
     </div>
 

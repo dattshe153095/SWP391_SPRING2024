@@ -13,14 +13,6 @@ namespace WebClient.Controllers
 {
     public class AccountController : Controller
     {
-        public IActionResult Wallet()
-        {
-            ViewBag.accountId = HttpContext.Session.GetInt32("Account");
-            List<Wallet> wallets = new List<Wallet>();
-            wallets = WalletDAO.GetAllWallet();
-            ViewBag.Wallets = wallets;
-            return View();
-        }
         public IActionResult Profile()
         {
             ViewBag.accountId = HttpContext.Session.GetInt32("Account");
@@ -137,6 +129,32 @@ namespace WebClient.Controllers
         }
 
 
+        #region Wallet
+        public IActionResult Wallet()
+        {
+            ViewBag.accountId = HttpContext.Session.GetInt32("Account");
+            List<Wallet> wallets = new List<Wallet>();
+            wallets = WalletDAO.GetAllWallet();
+            ViewBag.Wallets = wallets;
+            return View();
+        }
+
+        public IActionResult CreateDeposit()
+        {
+            ViewBag.accountId = HttpContext.Session.GetInt32("Account");
+            List<Product> products = ProductDAO.GetAllProduct();
+            ViewBag.Products = products;
+            return View();
+        }
+
+        public IActionResult CreateReport()
+        {
+            ViewBag.accountId = HttpContext.Session.GetInt32("Account");
+            List<Product> products = ProductDAO.GetAllProduct();
+            ViewBag.Products = products;
+            return View();
+        }
+        #endregion
 
     }
 }
