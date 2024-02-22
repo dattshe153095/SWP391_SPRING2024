@@ -352,7 +352,7 @@
             <div class="col-sm-8">
                 <!-- Phần trung tâm -->
                 <h1>Create Deposit</h1>
-                <form method="post" asp-controller="Account" asp-action="CreateDeposit">
+                <form method="post" asp-controller="Account" asp-action="CreateWithdrawal">
                     <table class="table">
                         <tr>
                             <td><input type="hidden" id="wallet_id" name="wallet_id" class="form-control" value="@WalletDAO.GetWalletByAccountId(ViewBag.accountId).account_id"></td>
@@ -360,11 +360,23 @@
                         </tr>
                         <tr>
                             <td>Amount</td>
-                            <td><input type="number" id="amount" name="amount" class="form-control" value="" placeholder="0000"></td>
+                            <td><input type="number" id="amount" name="amount" class="form-control" value="" placeholder="0000" required></td>
                         </tr>
                         <tr>
                             <td>Fee</td>
-                            <td><input type="text" id="fee" name="fee" class="form-control" value="Phí bằng 5% số tiền nạp vào" disabled></td>
+                            <td><input type="text" id="fee" name="fee" class="form-control" value="Phí bằng 5% số tiền rút" disabled></td>
+                        </tr>
+                        <tr>
+                            <td>Tên người nhận</td>
+                            <td><input type="text" id="bank_user" name="bank_user" class="form-control" value="" required></td>
+                        </tr>
+                        <tr>
+                            <td>Số tài khoản</td>
+                            <td><input type="text" id="bank_number" name="bank_number" class="form-control" value="" required></td>
+                        </tr>
+                        <tr>
+                            <td>Tên Ngân Hàng</td>
+                            <td><input type="text" id="bank_name" name="bank_name" class="form-control" value="" required></td>
                         </tr>
                         <tr>
                             <td colspan="2"> <button type="submit" class="btn btn-primary">Submit</button></td>
