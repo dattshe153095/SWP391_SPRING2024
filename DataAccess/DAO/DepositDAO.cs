@@ -45,6 +45,7 @@ namespace DataAccess.DAO
         {
             deposit.create_at = DateTime.Now;
             deposit.update_at = DateTime.Now;
+            deposit.status = "pending";
             if (deposit != null)
             {
               
