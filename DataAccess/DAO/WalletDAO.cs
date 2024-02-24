@@ -1,5 +1,5 @@
-﻿using BussinessObject.Models;
-using BussinessObject;
+﻿using Business.Models;
+using Business;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +28,7 @@ namespace DataAccess.DAO
             return GetAllWallet().FirstOrDefault(x => x.id == id);
         }
 
-        public static Account GetWalletAccountById(int id)
+        public static Account GetAccountByWalletId(int id)
         {
             return AccountDAO.GetAccountWithId(GetWalletById(id).account_id);
         }
@@ -38,47 +38,7 @@ namespace DataAccess.DAO
             return GetAllWallet().FirstOrDefault(x=>x.account_id==id);
         }
 
-        public static string AddBalanceWallet(int id, int amount)
-        {
-            Wallet wallet = GetWalletById(id);
-            if (wallet != null)
-            {
-                wallet.balance += amount;
-                wallet.update_at = DateTime.Now;
-                using (var context = new Web_Trung_GianContext())
-                {
-                    var wallets = context.Set<Wallet>();
-                    wallets.Update(wallet);
-                    context.SaveChanges();
-                }
-                return "done";
-            }
-            else
-            {
-                return "error";
-            }
-        }
 
-        public static string RemoveBalanceWallet(int id, int amount)
-        {
-            Wallet wallet = GetWalletById(id);
-            if (wallet != null)
-            {
-                wallet.balance -= amount;
-                wallet.update_at = DateTime.Now;
-                using (var context = new Web_Trung_GianContext())
-                {
-                    var wallets = context.Set<Wallet>();
-                    wallets.Update(wallet);
-                    context.SaveChanges();
-                }
-                return "done";
-            }
-            else
-            {
-                return "error";
-            }
-        }
-
+       
     }
 }

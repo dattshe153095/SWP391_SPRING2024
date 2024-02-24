@@ -1,4 +1,4 @@
-﻿using BussinessObject.Models;
+﻿using Business.Models;
 using DataAccess.DAO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -58,9 +58,9 @@ namespace WebClient.Controllers
         {
             Withdrawal withdrawal = new Withdrawal();
             withdrawal = WithdrawalDAO.GetWithdrawalById(withdrawal_id);
-            if (WalletDAO.GetWalletById(withdrawal.wallet_id).balance >= (withdrawal.amount + withdrawal.fee))
+            if (WalletDAO.GetWalletById(withdrawal.wallet_id).balance >= (withdrawal.amount))
             {
-                WalletDAO.RemoveBalanceWallet(withdrawal.wallet_id, withdrawal.amount + withdrawal.fee);
+             
                 withdrawal.status = status;
                 WithdrawalDAO.UpdateWithdrawal(withdrawal);
 
@@ -99,7 +99,7 @@ namespace WebClient.Controllers
         {
             Deposit deposit = new Deposit();
             deposit = DepositDAO.GetDepositById(deposit_id);
-            WalletDAO.AddBalanceWallet(deposit.wallet_id, deposit.amount - deposit.fee);
+ 
             deposit.status = status;
             DepositDAO.UpdateDeposit(deposit);
 
@@ -107,45 +107,8 @@ namespace WebClient.Controllers
         }
         #endregion
 
-        public ActionResult ReportTransaction()
-        {
-            ViewBag.accountId = HttpContext.Session.GetInt32("Account");
-            List<TransactionError> transactionErrors = new List<TransactionError>();
-            transactionErrors = TransactionErrorDAO.GetAllTransactionError();
-            ViewBag.TransactionErrors = transactionErrors;
-            return View();
-        }
+ 
 
-        public ActionResult ReportTransactionDetail(int id)
-        {
-            ViewBag.accountId = HttpContext.Session.GetInt32("Account");
-            TransactionError transactionError = new TransactionError();
-            transactionError = TransactionErrorDAO.GetTransactionErrorById(id);
-            ViewBag.TransactionError = transactionError;
-
-            ProcessedTransactionInfo processedTransactionInfo = new ProcessedTransactionInfo();
-            processedTransactionInfo = ProcessedTransactionInfoDAO.GetProcessedTransactionInfoByTransactionErrorId(id);
-            ViewBag.ProcessedTransactionInfo = processedTransactionInfo;
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult HandleReportWallet(int id_processedTransactionInfo, string processed_message)
-        {
-            ProcessedTransactionInfo processedTransactionInfo = new ProcessedTransactionInfo();
-            processedTransactionInfo = ProcessedTransactionInfoDAO.GetProcessedTransactionInfoById(id_processedTransactionInfo);
-            processedTransactionInfo.processed_message = processed_message;
-            ProcessedTransactionInfoDAO.UpdateProcessedTransactionInfo(processedTransactionInfo);
-            return RedirectToAction("ReportTransactionDetail", new { id = processedTransactionInfo.transaction_error_id });
-        }
-        [HttpGet]
-        public IActionResult UpdateWallet(int id)
-        {
-            var product = ProductDAO.GetProductWithId(id);
-
-            ViewBag.Product = product;
-
-            return View();
-        }
+  
     }
 }

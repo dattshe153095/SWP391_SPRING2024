@@ -1,4 +1,4 @@
-using BussinessObject.Models;
+using Business.Models;
 using DataAccess.Captcha;
 using DataAccess.DAO;
 using Microsoft.AspNetCore.Authorization;
@@ -154,7 +154,6 @@ namespace WebClient.Controllers
             {
                 wallet_id = wallet_id,
                 amount = amount,
-                fee = Convert.ToInt32(amount * 0.05f),
                 status = "pending",
                 create_by = HttpContext.Session.GetInt32("Account").Value,
                 update_by = HttpContext.Session.GetInt32("Account").Value,
@@ -177,7 +176,6 @@ namespace WebClient.Controllers
             {
                 wallet_id = wallet_id,
                 amount = amount,
-                fee = Convert.ToInt32(amount * 0.05f),
                 bank_user = bank_user,
                 bank_number = bank_number,
                 bank_name = bank_name,
@@ -189,13 +187,6 @@ namespace WebClient.Controllers
             return View();
         }
 
-        public IActionResult CreateReport()
-        {
-            ViewBag.accountId = HttpContext.Session.GetInt32("Account");
-            List<Product> products = ProductDAO.GetAllProduct();
-            ViewBag.Products = products;
-            return View();
-        }
 
         public IActionResult TransactionHistory()
         {

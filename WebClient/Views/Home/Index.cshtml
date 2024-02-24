@@ -1,5 +1,6 @@
-﻿@using BussinessObject.Models;
+﻿@using Business.Models;
 @using DataAccess.DAO;
+@using DataAccess.Library;
 @using WebClient
 @using WebClient.Models
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
@@ -71,11 +72,13 @@
                                             <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Profile">Profile</a>
                                             <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Wallet">Wallet</a>
                                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="LogOut"> LogOut</a>
+                                           
                                         </div>
                                     </div>
                                 </li>
                         }
                     </ul>
+                   
                 </div>
             </div>
         </nav>

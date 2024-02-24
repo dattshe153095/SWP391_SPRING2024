@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BussinessObject.Models;
+using Business.Models;
 
 namespace Business.Models
 {

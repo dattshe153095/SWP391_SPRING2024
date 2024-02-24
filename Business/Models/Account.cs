@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Data;
 using Business.Models;
 
-namespace BussinessObject.Models
+namespace Business.Models
 {
     public class Account
     {

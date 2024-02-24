@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Business.Models;
 
-namespace BussinessObject.Models
+namespace Business.Models
 {
     public class Deposit
     {
