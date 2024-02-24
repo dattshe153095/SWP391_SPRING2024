@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BussinessObject.Models
 {
-    public partial class AccountRole
+    public partial class Role
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
