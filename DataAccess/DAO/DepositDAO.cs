@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataAccess.Library;
 
 namespace DataAccess.DAO
 {
@@ -52,7 +53,7 @@ namespace DataAccess.DAO
 
         public static void CreateDeposit(Deposit deposit)
         {
-            deposit.status = "đang chờ xử lí";
+            deposit.status = StatusEnum.DANG_XU_LI;
             deposit.create_at = DateTime.Now;
             deposit.update_at = DateTime.Now;
 
@@ -84,9 +85,9 @@ namespace DataAccess.DAO
 
                 try
                 {
-                    if(deposit.status == "đang chờ xử lí")
+                    if (deposit.status == StatusEnum.DANG_XU_LI)
                     {
-                        deposit.status = "đang chờ xác nhận";
+                        deposit.status = StatusEnum.DANG_CHO_XAC_NHAN;
                         using (var context = new Web_Trung_GianContext())
                         {
                             var deposits = context.Set<Deposit>();
@@ -94,13 +95,32 @@ namespace DataAccess.DAO
                             context.SaveChanges();
                         }
                     }
-                 
+
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine("Error creating deposit: " + ex.Message);
                     // Xử lý lỗi tạo deposit ở đây nếu cần thiết
                 }
+            }
+        }
+
+        public static void DepositAction()
+        {
+            List<Deposit> deposits = GetAllDeposit().Where(x => x.status == StatusEnum.XAC_NHAN_THANH_CONG).ToList();
+            foreach (var deposit in deposits)
+            {
+                if (deposit.status != StatusEnum.HOAN_THANH)
+                {
+                    deposit.status = StatusEnum.HOAN_THANH;
+                    WalletDAO.UpdateWalletDepositBalance(deposit.wallet_id, deposit.amount);
+                }
+            }
+            using (var context = new Web_Trung_GianContext())
+            {
+                var de = context.Set<Deposit>();
+                de.UpdateRange(deposits);
+                context.SaveChanges();
             }
         }
     }

@@ -351,7 +351,7 @@
                         {
                             <tr>
 
-                                <td>@WalletDAO.GetWalletAccountById(deposit.wallet_id).name</td>
+                                <td>@WalletDAO.GetAccountByWalletId(deposit.wallet_id).name</td>
                                 <td>@deposit.amount</td>
                                 <td>@deposit.status</td>
                                 <td>@deposit.create_at</td>
@@ -383,7 +383,7 @@
                         {
                             <tr>
 
-                                <td>@WalletDAO.GetWalletAccountById(withdrawal.wallet_id).name</td>
+                                <td>@WalletDAO.GetAccountByWalletId(withdrawal.wallet_id).name</td>
                                 <td>@withdrawal.amount</td>
                                 <td>@withdrawal.status</td>
                                 <td>@withdrawal.create_at</td>

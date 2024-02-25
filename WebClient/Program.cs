@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using DataAccess.MailSender;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Hosting;
+using WebClient.BackGroundServices;
 
 namespace WebClient
 {
@@ -44,6 +46,9 @@ namespace WebClient
 
 
             builder.Services.AddAuthorization();
+
+            builder.Services.AddHostedService<DataBackgroundService>();
+
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 

@@ -35,10 +35,36 @@ namespace DataAccess.DAO
 
         public static Wallet GetWalletByAccountId(int id)
         {
-            return GetAllWallet().FirstOrDefault(x=>x.account_id==id);
+            return GetAllWallet().FirstOrDefault(x => x.account_id == id);
+        }
+
+        public static void UpdateWalletDepositBalance(int id, int amount)
+        {
+            Wallet wallet = GetWalletById(id);
+            wallet.balance += amount;
+
+            using (var context = new Web_Trung_GianContext())
+            {
+                var wallets = context.Set<Wallet>();
+                wallets.Update(wallet);
+                context.SaveChanges();
+            }
+        }
+
+        public static void UpdateWalletWithdrawalBalance(int id, int amount)
+        {
+            Wallet wallet = GetWalletById(id);
+            wallet.balance -= amount;
+
+            using (var context = new Web_Trung_GianContext())
+            {
+                var wallets = context.Set<Wallet>();
+                wallets.Update(wallet);
+                context.SaveChanges();
+            }
         }
 
 
-       
+
     }
 }

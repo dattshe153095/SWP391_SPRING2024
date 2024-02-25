@@ -48,6 +48,9 @@ namespace Business.Models
         public virtual ICollection<Deposit>? DepositUpdates { get; set; }
         public virtual ICollection<Withdrawal>? WithdrawalCreates { get; set; }
         public virtual ICollection<Withdrawal>? WithdrawalUpdates { get; set; }
+        public virtual ICollection<IntermediateOrder>? IntermediateOrderCreates { get; set; }
+        public virtual ICollection<IntermediateOrder>? IntermediateOrderBuys { get; set; }
+        public virtual ICollection<IntermediateOrder>? IntermediateOrderUpdates { get; set; }
     }
 
 }

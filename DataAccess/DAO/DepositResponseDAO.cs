@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
+using DataAccess.Library;
 
 namespace DataAccess.DAO
 {
@@ -17,7 +18,7 @@ namespace DataAccess.DAO
 
         public static void CreateDepositResponse(DepositResponse depositResponse)
         {
-            depositResponse.state = "đang xử lí";
+            depositResponse.state = StatusEnum.DANG_XU_LI;
             depositResponse.create_at = DateTime.Now;
             depositResponse.update_at = DateTime.Now;
 
@@ -49,9 +50,9 @@ namespace DataAccess.DAO
 
                 try
                 {
-                    if (depositResponse.state != "thành công")
+                    if (depositResponse.state != StateEnum.THANH_CONG)
                     {
-                        depositResponse.state = "thành công";
+                        depositResponse.state = StateEnum.THANH_CONG;
                         using (var context = new Web_Trung_GianContext())
                         {
                             var depositResponses = context.Set<DepositResponse>();

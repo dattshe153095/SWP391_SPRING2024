@@ -33,13 +33,13 @@ namespace Business
         }
 
         public virtual DbSet<Account> Accounts { get; set; }
-        public virtual DbSet<Role> AccountRoles { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Wallet> Wallets { get; set; }
         public virtual DbSet<Deposit> Deposits { get; set; }
         public virtual DbSet<Withdrawal> Withdrawals { get; set; }
         public virtual DbSet<DepositResponse> DepositResponses { get; set; }
         public virtual DbSet<WithdrawalResponse> WithdrawalResponses { get; set; }
-
+        public virtual DbSet<IntermediateOrder> IntermediateOrders { get; set; }
 
 
 
@@ -152,6 +152,23 @@ namespace Business
                 .HasForeignKey(d => d.withdrawal_id).OnDelete(DeleteBehavior.Restrict); ;
             });
 
+            modelBuilder.Entity<IntermediateOrder>(entity =>
+            {
+                entity.HasKey(u => u.id);
+
+                entity.HasOne(w => w.AccountCreate)
+                .WithMany(w => w.IntermediateOrderCreates)
+                .HasForeignKey(d => d.create_by).OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(w => w.AccountBuy)
+                .WithMany(w => w.IntermediateOrderBuys)
+                .HasForeignKey(d => d.buy_by).OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(w => w.AccountUpdate)
+                .WithMany(w => w.IntermediateOrderUpdates)
+                .HasForeignKey(d => d.update_by).OnDelete(DeleteBehavior.Restrict);
+            });
+
 
 
             // Init Data base
@@ -197,34 +214,34 @@ namespace Business
 
             modelBuilder.Entity<Deposit>().HasData(
                 new Deposit { id = 1, wallet_id = 1, amount = 10000, trans_code = "1DY75F3K26T", status = "đang chờ xác nhận", state = "đang xử lí", description = "nạp tiền", create_by = 1, create_at = DateTime.Now, update_by = 1, update_at = DateTime.Now, },
-                new Deposit { id = 2, wallet_id = 2, amount = 10000, trans_code = "2DI83A9M0P", status = "đang chờ xử lí", state = "đang xử lí", description = "nạp tiền", create_by = 2, create_at = DateTime.Now, update_by = 2, update_at = DateTime.Now, },
+                new Deposit { id = 2, wallet_id = 2, amount = 10000, trans_code = "2DI83A9M0P", status = "đang xử lí", state = "đang xử lí", description = "nạp tiền", create_by = 2, create_at = DateTime.Now, update_by = 2, update_at = DateTime.Now, },
                 new Deposit { id = 3, wallet_id = 3, amount = 10000, trans_code = "3DW29E6G3T", status = "xác nhận thành công", state = "thành công", description = "nạp tiền", create_by = 3, create_at = DateTime.Now, update_by = 3, update_at = DateTime.Now, },
                 new Deposit { id = 4, wallet_id = 4, amount = 10000, trans_code = "4DX64S7S9Y", status = "xác nhận thất bại", state = "thất bại", description = "nạp tiền", create_by = 4, create_at = DateTime.Now, update_by = 4, update_at = DateTime.Now, },
                 new Deposit { id = 5, wallet_id = 5, amount = 10000, trans_code = "5DB17K9Y8X", status = "hoàn thành", state = "thành công", description = "nạp tiền", create_by = 5, create_at = DateTime.Now, update_by = 5, update_at = DateTime.Now, },
                 new Deposit { id = 6, wallet_id = 6, amount = 10000, trans_code = "6DP96C3I5V", status = "đang chờ xác nhận", state = "đang xử lí", description = "nạp tiền", create_by = 6, create_at = DateTime.Now, update_by = 6, update_at = DateTime.Now, },
-                new Deposit { id = 7, wallet_id = 7, amount = 10000, trans_code = "7DD50M1A7Q", status = "đang chờ xử lí", state = "đang xử lí", description = "nạp tiền", create_by = 7, create_at = DateTime.Now, update_by = 7, update_at = DateTime.Now, },
+                new Deposit { id = 7, wallet_id = 7, amount = 10000, trans_code = "7DD50M1A7Q", status = "đang xử lí", state = "đang xử lí", description = "nạp tiền", create_by = 7, create_at = DateTime.Now, update_by = 7, update_at = DateTime.Now, },
                 new Deposit { id = 8, wallet_id = 8, amount = 10000, trans_code = "8DR05R0J6X", status = "xác nhận thành công", state = "thành công", description = "nạp tiền", create_by = 8, create_at = DateTime.Now, update_by = 8, update_at = DateTime.Now, },
                 new Deposit { id = 9, wallet_id = 9, amount = 10000, trans_code = "9DG63J9F6H", status = "xác nhận thất bại", state = "thất bại", description = "nạp tiền", create_by = 9, create_at = DateTime.Now, update_by = 9, update_at = DateTime.Now, },
                 new Deposit { id = 10, wallet_id = 10, amount = 10000, trans_code = "10DL81T2G8Z", status = "hoàn thành", state = "thành công", description = "nạp tiền", create_by = 10, create_at = DateTime.Now, update_by = 10, update_at = DateTime.Now, },
                 new Deposit { id = 11, wallet_id = 11, amount = 10000, trans_code = "11DF85R8K6S", status = "đang chờ xác nhận", state = "đang xử lí", description = "nạp tiền", create_by = 11, create_at = DateTime.Now, update_by = 11, update_at = DateTime.Now, },
-                new Deposit { id = 12, wallet_id = 12, amount = 10000, trans_code = "12DM14S4P4V", status = "đang chờ xử lí", state = "đang xử lí", description = "nạp tiền", create_by = 12, create_at = DateTime.Now, update_by = 12, update_at = DateTime.Now, },
+                new Deposit { id = 12, wallet_id = 12, amount = 10000, trans_code = "12DM14S4P4V", status = "đang xử lí", state = "đang xử lí", description = "nạp tiền", create_by = 12, create_at = DateTime.Now, update_by = 12, update_at = DateTime.Now, },
                 new Deposit { id = 13, wallet_id = 13, amount = 10000, trans_code = "13DP76J5J1R", status = "xác nhận thành công", state = "thành công", description = "nạp tiền", create_by = 13, create_at = DateTime.Now, update_by = 13, update_at = DateTime.Now, },
                 new Deposit { id = 14, wallet_id = 14, amount = 10000, trans_code = "14DS57C4B8K", status = "xác nhận thất bại", state = "thất bại", description = "nạp tiền", create_by = 14, create_at = DateTime.Now, update_by = 14, update_at = DateTime.Now, }
                 );
 
             modelBuilder.Entity<Withdrawal>().HasData(
                 new Withdrawal { id = 1, wallet_id = 1, amount = 5000, trans_code = "1W0U5V1I0", bank_user = "Hoàng Minh Nguyệt", bank_number = "789654312", bank_name = "TP Bank", status = "đang chờ xác nhận", state = "đang xử lí", create_by = 1, create_at = DateTime.Now, update_by = 1, update_at = DateTime.Now, },
-                new Withdrawal { id = 2, wallet_id = 2, amount = 1000, trans_code = "2W4F4Y9E7", bank_user = "Nguyễn Thùy Dương", bank_number = "789654312", bank_name = "TP Bank", status = "đang chờ xử lí", state = "đang xử lí", create_by = 2, create_at = DateTime.Now, update_by = 2, update_at = DateTime.Now, },
+                new Withdrawal { id = 2, wallet_id = 2, amount = 1000, trans_code = "2W4F4Y9E7", bank_user = "Nguyễn Thùy Dương", bank_number = "789654312", bank_name = "TP Bank", status = "đang xử lí", state = "đang xử lí", create_by = 2, create_at = DateTime.Now, update_by = 2, update_at = DateTime.Now, },
                 new Withdrawal { id = 3, wallet_id = 3, amount = 5000, trans_code = "3W3C1J8P1", bank_user = "Lê Thạc Hoành", bank_number = "789654312", bank_name = "TP Bank", status = "xác nhận thành công", state = "thành công", create_by = 3, create_at = DateTime.Now, update_by = 3, update_at = DateTime.Now, },
                 new Withdrawal { id = 4, wallet_id = 4, amount = 1000, trans_code = "4W6O2Q2R4", bank_user = "Nguyễn Quang Vị", bank_number = "789654312", bank_name = "TP Bank", status = "xác nhận thất bại", state = "thất bại", create_by = 4, create_at = DateTime.Now, update_by = 4, update_at = DateTime.Now, },
                 new Withdrawal { id = 5, wallet_id = 5, amount = 5000, trans_code = "5W8O2W1A3", bank_user = "Nguyễn Mạnh Cường", bank_number = "789654312", bank_name = "TP Bank", status = "hoàn thành", state = "thành công", create_by = 5, create_at = DateTime.Now, update_by = 5, update_at = DateTime.Now, },
                 new Withdrawal { id = 6, wallet_id = 6, amount = 1000, trans_code = "6W2Z1O6B1", bank_user = "Nguyễn Việt Hân", bank_number = "789654312", bank_name = "TP Bank", status = "đang chờ xác nhận", state = "đang xử lí", create_by = 6, create_at = DateTime.Now, update_by = 6, update_at = DateTime.Now, },
-                new Withdrawal { id = 7, wallet_id = 7, amount = 5000, trans_code = "7W3T0N3S0", bank_user = "Nguyễn Trung Hiếu", bank_number = "789654312", bank_name = "TP Bank", status = "đang chờ xử lí", state = "đang xử lí", create_by = 7, create_at = DateTime.Now, update_by = 7, update_at = DateTime.Now, },
+                new Withdrawal { id = 7, wallet_id = 7, amount = 5000, trans_code = "7W3T0N3S0", bank_user = "Nguyễn Trung Hiếu", bank_number = "789654312", bank_name = "TP Bank", status = "đang xử lí", state = "đang xử lí", create_by = 7, create_at = DateTime.Now, update_by = 7, update_at = DateTime.Now, },
                 new Withdrawal { id = 8, wallet_id = 8, amount = 10000, trans_code = "8W4I2D8D0", bank_user = "Nguyễn Văn Tuấn", bank_number = "789654312", bank_name = "TP Bank", status = "xác nhận thành công", state = "thành công", create_by = 8, create_at = DateTime.Now, update_by = 8, update_at = DateTime.Now, },
                 new Withdrawal { id = 9, wallet_id = 9, amount = 5000, trans_code = "9W6H6F3O2", bank_user = "Ngô Gia Thiện", bank_number = "789654312", bank_name = "TP Bank", status = "xác nhận thất bại", state = "thất bại", create_by = 9, create_at = DateTime.Now, update_by = 9, update_at = DateTime.Now, },
                 new Withdrawal { id = 10, wallet_id = 10, amount = 10000, trans_code = "10W1B4L3R5", bank_user = "Phan Thế Anh", bank_number = "789654312", bank_name = "TP Bank", status = "hoàn thành", state = "thành công", create_by = 10, create_at = DateTime.Now, update_by = 10, update_at = DateTime.Now, },
-                new Withdrawal { id = 11, wallet_id = 11, amount = 5000, trans_code = "11W8I7T8V7", bank_user = "Nguyễn Ngọc Hoàng", bank_number = "789654312", bank_name = "TP Bank", status = "đang chờ xác nhận", state = "đang xử lí", create_by = 11, create_at = DateTime.Now, update_by = 11, update_at = DateTime.Now, },
-                new Withdrawal { id = 12, wallet_id = 12, amount = 10000, trans_code = "12W6M7E2D3", bank_user = "Nguyễn Quang Lộc", bank_number = "789654312", bank_name = "TP Bank", status = "đang chờ xử lí", state = "đang xử lí", create_by = 12, create_at = DateTime.Now, update_by = 12, update_at = DateTime.Now, },
+                new Withdrawal { id = 11, wallet_id = 11, amount = 5000, trans_code = "11W8I7T8V7", bank_user = "Nguyễn Ngọc Hoàng", bank_number = "789654312", bank_name = "TP Bank", status = "đang xác nhận", state = "đang xử lí", create_by = 11, create_at = DateTime.Now, update_by = 11, update_at = DateTime.Now, },
+                new Withdrawal { id = 12, wallet_id = 12, amount = 10000, trans_code = "12W6M7E2D3", bank_user = "Nguyễn Quang Lộc", bank_number = "789654312", bank_name = "TP Bank", status = "đang xử lí", state = "đang xử lí", create_by = 12, create_at = DateTime.Now, update_by = 12, update_at = DateTime.Now, },
                 new Withdrawal { id = 13, wallet_id = 13, amount = 5000, trans_code = "13W4Q0L0L6", bank_user = "Nguyễn Hải Đan", bank_number = "789654312", bank_name = "TP Bank", status = "xác nhận thành công", state = "thành công", create_by = 13, create_at = DateTime.Now, update_by = 13, update_at = DateTime.Now, },
                 new Withdrawal { id = 14, wallet_id = 14, amount = 10000, trans_code = "14W9C9M5F4", bank_user = "Bank Admin", bank_number = "789654312", bank_name = "TP Bank", status = "xác nhận thất bại", state = "thất bại", create_by = 14, create_at = DateTime.Now, update_by = 14, update_at = DateTime.Now, }
                 );
@@ -232,18 +249,18 @@ namespace Business
             modelBuilder.Entity<DepositResponse>().HasData(
                 new DepositResponse { id = 1, deposit_id = 1, type_transaction = "nạp tiền", description = "Đang xử lí", status = "đang xử lí", state = "đang xử lí", create_by = 14, create_at = DateTime.Now, update_by = 14, update_at = DateTime.Now, },
                 new DepositResponse { id = 2, deposit_id = 2, type_transaction = "nạp tiền", description = "Đang xử lí", status = "đang xử lí", state = "đang xử lí", create_by = 14, create_at = DateTime.Now, update_by = 14, update_at = DateTime.Now, },
-                new DepositResponse { id = 3, deposit_id = 3, type_transaction = "nạp tiền", description = "Giao dịch thành công", status = "đang xử lí", state = "thành công", create_by = 14, create_at = DateTime.Now, update_by = 14, update_at = DateTime.Now, },
-                new DepositResponse { id = 4, deposit_id = 4, type_transaction = "nạp tiền", description = "Giao dịch thất bại", status = "đang xử lí", state = "thất bại", create_by = 14, create_at = DateTime.Now, update_by = 14, update_at = DateTime.Now, },
-                new DepositResponse { id = 5, deposit_id = 5, type_transaction = "nạp tiền", description = "Giao dịch thành công", status = "đang xử lí", state = "thành công", create_by = 14, create_at = DateTime.Now, update_by = 14, update_at = DateTime.Now, },
+                new DepositResponse { id = 3, deposit_id = 3, type_transaction = "nạp tiền", description = "Giao dịch thành công", status = "hoàn thành", state = "thành công", create_by = 14, create_at = DateTime.Now, update_by = 14, update_at = DateTime.Now, },
+                new DepositResponse { id = 4, deposit_id = 4, type_transaction = "nạp tiền", description = "Giao dịch thất bại", status = "xác nhận thất bại", state = "thất bại", create_by = 14, create_at = DateTime.Now, update_by = 14, update_at = DateTime.Now, },
+                new DepositResponse { id = 5, deposit_id = 5, type_transaction = "nạp tiền", description = "Giao dịch thành công", status = "hoàn thành", state = "thành công", create_by = 14, create_at = DateTime.Now, update_by = 14, update_at = DateTime.Now, },
                 new DepositResponse { id = 6, deposit_id = 6, type_transaction = "nạp tiền", description = "Đang xử lí", status = "đang xử lí", state = "đang xử lí", create_by = 14, create_at = DateTime.Now, update_by = 14, update_at = DateTime.Now, },
                 new DepositResponse { id = 7, deposit_id = 7, type_transaction = "nạp tiền", description = "Đang xử lí", status = "đang xử lí", state = "đang xử lí", create_by = 14, create_at = DateTime.Now, update_by = 14, update_at = DateTime.Now, },
-                new DepositResponse { id = 8, deposit_id = 8, type_transaction = "nạp tiền", description = "Giao dịch thành công", status = "đang xử lí", state = "thành công", create_by = 14, create_at = DateTime.Now, update_by = 14, update_at = DateTime.Now, },
-                new DepositResponse { id = 9, deposit_id = 9, type_transaction = "nạp tiền", description = "Giao dịch thất bại", status = "đang xử lí", state = "thất bại", create_by = 14, create_at = DateTime.Now, update_by = 14, update_at = DateTime.Now, },
-                new DepositResponse { id = 10, deposit_id = 10, type_transaction = "nạp tiền", description = "Giao dịch thành công", status = "đang xử lí", state = "thành công", create_by = 14, create_at = DateTime.Now, update_by = 14, update_at = DateTime.Now, },
+                new DepositResponse { id = 8, deposit_id = 8, type_transaction = "nạp tiền", description = "Giao dịch thành công", status = "hoàn thành", state = "thành công", create_by = 14, create_at = DateTime.Now, update_by = 14, update_at = DateTime.Now, },
+                new DepositResponse { id = 9, deposit_id = 9, type_transaction = "nạp tiền", description = "Giao dịch thất bại", status = "xác nhận thất bại", state = "thất bại", create_by = 14, create_at = DateTime.Now, update_by = 14, update_at = DateTime.Now, },
+                new DepositResponse { id = 10, deposit_id = 10, type_transaction = "nạp tiền", description = "Giao dịch thành công", status = "hoàn thành", state = "thành công", create_by = 14, create_at = DateTime.Now, update_by = 14, update_at = DateTime.Now, },
                 new DepositResponse { id = 11, deposit_id = 11, type_transaction = "nạp tiền", description = "Đang xử lí", status = "đang xử lí", state = "đang xử lí", create_by = 14, create_at = DateTime.Now, update_by = 14, update_at = DateTime.Now, },
                 new DepositResponse { id = 12, deposit_id = 12, type_transaction = "nạp tiền", description = "Đang xử lí", status = "đang xử lí", state = "đang xử lí", create_by = 14, create_at = DateTime.Now, update_by = 14, update_at = DateTime.Now, },
-                new DepositResponse { id = 13, deposit_id = 13, type_transaction = "nạp tiền", description = "Giao dịch thành công", status = "đang xử lí", state = "thành công", create_by = 14, create_at = DateTime.Now, update_by = 14, update_at = DateTime.Now, },
-                new DepositResponse { id = 14, deposit_id = 14, type_transaction = "nạp tiền", description = "Giao dịch thất bại", status = "đang xử lí", state = "thất bại", create_by = 14, create_at = DateTime.Now, update_by = 14, update_at = DateTime.Now, }
+                new DepositResponse { id = 13, deposit_id = 13, type_transaction = "nạp tiền", description = "Giao dịch thành công", status = "hoàn thành", state = "thành công", create_by = 14, create_at = DateTime.Now, update_by = 14, update_at = DateTime.Now, },
+                new DepositResponse { id = 14, deposit_id = 14, type_transaction = "nạp tiền", description = "Giao dịch thất bại", status = "xác nhận thất bại", state = "thất bại", create_by = 14, create_at = DateTime.Now, update_by = 14, update_at = DateTime.Now, }
 
 
          );
@@ -263,7 +280,25 @@ namespace Business
                 new WithdrawalResponse { id = 12, withdrawal_id = 12, type_transaction = "rút tiền", description = "Đang xử lí", status = "đang xử lí", state = "đang xử lí", create_by = 14, create_at = DateTime.Now, update_by = 14, update_at = DateTime.Now, },
                 new WithdrawalResponse { id = 13, withdrawal_id = 13, type_transaction = "rút tiền", description = "Giao dịch thành công", status = "đang xử lí", state = "thành công", create_by = 14, create_at = DateTime.Now, update_by = 14, update_at = DateTime.Now, },
                 new WithdrawalResponse { id = 14, withdrawal_id = 14, type_transaction = "rút tiền", description = "Giao dịch thất bại", status = "đang xử lí", state = "thất bại", create_by = 14, create_at = DateTime.Now, update_by = 14, update_at = DateTime.Now, }
-);
+            );
+
+            modelBuilder.Entity<IntermediateOrder>().HasData(
+                new IntermediateOrder { id = 1, name = "Tài Khoản Office", price = 1000, fee_type = true, description = "tài khoản Office ", contact = "facebook, mess,zalo", hidden_content = "tài khoản: account, mật khẩu: password", is_public = false, fee = 5, status = "mới tạo", state = "đang xử lí", create_by = 1, create_at = DateTime.Now, update_by = 1, update_at = DateTime.Now },
+                new IntermediateOrder { id = 2, name = "Tài Khoản GBT", price = 500, fee_type = false, description = "tài khoản GBT ", contact = "facebook, mess,zalo", hidden_content = "tài khoản: account, mật khẩu: password", is_public = true, fee = 5, status = "mới tạo", state = "đang xử lí", create_by = 2, create_at = DateTime.Now, update_by = 1, update_at = DateTime.Now },
+                new IntermediateOrder { id = 3, name = "Tài Khoản Facebook", price = 1500, fee_type = true, description = "tài khoản Facebook ", contact = "facebook, mess,zalo", hidden_content = "tài khoản: account, mật khẩu: password", is_public = false, fee = 5, status = "mới tạo", state = "đang xử lí", create_by = 3, create_at = DateTime.Now, update_by = 1, update_at = DateTime.Now },
+                new IntermediateOrder { id = 4, name = "Tài Khoản Game", price = 2000, fee_type = false, description = "tài khoản Game ", contact = "facebook, mess,zalo", hidden_content = "tài khoản: account, mật khẩu: password", is_public = true, fee = 5, status = "mới tạo", state = "đang xử lí", create_by = 4, create_at = DateTime.Now, update_by = 1, update_at = DateTime.Now },
+                new IntermediateOrder { id = 5, name = "Tài Khoản Unity", price = 500, fee_type = true, description = "tài khoản Unity ", contact = "facebook, mess,zalo", hidden_content = "tài khoản: account, mật khẩu: password", is_public = false, fee = 5, status = "mới tạo", state = "đang xử lí", create_by = 5, create_at = DateTime.Now, update_by = 1, update_at = DateTime.Now },
+                new IntermediateOrder { id = 6, name = "Tài Khoản Microsoft", price = 1000, fee_type = false, description = "tài khoản Microsoft", contact = "facebook, mess,zalo", hidden_content = "tài khoản: account, mật khẩu: password", is_public = true, fee = 5, status = "mới tạo", state = "đang xử lí", create_by = 6, create_at = DateTime.Now, update_by = 1, update_at = DateTime.Now },
+                new IntermediateOrder { id = 7, name = "Tài Khoản Spine", price = 1500, fee_type = true, description = "tài khoản Spine ", contact = "facebook, mess,zalo", hidden_content = "tài khoản: account, mật khẩu: password", is_public = true, fee = 5, status = "mới tạo", state = "đang xử lí", create_by = 7, create_at = DateTime.Now, update_by = 1, update_at = DateTime.Now },
+                new IntermediateOrder { id = 8, name = "Tài Khoản Adobephotoshop", price = 2000, fee_type = false, description = "tài khoản Adobephotoshop ", contact = "facebook, mess,zalo", hidden_content = "tài khoản: account, mật khẩu: password", is_public = true, fee = 5, status = "mới tạo", state = "đang xử lí", create_by = 8, create_at = DateTime.Now, buy_by = 1, update_by = 1, update_at = DateTime.Now },
+                new IntermediateOrder { id = 9, name = "Tài Khoản Ai", price = 500, fee_type = true, description = "tài khoản Ai ", contact = "facebook, mess,zalo", hidden_content = "tài khoản: account, mật khẩu: password", is_public = true, fee = 5, status = "mới tạo", state = "đang xử lí", create_by = 9, create_at = DateTime.Now, update_by = 1, update_at = DateTime.Now },
+                new IntermediateOrder { id = 10, name = "Tài Khoản Gmail", price = 1000, fee_type = false, description = "tài khoản Gmail ", contact = "facebook, mess,zalo", hidden_content = "tài khoản: account, mật khẩu: password", is_public = false, fee = 5, status = "mới tạo", state = "đang xử lí", create_by = 10, create_at = DateTime.Now, update_by = 1, update_at = DateTime.Now },
+                new IntermediateOrder { id = 11, name = "Tài Khoản Git", price = 1500, fee_type = true, description = "tài khoản Git ", contact = "facebook, mess,zalo", hidden_content = "tài khoản: account, mật khẩu: password", is_public = true, fee = 5, status = "mới tạo", state = "đang xử lí", create_by = 11, create_at = DateTime.Now, update_by = 1, update_at = DateTime.Now },
+                new IntermediateOrder { id = 12, name = "Tài Khoản Netflix", price = 2000, fee_type = false, description = "tài khoản Netflix ", contact = "facebook, mess,zalo", hidden_content = "tài khoản: account, mật khẩu: password", is_public = true, fee = 5, status = "mới tạo", state = "đang xử lí", create_by = 12, create_at = DateTime.Now, update_by = 1, update_at = DateTime.Now },
+                new IntermediateOrder { id = 13, name = "Tài Khoản Vip Youtube", price = 500, fee_type = true, description = "tài khoản Youtube ", contact = "facebook, mess,zalo", hidden_content = "tài khoản: account, mật khẩu: password", is_public = true, fee = 5, status = "mới tạo", state = "đang xử lí", create_by = 13, create_at = DateTime.Now, update_by = 1, update_at = DateTime.Now },
+                new IntermediateOrder { id = 14, name = "Tài Khoản Duolingo", price = 1000, fee_type = false, description = "tài khoản Duolingo ", contact = "facebook, mess,zalo", hidden_content = "tài khoản: account, mật khẩu: password", is_public = false, fee = 5, status = "mới tạo", state = "đang xử lí", create_by = 14, create_at = DateTime.Now, update_by = 1, update_at = DateTime.Now },
+                new IntermediateOrder { id = 15, name = "Tài Khoản Coursera", price = 1000, fee_type = true, description = "tài khoản Coursera ", contact = "facebook, mess,zalo", hidden_content = "tài khoản: account, mật khẩu: password", is_public = true, fee = 10, status = "mới tạo", state = "đang xử lí", create_by = 10, create_at = DateTime.Now, update_by = 1, update_at = DateTime.Now }
+                );
 
 
 
