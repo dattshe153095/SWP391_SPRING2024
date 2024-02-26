@@ -163,6 +163,32 @@ namespace WebClient.Controllers
             return View();
         }
 
+        public IActionResult CreateWithdrawal()
+        {
+            ViewBag.accountId = HttpContext.Session.GetInt32("Account");
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateWithdrawal(int wallet_id, int amount, string bank_user, string bank_number, string bank_name)
+        {
+            ViewBag.accountId = HttpContext.Session.GetInt32("Account");
+            Withdrawal withdrawal = new Withdrawal()
+            {
+                wallet_id = wallet_id,
+                amount = amount,
+                fee = Convert.ToInt32(amount * 0.05f),
+                bank_user = bank_user,
+                bank_number = bank_number,
+                bank_name = bank_name,
+                status = "pending",
+                create_by = HttpContext.Session.GetInt32("Account").Value,
+                update_by = HttpContext.Session.GetInt32("Account").Value,
+            };
+            WithdrawalDAO.CreateWithdrawal(withdrawal);
+            return View();
+        }
+
         public IActionResult CreateReport()
         {
             ViewBag.accountId = HttpContext.Session.GetInt32("Account");
@@ -174,7 +200,7 @@ namespace WebClient.Controllers
         public IActionResult TransactionHistory()
         {
             int id = HttpContext.Session.GetInt32("Account").Value;
-            if (id==null) return RedirectToAction("Login", "Home");
+            if (id == null) return RedirectToAction("Login", "Home");
             ViewBag.accountId = HttpContext.Session.GetInt32("Account");
             List<Deposit> deposits = DepositDAO.GetAllDeposit().Where(x => x.wallet_id == WalletDAO.GetWalletByAccountId(id).id).ToList();
             ViewBag.Deposits = deposits;
