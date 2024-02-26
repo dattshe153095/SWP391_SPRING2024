@@ -21,8 +21,8 @@
             background-color: #ffd8ed; /* Màu cho các hàng lẻ */
         }
 
-        .table tbody tr:nth-child(even) {
-            background-color: #f5f5f5; /* Màu cho các hàng chẵn */
+        .nav-dropdown-item {
+            list-style: none;
         }
 
         table {
@@ -355,9 +355,15 @@
                 <h1>Create Deposit</h1>
                 <form method="post" asp-controller="Account" asp-action="CreateDeposit">
                     <table class="table">
+                        <div class="col-md-9">
+                            <button type="button" class="btn btn-secondary" style="width: 99%; white-space: normal; margin-right: 5px; margin-bottom: 5px;">Cổng thanh toán (Thu thêm 3% phí dịch vụ hoặc 3k cho các giao dịch thấp hơn 100k)</button><button type="button" class="btn btn-primary" style="width: 99%; white-space: normal; margin-right: 5px; margin-bottom: 5px;">Chuyển khoản ngân hàng (Thu phí theo phí chuyển khoản ngân hàng)</button></div>
                         <tr>
                             <td><input type="hidden" id="wallet_id" name="wallet_id" class="form-control" value="@WalletDAO.GetWalletByAccountId(ViewBag.accountId).account_id"></td>
                             <td><input type="hidden" id="id" name="id" class="form-control" value="@ViewBag.accountId"></td>
+                        </tr> 
+                        <tr>
+                            <td>Credit/QR</td>
+                            <td><button>Credit transfer will lose 2% of fee transferring via bank</button></td>
                         </tr>
                         <tr>
                             <td>Amount</td>
