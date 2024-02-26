@@ -8,6 +8,7 @@ using BussinessObject;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using DataAccess.MailSender;
+using Microsoft.AspNetCore.Builder;
 
 namespace WebClient
 {
@@ -31,6 +32,8 @@ namespace WebClient
                         options.Cookie.HttpOnly = true;
                         options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
                         options.SlidingExpiration = true;
+                        options.AccessDeniedPath = "/Home/Login";
+                        options.LoginPath = "/Home/Login";
                     });
 
             builder.Services.AddAuthorization(options =>
@@ -39,8 +42,8 @@ namespace WebClient
                 options.AddPolicy("UserPolicy", policy => policy.RequireRole("User"));
             });
 
-            builder.Services.AddAuthorization();
 
+            builder.Services.AddAuthorization();
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
@@ -67,6 +70,7 @@ namespace WebClient
             app.UseRouting();
 
             app.UseAuthentication();
+
             app.UseAuthorization();
 
             app.UseSession();

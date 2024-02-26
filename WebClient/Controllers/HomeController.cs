@@ -39,7 +39,7 @@ namespace WebClient.Controllers
             return View();
         }
 
-        #region
+        #region LOGIN
         [HttpGet]
         public IActionResult Login()
         {
@@ -99,7 +99,7 @@ namespace WebClient.Controllers
 
                 if (account.role_id == 1)
                 {
-                    return RedirectToAction("Index", "Admin");
+                    return RedirectToAction("Index", "Home");
                 }
                 return RedirectToAction("Index", "Home");
             }

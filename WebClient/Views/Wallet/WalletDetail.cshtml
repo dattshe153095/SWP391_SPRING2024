@@ -130,11 +130,14 @@
                             </tr>
                             <tr>
                                 <td>Balance</td>
-                                <td><input type="text" id="title" name="title" class="form-control" value="@wallet.balance" disabled></td>
+                                <td><input type="text" id="balance" name="title" class="form-control" value="@wallet.balance" ></td>
                             </tr>
                             <tr>
                                 <td>Update at</td>
                                 <td><input type="text" id="update_at" name="update_at" class="form-control" value="@wallet.update_at" disabled></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"> <button id="submitBalance" type="submit" class="btn btn-primary">Submit</button></td>
                             </tr>
                         </table>
                     </div>
@@ -148,11 +151,63 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - Trade%Deal Hub - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2024 - Trade&Deal Hub - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+<script>
+        $(document).ready(function () {
+            $(".ajax-link").click(function (event) {
+                event.preventDefault(); // Prevent default form submission behavior
+
+                var url = $(this).attr("href"); // Get the clicked link's URL
+                var targetId = $(this).parent().attr("id"); // Identify the target container
+
+                // Clear any existing content in the target container
+                $("#" + targetId).empty();
+
+                $.ajax({
+                    url: url,
+                    method: "GET", // Adjust if your server-side action requires a different method
+                    dataType: "html", // Adjust if your server returns something other than HTML
+                    success: function (response) {
+                        $("#" + targetId).html(response); // Update the target container with the server's response
+                        $("li a").removeClass("active"); // Remove active class from all links
+                        $(this).addClass("active"); // Add active class to the clicked link
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.error("AJAX error:", errorThrown);
+                        // Handle errors appropriately, e.g., display an error message to the user
+                    }
+                });
+            });
+        });
+        $(document).ready(function () {
+            $("#submitBalance").click(function () {
+                var newBalance = $("#balance").val();
+                var walletId = $("#wallet_id").val();
+
+                $.ajax({
+                    url: "/Wallet/UpdateBalance", // Địa chỉ URL của endpoint xử lý yêu cầu cập nhật balance
+                    method: "GET",
+                    data: {
+                        balance: newBalance,
+                        walletId: walletId
+                    },
+                    success: function (response) {
+                        // Xử lý phản hồi từ server nếu cần
+                        console.log("Balance updated successfully");
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.error("AJAX error:", errorThrown);
+                        // Xử lý lỗi nếu có
+                    }
+                });
+            });
+        });
+</script>
 </body>
+
 </html>

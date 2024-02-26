@@ -274,13 +274,13 @@
                             <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Wallet"><i class="fa-solid fa-wallet"></i> Ví của tôi</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Wallet"><i class="nav-icon fa fa-cc-visa"></i> Nạp Tiền</a>
+                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="CreateDeposit"><i class="nav-icon fa fa-cc-visa"></i> Nạp Tiền</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Wallet"><i class="nav-icon fa fa-exchange"></i> Lịch sử giao dịch </a>
+                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="TransactionHistory"><i class="nav-icon fa fa-exchange"></i> Lịch sử giao dịch </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Wallet"><i class="nav-icon fa fa-send-o"></i> Yêu Cầu Rút Tiền</a>
+                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="CreateWithdrawal"><i class="nav-icon fa fa-send-o"></i> Yêu Cầu Rút Tiền</a>
                         </li>
                     </ul>
                 </li>
@@ -399,106 +399,108 @@
                 </div>
             </div>
         </div>
-        <footer class="border-top footer text-muted">
-            <div class="container">
-                &copy; 2024 - Trade&Deal Hub - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-            </div>
-        </footer>
+    </main>
 
-        <script src="~/lib/jquery/dist/jquery.min.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="https://kit.fontawesome.com/6ae4d71e22.js" crossorigin="anonymous"></script>
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2024 - Trade&Deal Hub - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
 
-        <script>
-            $(document).ready(function () {
-                // When the button is clicked
-                $(".btnShowModal").click(function () {
-                    var id = $(this).data('id');
-                    selectedProductId = id;
-                    // Perform an AJAX request to get the content
-                    $.ajax({
-                        url: '/Product/GetProductDetail',
-                        type: 'GET',
-                        data: { productId: id },
-                        success: function (data) {
-                            var product = data;
-                            var html = '<div>';
-                            html += '<table class="table form-table" id="chi-tiet-san-pham">';
-                            html += '<tr class="id-row">'; // Thêm class 'id-row' cho thẻ tr này
-                            html += '<td><b>ID</b></td>';
-                            html += '<td><input id="id" name="id" class="form-control" value="' + product.id + '" readonly></td>';
-                            html += '</tr>';
-                            html += '<tr class="code-row">'; // Thêm class 'code-row' cho thẻ tr này
-                            html += '<td><b>Code</b></td>';
-                            html += '<td><input id="code" name="code" class="form-control" value="' + product.code + '" readonly></td>';
-                            html += '</tr>';
-                            html += '<tr class="price-row">'; // Thêm class 'price-row' cho thẻ tr này
-                            html += '<td><b>Price</b></td>';
-                            html += '<td><input type="number" id="price" name="price" class="form-control" value="' + product.price + '" readonly></td>';
-                            html += '</tr>';
-                            html += '<tr class="quantity-row">'; // Thêm class 'quantity-row' cho thẻ tr này
-                            html += '<td><b>Quantity</b></td>';
-                            html += '<td><input type="number" id="quantity" name="quantity" class="form-control" value="' + product.quantity + '" readonly></td>';
-                            html += '</tr>';
-                            html += '<tr class="categories-row">'; // Thêm class 'categories-row' cho thẻ tr này
-                            html += '<td><b>Category</b></td>';
-                            html += '<td><input type="text" id="categories" name="categories" class="form-control" value="' + product.categories + '" readonly></td>';
-                            html += '</tr>';
-                            html += '<tr class="description-row">'; // Thêm class 'description-row' cho thẻ tr này
-                            html += '<td><b>Description</b></td>';
-                            html += '<td><input type="text" id="description" name="description" class="form-control" value="' + product.desctiption + '" readonly></td>';
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/6ae4d71e22.js" crossorigin="anonymous"></script>
 
-                            html += '</tr>';
-                            html += '<tr class="create-at-row">'; // Thêm class 'create-at-row' cho thẻ tr này
-                            html += '<td><b>Create day</b></td>';
-                            html += '<td><input type="text" id="create_at" name="create_at" class="form-control" value="' + product.create_at + '" readonly></td>';
-                            html += '</tr>';
-                            html += '<tr class="update-at-row">'; // Thêm class 'update-at-row' cho thẻ tr này
-                            html += '<td><b>Update day</b></td>';
-                            html += '<td><input type="text" id="update_at" name="update_at" class="form-control" value="' + product.update_at + '" readonly></td>';
-                            html += '</tr>';
-                            html += '</table>';
-                            html += '</div>';
+    <script>
+        $(document).ready(function () {
+            // When the button is clicked
+            $(".btnShowModal").click(function () {
+                var id = $(this).data('id');
+                selectedProductId = id;
+                // Perform an AJAX request to get the content
+                $.ajax({
+                    url: '/Product/GetProductDetail',
+                    type: 'GET',
+                    data: { productId: id },
+                    success: function (data) {
+                        var product = data;
+                        var html = '<div>';
+                        html += '<table class="table form-table" id="chi-tiet-san-pham">';
+                        html += '<tr class="id-row">'; // Thêm class 'id-row' cho thẻ tr này
+                        html += '<td><b>ID</b></td>';
+                        html += '<td><input id="id" name="id" class="form-control" value="' + product.id + '" readonly></td>';
+                        html += '</tr>';
+                        html += '<tr class="code-row">'; // Thêm class 'code-row' cho thẻ tr này
+                        html += '<td><b>Code</b></td>';
+                        html += '<td><input id="code" name="code" class="form-control" value="' + product.code + '" readonly></td>';
+                        html += '</tr>';
+                        html += '<tr class="price-row">'; // Thêm class 'price-row' cho thẻ tr này
+                        html += '<td><b>Price</b></td>';
+                        html += '<td><input type="number" id="price" name="price" class="form-control" value="' + product.price + '" readonly></td>';
+                        html += '</tr>';
+                        html += '<tr class="quantity-row">'; // Thêm class 'quantity-row' cho thẻ tr này
+                        html += '<td><b>Quantity</b></td>';
+                        html += '<td><input type="number" id="quantity" name="quantity" class="form-control" value="' + product.quantity + '" readonly></td>';
+                        html += '</tr>';
+                        html += '<tr class="categories-row">'; // Thêm class 'categories-row' cho thẻ tr này
+                        html += '<td><b>Category</b></td>';
+                        html += '<td><input type="text" id="categories" name="categories" class="form-control" value="' + product.categories + '" readonly></td>';
+                        html += '</tr>';
+                        html += '<tr class="description-row">'; // Thêm class 'description-row' cho thẻ tr này
+                        html += '<td><b>Description</b></td>';
+                        html += '<td><input type="text" id="description" name="description" class="form-control" value="' + product.desctiption + '" readonly></td>';
+
+                        html += '</tr>';
+                        html += '<tr class="create-at-row">'; // Thêm class 'create-at-row' cho thẻ tr này
+                        html += '<td><b>Create day</b></td>';
+                        html += '<td><input type="text" id="create_at" name="create_at" class="form-control" value="' + product.create_at + '" readonly></td>';
+                        html += '</tr>';
+                        html += '<tr class="update-at-row">'; // Thêm class 'update-at-row' cho thẻ tr này
+                        html += '<td><b>Update day</b></td>';
+                        html += '<td><input type="text" id="update_at" name="update_at" class="form-control" value="' + product.update_at + '" readonly></td>';
+                        html += '</tr>';
+                        html += '</table>';
+                        html += '</div>';
 
 
-                            // Inject the received content into the modal body
-                            $("#modalContent").html(html);
-                            // Show the modal
-                            $("#myModal").modal('show');
-                        },
-                        error: function () {
-                            alert("Error loading content");
-                        }
-                    });
+                        // Inject the received content into the modal body
+                        $("#modalContent").html(html);
+                        // Show the modal
+                        $("#myModal").modal('show');
+                    },
+                    error: function () {
+                        alert("Error loading content");
+                    }
                 });
-
-                $(".closeModal").off('click').on('click', function () {
-                    $("#myModal").modal('hide');
-                });
-
-
-                var selectedProductId;
-
-                $(".btnBuy").click(function () {
-                    var productId = $(this).data('product-id');
-
-                    $.ajax({
-                        url: '/Product/BuyProduct',
-                        type: 'POST',
-                        data: { id: selectedProductId },
-                        success: function (response) {
-                            // Hiển thị thông báo dựa trên response từ server
-                            alert(response.message);
-                        },
-                        error: function () {
-                            alert("Có lỗi xảy ra khi gửi yêu cầu mua sản phẩm.");
-                        }
-                    });
-                });
-
             });
 
-        </script>
+            $(".closeModal").off('click').on('click', function () {
+                $("#myModal").modal('hide');
+            });
+
+
+            var selectedProductId;
+
+            $(".btnBuy").click(function () {
+                var productId = $(this).data('product-id');
+
+                $.ajax({
+                    url: '/Product/BuyProduct',
+                    type: 'POST',
+                    data: { id: selectedProductId },
+                    success: function (response) {
+                        // Hiển thị thông báo dựa trên response từ server
+                        alert(response.message);
+                    },
+                    error: function () {
+                        alert("Có lỗi xảy ra khi gửi yêu cầu mua sản phẩm.");
+                    }
+                });
+            });
+
+        });
+
+    </script>
 
 
 </body>
