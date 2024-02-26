@@ -351,7 +351,7 @@
             </marquee>
             <div class="col-sm-8">
                 <!-- Phần trung tâm -->
-                <h1>Create Deposit</h1>
+                <h1>Yêu cầu rút tiền</h1>
                 <form method="post" asp-controller="Account" asp-action="CreateWithdrawal">
                     <table class="table">
                         <tr>
@@ -359,15 +359,12 @@
                             <td><input type="hidden" id="id" name="id" class="form-control" value="@ViewBag.accountId"></td>
                         </tr>
                         <tr>
-                            <td>Amount</td>
+                            <td>Số tiền rút</td>
                             <td><input type="number" id="amount" name="amount" class="form-control" value="" placeholder="0000" required></td>
                         </tr>
+
                         <tr>
-                            <td>Fee</td>
-                            <td><input type="text" id="fee" name="fee" class="form-control" value="Phí bằng 5% số tiền rút" disabled></td>
-                        </tr>
-                        <tr>
-                            <td>Tên người nhận</td>
+                            <td>Tên Ngân Hàng</td>
                             <td><input type="text" id="bank_user" name="bank_user" class="form-control" value="" required></td>
                         </tr>
                         <tr>
@@ -375,11 +372,11 @@
                             <td><input type="text" id="bank_number" name="bank_number" class="form-control" value="" required></td>
                         </tr>
                         <tr>
-                            <td>Tên Ngân Hàng</td>
+                            <td>Chủ tài khoản</td>
                             <td><input type="text" id="bank_name" name="bank_name" class="form-control" value="" required></td>
                         </tr>
                         <tr>
-                            <td colspan="2"> <button type="submit" class="btn btn-primary">Submit</button></td>
+                            <td colspan="2"> <button type="submit" class="btn btn-primary">Gửi yêu cầu</button></td>
                         </tr>
                     </table>
                 </form>
