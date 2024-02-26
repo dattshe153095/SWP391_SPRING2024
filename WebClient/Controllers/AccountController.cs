@@ -9,7 +9,7 @@ using System.Drawing;
 using System.Text;
 using System.Xml.Linq;
 
-namespace WebClient.Controllers
+namespace WebClient2.Controllers
 {
     [Authorize(Roles = "Admin,User")]
     public class AccountController : Controller

@@ -1,0 +1,81 @@
+﻿@model Business.Models.IntermediateOrder
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<h4>IntermediateOrder</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form method="post" asp-controller="IntermediateOrders" asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input type="hidden" name="fee_type" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label class="control-label">Chủ đề trung gian (*)</label>
+                <input asp-for="name" class="form-control" />
+                <span asp-validation-for="name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Giá tiền</label>
+                <input asp-for="price" class="form-control" />
+                <span asp-validation-for="price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" asp-for="fee_type" id="fee_type1" name="fee_type" value="true" />
+                    <label class="form-check-label" for="fee_type1">
+                        Bên bán
+                    </label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" asp-for="fee_type" id="fee_type2" name="fee_type" value="false" />
+                    <label class="form-check-label" for="fee_type2">
+                        Bên mua
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Mô tả</label>
+                <input asp-for="description" class="form-control" />
+                <span asp-validation-for="description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Phương thức liên lạc</label>
+                <input asp-for="contact" class="form-control" />
+                <span asp-validation-for="contact" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Nội dung ẩn</label>
+                <textarea asp-for="hidden_content" class="form-control" id="hidden_content" name="hidden_content" rows="5"></textarea>
+                <span asp-validation-for="hidden_content" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" asp-for="is_public" id="is_public1" name="is_public" value="true" />
+                    <label class="form-check-label" for="is_public1">
+                        Hiện công khai
+                    </label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" asp-for="is_public" id="is_public2" name="is_public" value="false" />
+                    <label class="form-check-label" for="is_public2">
+                        Ẩn giới hạn
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

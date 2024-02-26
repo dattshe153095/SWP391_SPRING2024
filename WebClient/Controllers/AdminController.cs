@@ -11,7 +11,7 @@ using System.Drawing.Imaging;
 using System.Drawing;
 using System.Text;
 
-namespace WebClient.Controllers
+namespace WebClient2.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class AdminController : Controller

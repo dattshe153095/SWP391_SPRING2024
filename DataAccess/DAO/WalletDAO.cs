@@ -64,6 +64,22 @@ namespace DataAccess.DAO
             }
         }
 
+        public static void UpdateWalletBuyOrder(int id, int amount)
+        {
+            Wallet wallet = GetWalletById(id);
+            if (wallet.balance >= amount)
+            {
+                wallet.balance -= amount;
+            }
+
+            using (var context = new Web_Trung_GianContext())
+            {
+                var wallets = context.Set<Wallet>();
+                wallets.Update(wallet);
+                context.SaveChanges();
+            }
+        }
+
 
 
     }

@@ -4,7 +4,7 @@ using DataAccess.Library;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WebClient.Controllers
+namespace WebClient2.Controllers
 {
     [Authorize(Roles = "Admin,User")]
     public class WithdrawalController : Controller

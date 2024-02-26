@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
 
-namespace WebClient.Controllers
+namespace WebClient2.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class WalletController : Controller

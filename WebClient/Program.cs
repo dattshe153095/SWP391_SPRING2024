@@ -10,9 +10,9 @@ using Microsoft.AspNetCore.Mvc;
 using DataAccess.MailSender;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Hosting;
-using WebClient.BackGroundServices;
+using WebClient2.BackGroundServices;
 
-namespace WebClient
+namespace WebClient2
 {
     public class Program
     {
