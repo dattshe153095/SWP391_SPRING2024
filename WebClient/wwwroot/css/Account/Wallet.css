@@ -136,15 +136,30 @@ div main div img {
     overflow-y: auto;
 }
 
-.sidebar .nav .nav-item .nav-link i{
-    color: black;
+    .sidebar .nav .nav-item .nav-link i {
+        color: black;
+    }
+
+    .sidebar .nav .nav-item a {
+        color: black;
+    }
+
+.nav-dropdown-item {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    min-width: 200px;
+    z-index: 1000;
 }
-.sidebar .nav .nav-item a{
-    color: black;
-}
-.card-header{
+
+    .nav-dropdown-item.show {
+        display: block;
+    }
+
+.card-header {
     background-color: pink;
 }
+
 #app {
     display: flex;
 }
@@ -157,6 +172,7 @@ div main div img {
 .show-sidebar {
     transform: translateX(0); /* Show sidebar on button click */
 }
-.app-body .sidebar ul{
+
+.app-body .sidebar ul {
     list-style: none;
 }
