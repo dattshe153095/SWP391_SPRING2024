@@ -10,6 +10,7 @@ using Business.Models;
 using DataAccess.Library;
 using WebClient2.BackGroundServices;
 using DataAccess.DAO;
+using DataAccess.ViewModel;
 
 namespace WebClient2.Controllers
 {
@@ -32,24 +33,25 @@ namespace WebClient2.Controllers
         }
 
         // GET: IntermediateOrders/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             if (id == null || _context.IntermediateOrders == null)
             {
                 return NotFound();
             }
+            IntermediateOrder intermediateOrder = new IntermediateOrder();
+            intermediateOrder = IntermediateOrderDAO.GetIntermediateOrderById(id.Value);
+            OrderViewModel order = new OrderViewModel();
 
-            var intermediateOrder = await _context.IntermediateOrders
-                .Include(i => i.AccountBuy)
-                .Include(i => i.AccountCreate)
-                .Include(i => i.AccountUpdate)
-                .FirstOrDefaultAsync(m => m.id == id);
+            //MapData
+            order = IntermediateOrderDAO.GetOrderViewModel(intermediateOrder);
+
             if (intermediateOrder == null)
             {
                 return NotFound();
             }
 
-            return View(intermediateOrder);
+            return View(order);
         }
 
         // GET: IntermediateOrders/Create

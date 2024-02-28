@@ -1,5 +1,6 @@
 ﻿using Business;
 using Business.Models;
+using DataAccess.ViewModel;
 using DataAccess.Library;
 using System;
 using System.Collections.Generic;
@@ -164,7 +165,30 @@ namespace DataAccess.DAO
             }
         }
 
+        public static OrderViewModel GetOrderViewModel(IntermediateOrder order)
+        {
+            OrderViewModel viewModel = new OrderViewModel()
+            {
+                code = order.id.ToString(),
+                account_create = AccountDAO.GetAccountWithId(order.create_by),
+                account_buy = AccountDAO.GetAccountWithId(order.buy_by),
+                state = order.state,
+                status = order.status,
+                name = order.name,
+                price = order.price,
+                fee_type = order.fee_type,
+                description = order.description,
+                contact = order.contact,
+                hidden_content = order.hidden_content,
+                is_public = order.is_public,
+                create_at = order.create_at,
+                update_at = order.update_at,
+                link_share = "#"
 
+            };
+            return viewModel;
+
+        }
 
     }
 }
