@@ -54,8 +54,10 @@ namespace DataAccess.DAO
         public static void UpdateWalletWithdrawalBalance(int id, int amount)
         {
             Wallet wallet = GetWalletById(id);
-            wallet.balance -= amount;
-
+            if (wallet.balance >= amount)
+            {
+                wallet.balance -= amount;
+            }
             using (var context = new Web_Trung_GianContext())
             {
                 var wallets = context.Set<Wallet>();
@@ -79,6 +81,8 @@ namespace DataAccess.DAO
                 context.SaveChanges();
             }
         }
+
+
 
 
 

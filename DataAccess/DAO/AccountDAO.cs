@@ -46,7 +46,6 @@ namespace DataAccess.DAO
 
         public static void Register(Account account)
         {
-
             account.create_at = DateTime.Now;
             account.update_at = DateTime.Now;
 

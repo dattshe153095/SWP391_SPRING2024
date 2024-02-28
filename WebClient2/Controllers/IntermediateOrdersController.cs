@@ -8,9 +8,12 @@ using Microsoft.EntityFrameworkCore;
 using Business;
 using Business.Models;
 using DataAccess.Library;
+using WebClient2.BackGroundServices;
+using DataAccess.DAO;
 
 namespace WebClient2.Controllers
 {
+    [ServiceFilter(typeof(SemaphoreActionFilter))]
     public class IntermediateOrdersController : Controller
     {
         private readonly Web_Trung_GianContext _context;
@@ -52,64 +55,65 @@ namespace WebClient2.Controllers
         // GET: IntermediateOrders/Create
         public IActionResult Create()
         {
-            ViewData["buy_by"] = new SelectList(_context.Accounts, "id", "email");
-            ViewData["create_by"] = new SelectList(_context.Accounts, "id", "email");
-            ViewData["update_by"] = new SelectList(_context.Accounts, "id", "email");
             return View();
         }
 
         // POST: IntermediateOrders/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(string name, int price, bool fee_type, string description, string contact, string hidden_content, bool is_public)
+        public IActionResult Create(string name, int price, bool fee_type, string description, string contact, string hidden_content, bool is_public)
         {
             IntermediateOrder order = new IntermediateOrder();
             if (ModelState.IsValid)
             {
-                order = new IntermediateOrder()
+                //int user_id = HttpContext.Session.GetInt32("Account").Value;
+
+                if (WalletDAO.GetWalletByAccountId(14).balance < 500)
                 {
-                    name = name,
-                    price = price,
-                    fee_type = fee_type,
-                    description = description,
-                    contact = contact,
-                    hidden_content = hidden_content,
-                    is_public = is_public,
-                    fee = 500,
-                    status = IntermediateOrderEnum.MOI_TAO,
-                    state = StateEnum.DANG_XU_LI,
-                    create_by = 14,
-                    create_at = DateTime.Now,
-                    update_by = 14,
-                    update_at = DateTime.Now,
-                };
+                    ModelState.AddModelError(string.Empty, "Không đủ tiền trong tài khoản! Tài khoản hiện tại có: " + WalletDAO.GetWalletByAccountId(14).balance);
+                }
+                else
+                {
+                    WalletDAO.UpdateWalletBuyOrder(WalletDAO.GetWalletByAccountId(14).id, 500);
+                    order = new IntermediateOrder()
+                    {
+                        name = name,
+                        price = price,
+                        fee_type = fee_type,
+                        description = description,
+                        contact = contact,
+                        hidden_content = hidden_content,
+                        is_public = is_public,
+                        fee = 500,
+                        status = IntermediateOrderEnum.MOI_TAO,
+                        state = StateEnum.DANG_XU_LI,
+                        create_by = 14,
+                        create_at = DateTime.Now,
+                        update_by = 14,
+                        update_at = DateTime.Now,
+                    };
 
+                    IntermediateOrderDAO.CreateIntermediateOrder(order);
+                    return RedirectToAction(nameof(Index));
+                }
 
-                _context.Add(order);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
             }
             return View(order);
         }
 
-        // GET: IntermediateOrders/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
-            if (id == null || _context.IntermediateOrders == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var intermediateOrder = await _context.IntermediateOrders.FindAsync(id);
+            IntermediateOrder intermediateOrder = IntermediateOrderDAO.GetIntermediateOrderById(id.Value);
+
             if (intermediateOrder == null)
             {
                 return NotFound();
             }
-            ViewData["buy_by"] = new SelectList(_context.Accounts, "id", "email", intermediateOrder.buy_by);
-            ViewData["create_by"] = new SelectList(_context.Accounts, "id", "email", intermediateOrder.create_by);
-            ViewData["update_by"] = new SelectList(_context.Accounts, "id", "email", intermediateOrder.update_by);
             return View(intermediateOrder);
         }
 
@@ -118,7 +122,7 @@ namespace WebClient2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,name,price,fee_type,description,contact,hidden_content,is_public,fee,status,state,create_by,create_at,buy_by,update_by,update_at,is_delete")] IntermediateOrder intermediateOrder)
+        public IActionResult Edit(int id, [Bind("id,name,price,fee_type,description,contact,hidden_content,is_public,fee,status,state,create_by,create_at,buy_by,update_by,update_at,is_delete")] IntermediateOrder intermediateOrder)
         {
             if (id != intermediateOrder.id)
             {
@@ -127,27 +131,10 @@ namespace WebClient2.Controllers
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(intermediateOrder);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!IntermediateOrderExists(intermediateOrder.id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                intermediateOrder.update_by = 13;
+                IntermediateOrderDAO.UpdateIntermediateOrder(intermediateOrder);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["buy_by"] = new SelectList(_context.Accounts, "id", "email", intermediateOrder.buy_by);
-            ViewData["create_by"] = new SelectList(_context.Accounts, "id", "email", intermediateOrder.create_by);
-            ViewData["update_by"] = new SelectList(_context.Accounts, "id", "email", intermediateOrder.update_by);
             return View(intermediateOrder);
         }
 
@@ -191,9 +178,45 @@ namespace WebClient2.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool IntermediateOrderExists(int id)
+        public IActionResult Buy(int? id)
         {
-            return (_context.IntermediateOrders?.Any(e => e.id == id)).GetValueOrDefault();
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            IntermediateOrder intermediateOrder = IntermediateOrderDAO.GetIntermediateOrderById(id.Value);
+
+            if (intermediateOrder == null)
+            {
+                return NotFound();
+            }
+            return View(intermediateOrder);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Buy(int id, [Bind("id,name,price,fee_type,description,contact,hidden_content,is_public,fee,status,state,create_by,create_at,buy_by,update_by,update_at,is_delete")] IntermediateOrder intermediateOrder)
+        {
+            if (id != intermediateOrder.id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                if (WalletDAO.GetWalletByAccountId(14).balance < 500)
+                {
+                    ModelState.AddModelError(string.Empty, "Không đủ tiền trong tài khoản! Tài khoản hiện tại có: " + WalletDAO.GetWalletByAccountId(14).balance);
+                }
+                WalletDAO.UpdateWalletBuyOrder(WalletDAO.GetWalletByAccountId(14).id, intermediateOrder.price + 500);
+
+                intermediateOrder.update_by = 14;
+                intermediateOrder.buy_by = 14;
+                IntermediateOrderDAO.BuyIntermediateOrder(intermediateOrder);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(intermediateOrder);
         }
     }
 }

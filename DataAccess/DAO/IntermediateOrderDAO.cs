@@ -4,6 +4,7 @@ using DataAccess.Library;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -67,79 +68,103 @@ namespace DataAccess.DAO
         }
 
 
-        private static Queue<IntermediateOrder> intermediateOrderQueue = new Queue<IntermediateOrder>();
-        private static object queueLock = new object();
-        private static bool isProcessing = false;
 
-        public static void BuyIntermediateOrder(int id_user, IntermediateOrder intermediateOrder)
+        public static void BuyIntermediateOrder(IntermediateOrder intermediateOrder)
         {
-            intermediateOrder.buy_by = id_user;
-            intermediateOrder.update_at = DateTime.Now;
-            intermediateOrder.update_by = id_user;
-
-            lock (queueLock)
+            try
             {
-                intermediateOrderQueue.Enqueue(intermediateOrder); // Thêm deposit vào hàng đợi
-                if (!isProcessing)
+                intermediateOrder.update_at = DateTime.Now;
+                intermediateOrder.status = IntermediateOrderEnum.BEN_MUA_KIEM_TRA_HANG;
+                IntermediateOrder order = GetIntermediateOrderById(intermediateOrder.id);
+
+                if (order != null)
                 {
-                    isProcessing = true;
-                    ProcessIntermediateOrders(); // Bắt đầu xử lý hàng đợi nếu chưa có công việc nào đang được xử lý
+                    using (var context = new Web_Trung_GianContext())
+                    {
+                        var intermediateOrders = context.Set<IntermediateOrder>();
+                        intermediateOrders.Update(intermediateOrder);
+                        context.SaveChanges();
+                    }
                 }
+
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
             }
         }
 
-        private static void ProcessIntermediateOrders()
+        public static void CreateIntermediateOrder(IntermediateOrder intermediateOrder)
         {
-            while (true)
+            try
             {
-                IntermediateOrder intermediateOrder;
-                lock (queueLock)
+                intermediateOrder.update_at = DateTime.Now;
+                intermediateOrder.create_at = DateTime.Now;
+
+                using (var context = new Web_Trung_GianContext())
                 {
-                    if (intermediateOrderQueue.Count == 0)
-                    {
-                        isProcessing = false;
-                        return; // Kết thúc nếu không còn deposit nào trong hàng đợi
-                    }
-                    intermediateOrder = intermediateOrderQueue.Dequeue(); // Lấy deposit đầu tiên từ hàng đợi
+                    var orders = context.Set<IntermediateOrder>();
+                    orders.Add(intermediateOrder);
+                    context.SaveChanges();
                 }
 
-                try
-                {
-                    if (intermediateOrder.status == IntermediateOrderEnum.SAN_SANG_GIAO_DICH)
-                    {
-
-                        //Update Wallet
-                        int wallet_id = WalletDAO.GetWalletByAccountId(intermediateOrder.buy_by.Value).id;
-                        int total = intermediateOrder.price;
-                        //Check inter if it fee type
-                        total += intermediateOrder.fee_type ? intermediateOrder.fee : 0;
-
-                        if (WalletDAO.GetWalletById(wallet_id).balance < total)
-                        {
-                            return;
-                        }
-                        WalletDAO.UpdateWalletBuyOrder(wallet_id, total);
-
-                        //Update Order
-                        using (var context = new Web_Trung_GianContext())
-                        {
-                            var intermediateOrders = context.Set<IntermediateOrder>();
-                            intermediateOrders.Update(intermediateOrder);
-                            context.SaveChanges();
-                        }
-
-                        intermediateOrder.status = IntermediateOrderEnum.BEN_MUA_KIEM_TRA_HANG;
-
-
-                    }
-
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Error creating intermediateOrder: " + ex.Message);
-                    // Xử lý lỗi tạo deposit ở đây nếu cần thiết
-                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
             }
         }
+
+        public static void UpdateIntermediateOrder(IntermediateOrder intermediateOrder)
+        {
+            try
+            {
+                intermediateOrder.update_at = DateTime.Now;
+                intermediateOrder.status = IntermediateOrderEnum.MOI_TAO;
+                IntermediateOrder order = GetIntermediateOrderById(intermediateOrder.id);
+
+                if (order != null)
+                {
+                    using (var context = new Web_Trung_GianContext())
+                    {
+                        var intermediateOrders = context.Set<IntermediateOrder>();
+                        intermediateOrders.Update(intermediateOrder);
+                        context.SaveChanges();
+                    }
+                }
+
+
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        public static void HandleIntermediateOrderCreate()
+        {
+            try
+            {
+                List<IntermediateOrder> orders = new List<IntermediateOrder>();
+
+                using (var context = new Web_Trung_GianContext())
+                {
+                    orders = context.IntermediateOrders.Where(x => x.status == IntermediateOrderEnum.MOI_TAO && x.state == StateEnum.DANG_XU_LI).ToList();
+                    foreach (var order in orders)
+                    {
+                        order.status = IntermediateOrderEnum.SAN_SANG_GIAO_DICH;
+                    }
+                    context.SaveChanges();
+                }
+
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+
+
     }
 }

@@ -23,12 +23,14 @@ namespace WebClient2.BackGroundServices
                     // Thực hiện công việc của bạn ở đây
                     _logger.LogInformation("Đây là công việc được thực hiện mỗi 3 phút.");
                     Console.WriteLine("Cap Nhat Data base");
-                    //DataBase
+                    //CHECK DEPOSIT
                     DepositDAO.DepositAction();
+                    //CHECK IntermediateOrderDAO
+                    IntermediateOrderDAO.HandleIntermediateOrderCreate();
 
 
                     // Đợi 3 phút trước khi thực hiện lại công việc
-                    await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
+                    await Task.Delay(TimeSpan.FromSeconds(10), stoppingToken);
                 }
                 catch (OperationCanceledException)
                 {

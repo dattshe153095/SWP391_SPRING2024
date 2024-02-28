@@ -9,7 +9,7 @@
 <h4>IntermediateOrder</h4>
 <hr />
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-10">
         <form method="post" asp-controller="IntermediateOrders" asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -18,11 +18,12 @@
                 <span asp-validation-for="name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label class="control-label">Giá tiền</label>
+                <label class="control-label">Giá tiền (*)</label>
                 <input asp-for="price" class="form-control" />
                 <span asp-validation-for="price" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label class="control-label">Bên chịu phí (*)</label>
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" asp-for="fee_type" id="fee_type1" name="fee_type" value="true" />
                     <label class="form-check-label" for="fee_type1">
@@ -35,6 +36,7 @@
                         Bên mua
                     </label>
                 </div>
+                <span asp-validation-for="fee_type" class="text-danger"></span>
             </div>
 
             <div class="form-group">
@@ -53,6 +55,7 @@
                 <span asp-validation-for="hidden_content" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label class="control-label">Công khai (*)</label>
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" asp-for="is_public" id="is_public1" name="is_public" value="true" />
                     <label class="form-check-label" for="is_public1">
@@ -65,6 +68,7 @@
                         Ẩn giới hạn
                     </label>
                 </div>
+                <span asp-validation-for="is_public" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -72,7 +76,18 @@
         </form>
     </div>
 </div>
-
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger" role="alert">
+        @foreach (var modelState in ViewData.ModelState.Values)
+        {
+            foreach (var error in modelState.Errors)
+            {
+                <span>@error.ErrorMessage</span>
+            }
+        }
+    </div>
+}
 <div>
     <a asp-action="Index">Back to List</a>
 </div>

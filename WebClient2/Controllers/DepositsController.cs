@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Business;
 using Business.Models;
+using WebClient2.BackGroundServices;
 
 namespace WebClient2.Controllers
 {
+    [ServiceFilter(typeof(SemaphoreActionFilter))]
     public class DepositsController : Controller
     {
         private readonly Web_Trung_GianContext _context;

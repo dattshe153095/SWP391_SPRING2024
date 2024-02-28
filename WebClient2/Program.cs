@@ -11,6 +11,8 @@ namespace WebClient2
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Services.AddScoped<SemaphoreActionFilter>();
+
             builder.Services.AddDbContext<Web_Trung_GianContext>(options => options.UseSqlServer("server=localhost;database=Web_Trung_Gian;uid=sa;pwd=123456;TrustServerCertificate=True;"));
 
             builder.Services.Configure<CookiePolicyOptions>(options =>
