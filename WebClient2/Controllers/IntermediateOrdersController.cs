@@ -103,21 +103,7 @@ namespace WebClient2.Controllers
             return View(order);
         }
 
-        public IActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            IntermediateOrder intermediateOrder = IntermediateOrderDAO.GetIntermediateOrderById(id.Value);
-
-            if (intermediateOrder == null)
-            {
-                return NotFound();
-            }
-            return View(intermediateOrder);
-        }
 
         // POST: IntermediateOrders/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -207,7 +193,11 @@ namespace WebClient2.Controllers
 
             if (ModelState.IsValid)
             {
-                if (WalletDAO.GetWalletByAccountId(14).balance < 500)
+                //CALCULATE PRICE
+                OrderViewModel order = new OrderViewModel();
+                //MapData
+                order = IntermediateOrderDAO.GetOrderViewModel(intermediateOrder);
+                if (WalletDAO.GetWalletByAccountId(14).balance < order.earn_amount)
                 {
                     ModelState.AddModelError(string.Empty, "Không đủ tiền trong tài khoản! Tài khoản hiện tại có: " + WalletDAO.GetWalletByAccountId(14).balance);
                 }
