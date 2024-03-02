@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.DAO
 {
-    public class AccountRoleDAO
+    public class RoleDAO
     {
         public static List<Role> GetAllAccountRole()
         {

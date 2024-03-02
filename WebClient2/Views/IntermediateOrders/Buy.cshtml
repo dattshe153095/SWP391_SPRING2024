@@ -1,4 +1,4 @@
-﻿@model Business.Models.IntermediateOrder
+﻿@model Business.Models.IntermediateProduct
 
 @{
     ViewData["Title"] = "Details";
@@ -14,7 +14,6 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="id" />
             <input type="hidden" asp-for="state" />
-            <input type="hidden" asp-for="status" />
             <input type="hidden" asp-for="create_by" />
             <div class="form-group">
                 <label class="control-label">Chủ đề trung gian (*)</label>

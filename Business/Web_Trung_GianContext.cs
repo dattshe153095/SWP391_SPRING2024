@@ -40,6 +40,7 @@ namespace Business
         public virtual DbSet<DepositResponse> DepositResponses { get; set; }
         public virtual DbSet<WithdrawalResponse> WithdrawalResponses { get; set; }
         public virtual DbSet<IntermediateOrder> IntermediateOrders { get; set; }
+        public virtual DbSet<IntermediateProduct> IntermediateProducts { get; set; }
 
 
 
@@ -49,59 +50,6 @@ namespace Business
             modelBuilder.Entity<Account>(entity =>
             {
                 entity.HasKey(a => a.id);
-
-                entity.HasOne(a => a.Role)
-                    .WithMany(r => r.Accounts)
-                    .HasForeignKey(a => a.role_id).OnDelete(DeleteBehavior.Restrict);
-
-                //WALLET
-                entity.HasMany(a => a.Wallets)
-                    .WithOne(w => w.Account)
-                    .HasForeignKey(w => w.account_id).OnDelete(DeleteBehavior.Restrict); ;
-
-                entity.HasMany(a => a.WalletUpdates)
-                    .WithOne(o => o.AccountUpdate)
-                    .HasForeignKey(o => o.update_by).OnDelete(DeleteBehavior.Restrict); ;
-
-                //DEPOSIT RESPONSE
-                entity.HasMany(a => a.DepositResponseCreates)
-                    .WithOne(o => o.AccountCreate)
-                    .HasForeignKey(o => o.create_by).OnDelete(DeleteBehavior.Restrict); ;
-
-                entity.HasMany(a => a.DepositResponseUpdates)
-                    .WithOne(o => o.AccountUpdate)
-                    .HasForeignKey(o => o.update_by).OnDelete(DeleteBehavior.Restrict); ;
-
-                //WITHDRAWAL RESPONSE
-                entity.HasMany(a => a.WithdrawalResponseCreates)
-                    .WithOne(o => o.AccountCreate)
-                    .HasForeignKey(o => o.create_by).OnDelete(DeleteBehavior.Restrict); ;
-
-
-                entity.HasMany(a => a.WithdrawalResponseUpdates)
-                    .WithOne(o => o.AccountUpdate)
-                    .HasForeignKey(o => o.update_by).OnDelete(DeleteBehavior.Restrict);
-
-                //DEPOSIT
-                entity.HasMany(a => a.DepositCreates)
-                    .WithOne(o => o.AccountCreate)
-                    .HasForeignKey(o => o.create_by).OnDelete(DeleteBehavior.Restrict);
-
-
-                entity.HasMany(a => a.DepositUpdates)
-                    .WithOne(o => o.AccountUpdate)
-                    .HasForeignKey(o => o.update_by).OnDelete(DeleteBehavior.Restrict);
-
-                //WITHDRAWAL
-                entity.HasMany(a => a.WithdrawalCreates)
-                    .WithOne(o => o.AccountCreate)
-                    .HasForeignKey(o => o.create_by).OnDelete(DeleteBehavior.Restrict);
-
-
-                entity.HasMany(a => a.WithdrawalUpdates)
-                    .WithOne(o => o.AccountUpdate)
-                    .HasForeignKey(o => o.update_by).OnDelete(DeleteBehavior.Restrict);
-
             });
 
             modelBuilder.Entity<Wallet>(entity =>
@@ -114,60 +62,7 @@ namespace Business
                 entity.HasKey(r => r.id);
             });
 
-            modelBuilder.Entity<Deposit>(entity =>
-            {
-                entity.HasKey(u => u.id);
 
-                entity.HasOne(w => w.Wallet)
-                .WithMany(w => w.Deposits)
-                .HasForeignKey(d => d.wallet_id).OnDelete(DeleteBehavior.Restrict);
-
-            });
-
-            modelBuilder.Entity<Withdrawal>(entity =>
-            {
-                entity.HasKey(u => u.id);
-
-                entity.HasOne(w => w.Wallet)
-                .WithMany(w => w.Withdrawals)
-                .HasForeignKey(d => d.wallet_id).OnDelete(DeleteBehavior.Restrict); ;
-            });
-
-
-            modelBuilder.Entity<DepositResponse>(entity =>
-            {
-                entity.HasKey(u => u.id);
-
-                entity.HasOne(w => w.Deposit)
-                .WithMany(w => w.DepositResponses)
-                .HasForeignKey(d => d.deposit_id).OnDelete(DeleteBehavior.Restrict); ;
-            });
-
-            modelBuilder.Entity<WithdrawalResponse>(entity =>
-            {
-                entity.HasKey(u => u.id);
-
-                entity.HasOne(w => w.Withdrawal)
-                .WithMany(w => w.WithdrawalResponsess)
-                .HasForeignKey(d => d.withdrawal_id).OnDelete(DeleteBehavior.Restrict); ;
-            });
-
-            modelBuilder.Entity<IntermediateOrder>(entity =>
-            {
-                entity.HasKey(u => u.id);
-
-                entity.HasOne(w => w.AccountCreate)
-                .WithMany(w => w.IntermediateOrderCreates)
-                .HasForeignKey(d => d.create_by).OnDelete(DeleteBehavior.Restrict);
-
-                entity.HasOne(w => w.AccountBuy)
-                .WithMany(w => w.IntermediateOrderBuys)
-                .HasForeignKey(d => d.buy_by).OnDelete(DeleteBehavior.Restrict);
-
-                entity.HasOne(w => w.AccountUpdate)
-                .WithMany(w => w.IntermediateOrderUpdates)
-                .HasForeignKey(d => d.update_by).OnDelete(DeleteBehavior.Restrict);
-            });
 
 
 
@@ -282,23 +177,41 @@ namespace Business
                 new WithdrawalResponse { id = 14, withdrawal_id = 14, type_transaction = "rút tiền", description = "Giao dịch thất bại", status = "đang xử lí", state = "thất bại", create_by = 14, create_at = DateTime.Now, update_by = 14, update_at = DateTime.Now, }
             );
 
-            modelBuilder.Entity<IntermediateOrder>().HasData(
-                new IntermediateOrder { id = 1, name = "Tài Khoản Office", price = 1000, fee_type = true, description = "tài khoản Office ", contact = "facebook, mess,zalo", hidden_content = "tài khoản: account, mật khẩu: password", is_public = false, fee = 5, status = "mới tạo", state = "đang xử lí", create_by = 1, create_at = DateTime.Now, update_by = 1, update_at = DateTime.Now },
-                new IntermediateOrder { id = 2, name = "Tài Khoản GBT", price = 500, fee_type = false, description = "tài khoản GBT ", contact = "facebook, mess,zalo", hidden_content = "tài khoản: account, mật khẩu: password", is_public = true, fee = 5, status = "mới tạo", state = "đang xử lí", create_by = 2, create_at = DateTime.Now, update_by = 1, update_at = DateTime.Now },
-                new IntermediateOrder { id = 3, name = "Tài Khoản Facebook", price = 1500, fee_type = true, description = "tài khoản Facebook ", contact = "facebook, mess,zalo", hidden_content = "tài khoản: account, mật khẩu: password", is_public = false, fee = 5, status = "mới tạo", state = "đang xử lí", create_by = 3, create_at = DateTime.Now, update_by = 1, update_at = DateTime.Now },
-                new IntermediateOrder { id = 4, name = "Tài Khoản Game", price = 2000, fee_type = false, description = "tài khoản Game ", contact = "facebook, mess,zalo", hidden_content = "tài khoản: account, mật khẩu: password", is_public = true, fee = 5, status = "mới tạo", state = "đang xử lí", create_by = 4, create_at = DateTime.Now, update_by = 1, update_at = DateTime.Now },
-                new IntermediateOrder { id = 5, name = "Tài Khoản Unity", price = 500, fee_type = true, description = "tài khoản Unity ", contact = "facebook, mess,zalo", hidden_content = "tài khoản: account, mật khẩu: password", is_public = false, fee = 5, status = "mới tạo", state = "đang xử lí", create_by = 5, create_at = DateTime.Now, update_by = 1, update_at = DateTime.Now },
-                new IntermediateOrder { id = 6, name = "Tài Khoản Microsoft", price = 1000, fee_type = false, description = "tài khoản Microsoft", contact = "facebook, mess,zalo", hidden_content = "tài khoản: account, mật khẩu: password", is_public = true, fee = 5, status = "mới tạo", state = "đang xử lí", create_by = 6, create_at = DateTime.Now, update_by = 1, update_at = DateTime.Now },
-                new IntermediateOrder { id = 7, name = "Tài Khoản Spine", price = 1500, fee_type = true, description = "tài khoản Spine ", contact = "facebook, mess,zalo", hidden_content = "tài khoản: account, mật khẩu: password", is_public = true, fee = 5, status = "mới tạo", state = "đang xử lí", create_by = 7, create_at = DateTime.Now, update_by = 1, update_at = DateTime.Now },
-                new IntermediateOrder { id = 8, name = "Tài Khoản Adobephotoshop", price = 2000, fee_type = false, description = "tài khoản Adobephotoshop ", contact = "facebook, mess,zalo", hidden_content = "tài khoản: account, mật khẩu: password", is_public = true, fee = 5, status = "mới tạo", state = "đang xử lí", create_by = 8, create_at = DateTime.Now, buy_by = 1, update_by = 1, update_at = DateTime.Now },
-                new IntermediateOrder { id = 9, name = "Tài Khoản Ai", price = 500, fee_type = true, description = "tài khoản Ai ", contact = "facebook, mess,zalo", hidden_content = "tài khoản: account, mật khẩu: password", is_public = true, fee = 5, status = "mới tạo", state = "đang xử lí", create_by = 9, create_at = DateTime.Now, update_by = 1, update_at = DateTime.Now },
-                new IntermediateOrder { id = 10, name = "Tài Khoản Gmail", price = 1000, fee_type = false, description = "tài khoản Gmail ", contact = "facebook, mess,zalo", hidden_content = "tài khoản: account, mật khẩu: password", is_public = false, fee = 5, status = "mới tạo", state = "đang xử lí", create_by = 10, create_at = DateTime.Now, update_by = 1, update_at = DateTime.Now },
-                new IntermediateOrder { id = 11, name = "Tài Khoản Git", price = 1500, fee_type = true, description = "tài khoản Git ", contact = "facebook, mess,zalo", hidden_content = "tài khoản: account, mật khẩu: password", is_public = true, fee = 5, status = "mới tạo", state = "đang xử lí", create_by = 11, create_at = DateTime.Now, update_by = 1, update_at = DateTime.Now },
-                new IntermediateOrder { id = 12, name = "Tài Khoản Netflix", price = 2000, fee_type = false, description = "tài khoản Netflix ", contact = "facebook, mess,zalo", hidden_content = "tài khoản: account, mật khẩu: password", is_public = true, fee = 5, status = "mới tạo", state = "đang xử lí", create_by = 12, create_at = DateTime.Now, update_by = 1, update_at = DateTime.Now },
-                new IntermediateOrder { id = 13, name = "Tài Khoản Vip Youtube", price = 500, fee_type = true, description = "tài khoản Youtube ", contact = "facebook, mess,zalo", hidden_content = "tài khoản: account, mật khẩu: password", is_public = true, fee = 5, status = "mới tạo", state = "đang xử lí", create_by = 13, create_at = DateTime.Now, update_by = 1, update_at = DateTime.Now },
-                new IntermediateOrder { id = 14, name = "Tài Khoản Duolingo", price = 1000, fee_type = false, description = "tài khoản Duolingo ", contact = "facebook, mess,zalo", hidden_content = "tài khoản: account, mật khẩu: password", is_public = false, fee = 5, status = "mới tạo", state = "đang xử lí", create_by = 14, create_at = DateTime.Now, update_by = 1, update_at = DateTime.Now },
-                new IntermediateOrder { id = 15, name = "Tài Khoản Coursera", price = 1000, fee_type = true, description = "tài khoản Coursera ", contact = "facebook, mess,zalo", hidden_content = "tài khoản: account, mật khẩu: password", is_public = true, fee = 10, status = "mới tạo", state = "đang xử lí", create_by = 10, create_at = DateTime.Now, update_by = 1, update_at = DateTime.Now }
+            modelBuilder.Entity<IntermediateProduct>().HasData(
+                new IntermediateProduct { id = 1, name = "Tài Khoản Office", price = 1000, fee_type = true, description = "tài khoản Office ", contact = "facebook, mess,zalo", hidden_content = "tài khoản: account, mật khẩu: password", is_public = false, fee = 5, state = "đang xử lí", create_by = 1, create_at = DateTime.Now, update_by = 1, update_at = DateTime.Now },
+                new IntermediateProduct { id = 2, name = "Tài Khoản GBT", price = 500, fee_type = false, description = "tài khoản GBT ", contact = "facebook, mess,zalo", hidden_content = "tài khoản: account, mật khẩu: password", is_public = true, fee = 5, state = "đang xử lí", create_by = 2, create_at = DateTime.Now, update_by = 1, update_at = DateTime.Now },
+                new IntermediateProduct { id = 3, name = "Tài Khoản Facebook", price = 1500, fee_type = true, description = "tài khoản Facebook ", contact = "facebook, mess,zalo", hidden_content = "tài khoản: account, mật khẩu: password", is_public = false, fee = 5, state = "đang xử lí", create_by = 3, create_at = DateTime.Now, update_by = 1, update_at = DateTime.Now },
+                new IntermediateProduct { id = 4, name = "Tài Khoản Game", price = 2000, fee_type = false, description = "tài khoản Game ", contact = "facebook, mess,zalo", hidden_content = "tài khoản: account, mật khẩu: password", is_public = true, fee = 5, state = "đang xử lí", create_by = 4, create_at = DateTime.Now, update_by = 1, update_at = DateTime.Now },
+                new IntermediateProduct { id = 5, name = "Tài Khoản Unity", price = 500, fee_type = true, description = "tài khoản Unity ", contact = "facebook, mess,zalo", hidden_content = "tài khoản: account, mật khẩu: password", is_public = false, fee = 5, state = "đang xử lí", create_by = 5, create_at = DateTime.Now, update_by = 1, update_at = DateTime.Now },
+                new IntermediateProduct { id = 6, name = "Tài Khoản Microsoft", price = 1000, fee_type = false, description = "tài khoản Microsoft", contact = "facebook, mess,zalo", hidden_content = "tài khoản: account, mật khẩu: password", is_public = true, fee = 5, state = "đang xử lí", create_by = 6, create_at = DateTime.Now, update_by = 1, update_at = DateTime.Now },
+                new IntermediateProduct { id = 7, name = "Tài Khoản Spine", price = 1500, fee_type = true, description = "tài khoản Spine ", contact = "facebook, mess,zalo", hidden_content = "tài khoản: account, mật khẩu: password", is_public = true, fee = 5, state = "đang xử lí", create_by = 7, create_at = DateTime.Now, update_by = 1, update_at = DateTime.Now },
+                new IntermediateProduct { id = 8, name = "Tài Khoản Adobephotoshop", price = 2000, fee_type = false, description = "tài khoản Adobephotoshop ", contact = "facebook, mess,zalo", hidden_content = "tài khoản: account, mật khẩu: password", is_public = true, fee = 5, state = "đang xử lí", create_by = 8, create_at = DateTime.Now, update_by = 1, update_at = DateTime.Now },
+                new IntermediateProduct { id = 9, name = "Tài Khoản Ai", price = 500, fee_type = true, description = "tài khoản Ai ", contact = "facebook, mess,zalo", hidden_content = "tài khoản: account, mật khẩu: password", is_public = true, fee = 5, state = "đang xử lí", create_by = 9, create_at = DateTime.Now, update_by = 1, update_at = DateTime.Now },
+                new IntermediateProduct { id = 10, name = "Tài Khoản Gmail", price = 1000, fee_type = false, description = "tài khoản Gmail ", contact = "facebook, mess,zalo", hidden_content = "tài khoản: account, mật khẩu: password", is_public = false, fee = 5, state = "đang xử lí", create_by = 10, create_at = DateTime.Now, update_by = 1, update_at = DateTime.Now },
+                new IntermediateProduct { id = 11, name = "Tài Khoản Git", price = 1500, fee_type = true, description = "tài khoản Git ", contact = "facebook, mess,zalo", hidden_content = "tài khoản: account, mật khẩu: password", is_public = true, fee = 5, state = "đang xử lí", create_by = 11, create_at = DateTime.Now, update_by = 1, update_at = DateTime.Now },
+                new IntermediateProduct { id = 12, name = "Tài Khoản Netflix", price = 2000, fee_type = false, description = "tài khoản Netflix ", contact = "facebook, mess,zalo", hidden_content = "tài khoản: account, mật khẩu: password", is_public = true, fee = 5, state = "đang xử lí", create_by = 12, create_at = DateTime.Now, update_by = 1, update_at = DateTime.Now },
+                new IntermediateProduct { id = 13, name = "Tài Khoản Vip Youtube", price = 500, fee_type = true, description = "tài khoản Youtube ", contact = "facebook, mess,zalo", hidden_content = "tài khoản: account, mật khẩu: password", is_public = true, fee = 5, state = "đang xử lí", create_by = 13, create_at = DateTime.Now, update_by = 1, update_at = DateTime.Now },
+                new IntermediateProduct { id = 14, name = "Tài Khoản Duolingo", price = 1000, fee_type = false, description = "tài khoản Duolingo ", contact = "facebook, mess,zalo", hidden_content = "tài khoản: account, mật khẩu: password", is_public = false, fee = 5, state = "đang xử lí", create_by = 14, create_at = DateTime.Now, update_by = 1, update_at = DateTime.Now },
+                new IntermediateProduct { id = 15, name = "Tài Khoản Coursera", price = 1000, fee_type = true, description = "tài khoản Coursera ", contact = "facebook, mess,zalo", hidden_content = "tài khoản: account, mật khẩu: password", is_public = true, fee = 10, state = "đang xử lí", create_by = 10, create_at = DateTime.Now, update_by = 1, update_at = DateTime.Now }
                 );
+
+            modelBuilder.Entity<IntermediateOrder>().HasData(
+                new IntermediateOrder { id = 1, product_id = 1, is_pay = false, sell_user = 1, status = "mới tạo", state = "đang xử lí", payment_amount = 1000 },
+                new IntermediateOrder { id = 2, product_id = 2, is_pay = false, sell_user = 2, status = "mới tạo", state = "đang xử lí", payment_amount = 505 },
+                new IntermediateOrder { id = 3, product_id = 3, is_pay = false, sell_user = 3, status = "mới tạo", state = "đang xử lí", payment_amount = 1500 },
+                new IntermediateOrder { id = 4, product_id = 4, is_pay = false, sell_user = 4, status = "mới tạo", state = "đang xử lí", payment_amount = 2005 },
+                new IntermediateOrder { id = 5, product_id = 5, is_pay = false, sell_user = 5, status = "mới tạo", state = "đang xử lí", payment_amount = 500 },
+                new IntermediateOrder { id = 6, product_id = 6, is_pay = false, sell_user = 6, status = "mới tạo", state = "đang xử lí", payment_amount = 1005 },
+                new IntermediateOrder { id = 7, product_id = 7, is_pay = false, sell_user = 7, status = "mới tạo", state = "đang xử lí", payment_amount = 1500 },
+                new IntermediateOrder { id = 8, product_id = 8, is_pay = false, sell_user = 8, status = "mới tạo", state = "đang xử lí", payment_amount = 2005 },
+                new IntermediateOrder { id = 9, product_id = 9, is_pay = false, sell_user = 9, status = "mới tạo", state = "đang xử lí", payment_amount = 500 },
+                new IntermediateOrder { id = 10, product_id = 10, is_pay = false, sell_user = 10, status = "mới tạo", state = "đang xử lí", payment_amount = 1005 },
+                new IntermediateOrder { id = 11, product_id = 11, is_pay = false, sell_user = 11, status = "mới tạo", state = "đang xử lí", payment_amount = 1500 },
+                new IntermediateOrder { id = 12, product_id = 12, is_pay = false, sell_user = 12, status = "mới tạo", state = "đang xử lí", payment_amount = 2005 },
+                new IntermediateOrder { id = 13, product_id = 13, is_pay = false, sell_user = 13, status = "mới tạo", state = "đang xử lí", payment_amount = 500 },
+                new IntermediateOrder { id = 14, product_id = 14, is_pay = false, sell_user = 14, status = "mới tạo", state = "đang xử lí", payment_amount = 1005 },
+                new IntermediateOrder { id = 15, product_id = 15, is_pay = false, sell_user = 10, status = "mới tạo", state = "đang xử lí", payment_amount = 1000 }
+                 );
 
 
 

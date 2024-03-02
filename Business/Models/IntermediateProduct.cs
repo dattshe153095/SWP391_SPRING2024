@@ -5,33 +5,33 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Business.Models;
 
 namespace Business.Models
 {
-    public class WithdrawalResponse
+    public class IntermediateProduct
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
 
-        [ForeignKey(nameof(Withdrawal))]
-        public int withdrawal_id { get; set; }
-        public virtual Withdrawal? Withdrawal { get; set; }
-
-        [Required]
         [Column(TypeName = "nvarchar")]
         [MaxLength(200)]
-        public string type_transaction { get; set; }
+        public string name { get; set; }
+        public int price { get; set; }
+        public int fee_create { get; set; } = 100;
+        public bool fee_type { get; set; }
+        [Column(TypeName = "nvarchar")]
+        [MaxLength(500)]
+        public string description { get; set; }
 
         [Column(TypeName = "nvarchar")]
-        [MaxLength(200)]
-        public string? description { get; set; }
+        [MaxLength(500)]
+        public string contact { get; set; }
 
-        [Required]
         [Column(TypeName = "nvarchar")]
-        [MaxLength(200)]
-        public string status { get; set; }
-
+        [MaxLength(500)]
+        public string hidden_content { get; set; }
+        public bool is_public { get; set; }
+        public int fee { get; set; }
 
         [Column(TypeName = "nvarchar")]
         [MaxLength(200)]
@@ -41,6 +41,8 @@ namespace Business.Models
         #region TRACKING
         public int create_by { get; set; }
         public DateTime create_at { get; set; } = DateTime.Now;
+
+
         public int update_by { get; set; }
         public DateTime update_at { get; set; } = DateTime.Now;
 

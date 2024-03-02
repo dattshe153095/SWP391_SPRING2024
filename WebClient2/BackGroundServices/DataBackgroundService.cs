@@ -26,7 +26,7 @@ namespace WebClient2.BackGroundServices
                     //CHECK DEPOSIT
                     DepositDAO.DepositAction();
                     //CHECK IntermediateOrderDAO
-                    IntermediateOrderDAO.HandleIntermediateOrderCreate();
+                    IntermediateProductDAO.HandleIntermediateOrderCreate();
 
 
                     // Đợi 3 phút trước khi thực hiện lại công việc
