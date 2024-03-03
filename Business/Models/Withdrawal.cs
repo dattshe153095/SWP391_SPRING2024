@@ -12,15 +12,14 @@ namespace Business.Models
 {
     public class Withdrawal
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int id { get; set; }
+        [Column(TypeName = "varchar")]
+        [MaxLength(200)]
+        [Key]
+        public string id { get; set; }
         [ForeignKey(nameof(Wallet))]
         public int wallet_id { get; set; }
         public virtual Wallet? Wallet { get; set; }
         public int amount { get; set; }
-        [Column(TypeName = "varchar")]
-        [MaxLength(200)]
-        public string trans_code { get; set; }
 
         [Required]
         [MaxLength(50)]

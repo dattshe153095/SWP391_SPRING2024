@@ -11,13 +11,12 @@ namespace Business.Models
 {
     public class Deposit
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int id { get; set; }
-        public int wallet_id { get; set; }
-        public int amount { get; set; }
         [Column(TypeName = "varchar")]
         [MaxLength(200)]
-        public string trans_code{ get; set; }
+        [Key]
+        public string id { get; set; }
+        public int wallet_id { get; set; }
+        public int amount { get; set; }
 
         [Required]
         [Column(TypeName = "nvarchar")]

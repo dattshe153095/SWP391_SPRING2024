@@ -44,7 +44,7 @@ namespace WebClient2.Controllers
             OrderViewModel order = new OrderViewModel();
 
             //MapData
-            order = IntermediateProductDAO.GetOrderViewModel(intermediateOrder);
+            order = IntermediateOrderDAO.GetOrderViewModel(intermediateOrder);
 
             if (intermediateOrder == null)
             {

@@ -167,25 +167,25 @@ namespace DataAccess.DAO
             }
         }
 
-        public static ProductViewModel GetProductViewModel(IntermediateProduct order)
+        public static OrderViewModel GetProductViewModel(IntermediateProduct order)
         {
-            ProductViewModel viewModel = new ProductViewModel()
+            OrderViewModel viewModel = new OrderViewModel()
             {
-                //code = order.id.ToString(),
-                //account_create = AccountDAO.GetAccountWithId(order.create_by),
-                //account_buy = AccountDAO.GetAccountWithId(order.buy_by),
-                //state = order.state,
-                //status = order.status,
-                //name = order.name,
-                //price = order.price,
-                //fee_type = order.fee_type,
-                //description = order.description,
-                //contact = order.contact,
-                //hidden_content = order.hidden_content,
-                //is_public = order.is_public,
-                //create_at = order.create_at,
-                //update_at = order.update_at,
-                //link_share = "#"
+                code = order.id.ToString(),
+                account_create = AccountDAO.GetAccountWithId(order.create_by),
+                account_buy = AccountDAO.GetAccountWithId(order.buy_by),
+                state = order.state,
+                status = order.status,
+                name = order.name,
+                price = order.price,
+                fee_type = order.fee_type,
+                description = order.description,
+                contact = order.contact,
+                hidden_content = order.hidden_content,
+                is_public = order.is_public,
+                create_at = order.create_at,
+                update_at = order.update_at,
+                link_share = "#"
 
             };
             return viewModel;

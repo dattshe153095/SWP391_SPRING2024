@@ -10,8 +10,8 @@ namespace Business.Models
 {
     public class IntermediateProduct
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int id { get; set; }
+        [Key]
+        public string id { get; set; }
 
         [Column(TypeName = "nvarchar")]
         [MaxLength(200)]

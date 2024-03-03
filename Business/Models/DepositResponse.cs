@@ -14,7 +14,7 @@ namespace Business.Models
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
-        public int deposit_id { get; set; }
+        public string deposit_id { get; set; }
 
         [Required]
         [Column(TypeName = "nvarchar")]

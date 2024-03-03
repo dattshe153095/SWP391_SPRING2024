@@ -14,9 +14,7 @@ namespace Business.Models
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
 
-        [ForeignKey(nameof(Withdrawal))]
-        public int withdrawal_id { get; set; }
-        public virtual Withdrawal? Withdrawal { get; set; }
+        public string withdrawal_id { get; set; }
 
         [Required]
         [Column(TypeName = "nvarchar")]
