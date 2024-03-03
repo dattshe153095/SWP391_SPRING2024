@@ -232,6 +232,19 @@
             max-height: 700px; /* Đặt chiều cao tối đa của bảng */
             overflow-y: auto; /* Cho phép cuộn dọc khi nội dung vượt quá kích thước */
         }
+
+        .nav-dropdown-item {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            min-width: 200px;
+            z-index: 1000;
+        }
+
+            .nav-dropdown-item.show {
+                display: block;
+            }
+
     </style>
 </head>
 <body>
@@ -244,6 +257,67 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="nav">
+                        <li class="nav-item nav-dropdown">
+                            <a class="nav-link nav-dropdown-toggle" href="#">
+                                <i class="navbar-toggler-icon fa fa-credit-card"></i>
+                                Quản lý thanh toán
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </a>
+                            <ul class="nav-dropdown-item">
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Wallet"><i class="fa-solid fa-wallet"></i> Ví của tôi</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="Account" asp-action="CreateDeposit"><i class="nav-icon fa fa-cc-visa"></i> Nạp Tiền</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="Account" asp-action="TransactionHistory"><i class="nav-icon fa fa-exchange"></i> Lịch sử giao dịch </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="Account" asp-action="CreateWithdrawal"><i class="nav-icon fa fa-send-o"></i> Yêu Cầu Rút Tiền</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item nav-dropdown">
+                            <a class="nav-link nav-dropdown-toggle" href="#">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                                Mua Hàng
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </a>
+                            <ul class="nav-dropdown-item">
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="Product" asp-action="Index"><i class="fa-brands fa-product-hunt"></i> Sản Phẩm</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="Product" asp-action="InsertProduct"><i class="fa-brands fa-product-hunt"></i>Tạo sản phẩm mới</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="Product" asp-action="Index"><i class="nav-icon fa fa-list"></i> Đơn Hàng</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item nav-dropdown">
+                            <a class="nav-link nav-dropdown-toggle" href="#">
+                                <i class="nav-icon fa fa-handshake-o"></i>
+                                Trung Gian
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </a>
+                            <ul class="nav-dropdown-item">
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="Account" asp-action="WalletUser"><i class="fa-solid fa-shop"></i> Chợ Công Khai</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Wallet"><i class="fa-solid fa-bag-shopping"></i> Đơn bán của tôi</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Wallet"><i class="nav-icon fa fa-shopping-cart"></i> Đơn mua của tôi </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                    </ul>
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
@@ -501,7 +575,32 @@
             });
 
         });
+        
 
+            $(document).ready(function () {
+                // Toggle dropdown menu on click
+                $('.nav-dropdown').click(function () {
+                    $(this).find('.nav-dropdown-item').slideToggle();
+                    $(this).toggleClass('active'); // Toggle "active" class for visual indication
+
+                    // Toggle arrow direction
+                    if ($(this).hasClass('active')) {
+                        $(this).find('.fa-chevron-down').addClass('fa-rotate-90');
+                    } else {
+                        $(this).find('.fa-chevron-down').removeClass('fa-rotate-90');
+                    }
+                });
+            });
+        $(document).ready(function () {
+            // Hide sidebar on page load
+            $('.sidebar').addClass('show-sidebar');
+
+            // Show sidebar on button click
+            $('.show-sidebar-button').click(function () {
+                $('.sidebar').toggleClass('show-sidebar');
+            });
+        });
+    
     </script>
 
 
