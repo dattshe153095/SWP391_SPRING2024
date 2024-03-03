@@ -4,13 +4,15 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
 using AspNetCore.ReCaptcha;
-using BussinessObject;
+using Business;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using DataAccess.MailSender;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Hosting;
+using WebClient2.BackGroundServices;
 
-namespace WebClient
+namespace WebClient2
 {
     public class Program
     {
@@ -44,6 +46,9 @@ namespace WebClient
 
 
             builder.Services.AddAuthorization();
+
+            builder.Services.AddHostedService<DataBackgroundService>();
+
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
