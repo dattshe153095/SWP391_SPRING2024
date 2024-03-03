@@ -1,5 +1,5 @@
-﻿using BussinessObject.Models;
-using BussinessObject;
+﻿using Business.Models;
+using Business;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,18 +10,18 @@ namespace DataAccess.DAO
 {
     public class AccountRoleDAO
     {
-        public static List<AccountRole> GetAllAccountRole()
+        public static List<Role> GetAllAccountRole()
         {
-            List<AccountRole> list = new List<AccountRole>();
+            List<Role> list = new List<Role>();
 
             using (var context = new Web_Trung_GianContext())
             {
-                list = context.AccountRoles.ToList();
+                list = context.Roles.ToList();
             }
             return list;
         }
 
-        public static AccountRole GetAccountRoleById(int id)
+        public static Role GetAccountRoleById(int id)
         {
             return GetAllAccountRole().FirstOrDefault(x=>x.id==id);
         }

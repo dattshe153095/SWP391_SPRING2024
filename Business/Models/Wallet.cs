@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BussinessObject.Models
+namespace Business.Models
 {
     public class Wallet
     {
@@ -27,7 +27,6 @@ namespace BussinessObject.Models
 
         public virtual ICollection<Deposit>? Deposits { get; set; }
         public virtual ICollection<Withdrawal>? Withdrawals { get; set; }
-        public virtual ICollection<TransactionError>? TransactionErrors { get; set; }
     }
 }
 
