@@ -1,7 +1,7 @@
-﻿@using BussinessObject.Models;
+﻿@using Business.Models;
 @using DataAccess.DAO;
-@using WebClient
-@using WebClient.Models
+@using WebClient2
+@using WebClient2.Models
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
@@ -352,13 +352,8 @@
                         {
                             <tr>
 
-                                <td>@WalletDAO.GetWalletAccountById(deposit.wallet_id).name</td>
+                                <td>@WalletDAO.GetAccountByWalletId(deposit.wallet_id).name</td>
                                 <td>@deposit.amount</td>
-                                <td>@deposit.fee</td>
-                                @{
-                                    int total = deposit.amount - deposit.fee;
-                                }
-                                <td>@total</td>
                                 <td>@deposit.status</td>
                                 <td>@deposit.create_at</td>
 
@@ -389,13 +384,8 @@
                         {
                             <tr>
 
-                                <td>@WalletDAO.GetWalletAccountById(withdrawal.wallet_id).name</td>
+                                <td>@WalletDAO.GetAccountByWalletId(withdrawal.wallet_id).name</td>
                                 <td>@withdrawal.amount</td>
-                                <td>@withdrawal.fee</td>
-                                @{
-                                    int total = withdrawal.amount - withdrawal.fee;
-                                }
-                                <td>@total</td>
                                 <td>@withdrawal.status</td>
                                 <td>@withdrawal.create_at</td>
 
