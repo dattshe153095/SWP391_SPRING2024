@@ -69,9 +69,6 @@ body {
     background-color: #ffd8ed;
 }
 
-div main div img {
-    height: 785px;
-}
 
 .dropbtn {
     background-color: #ff9de5;
@@ -147,15 +144,26 @@ div main div img {
 .nav-dropdown-item {
     display: none;
     position: absolute;
-    background-color: #fff;
+    background-color: #ffd8ed;
     min-width: 200px;
     z-index: 1000;
-}
+    list-style: none;
+    padding-left: 0px;
 
-    .nav-dropdown-item.show {
-        display: block;
+}.navbar-nav li:hover .nav-dropdown-item{
+     display:block;
+ }
+    .navbar-nav .nav-dropdown-item li a:hover{
+  background-color: #f1f1f1;
     }
+  
 
+    .nav-dropdown-item a {
+        color: black;
+    }
+.navbar-nav .nav-item a {
+    color: black;
+}
 .card-header {
     background-color: pink;
 }
@@ -176,3 +184,6 @@ div main div img {
 .app-body .sidebar ul {
     list-style: none;
 }
+
+/*-------------------------------*/
+

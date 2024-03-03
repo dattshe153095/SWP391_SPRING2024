@@ -21,84 +21,18 @@
 
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Trade&Deal Hub</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        @if (ViewBag.accountId == null)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Index">Market</a>
-                            </li>
-                        }
 
-                    </ul>
-
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Added ml-auto class here -->
-                        @if (ViewBag.accountId == null)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Login</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Register">Register</a>
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="dropdown nav-item"><a aria-haspopup="true" href="#" class="nav-link" aria-expanded="false"><i class="fa-regular fa-bell" style="color:black;"></i></a></li>
-
-                                <li class="nav-item">
-                                    <div class="dropdown">
-                                        <button class="dropbtn">
-                                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Profile">@AccountDAO.GetAccountWithId(ViewBag.accountId).name</a>
-                                        </button>
-                                        <div class="dropdown-content">
-                                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Profile">Profile</a>
-                                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Wallet">Wallet</a>
-                                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="LogOut"> LogOut</a>
-                                           
-                                        </div>
-                                    </div>
-                                </li>
-                        }
-                    </ul>
-                   
-                </div>
-            </div>
-        </nav>
-    </header>
 
     <div class="container-body">
         <main role="main" class="pb-3">
             <div class="text-center">
-                <img src="/image/Trade&Deal Hub.png" alt="Description of the image"  />
+                <img class="center-image" src="/image/Trade&Deal Hub.png" alt="Description of the image"  />
             </div>
             
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - Trade&Deal Hub - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
+ 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
