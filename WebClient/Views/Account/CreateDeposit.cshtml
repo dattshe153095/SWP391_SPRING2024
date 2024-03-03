@@ -122,7 +122,7 @@
         }
 
         div main div img {
-            height: 785px;
+            height: 285px;
         }
 
         .dropbtn {
@@ -232,11 +232,33 @@
             overflow-y: auto; /* Cho phép cuộn dọc khi nội dung vượt quá kích thước */
         }
 
+        #my-div {
+            display: none;
+            cursor: pointer;
+        }
+
+        #my-button {
+            cursor: pointer;
+        }
+
+        #my-div:hover {
+            background-color: lightblue;
+        }
+
+        #my-button:hover {
+            background-color: pink;
+        }
+
+
     </style>
 </head>
 <body>
 
     <main class="container">
+        
+
+        
+        
         
         <main role="main" class="pb-3">
             <marquee behavior="sroll" direction="left">
@@ -250,7 +272,25 @@
                     <table class="table">
                         <h1>Create Deposit</h1>
                         <div class="col-md-9">
-                            <button type="button" class="btn btn-primary" style="width: 99%; white-space: normal; margin-right: 5px; margin-bottom: 5px;">Chuyển khoản ngân hàng (Thu phí theo phí chuyển khoản ngân hàng)</button></div>
+                            <button id="my-button" type="button" class="btn btn-primary" style="width: 99%; white-space: normal; margin-right: 5px; margin-bottom: 5px;">Chuyển khoản ngân hàng (Thu phí theo phí chuyển khoản ngân hàng)</button>
+                            <div id="my-div">
+                                <div class="panel-body">
+                                    <div class="alert alert-success">
+                                        <strong>Lưu ý!</strong> Bạn cần phải nhập mã khách hàng của bạn là <b><u>@WalletDAO.GetWalletByAccountId(ViewBag.accountId).account_id</u></b> vào nội dung chuyển khoản và vui lòng đợi một lát để hệ thống tự động cộng tiền cho bạn.
+                                    </div>
+                                    <div class="info">
+                                        <span>Ngân hàng: <b>NGÂN HÀNG QUÂN ĐỘI MB BANK</b></span>
+                                        <span>Số tài khoản nhận: <b>.3330135389999.</b></span>
+                                        <span>Tên người nhận: <b>NGUYỄN PHAN HÙNG</b></span>
+                                        <span><h6>* Nội dung chuyển khoản bắt buộc phải có mã khách hàng:@WalletDAO.GetWalletByAccountId(ViewBag.accountId).account_id</h6> </span>
+                                        <p>Hoặc bạn có thể mở app ngân hàng, quét mã sau và nhập nội dung chuyển khoản là mã khách hàng phía trên</p>
+                                        <div class="imageQRMB">
+                                            <img src="~/image/qr_chuyen_khoan.jpg" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
                         <tr>
                             <td><input type="hidden" id="wallet_id" name="wallet_id" class="form-control" value="@WalletDAO.GetWalletByAccountId(ViewBag.accountId).account_id"></td>
                             <td><input type="hidden" id="id" name="id" class="form-control" value="@ViewBag.accountId"></td>
@@ -301,7 +341,19 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/6ae4d71e22.js" crossorigin="anonymous"></script>
+    <script>
+        const div = document.getElementById('my-div');
+        const button = document.getElementById('my-button');
 
+        button.addEventListener('click', () => {
+            if (div.style.display === 'none') {
+                div.style.display = 'block';
+            } else {
+                div.style.display = 'none';
+            }
+        });
+
+    </script>
 
 </body>
 </html>
