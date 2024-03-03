@@ -109,6 +109,8 @@ namespace DataAccess.DAO
                     context.SaveChanges();
                 }
 
+
+
             }
             catch (Exception e)
             {
@@ -165,9 +167,9 @@ namespace DataAccess.DAO
             }
         }
 
-        public static OrderViewModel GetOrderViewModel(IntermediateProduct order)
+        public static ProductViewModel GetProductViewModel(IntermediateProduct order)
         {
-            OrderViewModel viewModel = new OrderViewModel()
+            ProductViewModel viewModel = new ProductViewModel()
             {
                 //code = order.id.ToString(),
                 //account_create = AccountDAO.GetAccountWithId(order.create_by),
