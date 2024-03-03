@@ -68,7 +68,7 @@ namespace DataAccess.DAO
             }
         }
 
-        public static WithdrawalResponse GetWithdrawalResponseByDepositId(int withdrawal_id)
+        public static WithdrawalResponse GetWithdrawalResponseByDepositId(string withdrawal_id)
         {
             return GetAllWithdrawalResponse().FirstOrDefault(x => x.withdrawal_id == withdrawal_id);
         }

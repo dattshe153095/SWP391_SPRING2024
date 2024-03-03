@@ -1,4 +1,5 @@
-﻿using DataAccess.DAO;
+﻿using Business.Models;
+using DataAccess.DAO;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Threading;
@@ -26,7 +27,7 @@ namespace WebClient2.BackGroundServices
                     //CHECK DEPOSIT
                     DepositDAO.DepositAction();
                     //CHECK IntermediateOrderDAO
-                    IntermediateProductDAO.HandleIntermediateOrderCreate();
+                    IntermediateOrderDAO.HandleIntermediateOrderCreate();
 
 
                     // Đợi 3 phút trước khi thực hiện lại công việc

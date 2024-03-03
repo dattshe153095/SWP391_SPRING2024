@@ -69,7 +69,7 @@ namespace DataAccess.DAO
             }
         }
 
-        public static DepositResponse GetDepositResponseByDepositId(int deposit_id)
+        public static DepositResponse GetDepositResponseByDepositId(string deposit_id)
         {
             return GetAllDepositResponse().FirstOrDefault(x => x.deposit_id == deposit_id);
         }

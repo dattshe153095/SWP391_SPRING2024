@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Business.Models.IntermediateOrder>
+﻿@model IEnumerable<Business.Models.Deposit>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,34 +13,28 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.name)
+                @Html.DisplayNameFor(model => model.wallet_id)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.price)
+                @Html.DisplayNameFor(model => model.amount)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.fee_type)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.contact)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.hidden_content)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.is_public)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.fee_rate)
+                @Html.DisplayNameFor(model => model.status)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.state)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.create_by)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.create_at)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.update_by)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.update_at)
@@ -55,34 +49,28 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.name)
+                @Html.DisplayFor(modelItem => item.wallet_id)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.price)
+                @Html.DisplayFor(modelItem => item.amount)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.fee_type)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.contact)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.hidden_content)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.is_public)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.fee_rate)
+                @Html.DisplayFor(modelItem => item.status)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.state)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.create_by)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.create_at)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.update_by)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.update_at)

@@ -122,7 +122,7 @@ namespace DataAccess.DAO
         }
 
 
-        public static OrderViewModel GetProductViewModel(IntermediateOrder order)
+        public static OrderViewModel GetOrderViewModel(IntermediateOrder order)
         {
             OrderViewModel viewModel = new OrderViewModel()
             {

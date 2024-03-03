@@ -1,4 +1,4 @@
-﻿@model Business.Models.IntermediateProduct
+﻿@model Business.Models.IntermediateOrder
 
 @{
     ViewData["Title"] = "Create";
@@ -24,17 +24,12 @@
             </div>
             <div class="form-group">
                 <label class="control-label">Bên chịu phí (*)</label>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" asp-for="fee_type" id="fee_type1" name="fee_type" value="true" />
-                    <label class="form-check-label" for="fee_type1">
-                        Bên bán
-                    </label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" asp-for="fee_type" id="fee_type2" name="fee_type" value="false" />
-                    <label class="form-check-label" for="fee_type2">
-                        Bên mua
-                    </label>
+                <div>
+                    <input type="radio" class="btn-check" asp-for="fee_type" name="fee_type" id="fee_type_1" autocomplete="off" value="true">
+                    <label class="btn btn-outline-success" for="fee_type_1"> Bên bán chịu phí </label>
+
+                    <input type="radio" class="btn-check" asp-for="fee_type" name="fee_type" id="fee_type_2" autocomplete="off" value="false">
+                    <label class="btn btn-outline-danger" for="fee_type_2"> Bên bán mua phí </label>
                 </div>
                 <span asp-validation-for="fee_type" class="text-danger"></span>
             </div>
@@ -45,28 +40,23 @@
                 <span asp-validation-for="description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label class="control-label">Phương thức liên lạc</label>
+                <label class="control-label">Phương thức liên lạc (*)</label>
                 <input asp-for="contact" class="form-control" />
                 <span asp-validation-for="contact" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label class="control-label">Nội dung ẩn</label>
+                <label class="control-label">Nội dung ẩn (*)</label>
                 <textarea asp-for="hidden_content" class="form-control" id="hidden_content" name="hidden_content" rows="5"></textarea>
                 <span asp-validation-for="hidden_content" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label class="control-label">Công khai (*)</label>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" asp-for="is_public" id="is_public1" name="is_public" value="true" />
-                    <label class="form-check-label" for="is_public1">
-                        Hiện công khai
-                    </label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" asp-for="is_public" id="is_public2" name="is_public" value="false" />
-                    <label class="form-check-label" for="is_public2">
-                        Ẩn giới hạn
-                    </label>
+                <div>
+                    <input type="radio" class="btn-check" asp-for="is_public" name="is_public" id="success-outlined" autocomplete="off" value="true">
+                    <label class="btn btn-outline-success" for="success-outlined">Hiện công khai</label>
+
+                    <input type="radio" class="btn-check" asp-for="is_public" name="is_public" id="danger-outlined" autocomplete="off" value="false">
+                    <label class="btn btn-outline-danger" for="danger-outlined"> Ẩn giới hạn</label>
                 </div>
                 <span asp-validation-for="is_public" class="text-danger"></span>
             </div>
