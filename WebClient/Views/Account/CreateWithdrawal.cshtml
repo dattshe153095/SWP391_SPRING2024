@@ -96,6 +96,10 @@
             line-height: inherit;
         }
 
+        .nav-dropdown-item {
+            list-style: none;
+        }
+
         .footer {
             background-color: #ff9de5;
             position: absolute;
@@ -343,15 +347,14 @@
                 </li>
 
             </ul>
-            <button onclick="toggleSidebar()">Toggle Sidebar</button>
         </div>
         <main role="main" class="pb-3">
             <marquee behavior="sroll" direction="left">
-                <h6 style="color: red;">Thông báo: Nạp tiền hình thức chuyển khoản VNPay trong khoảng 12h đêm đến 1 giờ sáng có thể sẽ nhận lâu hơn bình thường<br />Nếu chưa thấy tiền thì có thể liên hệ vào email trade.dealhub@gmail.com</h6>
+                <h6 style="color: red;">Thông báo: Hiện hệ thống VNPay đang bảo trì đến 18:00 ngày 22/02/2024. Hãy chú ý thời gian bảo trì để không bị gián đoạn giao dịch của mình nhé! Cảm ơn tất cả các bạn🤜🤛<br />Vui lòng liên hệ vào email trade.dealhub@gmail.com nếu bạn có bất kỳ thắc mắc nào</h6>
             </marquee>
             <div class="col-sm-8">
                 <!-- Phần trung tâm -->
-                <h1>Create Deposit</h1>
+                <h1>Yêu cầu rút tiền</h1>
                 <form method="post" asp-controller="Account" asp-action="CreateWithdrawal">
                     <table class="table">
                         <tr>
@@ -359,15 +362,12 @@
                             <td><input type="hidden" id="id" name="id" class="form-control" value="@ViewBag.accountId"></td>
                         </tr>
                         <tr>
-                            <td>Amount</td>
+                            <td>Số tiền rút</td>
                             <td><input type="number" id="amount" name="amount" class="form-control" value="" placeholder="0000" required></td>
                         </tr>
+
                         <tr>
-                            <td>Fee</td>
-                            <td><input type="text" id="fee" name="fee" class="form-control" value="Phí bằng 5% số tiền rút" disabled></td>
-                        </tr>
-                        <tr>
-                            <td>Tên người nhận</td>
+                            <td>Tên Ngân Hàng</td>
                             <td><input type="text" id="bank_user" name="bank_user" class="form-control" value="" required></td>
                         </tr>
                         <tr>
@@ -375,11 +375,11 @@
                             <td><input type="text" id="bank_number" name="bank_number" class="form-control" value="" required></td>
                         </tr>
                         <tr>
-                            <td>Tên Ngân Hàng</td>
+                            <td>Chủ tài khoản</td>
                             <td><input type="text" id="bank_name" name="bank_name" class="form-control" value="" required></td>
                         </tr>
                         <tr>
-                            <td colspan="2"> <button type="submit" class="btn btn-primary">Submit</button></td>
+                            <td colspan="2"> <button type="submit" class="btn btn-primary">Gửi yêu cầu</button></td>
                         </tr>
                     </table>
                 </form>
