@@ -27,7 +27,7 @@ namespace WebClient2.Controllers
         // GET: IntermediateOrders
         public IActionResult Index()
         {
-            ViewBag.account_id = HttpContext.Session.GetInt32("Account");
+
             List<IntermediateOrder> order = IntermediateOrderDAO.GetAllIntermediateOrders();
             return View(order);
         }
@@ -57,6 +57,11 @@ namespace WebClient2.Controllers
         // GET: IntermediateOrders/Create
         public IActionResult Create()
         {
+            if (HttpContext.Session.GetInt32("Account") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            int account_id = HttpContext.Session.GetInt32("Account").Value;
             return View();
         }
 
@@ -65,19 +70,25 @@ namespace WebClient2.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(string name, int price, bool fee_type, string description, string contact, string hidden_content, bool is_public)
         {
+            if (HttpContext.Session.GetInt32("Account") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            int account_id = HttpContext.Session.GetInt32("Account").Value;
+
             IntermediateOrder order = new IntermediateOrder();
             if (ModelState.IsValid)
             {
                 //int user_id = HttpContext.Session.GetInt32("Account").Value;
 
-                if (WalletDAO.GetWalletByAccountId(14).balance < 500)
+                if (WalletDAO.GetWalletByAccountId(account_id).balance < 500)
                 {
-                    ModelState.AddModelError(string.Empty, "Không đủ tiền trong tài khoản! Tài khoản hiện tại có: " + WalletDAO.GetWalletByAccountId(14).balance);
+                    ModelState.AddModelError(string.Empty, "Không đủ tiền trong tài khoản! Tài khoản hiện tại có: " + WalletDAO.GetWalletByAccountId(account_id).balance);
                 }
                 else
                 {
                     //Tieu tien de tao order
-                    WalletDAO.UpdateWalletBuyOrder(WalletDAO.GetWalletByAccountId(14).id, 500);
+                    WalletDAO.UpdateWalletBuyOrder(WalletDAO.GetWalletByAccountId(account_id).id, 500);
                     string code = Gencode.GenerateUniqueId();
                     //Tao Order
                     order = new IntermediateOrder()
@@ -93,9 +104,9 @@ namespace WebClient2.Controllers
                         is_public = is_public,
                         status = IntermediateOrderEnum.MOI_TAO,
                         state = StateEnum.DANG_XU_LI,
-                        create_by = 14,
+                        create_by = account_id,
                         create_at = DateTime.Now,
-                        update_by = 14,
+                        update_by = account_id,
                         update_at = DateTime.Now,
                         link_product = "/Details/" + code
                     };
@@ -117,6 +128,13 @@ namespace WebClient2.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(string id, string name, int price, bool fee_type, string description, string contact, string hidden_content, bool is_public)
         {
+            if (HttpContext.Session.GetInt32("Account") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            int account_id = HttpContext.Session.GetInt32("Account").Value;
+
+
             IntermediateOrder order = new IntermediateOrder();
             order = IntermediateOrderDAO.GetIntermediateOrderById(id);
             if (order == null) { return NotFound(); }
@@ -132,7 +150,7 @@ namespace WebClient2.Controllers
                 order.contact = contact;
                 order.hidden_content = hidden_content;
                 order.is_public = is_public;
-                order.update_by = 13;
+                order.update_by = account_id;
                 IntermediateOrderDAO.UpdateIntermediateOrder(order);
                 return RedirectToAction(nameof(Index));
             }
@@ -159,28 +177,28 @@ namespace WebClient2.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Buy(string id, string name, int price, bool fee_type, string description, string contact, string hidden_content, bool is_public)
         {
-            //if (HttpContext.Session.GetInt32("Account") == null)
-            //{
-            //    return RedirectToAction("Login", "Home");
-            //}
+            if (HttpContext.Session.GetInt32("Account") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            int account_id = HttpContext.Session.GetInt32("Account").Value;
 
-            //int account_id = HttpContext.Session.GetInt32("Account").Value;
             IntermediateOrder order = IntermediateOrderDAO.GetIntermediateOrderById(id);
             if (ModelState.IsValid)
             {
                 //CALCULATE PRICE
-             
-                //MapData
-                if (WalletDAO.GetWalletByAccountId(14).balance < order.payment_amount)
-                {
-                    ModelState.AddModelError(string.Empty, "Không đủ tiền trong tài khoản! Tài khoản hiện tại có: " + WalletDAO.GetWalletByAccountId(14).balance);
-                }
-                WalletDAO.UpdateWalletBuyOrder(WalletDAO.GetWalletByAccountId(14).id, (int)order.payment_amount);
 
-                order.update_by = 14;
-                order.buy_user = 14;
+                //MapData
+                if (WalletDAO.GetWalletByAccountId(account_id).balance < order.payment_amount)
+                {
+                    ModelState.AddModelError(string.Empty, "Không đủ tiền trong tài khoản! Tài khoản hiện tại có: " + WalletDAO.GetWalletByAccountId(account_id).balance);
+                }
+                WalletDAO.UpdateWalletBuyOrder(WalletDAO.GetWalletByAccountId(account_id).id, (int)order.payment_amount);
+
+                order.update_by = account_id;
+                order.buy_user = account_id;
                 order.buy_at = DateTime.Now;
-                IntermediateOrderDAO.BuyIntermediateOrder(14, order);
+                IntermediateOrderDAO.BuyIntermediateOrder(account_id, order);
                 return RedirectToAction(nameof(Index));
             }
             return View(order);
