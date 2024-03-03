@@ -13,20 +13,9 @@ namespace DataAccess.ViewModel
         public string name { get; set; }
         public float price { get; set; }
         public bool fee_type { get; set; }
-        public float fee_amount
-        {
-            get
-            {
-                return price * Constant.FEE;
-            }
-        }
-        public float earn_amount
-        {
-            get
-            {
-                return fee_type ? price - fee_amount : price;
-            }
-        }
+        public float fee_amount { get; set; }
+        public float pay_amount { get; set; }
+        public float earn_amount { get; set; }
         public string description { get; set; }
         public string contact { get; set; }
         public string hidden_content { get; set; }

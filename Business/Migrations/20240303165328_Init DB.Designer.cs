@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Business.Migrations
 {
     [DbContext(typeof(Web_Trung_GianContext))]
-    [Migration("20240302041714_Init DB")]
+    [Migration("20240303165328_Init DB")]
     partial class InitDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -78,194 +78,192 @@ namespace Business.Migrations
                         new
                         {
                             id = 1,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(3893),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3243),
                             email = "waterball208@gmail.com",
                             is_delete = false,
                             name = "Hoàng Minh Nguyệt",
                             password = "minhnguyet",
                             phone = "0987654321",
                             role_id = 2,
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(3893),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3244),
                             username = "minhnguyet"
                         },
                         new
                         {
                             id = 2,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(3896),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3247),
                             email = "waterball208@gmail.com",
                             is_delete = false,
                             name = "Nguyễn Thùy Dương",
                             password = "thuyduong",
                             phone = "0987654321",
                             role_id = 2,
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(3896),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3248),
                             username = "thuyduong"
                         },
                         new
                         {
                             id = 3,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(3937),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3252),
                             email = "waterball208@gmail.com",
                             is_delete = false,
                             name = "Lê Thạc Hoành",
                             password = "thachoanh",
                             phone = "0987654321",
                             role_id = 2,
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(3937),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3252),
                             username = "thachoanh"
                         },
                         new
                         {
                             id = 4,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(3939),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3256),
                             email = "waterball208@gmail.com",
                             is_delete = false,
                             name = "Nguyễn Quang Vị",
                             password = "quangvi",
                             phone = "0987654321",
                             role_id = 2,
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(3940),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3256),
                             username = "quangvi"
                         },
                         new
                         {
                             id = 5,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(3941),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3259),
                             email = "waterball208@gmail.com",
                             is_delete = false,
                             name = "Nguyễn Mạnh Cường",
                             password = "pass123",
                             phone = "0987654321",
                             role_id = 2,
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(3942),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3260),
                             username = "manhcuong"
                         },
                         new
                         {
                             id = 6,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(3943),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3263),
                             email = "waterball208@gmail.com",
                             is_delete = false,
                             name = "Nguyễn Việt Hân",
                             password = "pass123",
                             phone = "0987654321",
                             role_id = 2,
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(3944),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3263),
                             username = "viethan"
                         },
                         new
                         {
                             id = 7,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(3945),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3267),
                             email = "waterball208@gmail.com",
                             is_delete = false,
                             name = "Nguyễn Trung Hiếu",
                             password = "pass123",
                             phone = "0987654321",
                             role_id = 2,
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(3946),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3267),
                             username = "trunghieu"
                         },
                         new
                         {
                             id = 8,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(3947),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3270),
                             email = "waterball208@gmail.com",
                             is_delete = false,
                             name = "Nguyễn Văn Tuấn",
                             password = "pass123",
                             phone = "0987654321",
                             role_id = 2,
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(3948),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3271),
                             username = "vantuan"
                         },
                         new
                         {
                             id = 9,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(3950),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3274),
                             email = "waterball208@gmail.com",
                             is_delete = false,
                             name = "Ngô Gia Thiện",
                             password = "pass123",
                             phone = "0987654321",
                             role_id = 2,
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(3950),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3274),
                             username = "giathien"
                         },
                         new
                         {
                             id = 10,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(3952),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3277),
                             email = "waterball208@gmail.com",
                             is_delete = false,
                             name = "Phan Thế Anh",
                             password = "pass123",
                             phone = "0987654321",
                             role_id = 2,
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(3952),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3278),
                             username = "theanh"
                         },
                         new
                         {
                             id = 11,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(3954),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3281),
                             email = "waterball208@gmail.com",
                             is_delete = false,
                             name = "Nguyễn Ngọc Hoàng",
                             password = "pass123",
                             phone = "0987654321",
                             role_id = 2,
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(3954),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3282),
                             username = "ngochoang"
                         },
                         new
                         {
                             id = 12,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(3956),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3286),
                             email = "waterball208@gmail.com",
                             is_delete = false,
                             name = "Nguyễn Quang Lộc",
                             password = "pass123",
                             phone = "0987654321",
                             role_id = 2,
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(3956),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3286),
                             username = "quangloc"
                         },
                         new
                         {
                             id = 13,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(3958),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3290),
                             email = "waterball208@gmail.com",
                             is_delete = false,
                             name = "Nguyễn Hải Đan",
                             password = "pass123",
                             phone = "0987654321",
                             role_id = 2,
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(3958),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3290),
                             username = "haidan123"
                         },
                         new
                         {
                             id = 14,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(3960),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3294),
                             email = "waterball208@gmail.com",
                             is_delete = false,
                             name = "Admin",
                             password = "admin",
                             phone = "0987654321",
                             role_id = 1,
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(3960),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3294),
                             username = "admin"
                         });
                 });
 
             modelBuilder.Entity("Business.Models.Deposit", b =>
                 {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"), 1L, 1);
+                    b.Property<string>("id")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
 
                     b.Property<int>("amount")
                         .HasColumnType("int");
@@ -293,11 +291,6 @@ namespace Business.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("trans_code")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
-
                     b.Property<DateTime>("update_at")
                         .HasColumnType("datetime2");
 
@@ -314,211 +307,197 @@ namespace Business.Migrations
                     b.HasData(
                         new
                         {
-                            id = 1,
+                            id = "1DY75F3K26T",
                             amount = 10000,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4015),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3396),
                             create_by = 1,
                             description = "nạp tiền",
                             is_delete = false,
                             state = "đang xử lí",
                             status = "đang chờ xác nhận",
-                            trans_code = "1DY75F3K26T",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4016),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3397),
                             update_by = 1,
                             wallet_id = 1
                         },
                         new
                         {
-                            id = 2,
+                            id = "2DI83A9M0P",
                             amount = 10000,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4018),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3402),
                             create_by = 2,
                             description = "nạp tiền",
                             is_delete = false,
                             state = "đang xử lí",
                             status = "đang xử lí",
-                            trans_code = "2DI83A9M0P",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4019),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3403),
                             update_by = 2,
                             wallet_id = 2
                         },
                         new
                         {
-                            id = 3,
+                            id = "3DW29E6G3T",
                             amount = 10000,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4020),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3407),
                             create_by = 3,
                             description = "nạp tiền",
                             is_delete = false,
                             state = "thành công",
                             status = "xác nhận thành công",
-                            trans_code = "3DW29E6G3T",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4021),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3407),
                             update_by = 3,
                             wallet_id = 3
                         },
                         new
                         {
-                            id = 4,
+                            id = "4DX64S7S9Y",
                             amount = 10000,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4022),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3411),
                             create_by = 4,
                             description = "nạp tiền",
                             is_delete = false,
                             state = "thất bại",
                             status = "xác nhận thất bại",
-                            trans_code = "4DX64S7S9Y",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4024),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3412),
                             update_by = 4,
                             wallet_id = 4
                         },
                         new
                         {
-                            id = 5,
+                            id = "5DB17K9Y8X",
                             amount = 10000,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4025),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3415),
                             create_by = 5,
                             description = "nạp tiền",
                             is_delete = false,
                             state = "thành công",
                             status = "hoàn thành",
-                            trans_code = "5DB17K9Y8X",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4026),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3415),
                             update_by = 5,
                             wallet_id = 5
                         },
                         new
                         {
-                            id = 6,
+                            id = "6DP96C3I5V",
                             amount = 10000,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4028),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3418),
                             create_by = 6,
                             description = "nạp tiền",
                             is_delete = false,
                             state = "đang xử lí",
                             status = "đang chờ xác nhận",
-                            trans_code = "6DP96C3I5V",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4029),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3419),
                             update_by = 6,
                             wallet_id = 6
                         },
                         new
                         {
-                            id = 7,
+                            id = "7DD50M1A7Q",
                             amount = 10000,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4030),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3422),
                             create_by = 7,
                             description = "nạp tiền",
                             is_delete = false,
                             state = "đang xử lí",
                             status = "đang xử lí",
-                            trans_code = "7DD50M1A7Q",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4031),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3423),
                             update_by = 7,
                             wallet_id = 7
                         },
                         new
                         {
-                            id = 8,
+                            id = "8DR05R0J6X",
                             amount = 10000,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4032),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3425),
                             create_by = 8,
                             description = "nạp tiền",
                             is_delete = false,
                             state = "thành công",
                             status = "xác nhận thành công",
-                            trans_code = "8DR05R0J6X",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4033),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3426),
                             update_by = 8,
                             wallet_id = 8
                         },
                         new
                         {
-                            id = 9,
+                            id = "9DG63J9F6H",
                             amount = 10000,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4034),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3429),
                             create_by = 9,
                             description = "nạp tiền",
                             is_delete = false,
                             state = "thất bại",
                             status = "xác nhận thất bại",
-                            trans_code = "9DG63J9F6H",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4035),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3430),
                             update_by = 9,
                             wallet_id = 9
                         },
                         new
                         {
-                            id = 10,
+                            id = "10DL81T2G8Z",
                             amount = 10000,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4036),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3432),
                             create_by = 10,
                             description = "nạp tiền",
                             is_delete = false,
                             state = "thành công",
                             status = "hoàn thành",
-                            trans_code = "10DL81T2G8Z",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4037),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3433),
                             update_by = 10,
                             wallet_id = 10
                         },
                         new
                         {
-                            id = 11,
+                            id = "11DF85R8K6S",
                             amount = 10000,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4038),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3436),
                             create_by = 11,
                             description = "nạp tiền",
                             is_delete = false,
                             state = "đang xử lí",
                             status = "đang chờ xác nhận",
-                            trans_code = "11DF85R8K6S",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4039),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3437),
                             update_by = 11,
                             wallet_id = 11
                         },
                         new
                         {
-                            id = 12,
+                            id = "12DM14S4P4V",
                             amount = 10000,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4040),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3439),
                             create_by = 12,
                             description = "nạp tiền",
                             is_delete = false,
                             state = "đang xử lí",
                             status = "đang xử lí",
-                            trans_code = "12DM14S4P4V",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4041),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3440),
                             update_by = 12,
                             wallet_id = 12
                         },
                         new
                         {
-                            id = 13,
+                            id = "13DP76J5J1R",
                             amount = 10000,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4042),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3443),
                             create_by = 13,
                             description = "nạp tiền",
                             is_delete = false,
                             state = "thành công",
                             status = "xác nhận thành công",
-                            trans_code = "13DP76J5J1R",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4043),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3443),
                             update_by = 13,
                             wallet_id = 13
                         },
                         new
                         {
-                            id = 14,
+                            id = "14DS57C4B8K",
                             amount = 10000,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4044),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3447),
                             create_by = 14,
                             description = "nạp tiền",
                             is_delete = false,
                             state = "thất bại",
                             status = "xác nhận thất bại",
-                            trans_code = "14DS57C4B8K",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4045),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3447),
                             update_by = 14,
                             wallet_id = 14
                         });
@@ -538,8 +517,9 @@ namespace Business.Migrations
                     b.Property<int>("create_by")
                         .HasColumnType("int");
 
-                    b.Property<int>("deposit_id")
-                        .HasColumnType("int");
+                    b.Property<string>("deposit_id")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("description")
                         .HasMaxLength(200)
@@ -577,471 +557,212 @@ namespace Business.Migrations
                         new
                         {
                             id = 1,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4114),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3665),
                             create_by = 14,
-                            deposit_id = 1,
+                            deposit_id = "1DY75F3K26T",
                             description = "Đang xử lí",
                             is_delete = false,
                             state = "đang xử lí",
                             status = "đang xử lí",
                             type_transaction = "nạp tiền",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4114),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3666),
                             update_by = 14
                         },
                         new
                         {
                             id = 2,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4117),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3670),
                             create_by = 14,
-                            deposit_id = 2,
+                            deposit_id = "2DI83A9M0P",
                             description = "Đang xử lí",
                             is_delete = false,
                             state = "đang xử lí",
                             status = "đang xử lí",
                             type_transaction = "nạp tiền",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4118),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3671),
                             update_by = 14
                         },
                         new
                         {
                             id = 3,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4120),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3674),
                             create_by = 14,
-                            deposit_id = 3,
+                            deposit_id = "3DW29E6G3T",
                             description = "Giao dịch thành công",
                             is_delete = false,
                             state = "thành công",
                             status = "hoàn thành",
                             type_transaction = "nạp tiền",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4120),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3675),
                             update_by = 14
                         },
                         new
                         {
                             id = 4,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4122),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3678),
                             create_by = 14,
-                            deposit_id = 4,
+                            deposit_id = "4DX64S7S9Y",
                             description = "Giao dịch thất bại",
                             is_delete = false,
                             state = "thất bại",
                             status = "xác nhận thất bại",
                             type_transaction = "nạp tiền",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4122),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3679),
                             update_by = 14
                         },
                         new
                         {
                             id = 5,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4124),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3682),
                             create_by = 14,
-                            deposit_id = 5,
+                            deposit_id = "5DB17K9Y8X",
                             description = "Giao dịch thành công",
                             is_delete = false,
                             state = "thành công",
                             status = "hoàn thành",
                             type_transaction = "nạp tiền",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4124),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3683),
                             update_by = 14
                         },
                         new
                         {
                             id = 6,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4126),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3686),
                             create_by = 14,
-                            deposit_id = 6,
+                            deposit_id = "6DP96C3I5V",
                             description = "Đang xử lí",
                             is_delete = false,
                             state = "đang xử lí",
                             status = "đang xử lí",
                             type_transaction = "nạp tiền",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4126),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3687),
                             update_by = 14
                         },
                         new
                         {
                             id = 7,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4128),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3690),
                             create_by = 14,
-                            deposit_id = 7,
+                            deposit_id = "7DD50M1A7Q",
                             description = "Đang xử lí",
                             is_delete = false,
                             state = "đang xử lí",
                             status = "đang xử lí",
                             type_transaction = "nạp tiền",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4128),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3691),
                             update_by = 14
                         },
                         new
                         {
                             id = 8,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4130),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3693),
                             create_by = 14,
-                            deposit_id = 8,
+                            deposit_id = "8DR05R0J6X",
                             description = "Giao dịch thành công",
                             is_delete = false,
                             state = "thành công",
                             status = "hoàn thành",
                             type_transaction = "nạp tiền",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4130),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3694),
                             update_by = 14
                         },
                         new
                         {
                             id = 9,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4132),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3697),
                             create_by = 14,
-                            deposit_id = 9,
+                            deposit_id = "9DG63J9F6H",
                             description = "Giao dịch thất bại",
                             is_delete = false,
                             state = "thất bại",
                             status = "xác nhận thất bại",
                             type_transaction = "nạp tiền",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4133),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3698),
                             update_by = 14
                         },
                         new
                         {
                             id = 10,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4135),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3701),
                             create_by = 14,
-                            deposit_id = 10,
+                            deposit_id = "10DL81T2G8Z",
                             description = "Giao dịch thành công",
                             is_delete = false,
                             state = "thành công",
                             status = "hoàn thành",
                             type_transaction = "nạp tiền",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4135),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3701),
                             update_by = 14
                         },
                         new
                         {
                             id = 11,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4137),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3704),
                             create_by = 14,
-                            deposit_id = 11,
+                            deposit_id = "11DF85R8K6S",
                             description = "Đang xử lí",
                             is_delete = false,
                             state = "đang xử lí",
                             status = "đang xử lí",
                             type_transaction = "nạp tiền",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4137),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3705),
                             update_by = 14
                         },
                         new
                         {
                             id = 12,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4172),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3707),
                             create_by = 14,
-                            deposit_id = 12,
+                            deposit_id = "12DM14S4P4V",
                             description = "Đang xử lí",
                             is_delete = false,
                             state = "đang xử lí",
                             status = "đang xử lí",
                             type_transaction = "nạp tiền",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4172),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3708),
                             update_by = 14
                         },
                         new
                         {
                             id = 13,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4174),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3711),
                             create_by = 14,
-                            deposit_id = 13,
+                            deposit_id = "13DP76J5J1R",
                             description = "Giao dịch thành công",
                             is_delete = false,
                             state = "thành công",
                             status = "hoàn thành",
                             type_transaction = "nạp tiền",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4175),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3712),
                             update_by = 14
                         },
                         new
                         {
                             id = 14,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4176),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3715),
                             create_by = 14,
-                            deposit_id = 14,
+                            deposit_id = "14DS57C4B8K",
                             description = "Giao dịch thất bại",
                             is_delete = false,
                             state = "thất bại",
                             status = "xác nhận thất bại",
                             type_transaction = "nạp tiền",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4177),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3716),
                             update_by = 14
                         });
                 });
 
             modelBuilder.Entity("Business.Models.IntermediateOrder", b =>
                 {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.Property<string>("id")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"), 1L, 1);
+                    b.Property<DateTime?>("buy_at")
+                        .HasColumnType("datetime2");
 
                     b.Property<int?>("buy_user")
                         .HasColumnType("int");
-
-                    b.Property<DateTime>("create_at")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("is_delete")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("is_pay")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("link_product")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<int>("payment_amount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("product_id")
-                        .HasColumnType("int");
-
-                    b.Property<int>("sell_user")
-                        .HasColumnType("int");
-
-                    b.Property<string>("state")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("status")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<DateTime>("update_at")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("id");
-
-                    b.ToTable("IntermediateOrders");
-
-                    b.HasData(
-                        new
-                        {
-                            id = 1,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4295),
-                            is_delete = false,
-                            is_pay = false,
-                            link_product = "#",
-                            payment_amount = 1000,
-                            product_id = 1,
-                            sell_user = 1,
-                            state = "đang xử lí",
-                            status = "mới tạo",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4295)
-                        },
-                        new
-                        {
-                            id = 2,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4297),
-                            is_delete = false,
-                            is_pay = false,
-                            link_product = "#",
-                            payment_amount = 505,
-                            product_id = 2,
-                            sell_user = 2,
-                            state = "đang xử lí",
-                            status = "mới tạo",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4298)
-                        },
-                        new
-                        {
-                            id = 3,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4299),
-                            is_delete = false,
-                            is_pay = false,
-                            link_product = "#",
-                            payment_amount = 1500,
-                            product_id = 3,
-                            sell_user = 3,
-                            state = "đang xử lí",
-                            status = "mới tạo",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4299)
-                        },
-                        new
-                        {
-                            id = 4,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4300),
-                            is_delete = false,
-                            is_pay = false,
-                            link_product = "#",
-                            payment_amount = 2005,
-                            product_id = 4,
-                            sell_user = 4,
-                            state = "đang xử lí",
-                            status = "mới tạo",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4300)
-                        },
-                        new
-                        {
-                            id = 5,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4301),
-                            is_delete = false,
-                            is_pay = false,
-                            link_product = "#",
-                            payment_amount = 500,
-                            product_id = 5,
-                            sell_user = 5,
-                            state = "đang xử lí",
-                            status = "mới tạo",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4302)
-                        },
-                        new
-                        {
-                            id = 6,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4302),
-                            is_delete = false,
-                            is_pay = false,
-                            link_product = "#",
-                            payment_amount = 1005,
-                            product_id = 6,
-                            sell_user = 6,
-                            state = "đang xử lí",
-                            status = "mới tạo",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4303)
-                        },
-                        new
-                        {
-                            id = 7,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4304),
-                            is_delete = false,
-                            is_pay = false,
-                            link_product = "#",
-                            payment_amount = 1500,
-                            product_id = 7,
-                            sell_user = 7,
-                            state = "đang xử lí",
-                            status = "mới tạo",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4304)
-                        },
-                        new
-                        {
-                            id = 8,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4305),
-                            is_delete = false,
-                            is_pay = false,
-                            link_product = "#",
-                            payment_amount = 2005,
-                            product_id = 8,
-                            sell_user = 8,
-                            state = "đang xử lí",
-                            status = "mới tạo",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4305)
-                        },
-                        new
-                        {
-                            id = 9,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4306),
-                            is_delete = false,
-                            is_pay = false,
-                            link_product = "#",
-                            payment_amount = 500,
-                            product_id = 9,
-                            sell_user = 9,
-                            state = "đang xử lí",
-                            status = "mới tạo",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4306)
-                        },
-                        new
-                        {
-                            id = 10,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4307),
-                            is_delete = false,
-                            is_pay = false,
-                            link_product = "#",
-                            payment_amount = 1005,
-                            product_id = 10,
-                            sell_user = 10,
-                            state = "đang xử lí",
-                            status = "mới tạo",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4307)
-                        },
-                        new
-                        {
-                            id = 11,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4308),
-                            is_delete = false,
-                            is_pay = false,
-                            link_product = "#",
-                            payment_amount = 1500,
-                            product_id = 11,
-                            sell_user = 11,
-                            state = "đang xử lí",
-                            status = "mới tạo",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4309)
-                        },
-                        new
-                        {
-                            id = 12,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4309),
-                            is_delete = false,
-                            is_pay = false,
-                            link_product = "#",
-                            payment_amount = 2005,
-                            product_id = 12,
-                            sell_user = 12,
-                            state = "đang xử lí",
-                            status = "mới tạo",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4310)
-                        },
-                        new
-                        {
-                            id = 13,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4312),
-                            is_delete = false,
-                            is_pay = false,
-                            link_product = "#",
-                            payment_amount = 500,
-                            product_id = 13,
-                            sell_user = 13,
-                            state = "đang xử lí",
-                            status = "mới tạo",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4313)
-                        },
-                        new
-                        {
-                            id = 14,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4313),
-                            is_delete = false,
-                            is_pay = false,
-                            link_product = "#",
-                            payment_amount = 1005,
-                            product_id = 14,
-                            sell_user = 14,
-                            state = "đang xử lí",
-                            status = "mới tạo",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4314)
-                        },
-                        new
-                        {
-                            id = 15,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4315),
-                            is_delete = false,
-                            is_pay = false,
-                            link_product = "#",
-                            payment_amount = 1000,
-                            product_id = 15,
-                            sell_user = 10,
-                            state = "đang xử lí",
-                            status = "mới tạo",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4315)
-                        });
-                });
-
-            modelBuilder.Entity("Business.Models.IntermediateProduct", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"), 1L, 1);
 
                     b.Property<string>("contact")
                         .IsRequired()
@@ -1059,11 +780,11 @@ namespace Business.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<int>("fee")
-                        .HasColumnType("int");
+                    b.Property<float>("earn_amount")
+                        .HasColumnType("real");
 
-                    b.Property<int>("fee_create")
-                        .HasColumnType("int");
+                    b.Property<float>("fee_rate")
+                        .HasColumnType("real");
 
                     b.Property<bool>("fee_type")
                         .HasColumnType("bit");
@@ -1079,15 +800,27 @@ namespace Business.Migrations
                     b.Property<bool>("is_public")
                         .HasColumnType("bit");
 
+                    b.Property<string>("link_product")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
                     b.Property<string>("name")
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<int>("price")
-                        .HasColumnType("int");
+                    b.Property<float>("payment_amount")
+                        .HasColumnType("real");
+
+                    b.Property<float>("price")
+                        .HasColumnType("real");
 
                     b.Property<string>("state")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("status")
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -1100,292 +833,352 @@ namespace Business.Migrations
 
                     b.HasKey("id");
 
-                    b.ToTable("IntermediateProducts");
+                    b.ToTable("IntermediateOrders");
 
                     b.HasData(
                         new
                         {
-                            id = 1,
+                            id = "FjNnwZdR",
+                            buy_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3847),
                             contact = "facebook, mess,zalo",
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4245),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3854),
                             create_by = 1,
                             description = "tài khoản Office ",
-                            fee = 5,
-                            fee_create = 100,
+                            earn_amount = 950f,
+                            fee_rate = 0.05f,
                             fee_type = true,
                             hidden_content = "tài khoản: account, mật khẩu: password",
                             is_delete = false,
                             is_public = false,
+                            link_product = "#",
                             name = "Tài Khoản Office",
-                            price = 1000,
+                            payment_amount = 1000f,
+                            price = 1000f,
                             state = "đang xử lí",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4245),
+                            status = "mới tạo",
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3855),
                             update_by = 1
                         },
                         new
                         {
-                            id = 2,
+                            id = "tCWyd9xS",
+                            buy_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3857),
                             contact = "facebook, mess,zalo",
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4248),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3860),
                             create_by = 2,
                             description = "tài khoản GBT ",
-                            fee = 5,
-                            fee_create = 100,
+                            earn_amount = 500f,
+                            fee_rate = 0.05f,
                             fee_type = false,
                             hidden_content = "tài khoản: account, mật khẩu: password",
                             is_delete = false,
                             is_public = true,
+                            link_product = "#",
                             name = "Tài Khoản GBT",
-                            price = 500,
+                            payment_amount = 525f,
+                            price = 500f,
                             state = "đang xử lí",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4248),
+                            status = "mới tạo",
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3861),
                             update_by = 1
                         },
                         new
                         {
-                            id = 3,
+                            id = "Kk3us7mV",
+                            buy_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3864),
                             contact = "facebook, mess,zalo",
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4251),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3870),
                             create_by = 3,
                             description = "tài khoản Facebook ",
-                            fee = 5,
-                            fee_create = 100,
+                            earn_amount = 1425f,
+                            fee_rate = 0.05f,
                             fee_type = true,
                             hidden_content = "tài khoản: account, mật khẩu: password",
                             is_delete = false,
                             is_public = false,
+                            link_product = "#",
                             name = "Tài Khoản Facebook",
-                            price = 1500,
+                            payment_amount = 1500f,
+                            price = 1500f,
                             state = "đang xử lí",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4251),
+                            status = "mới tạo",
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3873),
                             update_by = 1
                         },
                         new
                         {
-                            id = 4,
+                            id = "yh2LnbGk",
+                            buy_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3875),
                             contact = "facebook, mess,zalo",
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4255),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3877),
                             create_by = 4,
                             description = "tài khoản Game ",
-                            fee = 5,
-                            fee_create = 100,
+                            earn_amount = 2000f,
+                            fee_rate = 0.05f,
                             fee_type = false,
                             hidden_content = "tài khoản: account, mật khẩu: password",
                             is_delete = false,
                             is_public = true,
+                            link_product = "#",
                             name = "Tài Khoản Game",
-                            price = 2000,
+                            payment_amount = 2100f,
+                            price = 2000f,
                             state = "đang xử lí",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4255),
+                            status = "mới tạo",
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3878),
                             update_by = 1
                         },
                         new
                         {
-                            id = 5,
+                            id = "6zqRwHEu",
+                            buy_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3879),
                             contact = "facebook, mess,zalo",
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4258),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3882),
                             create_by = 5,
                             description = "tài khoản Unity ",
-                            fee = 5,
-                            fee_create = 100,
+                            earn_amount = 475f,
+                            fee_rate = 0.05f,
                             fee_type = true,
                             hidden_content = "tài khoản: account, mật khẩu: password",
                             is_delete = false,
                             is_public = false,
+                            link_product = "#",
                             name = "Tài Khoản Unity",
-                            price = 500,
+                            payment_amount = 500f,
+                            price = 500f,
                             state = "đang xử lí",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4258),
+                            status = "mới tạo",
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3882),
                             update_by = 1
                         },
                         new
                         {
-                            id = 6,
+                            id = "I1mJYvoA",
+                            buy_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3884),
                             contact = "facebook, mess,zalo",
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4260),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3886),
                             create_by = 6,
                             description = "tài khoản Microsoft",
-                            fee = 5,
-                            fee_create = 100,
+                            earn_amount = 1000f,
+                            fee_rate = 0.05f,
                             fee_type = false,
                             hidden_content = "tài khoản: account, mật khẩu: password",
                             is_delete = false,
                             is_public = true,
+                            link_product = "#",
                             name = "Tài Khoản Microsoft",
-                            price = 1000,
+                            payment_amount = 1050f,
+                            price = 1000f,
                             state = "đang xử lí",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4260),
+                            status = "mới tạo",
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3887),
                             update_by = 1
                         },
                         new
                         {
-                            id = 7,
+                            id = "OnvTBGFk",
+                            buy_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3888),
                             contact = "facebook, mess,zalo",
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4262),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3893),
                             create_by = 7,
                             description = "tài khoản Spine ",
-                            fee = 5,
-                            fee_create = 100,
+                            earn_amount = 1425f,
+                            fee_rate = 0.05f,
                             fee_type = true,
                             hidden_content = "tài khoản: account, mật khẩu: password",
                             is_delete = false,
                             is_public = true,
+                            link_product = "#",
                             name = "Tài Khoản Spine",
-                            price = 1500,
+                            payment_amount = 1500f,
+                            price = 1500f,
                             state = "đang xử lí",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4263),
+                            status = "mới tạo",
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3894),
                             update_by = 1
                         },
                         new
                         {
-                            id = 8,
+                            id = "a2D1PC0L",
+                            buy_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3897),
                             contact = "facebook, mess,zalo",
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4264),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3901),
                             create_by = 8,
                             description = "tài khoản Adobephotoshop ",
-                            fee = 5,
-                            fee_create = 100,
+                            earn_amount = 2000f,
+                            fee_rate = 0.05f,
                             fee_type = false,
                             hidden_content = "tài khoản: account, mật khẩu: password",
                             is_delete = false,
                             is_public = true,
+                            link_product = "#",
                             name = "Tài Khoản Adobephotoshop",
-                            price = 2000,
+                            payment_amount = 2100f,
+                            price = 2000f,
                             state = "đang xử lí",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4265),
+                            status = "mới tạo",
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3902),
                             update_by = 1
                         },
                         new
                         {
-                            id = 9,
+                            id = "Q9XWqMr3",
+                            buy_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3905),
                             contact = "facebook, mess,zalo",
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4267),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3909),
                             create_by = 9,
                             description = "tài khoản Ai ",
-                            fee = 5,
-                            fee_create = 100,
+                            earn_amount = 475f,
+                            fee_rate = 0.05f,
                             fee_type = true,
                             hidden_content = "tài khoản: account, mật khẩu: password",
                             is_delete = false,
                             is_public = true,
+                            link_product = "#",
                             name = "Tài Khoản Ai",
-                            price = 500,
+                            payment_amount = 500f,
+                            price = 500f,
                             state = "đang xử lí",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4267),
+                            status = "mới tạo",
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3910),
                             update_by = 1
                         },
                         new
                         {
-                            id = 10,
+                            id = "hwPm5QZR",
+                            buy_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3931),
                             contact = "facebook, mess,zalo",
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4269),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3934),
                             create_by = 10,
                             description = "tài khoản Gmail ",
-                            fee = 5,
-                            fee_create = 100,
+                            earn_amount = 1000f,
+                            fee_rate = 0.05f,
                             fee_type = false,
                             hidden_content = "tài khoản: account, mật khẩu: password",
                             is_delete = false,
                             is_public = false,
+                            link_product = "#",
                             name = "Tài Khoản Gmail",
-                            price = 1000,
+                            payment_amount = 1050f,
+                            price = 1000f,
                             state = "đang xử lí",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4270),
+                            status = "mới tạo",
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3935),
                             update_by = 1
                         },
                         new
                         {
-                            id = 11,
+                            id = "fDlco4Ii",
+                            buy_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3937),
                             contact = "facebook, mess,zalo",
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4272),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3940),
                             create_by = 11,
                             description = "tài khoản Git ",
-                            fee = 5,
-                            fee_create = 100,
+                            earn_amount = 1425f,
+                            fee_rate = 0.05f,
                             fee_type = true,
                             hidden_content = "tài khoản: account, mật khẩu: password",
                             is_delete = false,
                             is_public = true,
+                            link_product = "#",
                             name = "Tài Khoản Git",
-                            price = 1500,
+                            payment_amount = 1500f,
+                            price = 1500f,
                             state = "đang xử lí",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4272),
+                            status = "mới tạo",
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3941),
                             update_by = 1
                         },
                         new
                         {
-                            id = 12,
+                            id = "LziBV2fq",
+                            buy_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3942),
                             contact = "facebook, mess,zalo",
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4274),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3944),
                             create_by = 12,
                             description = "tài khoản Netflix ",
-                            fee = 5,
-                            fee_create = 100,
+                            earn_amount = 2000f,
+                            fee_rate = 0.05f,
                             fee_type = false,
                             hidden_content = "tài khoản: account, mật khẩu: password",
                             is_delete = false,
                             is_public = true,
+                            link_product = "#",
                             name = "Tài Khoản Netflix",
-                            price = 2000,
+                            payment_amount = 2100f,
+                            price = 2000f,
                             state = "đang xử lí",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4274),
+                            status = "mới tạo",
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3945),
                             update_by = 1
                         },
                         new
                         {
-                            id = 13,
+                            id = "2n3mMgFy",
+                            buy_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3947),
                             contact = "facebook, mess,zalo",
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4276),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3949),
                             create_by = 13,
                             description = "tài khoản Youtube ",
-                            fee = 5,
-                            fee_create = 100,
+                            earn_amount = 475f,
+                            fee_rate = 0.05f,
                             fee_type = true,
                             hidden_content = "tài khoản: account, mật khẩu: password",
                             is_delete = false,
                             is_public = true,
+                            link_product = "#",
                             name = "Tài Khoản Vip Youtube",
-                            price = 500,
+                            payment_amount = 500f,
+                            price = 500f,
                             state = "đang xử lí",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4276),
+                            status = "mới tạo",
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3950),
                             update_by = 1
                         },
                         new
                         {
-                            id = 14,
+                            id = "eSgvtQo6",
+                            buy_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3952),
                             contact = "facebook, mess,zalo",
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4279),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3954),
                             create_by = 14,
                             description = "tài khoản Duolingo ",
-                            fee = 5,
-                            fee_create = 100,
+                            earn_amount = 1000f,
+                            fee_rate = 0.05f,
                             fee_type = false,
                             hidden_content = "tài khoản: account, mật khẩu: password",
                             is_delete = false,
                             is_public = false,
+                            link_product = "#",
                             name = "Tài Khoản Duolingo",
-                            price = 1000,
+                            payment_amount = 1050f,
+                            price = 1000f,
                             state = "đang xử lí",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4279),
+                            status = "mới tạo",
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3955),
                             update_by = 1
                         },
                         new
                         {
-                            id = 15,
+                            id = "wFzU6Nvj",
+                            buy_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3956),
                             contact = "facebook, mess,zalo",
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4281),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3959),
                             create_by = 10,
                             description = "tài khoản Coursera ",
-                            fee = 10,
-                            fee_create = 100,
+                            earn_amount = 950f,
+                            fee_rate = 0.05f,
                             fee_type = true,
                             hidden_content = "tài khoản: account, mật khẩu: password",
                             is_delete = false,
                             is_public = true,
+                            link_product = "#",
                             name = "Tài Khoản Coursera",
-                            price = 1000,
+                            payment_amount = 1000f,
+                            price = 1000f,
                             state = "đang xử lí",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4281),
+                            status = "mới tạo",
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3959),
                             update_by = 1
                         });
                 });
@@ -1451,7 +1244,7 @@ namespace Business.Migrations
                             id = 1,
                             account_id = 1,
                             balance = 20000,
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(3982),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3331),
                             update_by = 1
                         },
                         new
@@ -1459,7 +1252,7 @@ namespace Business.Migrations
                             id = 2,
                             account_id = 2,
                             balance = 10000,
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(3984),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3334),
                             update_by = 2
                         },
                         new
@@ -1467,7 +1260,7 @@ namespace Business.Migrations
                             id = 3,
                             account_id = 3,
                             balance = 20000,
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(3985),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3336),
                             update_by = 3
                         },
                         new
@@ -1475,7 +1268,7 @@ namespace Business.Migrations
                             id = 4,
                             account_id = 4,
                             balance = 10000,
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(3986),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3338),
                             update_by = 4
                         },
                         new
@@ -1483,7 +1276,7 @@ namespace Business.Migrations
                             id = 5,
                             account_id = 5,
                             balance = 20000,
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(3987),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3340),
                             update_by = 5
                         },
                         new
@@ -1491,7 +1284,7 @@ namespace Business.Migrations
                             id = 6,
                             account_id = 6,
                             balance = 10000,
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(3988),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3342),
                             update_by = 6
                         },
                         new
@@ -1499,7 +1292,7 @@ namespace Business.Migrations
                             id = 7,
                             account_id = 7,
                             balance = 20000,
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(3989),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3344),
                             update_by = 7
                         },
                         new
@@ -1507,7 +1300,7 @@ namespace Business.Migrations
                             id = 8,
                             account_id = 8,
                             balance = 10000,
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(3990),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3346),
                             update_by = 8
                         },
                         new
@@ -1515,7 +1308,7 @@ namespace Business.Migrations
                             id = 9,
                             account_id = 9,
                             balance = 20000,
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(3991),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3348),
                             update_by = 9
                         },
                         new
@@ -1523,7 +1316,7 @@ namespace Business.Migrations
                             id = 10,
                             account_id = 10,
                             balance = 10000,
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(3992),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3350),
                             update_by = 10
                         },
                         new
@@ -1531,7 +1324,7 @@ namespace Business.Migrations
                             id = 11,
                             account_id = 11,
                             balance = 20000,
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(3993),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3352),
                             update_by = 11
                         },
                         new
@@ -1539,7 +1332,7 @@ namespace Business.Migrations
                             id = 12,
                             account_id = 12,
                             balance = 10000,
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(3994),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3354),
                             update_by = 12
                         },
                         new
@@ -1547,7 +1340,7 @@ namespace Business.Migrations
                             id = 13,
                             account_id = 13,
                             balance = 20000,
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(3995),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3356),
                             update_by = 13
                         },
                         new
@@ -1555,18 +1348,16 @@ namespace Business.Migrations
                             id = 14,
                             account_id = 14,
                             balance = 1000000,
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(3996),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3358),
                             update_by = 14
                         });
                 });
 
             modelBuilder.Entity("Business.Models.Withdrawal", b =>
                 {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"), 1L, 1);
+                    b.Property<string>("id")
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
 
                     b.Property<int>("amount")
                         .HasColumnType("int");
@@ -1605,11 +1396,6 @@ namespace Business.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("trans_code")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
-
                     b.Property<DateTime>("update_at")
                         .HasColumnType("datetime2");
 
@@ -1628,239 +1414,225 @@ namespace Business.Migrations
                     b.HasData(
                         new
                         {
-                            id = 1,
+                            id = "1W0U5V1I0",
                             amount = 5000,
                             bank_name = "TP Bank",
                             bank_number = "789654312",
                             bank_user = "Hoàng Minh Nguyệt",
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4062),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3563),
                             create_by = 1,
                             is_delete = false,
                             state = "đang xử lí",
                             status = "đang chờ xác nhận",
-                            trans_code = "1W0U5V1I0",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4064),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3565),
                             update_by = 1,
                             wallet_id = 1
                         },
                         new
                         {
-                            id = 2,
+                            id = "2W4F4Y9E7",
                             amount = 1000,
                             bank_name = "TP Bank",
                             bank_number = "789654312",
                             bank_user = "Nguyễn Thùy Dương",
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4066),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3569),
                             create_by = 2,
                             is_delete = false,
                             state = "đang xử lí",
                             status = "đang xử lí",
-                            trans_code = "2W4F4Y9E7",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4067),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3570),
                             update_by = 2,
                             wallet_id = 2
                         },
                         new
                         {
-                            id = 3,
+                            id = "3W3C1J8P1",
                             amount = 5000,
                             bank_name = "TP Bank",
                             bank_number = "789654312",
                             bank_user = "Lê Thạc Hoành",
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4068),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3574),
                             create_by = 3,
                             is_delete = false,
                             state = "thành công",
                             status = "xác nhận thành công",
-                            trans_code = "3W3C1J8P1",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4069),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3575),
                             update_by = 3,
                             wallet_id = 3
                         },
                         new
                         {
-                            id = 4,
+                            id = "4W6O2Q2R4",
                             amount = 1000,
                             bank_name = "TP Bank",
                             bank_number = "789654312",
                             bank_user = "Nguyễn Quang Vị",
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4071),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3579),
                             create_by = 4,
                             is_delete = false,
                             state = "thất bại",
                             status = "xác nhận thất bại",
-                            trans_code = "4W6O2Q2R4",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4071),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3579),
                             update_by = 4,
                             wallet_id = 4
                         },
                         new
                         {
-                            id = 5,
+                            id = "5W8O2W1A3",
                             amount = 5000,
                             bank_name = "TP Bank",
                             bank_number = "789654312",
                             bank_user = "Nguyễn Mạnh Cường",
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4073),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3583),
                             create_by = 5,
                             is_delete = false,
                             state = "thành công",
                             status = "hoàn thành",
-                            trans_code = "5W8O2W1A3",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4073),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3583),
                             update_by = 5,
                             wallet_id = 5
                         },
                         new
                         {
-                            id = 6,
+                            id = "6W2Z1O6B1",
                             amount = 1000,
                             bank_name = "TP Bank",
                             bank_number = "789654312",
                             bank_user = "Nguyễn Việt Hân",
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4077),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3587),
                             create_by = 6,
                             is_delete = false,
                             state = "đang xử lí",
                             status = "đang chờ xác nhận",
-                            trans_code = "6W2Z1O6B1",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4078),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3587),
                             update_by = 6,
                             wallet_id = 6
                         },
                         new
                         {
-                            id = 7,
+                            id = "7W3T0N3S0",
                             amount = 5000,
                             bank_name = "TP Bank",
                             bank_number = "789654312",
                             bank_user = "Nguyễn Trung Hiếu",
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4079),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3591),
                             create_by = 7,
                             is_delete = false,
                             state = "đang xử lí",
                             status = "đang xử lí",
-                            trans_code = "7W3T0N3S0",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4080),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3591),
                             update_by = 7,
                             wallet_id = 7
                         },
                         new
                         {
-                            id = 8,
+                            id = "8W4I2D8D0",
                             amount = 10000,
                             bank_name = "TP Bank",
                             bank_number = "789654312",
                             bank_user = "Nguyễn Văn Tuấn",
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4082),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3595),
                             create_by = 8,
                             is_delete = false,
                             state = "thành công",
                             status = "xác nhận thành công",
-                            trans_code = "8W4I2D8D0",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4082),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3595),
                             update_by = 8,
                             wallet_id = 8
                         },
                         new
                         {
-                            id = 9,
+                            id = "9W6H6F3O2",
                             amount = 5000,
                             bank_name = "TP Bank",
                             bank_number = "789654312",
                             bank_user = "Ngô Gia Thiện",
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4084),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3602),
                             create_by = 9,
                             is_delete = false,
                             state = "thất bại",
                             status = "xác nhận thất bại",
-                            trans_code = "9W6H6F3O2",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4084),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3603),
                             update_by = 9,
                             wallet_id = 9
                         },
                         new
                         {
-                            id = 10,
+                            id = "10W1B4L3R5",
                             amount = 10000,
                             bank_name = "TP Bank",
                             bank_number = "789654312",
                             bank_user = "Phan Thế Anh",
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4086),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3606),
                             create_by = 10,
                             is_delete = false,
                             state = "thành công",
                             status = "hoàn thành",
-                            trans_code = "10W1B4L3R5",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4086),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3607),
                             update_by = 10,
                             wallet_id = 10
                         },
                         new
                         {
-                            id = 11,
+                            id = "11W8I7T8V7",
                             amount = 5000,
                             bank_name = "TP Bank",
                             bank_number = "789654312",
                             bank_user = "Nguyễn Ngọc Hoàng",
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4088),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3611),
                             create_by = 11,
                             is_delete = false,
                             state = "đang xử lí",
                             status = "đang xác nhận",
-                            trans_code = "11W8I7T8V7",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4088),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3612),
                             update_by = 11,
                             wallet_id = 11
                         },
                         new
                         {
-                            id = 12,
+                            id = "12W6M7E2D3",
                             amount = 10000,
                             bank_name = "TP Bank",
                             bank_number = "789654312",
                             bank_user = "Nguyễn Quang Lộc",
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4091),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3614),
                             create_by = 12,
                             is_delete = false,
                             state = "đang xử lí",
                             status = "đang xử lí",
-                            trans_code = "12W6M7E2D3",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4092),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3615),
                             update_by = 12,
                             wallet_id = 12
                         },
                         new
                         {
-                            id = 13,
+                            id = "13W4Q0L0L6",
                             amount = 5000,
                             bank_name = "TP Bank",
                             bank_number = "789654312",
                             bank_user = "Nguyễn Hải Đan",
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4093),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3618),
                             create_by = 13,
                             is_delete = false,
                             state = "thành công",
                             status = "xác nhận thành công",
-                            trans_code = "13W4Q0L0L6",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4094),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3619),
                             update_by = 13,
                             wallet_id = 13
                         },
                         new
                         {
-                            id = 14,
+                            id = "14W9C9M5F4",
                             amount = 10000,
                             bank_name = "TP Bank",
                             bank_number = "789654312",
                             bank_user = "Bank Admin",
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4095),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3622),
                             create_by = 14,
                             is_delete = false,
                             state = "thất bại",
                             status = "xác nhận thất bại",
-                            trans_code = "14W9C9M5F4",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4096),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3622),
                             update_by = 14,
                             wallet_id = 14
                         });
@@ -1908,12 +1680,11 @@ namespace Business.Migrations
                     b.Property<int>("update_by")
                         .HasColumnType("int");
 
-                    b.Property<int>("withdrawal_id")
-                        .HasColumnType("int");
+                    b.Property<string>("withdrawal_id")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("id");
-
-                    b.HasIndex("withdrawal_id");
 
                     b.ToTable("WithdrawalResponses");
 
@@ -1921,198 +1692,198 @@ namespace Business.Migrations
                         new
                         {
                             id = 1,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4197),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3754),
                             create_by = 14,
                             description = "Đang xử lí",
                             is_delete = false,
                             state = "đang xử lí",
                             status = "đang xử lí",
                             type_transaction = "rút tiền",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4197),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3755),
                             update_by = 14,
-                            withdrawal_id = 1
+                            withdrawal_id = "1W0U5V1I0"
                         },
                         new
                         {
                             id = 2,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4199),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3759),
                             create_by = 14,
                             description = "Đang xử lí",
                             is_delete = false,
                             state = "đang xử lí",
                             status = "đang xử lí",
                             type_transaction = "rút tiền",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4200),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3760),
                             update_by = 14,
-                            withdrawal_id = 2
+                            withdrawal_id = "2W4F4Y9E7"
                         },
                         new
                         {
                             id = 3,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4202),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3763),
                             create_by = 14,
                             description = "Giao dịch thành công",
                             is_delete = false,
                             state = "thành công",
                             status = "đang xử lí",
                             type_transaction = "rút tiền",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4202),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3764),
                             update_by = 14,
-                            withdrawal_id = 3
+                            withdrawal_id = "3W3C1J8P1"
                         },
                         new
                         {
                             id = 4,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4204),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3766),
                             create_by = 14,
                             description = "Giao dịch thất bại",
                             is_delete = false,
                             state = "thất bại",
                             status = "đang xử lí",
                             type_transaction = "rút tiền",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4204),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3767),
                             update_by = 14,
-                            withdrawal_id = 4
+                            withdrawal_id = "4W6O2Q2R4"
                         },
                         new
                         {
                             id = 5,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4206),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3769),
                             create_by = 14,
                             description = "Giao dịch thành công",
                             is_delete = false,
                             state = "thành công",
                             status = "đang xử lí",
                             type_transaction = "rút tiền",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4206),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3770),
                             update_by = 14,
-                            withdrawal_id = 5
+                            withdrawal_id = "5W8O2W1A3"
                         },
                         new
                         {
                             id = 6,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4208),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3773),
                             create_by = 14,
                             description = "Đang xử lí",
                             is_delete = false,
                             state = "đang xử lí",
                             status = "đang xử lí",
                             type_transaction = "rút tiền",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4208),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3774),
                             update_by = 14,
-                            withdrawal_id = 6
+                            withdrawal_id = "6W2Z1O6B1"
                         },
                         new
                         {
                             id = 7,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4210),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3777),
                             create_by = 14,
                             description = "Đang xử lí",
                             is_delete = false,
                             state = "đang xử lí",
                             status = "đang xử lí",
                             type_transaction = "rút tiền",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4211),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3777),
                             update_by = 14,
-                            withdrawal_id = 7
+                            withdrawal_id = "7W3T0N3S0"
                         },
                         new
                         {
                             id = 8,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4212),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3780),
                             create_by = 14,
                             description = "Giao dịch thành công",
                             is_delete = false,
                             state = "thành công",
                             status = "đang xử lí",
                             type_transaction = "rút tiền",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4213),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3781),
                             update_by = 14,
-                            withdrawal_id = 8
+                            withdrawal_id = "8W4I2D8D0"
                         },
                         new
                         {
                             id = 9,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4214),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3783),
                             create_by = 14,
                             description = "Giao dịch thất bại",
                             is_delete = false,
                             state = "thất bại",
                             status = "đang xử lí",
                             type_transaction = "rút tiền",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4215),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3784),
                             update_by = 14,
-                            withdrawal_id = 9
+                            withdrawal_id = "9W6H6F3O2"
                         },
                         new
                         {
                             id = 10,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4216),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3787),
                             create_by = 14,
                             description = "Giao dịch thành công",
                             is_delete = false,
                             state = "thành công",
                             status = "đang xử lí",
                             type_transaction = "rút tiền",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4217),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3788),
                             update_by = 14,
-                            withdrawal_id = 10
+                            withdrawal_id = "10W1B4L3R5"
                         },
                         new
                         {
                             id = 11,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4219),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3790),
                             create_by = 14,
                             description = "Đang xử lí",
                             is_delete = false,
                             state = "đang xử lí",
                             status = "đang xử lí",
                             type_transaction = "rút tiền",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4220),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3791),
                             update_by = 14,
-                            withdrawal_id = 11
+                            withdrawal_id = "11W8I7T8V7"
                         },
                         new
                         {
                             id = 12,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4223),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3793),
                             create_by = 14,
                             description = "Đang xử lí",
                             is_delete = false,
                             state = "đang xử lí",
                             status = "đang xử lí",
                             type_transaction = "rút tiền",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4223),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3794),
                             update_by = 14,
-                            withdrawal_id = 12
+                            withdrawal_id = "12W6M7E2D3"
                         },
                         new
                         {
                             id = 13,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4225),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3796),
                             create_by = 14,
                             description = "Giao dịch thành công",
                             is_delete = false,
                             state = "thành công",
                             status = "đang xử lí",
                             type_transaction = "rút tiền",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4225),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3797),
                             update_by = 14,
-                            withdrawal_id = 13
+                            withdrawal_id = "13W4Q0L0L6"
                         },
                         new
                         {
                             id = 14,
-                            create_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4227),
+                            create_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3799),
                             create_by = 14,
                             description = "Giao dịch thất bại",
                             is_delete = false,
                             state = "thất bại",
                             status = "đang xử lí",
                             type_transaction = "rút tiền",
-                            update_at = new DateTime(2024, 3, 2, 11, 17, 13, 965, DateTimeKind.Local).AddTicks(4227),
+                            update_at = new DateTime(2024, 3, 3, 23, 53, 27, 687, DateTimeKind.Local).AddTicks(3800),
                             update_by = 14,
-                            withdrawal_id = 14
+                            withdrawal_id = "14W9C9M5F4"
                         });
                 });
 
@@ -2136,17 +1907,6 @@ namespace Business.Migrations
                         .IsRequired();
 
                     b.Navigation("Wallet");
-                });
-
-            modelBuilder.Entity("Business.Models.WithdrawalResponse", b =>
-                {
-                    b.HasOne("Business.Models.Withdrawal", "Withdrawal")
-                        .WithMany()
-                        .HasForeignKey("withdrawal_id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Withdrawal");
                 });
 #pragma warning restore 612, 618
         }

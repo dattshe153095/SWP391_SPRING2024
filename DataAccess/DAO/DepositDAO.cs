@@ -26,14 +26,14 @@ namespace DataAccess.DAO
             return list;
         }
 
-        public static Deposit GetDepositById(int id)
+        public static Deposit GetDepositById(string id)
         {
             return GetAllDeposit().FirstOrDefault(x => x.id == id);
         }
 
-        public static Deposit GetDepositTransactionCode(int wallet_id, string code)
+        public static Deposit GetDepositTransactionCode(int wallet_id, string id)
         {
-            return GetAllDeposit().FirstOrDefault(x => x.wallet_id == wallet_id && x.trans_code == code);
+            return GetAllDeposit().FirstOrDefault(x => x.wallet_id == wallet_id && x.id == id);
         }
 
         public static void UpdateDeposit(Deposit deposit)
