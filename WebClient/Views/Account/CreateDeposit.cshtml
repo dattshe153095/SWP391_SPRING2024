@@ -231,147 +231,33 @@
             max-height: 700px; /* Đặt chiều cao tối đa của bảng */
             overflow-y: auto; /* Cho phép cuộn dọc khi nội dung vượt quá kích thước */
         }
+
     </style>
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Trade&Deal Hub </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Index">Market</a>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav ml-auto">
-                        @if (ViewBag.accountId == null)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Login</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Register">Register</a>
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="dropdown nav-item"><a aria-haspopup="true" href="#" class="nav-link" aria-expanded="false"><i class="fa-regular fa-bell" style="color:black;"></i></a></li>
-                            <li class="nav-item">
-                                <div class="dropdown">
-                                    <button class="dropbtn">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Profile">@AccountDAO.GetAccountWithId(ViewBag.accountId).name</a>
-                                    </button>
-                                    <div class="dropdown-content">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Profile">Profile</a>
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Wallet">Wallet</a>
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="LogOut"> LogOut</a>
-                                    </div>
-                                </div>
-                            </li>
-                        }
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
+
     <main class="container">
-        <div class="sidebar">
-            <ul class="nav">
-                <li class="nav-item nav-dropdown">
-                    <a class="nav-link nav-dropdown-toggle" href="#">
-                        <i class="navbar-toggler-icon fa fa-credit-card"></i>
-                        Quản lý thanh toán
-                        <i class="fa-solid fa-chevron-down"></i>
-                    </a>
-                    <ul class="nav-dropdown-item">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Wallet"><i class="fa-solid fa-wallet"></i> Ví của tôi</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="CreateDeposit"><i class="nav-icon fa fa-cc-visa"></i> Nạp Tiền</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="TransactionHistory"><i class="nav-icon fa fa-exchange"></i> Lịch sử giao dịch </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="CreateWithdrawal"><i class="nav-icon fa fa-send-o"></i> Yêu Cầu Rút Tiền</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item nav-dropdown">
-                    <a class="nav-link nav-dropdown-toggle" href="#">
-                        <i class="fa-solid fa-cart-shopping"></i>
-                        Mua Hàng
-                        <i class="fa-solid fa-chevron-down"></i>
-                    </a>
-                    <ul class="nav-dropdown-item">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Product" asp-action="Index"><i class="fa-brands fa-product-hunt"></i> Sản Phẩm</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Product" asp-action="InsertProduct"><i class="fa-brands fa-product-hunt"></i>Tạo sản phẩm mới</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Product" asp-action="Index"><i class="nav-icon fa fa-list"></i> Đơn Hàng</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item nav-dropdown">
-                    <a class="nav-link nav-dropdown-toggle" href="#">
-                        <i class="nav-icon fa fa-handshake-o"></i>
-                        Trung Gian
-                        <i class="fa-solid fa-chevron-down"></i>
-                    </a>
-                    <ul class="nav-dropdown-item">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="WalletUser"><i class="fa-solid fa-shop"></i> Chợ Công Khai</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Wallet"><i class="fa-solid fa-bag-shopping"></i> Đơn bán của tôi</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Wallet"><i class="nav-icon fa fa-shopping-cart"></i> Đơn mua của tôi </a>
-                        </li>
-                    </ul>
-                </li>
-
-            </ul>
-        </div>
+        
         <main role="main" class="pb-3">
             <marquee behavior="sroll" direction="left">
                 <h6 style="color: red;">Thông báo: Hiện hệ thống VNPay đang bảo trì đến 18:00 ngày 22/02/2024. Hãy chú ý thời gian bảo trì để không bị gián đoạn giao dịch của mình nhé! Cảm ơn tất cả các bạn🤜🤛<br />Vui lòng liên hệ vào email trade.dealhub@gmail.com nếu bạn có bất kỳ thắc mắc nào</h6>
             </marquee>
             <div class="col-sm-8">
                 <!-- Phần trung tâm -->
-                <h1>Create Deposit</h1>
+               
                 <form method="post" asp-controller="Account" asp-action="CreateDeposit">
+                   
                     <table class="table">
+                        <h1>Create Deposit</h1>
                         <div class="col-md-9">
-                            <button type="button" class="btn btn-secondary" style="width: 99%; white-space: normal; margin-right: 5px; margin-bottom: 5px;">Cổng thanh toán (Thu thêm 3% phí dịch vụ hoặc 3k cho các giao dịch thấp hơn 100k)</button><button type="button" class="btn btn-primary" style="width: 99%; white-space: normal; margin-right: 5px; margin-bottom: 5px;">Chuyển khoản ngân hàng (Thu phí theo phí chuyển khoản ngân hàng)</button></div>
+                            <button type="button" class="btn btn-primary" style="width: 99%; white-space: normal; margin-right: 5px; margin-bottom: 5px;">Chuyển khoản ngân hàng (Thu phí theo phí chuyển khoản ngân hàng)</button></div>
                         <tr>
                             <td><input type="hidden" id="wallet_id" name="wallet_id" class="form-control" value="@WalletDAO.GetWalletByAccountId(ViewBag.accountId).account_id"></td>
                             <td><input type="hidden" id="id" name="id" class="form-control" value="@ViewBag.accountId"></td>
                         </tr> 
                         <tr>
-                            <td>Credit/QR</td>
-                            <td><button>Credit transfer will lose 2% of fee transferring via bank</button></td>
-                        </tr>
-                        <tr>
                             <td>Amount</td>
                             <td><input type="number" id="amount" name="amount" class="form-control" value="" placeholder="0000"></td>
-                        </tr>
-                        <tr>
-                            <td>Fee</td>
-                            <td><input type="text" id="fee" name="fee" class="form-control" value="Phí bằng 5% số tiền nạp vào" disabled></td>
                         </tr>
                         <tr>
                             <td colspan="2"> <button type="submit" class="btn btn-primary">Submit</button></td>
@@ -410,11 +296,7 @@
         </div>
 
     </main>
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - Trade&Deal Hub - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
+
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
