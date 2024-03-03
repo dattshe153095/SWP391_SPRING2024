@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
+using Business.Models;
 
-namespace BussinessObject.Models
+namespace Business.Models
 {
     public class Account
     {
@@ -29,7 +30,7 @@ namespace BussinessObject.Models
         public string? description { get; set; }
         [ForeignKey(nameof(Role))]
         public int role_id { get; set; }
-        public virtual AccountRole? Role { get; set; }
+        public virtual Role? Role { get; set; }
         //==TRACK==
         public DateTime create_at { get; set; } = DateTime.Now;
         public DateTime update_at { get; set; } = DateTime.Now;
@@ -37,17 +38,19 @@ namespace BussinessObject.Models
 
         //======== Many ======
 
-        public virtual ICollection<Order>? Orders { get; set; }
-        public virtual ICollection<Order>? OrderCreates { get; set; }
-        public virtual ICollection<Order>? OrderUpdate { get; set; }
-        public virtual ICollection<Product>? ProductCreates { get; set; }
-        public virtual ICollection<Product>? ProductUpdates { get; set; }
+        public virtual ICollection<DepositResponse>? DepositResponseCreates { get; set; }
+        public virtual ICollection<DepositResponse>? DepositResponseUpdates { get; set; }
+        public virtual ICollection<WithdrawalResponse>? WithdrawalResponseCreates { get; set; }
+        public virtual ICollection<WithdrawalResponse>? WithdrawalResponseUpdates { get; set; }
         public virtual ICollection<Wallet>? Wallets { get; set; }
         public virtual ICollection<Wallet>? WalletUpdates { get; set; }
         public virtual ICollection<Deposit>? DepositCreates { get; set; }
         public virtual ICollection<Deposit>? DepositUpdates { get; set; }
         public virtual ICollection<Withdrawal>? WithdrawalCreates { get; set; }
         public virtual ICollection<Withdrawal>? WithdrawalUpdates { get; set; }
+        public virtual ICollection<IntermediateOrder>? IntermediateOrderCreates { get; set; }
+        public virtual ICollection<IntermediateOrder>? IntermediateOrderBuys { get; set; }
+        public virtual ICollection<IntermediateOrder>? IntermediateOrderUpdates { get; set; }
     }
 
 }

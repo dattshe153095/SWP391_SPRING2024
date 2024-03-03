@@ -1,7 +1,8 @@
-﻿@using BussinessObject.Models;
+﻿@using Business.Models;
 @using DataAccess.DAO;
-@using WebClient
-@using WebClient.Models
+@using DataAccess.Library;
+@using WebClient2
+@using WebClient2.Models
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
@@ -63,6 +64,7 @@
                         {
                             <li class="dropdown nav-item"><a aria-haspopup="true" href="#" class="nav-link" aria-expanded="false"><i class="fa-regular fa-bell" style="color:black;"></i></a></li>
 
+
                             <li class="nav-item">
                                 <div class="dropdown">
                                     <button class="dropbtn">
@@ -72,11 +74,13 @@
                                         <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Profile">Profile</a>
                                         <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Wallet">Wallet</a>
                                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="LogOut"> LogOut</a>
+
                                     </div>
                                 </div>
                             </li>
                         }
                     </ul>
+                   
                 </div>
             </div>
         </nav>

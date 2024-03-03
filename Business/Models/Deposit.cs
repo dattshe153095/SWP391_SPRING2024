@@ -5,8 +5,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Business.Models;
 
-namespace BussinessObject.Models
+namespace Business.Models
 {
     public class Deposit
     {
@@ -16,14 +17,25 @@ namespace BussinessObject.Models
         public int wallet_id { get; set; }
         public virtual Wallet? Wallet { get; set; }
         public int amount { get; set; }
-        public int fee { get; set; }
+        [Column(TypeName = "varchar")]
+        [MaxLength(200)]
+        public string trans_code{ get; set; }
+
+        [Required]
         [Column(TypeName = "nvarchar")]
         [MaxLength(200)]
-        public string? desctiption { get; set; }
-        [Required]
-        [Column(TypeName = "varchar")]
-        [MaxLength(100)]
         public string status { get; set; }
+
+
+        [Column(TypeName = "nvarchar")]
+        [MaxLength(200)]
+        public string state { get; set; }
+
+        [Column(TypeName = "nvarchar")]
+        [MaxLength(200)]
+        public string? description { get; set; }
+
+        public virtual ICollection<DepositResponse>? DepositResponses { get; set; }
 
         //==TRACK==
         #region TRACKING
