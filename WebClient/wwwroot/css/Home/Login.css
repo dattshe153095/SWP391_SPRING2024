@@ -35,3 +35,23 @@ footer {
 header{
     background-color: #fe9fe5;
 }
+.nav-dropdown-item {
+    display: none;
+    position: absolute;
+    background-color: #ffd8ed;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+    .nav-dropdown-item .nav-item a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+        .nav-dropdown-item .nav-item a:hover {
+            background-color: #f1f1f1;
+        }
+.nav-dropdown:hover .nav-dropdown-item {
+    background-color: #ff9de5;
+}

@@ -69,9 +69,6 @@ body {
     background-color: #ffd8ed;
 }
 
-div main div img {
-    height: 785px;
-}
 
 .dropbtn {
     background-color: #ff9de5;
@@ -136,15 +133,41 @@ div main div img {
     overflow-y: auto;
 }
 
-.sidebar .nav .nav-item .nav-link i{
+    .sidebar .nav .nav-item .nav-link i {
+        color: black;
+    }
+
+    .sidebar .nav .nav-item a {
+        color: black;
+    }
+
+.nav-dropdown-item {
+    display: none;
+    position: absolute;
+    background-color: #ffd8ed;
+    min-width: 200px;
+    z-index: 1000;
+    list-style: none;
+    padding-left: 0px;
+
+}.navbar-nav li:hover .nav-dropdown-item{
+     display:block;
+ }
+    .navbar-nav .nav-dropdown-item li a:hover{
+  background-color: #f1f1f1;
+    }
+  
+
+    .nav-dropdown-item a {
+        color: black;
+    }
+.navbar-nav .nav-item a {
     color: black;
 }
-.sidebar .nav .nav-item a{
-    color: black;
-}
-.card-header{
+.card-header {
     background-color: pink;
 }
+
 #app {
     display: flex;
 }
@@ -157,6 +180,10 @@ div main div img {
 .show-sidebar {
     transform: translateX(0); /* Show sidebar on button click */
 }
-.app-body .sidebar ul{
+
+.app-body .sidebar ul {
     list-style: none;
 }
+
+/*-------------------------------*/
+
