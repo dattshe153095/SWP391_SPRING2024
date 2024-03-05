@@ -27,15 +27,20 @@ namespace WebClient2.Controllers
         // GET: IntermediateOrders
         public IActionResult Index()
         {
-
             List<IntermediateOrder> order = IntermediateOrderDAO.GetAllIntermediateOrders();
             return View(order);
         }
 
-        // GET: IntermediateOrders/Details/5
-        public IActionResult Details(string? id)
+        public IActionResult Market()
         {
-            if (id == null || _context.IntermediateOrders == null)
+            List<IntermediateOrder> order = IntermediateOrderDAO.GetInterAbleToSell();
+            return View(order);
+        }
+
+        // GET: IntermediateOrders/Details/5
+        public IActionResult MarketDetail(string? id)
+        {
+            if (id == null)
             {
                 return NotFound();
             }
@@ -157,7 +162,8 @@ namespace WebClient2.Controllers
             return View(order);
         }
 
-        public IActionResult Buy(string? id)
+        [HttpGet]
+        public IActionResult BuyDetail(string? id)
         {
             if (id == null)
             {
@@ -175,7 +181,7 @@ namespace WebClient2.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Buy(string id, string name, int price, bool fee_type, string description, string contact, string hidden_content, bool is_public)
+        public IActionResult Buy(string id)
         {
             if (HttpContext.Session.GetInt32("Account") == null)
             {
@@ -184,24 +190,20 @@ namespace WebClient2.Controllers
             int account_id = HttpContext.Session.GetInt32("Account").Value;
 
             IntermediateOrder order = IntermediateOrderDAO.GetIntermediateOrderById(id);
-            if (ModelState.IsValid)
+            //CALCULATE PRICE
+
+            //MapData
+            if (WalletDAO.GetWalletByAccountId(account_id).balance < order.payment_amount)
             {
-                //CALCULATE PRICE
-
-                //MapData
-                if (WalletDAO.GetWalletByAccountId(account_id).balance < order.payment_amount)
-                {
-                    ModelState.AddModelError(string.Empty, "Không đủ tiền trong tài khoản! Tài khoản hiện tại có: " + WalletDAO.GetWalletByAccountId(account_id).balance);
-                }
-                WalletDAO.UpdateWalletBuyOrder(WalletDAO.GetWalletByAccountId(account_id).id, (int)order.payment_amount);
-
-                order.update_by = account_id;
-                order.buy_user = account_id;
-                order.buy_at = DateTime.Now;
-                IntermediateOrderDAO.BuyIntermediateOrder(account_id, order);
-                return RedirectToAction(nameof(Index));
+                ModelState.AddModelError(string.Empty, "Không đủ tiền trong tài khoản! Tài khoản hiện tại có: " + WalletDAO.GetWalletByAccountId(account_id).balance);
             }
-            return View(order);
+            WalletDAO.UpdateWalletBuyOrder(WalletDAO.GetWalletByAccountId(account_id).id, (int)order.payment_amount);
+
+            order.update_by = account_id;
+            order.buy_user = account_id;
+            order.buy_at = DateTime.Now;
+            IntermediateOrderDAO.BuyIntermediateOrder(account_id, order);
+            return RedirectToAction(nameof(Market));
         }
     }
 }

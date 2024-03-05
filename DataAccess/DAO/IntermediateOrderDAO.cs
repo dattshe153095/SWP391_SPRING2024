@@ -23,6 +23,23 @@ namespace DataAccess.DAO
             return list;
         }
 
+        public static List<IntermediateOrder> GetInterAbleToSell()
+        {
+            List<IntermediateOrder> list = new List<IntermediateOrder>();
+
+            using (var context = new Web_Trung_GianContext())
+            {
+                list = context.IntermediateOrders.
+                    Where(x => x.is_delete == false
+                    && x.buy_user == null
+                    && x.is_public == true
+                    && x.status == IntermediateOrderEnum.SAN_SANG_GIAO_DICH
+                    )
+                    .ToList();
+            }
+            return list;
+        }
+
         public static IntermediateOrder GetIntermediateOrderById(string id)
         {
             IntermediateOrder order = new IntermediateOrder();
@@ -126,7 +143,7 @@ namespace DataAccess.DAO
         {
             OrderViewModel viewModel = new OrderViewModel()
             {
-                code = order.id.ToString(),
+                id = order.id.ToString(),
                 account_create = AccountDAO.GetAccountWithId(order.create_by),
                 account_buy = AccountDAO.GetAccountWithId(order.buy_user),
                 state = order.state,

@@ -11,11 +11,11 @@
 <hr />
 <div class="row">
     <div class="col-md-6">
-        <form method="post" asp-controller="IntermediateOrders" asp-action="Edit">
+        <form method="post" asp-controller="IntermediateOrders" asp-action="Buy">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label class="control-label">Mã Trung Gian</label>
-                <input asp-for="id" class="form-control" disabled readonly />
+                <input asp-for="id" name="id" class="form-control" readonly />
                 <span asp-validation-for="id" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -29,21 +29,21 @@
             </div>
             <div class="form-group">
                 <label class="control-label">Chủ đề trung gian (*)</label>
-                <input asp-for="name" class="form-control" />
+                <input asp-for="name" class="form-control" disabled/>
                 <span asp-validation-for="name" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label class="control-label">Giá tiền (*)</label>
-                <input type="number" asp-for="price" class="form-control" />
+                <input type="number" asp-for="price" class="form-control" disabled />
                 <span asp-validation-for="price" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label class="control-label">Bên chịu phí (*)</label>
                 <div>
-                    <input type="radio" class="btn-check" asp-for="fee_type" name="fee_type" id="fee_type_1" autocomplete="off" value="true">
+                    <input type="radio" class="btn-check" asp-for="fee_type" name="fee_type" id="fee_type_1" autocomplete="off" value="true" disabled>
                     <label class="btn btn-outline-success" for="fee_type_1"> Bên bán chịu phí </label>
 
-                    <input type="radio" class="btn-check" asp-for="fee_type" name="fee_type" id="fee_type_2" autocomplete="off" value="false">
+                    <input type="radio" class="btn-check" asp-for="fee_type" name="fee_type" id="fee_type_2" autocomplete="off" value="false" disabled>
                     <label class="btn btn-outline-danger" for="fee_type_2"> Bên bán mua phí </label>
                 </div>
                 <span asp-validation-for="fee_type" class="text-danger"></span>
@@ -65,26 +65,21 @@
             </div>
             <div class="form-group">
                 <label class="control-label">Mô tả</label>
-                <input asp-for="description" class="form-control" />
+                <input asp-for="description" class="form-control" disabled />
                 <span asp-validation-for="description" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label class="control-label">Phương thức liên lạc</label>
-                <input asp-for="contact" class="form-control" />
+                <input asp-for="contact" class="form-control" disabled />
                 <span asp-validation-for="contact" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Nội dung ẩn (*)</label>
-                <textarea asp-for="hidden_content" class="form-control" id="hidden_content" name="hidden_content" rows="5"></textarea>
-                <span asp-validation-for="hidden_content" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label class="control-label">Công khai (*)</label>
                 <div>
-                    <input type="radio" class="btn-check" asp-for="is_public" name="is_public" id="success-outlined" autocomplete="off" value="true">
+                    <input type="radio" class="btn-check" asp-for="is_public" name="is_public" id="success-outlined" autocomplete="off" value="true" disabled>
                     <label class="btn btn-outline-success" for="success-outlined">Hiện công khai</label>
 
-                    <input type="radio" class="btn-check" asp-for="is_public" name="is_public" id="danger-outlined" autocomplete="off" value="false">
+                    <input type="radio" class="btn-check" asp-for="is_public" name="is_public" id="danger-outlined" autocomplete="off" value="false" disabled>
                     <label class="btn btn-outline-danger" for="danger-outlined"> Ẩn giới hạn</label>
                 </div>
                 <span asp-validation-for="is_public" class="text-danger"></span>
@@ -95,12 +90,12 @@
                 <span asp-validation-for="create_at" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label class="control-label">Thời gian tạo</label>
+                <label class="control-label">Thời gian update</label>
                 <input type="datetime" asp-for="update_at" class="form-control" disabled />
                 <span asp-validation-for="update_at" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label class="control-label">Thời gian tạo</label>
+                <label class="control-label">Link</label>
                 <input type="text" asp-for="link_share" class="form-control" disabled readonly />
                 <span asp-validation-for="link_share" class="text-danger"></span>
             </div>

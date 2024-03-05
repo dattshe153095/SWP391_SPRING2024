@@ -5,7 +5,7 @@ namespace DataAccess.ViewModel
 {
     public class OrderViewModel
     {
-        public string code { get; set; }
+        public string id { get; set; }
         public Account? account_create { get; set; }
         public Account? account_buy { get; set; }
         public string state { get; set; }
