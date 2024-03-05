@@ -107,7 +107,7 @@ namespace DataAccess.DAO
                 List<IntermediateOrder> orders = new List<IntermediateOrder>();
                 using (var context = new Web_Trung_GianContext())
                 {
-                    orders = context.IntermediateOrders.Where(x => x.status == IntermediateOrderEnum.MOI_TAO && x.state == StateEnum.DANG_XU_LI && x.is_delete==false).ToList();
+                    orders = context.IntermediateOrders.Where(x => x.status == IntermediateOrderEnum.MOI_TAO && x.state == StateEnum.DANG_XU_LI && x.is_delete == false).ToList();
                     foreach (var order in orders)
                     {
                         order.status = IntermediateOrderEnum.SAN_SANG_GIAO_DICH;
@@ -144,5 +144,126 @@ namespace DataAccess.DAO
             };
             return viewModel;
         }
+
+        public static void CheckOrderKiemTraHang()
+        {
+            try
+            {
+                List<IntermediateOrder> orders = new List<IntermediateOrder>();
+                using (var context = new Web_Trung_GianContext())
+                {
+                    orders = context.IntermediateOrders.Where(x => 
+                    x.status == IntermediateOrderEnum.BEN_MUA_KIEM_TRA_HANG ||
+                    x.status == IntermediateOrderEnum.CHO_BEN_MUA_XAC_NHAN
+                    ).ToList();
+
+                }
+                foreach (IntermediateOrder o in orders)
+                {
+                    TimeSpan khoangCach = DateTime.Now - o.buy_at.Value;
+                    int days = (int)khoangCach.TotalDays;
+                    if (days >= 3)
+                    {
+                        WalletDAO.UpdateWalletDepositBalance(o.create_by, (int)o.earn_amount);
+                        o.state = StateEnum.THANH_CONG;
+                        o.status = IntermediateOrderEnum.HOAN_THANH;
+                        o.update_at = DateTime.Now;
+                        o.update_by = AccountDAO.GetAccountWithRole(1).id;
+                        UpdateIntermediateOrderState(o);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+        public static void CheckOrderKhieuNai()
+        {
+            try
+            {
+                List<IntermediateOrder> orders = new List<IntermediateOrder>();
+                using (var context = new Web_Trung_GianContext())
+                {
+                    orders = context.IntermediateOrders.Where(x => x.status == IntermediateOrderEnum.BEN_MUA_KHIEU_NAI).ToList();
+
+                }
+                foreach (IntermediateOrder o in orders)
+                {
+                    TimeSpan khoangCach = DateTime.Now - o.update_at;
+                    int days = (int)khoangCach.TotalDays;
+                    if (days >= 1 && o.buy_at < o.update_at)
+                    {
+                        WalletDAO.UpdateWalletDepositBalance(o.buy_user.Value, (int)o.payment_amount);
+                        o.state = StateEnum.THAT_BAI;
+                        o.status = IntermediateOrderEnum.HUY;
+                        o.update_at = DateTime.Now;
+                        o.update_by = AccountDAO.GetAccountWithRole(1).id;
+                        UpdateIntermediateOrderState(o);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        public static void CheckOrderDanhDauKhieuNai()
+        {
+            try
+            {
+                List<IntermediateOrder> orders = new List<IntermediateOrder>();
+                using (var context = new Web_Trung_GianContext())
+                {
+                    orders = context.IntermediateOrders.Where(x => 
+                    x.status == IntermediateOrderEnum.BEN_BAN_DANH_DAU_KHIEU_NAI ||
+                    x.status == IntermediateOrderEnum.YEU_CAU_QUAN_TRI  
+                    ).ToList();
+
+                }
+                foreach (IntermediateOrder o in orders)
+                {
+                    TimeSpan khoangCach = DateTime.Now - o.update_at;
+                    int days = (int)khoangCach.TotalDays;
+                    if (days >= 1 && o.buy_at < o.update_at)
+                    {
+                        WalletDAO.UpdateWalletDepositBalance(o.buy_user.Value, (int)o.payment_amount);
+                        o.state = StateEnum.THAT_BAI;
+                        o.status = IntermediateOrderEnum.HUY;
+                        o.update_at = DateTime.Now;
+                        o.update_by = AccountDAO.GetAccountWithRole(1).id;
+                        UpdateIntermediateOrderState(o);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        public static void UpdateIntermediateOrderState(IntermediateOrder intermediateOrder)
+        {
+            try
+            {
+                intermediateOrder.update_at = DateTime.Now;
+                IntermediateOrder order = GetIntermediateOrderById(intermediateOrder.id);
+                if (order != null)
+                {
+                    using (var context = new Web_Trung_GianContext())
+                    {
+                        var intermediateOrders = context.Set<IntermediateOrder>();
+                        intermediateOrders.Update(intermediateOrder);
+                        context.SaveChanges();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
     }
 }

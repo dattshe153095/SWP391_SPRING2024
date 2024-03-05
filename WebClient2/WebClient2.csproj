@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\Admin\**" />
+    <Content Remove="Controllers\Admin\**" />
+    <EmbeddedResource Remove="Controllers\Admin\**" />
+    <None Remove="Controllers\Admin\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Views\Home\ForgotPassword.cshtml~RF6ce6c8c.TMP" />
     <None Remove="Views\Home\Login.cshtml~RF6e44840.TMP" />
   </ItemGroup>
@@ -23,10 +30,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Business\Business.csproj" />
     <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\Admin\" />
   </ItemGroup>
 
 </Project>
