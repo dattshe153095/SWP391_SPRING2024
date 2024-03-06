@@ -74,11 +74,6 @@
                 <span asp-validation-for="contact" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label class="control-label">Nội dung ẩn (*)</label>
-                <textarea asp-for="hidden_content" class="form-control" id="hidden_content" name="hidden_content" rows="5"></textarea>
-                <span asp-validation-for="hidden_content" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label class="control-label">Công khai (*)</label>
                 <div>
                     <input type="radio" class="btn-check" asp-for="is_public" name="is_public" id="success-outlined" autocomplete="off" value="true">
@@ -95,7 +90,7 @@
                 <span asp-validation-for="create_at" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label class="control-label">Thời gian tạo</label>
+                <label class="control-label">Cập nhật cuối</label>
                 <input type="datetime" asp-for="update_at" class="form-control" disabled />
                 <span asp-validation-for="update_at" class="text-danger"></span>
             </div>

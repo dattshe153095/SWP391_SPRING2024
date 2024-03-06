@@ -1,5 +1,42 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@using DataAccess.DAO;
+@model IEnumerable<Business.Models.IntermediateOrder>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Mã trung gian</th>
+            <th>Chủ đề trung gian</th>
+            <th>Giá tiền</th>
+            <th>Bên chịu phí trung gian</th>
+            <th>Tổng phí cần mua</th>
+            <th>Người bán</th>
+            <th>Thời gian tạo</th>
+            <th>Cập nhật cuối</th>
+            <th>Hành động</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.id</td>
+                <td>@item.name</td>
+                <td>@item.price</td>
+                @if (item.fee_type)
+                {
+                    <td>Bên bán</td>
+                }
+                else
+                {
+                    <td>Bên mua</td>
+                }
+                <td>@item.payment_amount</td>
+                <td>@AccountDAO.GetAccountWithId(item.create_by).name</td>
+                <td>@item.create_at.ToString("dd/MM/yyyy")</td>
+                <td>@item.update_at.ToString("dd/MM/yyyy")</td>
+                <td><a class="btn btn-primary" asp-controller="IntermediateOrders" asp-action="OwnerDetail" asp-route-id="@item.id">Chi tiết</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

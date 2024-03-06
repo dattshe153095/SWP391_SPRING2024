@@ -282,5 +282,33 @@ namespace DataAccess.DAO
             }
         }
 
+        public static List<IntermediateOrder> GetIntermediateOrderBuyed(int user_id)
+        {
+            List<IntermediateOrder> list = new List<IntermediateOrder>();
+
+            using (var context = new Web_Trung_GianContext())
+            {
+                list = context.IntermediateOrders.
+                    Where(x => x.is_delete == false
+                    && x.buy_user == user_id
+                    ).ToList();
+            }
+            return list;
+        }
+
+        public static List<IntermediateOrder> GetIntermediateOrderCreated(int user_id)
+        {
+            List<IntermediateOrder> list = new List<IntermediateOrder>();
+
+            using (var context = new Web_Trung_GianContext())
+            {
+                list = context.IntermediateOrders.
+                    Where(x => x.is_delete == false
+                    && x.create_by == user_id
+                    ).ToList();
+            }
+            return list;
+        }
+
     }
 }

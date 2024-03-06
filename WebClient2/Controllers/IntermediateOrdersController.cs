@@ -24,13 +24,6 @@ namespace WebClient2.Controllers
             _context = context;
         }
 
-        // GET: IntermediateOrders
-        public IActionResult Index()
-        {
-            List<IntermediateOrder> order = IntermediateOrderDAO.GetAllIntermediateOrders();
-            return View(order);
-        }
-
         public IActionResult Market()
         {
             List<IntermediateOrder> order = IntermediateOrderDAO.GetInterAbleToSell();
@@ -204,6 +197,44 @@ namespace WebClient2.Controllers
             order.buy_at = DateTime.Now;
             IntermediateOrderDAO.BuyIntermediateOrder(account_id, order);
             return RedirectToAction(nameof(Market));
+        }
+
+        [HttpGet]
+        public IActionResult OrderBuy()
+        {
+            int account_id = HttpContext.Session.GetInt32("Account").Value;
+            if (account_id == null)
+            {
+                return NotFound();
+            }
+
+            List<IntermediateOrder> intermediateOrder = new List<IntermediateOrder>();
+            intermediateOrder = IntermediateOrderDAO.GetIntermediateOrderBuyed(account_id);
+
+            if (intermediateOrder == null)
+            {
+                return NotFound();
+            }
+            return View(intermediateOrder);
+        }
+
+        [HttpGet]
+        public IActionResult OrderSell()
+        {
+            int account_id = HttpContext.Session.GetInt32("Account").Value;
+            if (account_id == null)
+            {
+                return NotFound();
+            }
+
+            List<IntermediateOrder> intermediateOrder = new List<IntermediateOrder>();
+            intermediateOrder = IntermediateOrderDAO.GetIntermediateOrderCreated(account_id);
+
+            if (intermediateOrder == null)
+            {
+                return NotFound();
+            }
+            return View(intermediateOrder);
         }
     }
 }

@@ -1,4 +1,7 @@
-﻿<div class="row">
+﻿@{
+    ViewData["Title"] = "Login Page";
+}
+<div class="row">
     <div class="col-md-6">
         <form method="post" asp-controller="Home" asp-action="Login"
               class="card-body cardbody-color p-lg-5">
@@ -72,4 +75,4 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-}
+    }
