@@ -35,8 +35,60 @@
                 <td>@AccountDAO.GetAccountWithId(item.create_by).name</td>
                 <td>@item.create_at.ToString("dd/MM/yyyy")</td>
                 <td>@item.update_at.ToString("dd/MM/yyyy")</td>
-                <td><a class="btn btn-primary" asp-controller="IntermediateOrders" asp-action="OwnerDetail" asp-route-id="@item.id">Chi tiết</a></td>
+                <td><a class="btn btn-primary open-modal" data-id="@item.id">Chi tiết</a></td>
             </tr>
         }
     </tbody>
 </table>
+<div class="modal fade" id="DetailOrderModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Thông tin đơn trung gian</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script src="https://kit.fontawesome.com/6ae4d71e22.js" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function () {
+        $(".open-modal").click(function () {
+            var id = $(this).data('id');
+
+            // Gửi yêu cầu AJAX để lấy thông tin của IntermediateOrder
+            $.ajax({
+                type: 'GET',
+                url: '/IntermediateOrders/MarketDetail',
+                data: { id: id },
+                success: function (data) {
+                    // Xử lý dữ liệu trả về ở đây
+                    // data sẽ chứa thông tin của IntermediateOrder
+
+                    // Ví dụ: hiển thị thông tin trong modal body
+                    $(".modal-body").html(
+                        //"Mã trung gian: " + data.id + "<br/>" +
+                        //"Chủ đề trung gian: " + data.name + "<br/>" +
+                        data
+                    );
+
+                    // Mở modal
+                    $("#DetailOrderModal").modal('show');
+                },
+                error: function (xhr, status, error) {
+                    // Xử lý lỗi nếu có
+                    console.error(xhr.responseText);
+                }
+            });
+        });
+    });
+
+</script>

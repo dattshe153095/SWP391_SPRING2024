@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Business;
+﻿using Microsoft.AspNetCore.Mvc;
 using Business.Models;
 using DataAccess.Library;
 using WebClient2.BackGroundServices;
@@ -17,13 +10,7 @@ namespace WebClient2.Controllers
     [ServiceFilter(typeof(SemaphoreActionFilter))]
     public class IntermediateOrdersController : Controller
     {
-        private readonly Web_Trung_GianContext _context;
-
-        public IntermediateOrdersController(Web_Trung_GianContext context)
-        {
-            _context = context;
-        }
-
+        #region VIEW INTER ORDER
         public IActionResult Market()
         {
             List<IntermediateOrder> order = IntermediateOrderDAO.GetInterAbleToSell();
@@ -49,17 +36,15 @@ namespace WebClient2.Controllers
                 return NotFound();
             }
 
-            return View(order);
+            //return View(order);
+            return PartialView("_ModalOrder", order);
         }
+        #endregion
 
+        #region CREATE INTER ORDER
         // GET: IntermediateOrders/Create
         public IActionResult Create()
         {
-            if (HttpContext.Session.GetInt32("Account") == null)
-            {
-                return RedirectToAction("Login", "Home");
-            }
-            int account_id = HttpContext.Session.GetInt32("Account").Value;
             return View();
         }
 
@@ -77,8 +62,6 @@ namespace WebClient2.Controllers
             IntermediateOrder order = new IntermediateOrder();
             if (ModelState.IsValid)
             {
-                //int user_id = HttpContext.Session.GetInt32("Account").Value;
-
                 if (WalletDAO.GetWalletByAccountId(account_id).balance < 500)
                 {
                     ModelState.AddModelError(string.Empty, "Không đủ tiền trong tài khoản! Tài khoản hiện tại có: " + WalletDAO.GetWalletByAccountId(account_id).balance);
@@ -116,12 +99,9 @@ namespace WebClient2.Controllers
             }
             return View(order);
         }
+        #endregion
 
-
-
-        // POST: IntermediateOrders/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        #region EDIT INTER ORDER
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(string id, string name, int price, bool fee_type, string description, string contact, string hidden_content, bool is_public)
@@ -154,7 +134,9 @@ namespace WebClient2.Controllers
             }
             return View(order);
         }
+        #endregion
 
+        #region BUY INTER ORDER
         [HttpGet]
         public IActionResult BuyDetail(string? id)
         {
@@ -173,12 +155,11 @@ namespace WebClient2.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Buy(string id)
         {
             if (HttpContext.Session.GetInt32("Account") == null)
             {
-                return RedirectToAction("Login", "Home");
+                return RedirectToAction("Login","Home");
             }
             int account_id = HttpContext.Session.GetInt32("Account").Value;
 
@@ -188,7 +169,7 @@ namespace WebClient2.Controllers
             //MapData
             if (WalletDAO.GetWalletByAccountId(account_id).balance < order.payment_amount)
             {
-                ModelState.AddModelError(string.Empty, "Không đủ tiền trong tài khoản! Tài khoản hiện tại có: " + WalletDAO.GetWalletByAccountId(account_id).balance);
+                return Json(new { success = false, message = "Không đủ tiền trong tài khoản! Tài khoản hiện tại có: " + WalletDAO.GetWalletByAccountId(account_id).balance });
             }
             WalletDAO.UpdateWalletBuyOrder(WalletDAO.GetWalletByAccountId(account_id).id, (int)order.payment_amount);
 
@@ -196,9 +177,11 @@ namespace WebClient2.Controllers
             order.buy_user = account_id;
             order.buy_at = DateTime.Now;
             IntermediateOrderDAO.BuyIntermediateOrder(account_id, order);
-            return RedirectToAction(nameof(Market));
+            return Json(new { success = true, message = "Mua hàng thành công" });
         }
+        #endregion
 
+        #region VIEW ORDER BY TYPE SELL AND BUYED
         [HttpGet]
         public IActionResult OrderBuy()
         {
@@ -235,6 +218,15 @@ namespace WebClient2.Controllers
                 return NotFound();
             }
             return View(intermediateOrder);
+        }
+        #endregion
+
+        [HttpGet]
+        public IActionResult CheckSession()
+        {
+            bool loggedIn = HttpContext.Session.GetInt32("Account") != null;
+
+            return Json(new { loggedIn = loggedIn });
         }
     }
 }
