@@ -72,13 +72,7 @@
                 url: '/IntermediateOrders/MarketDetail',
                 data: { id: id },
                 success: function (data) {
-                    // Xử lý dữ liệu trả về ở đây
-                    // data sẽ chứa thông tin của IntermediateOrder
-
-                    // Ví dụ: hiển thị thông tin trong modal body
                     $(".modal-body").html(
-                        //"Mã trung gian: " + data.id + "<br/>" +
-                        //"Chủ đề trung gian: " + data.name + "<br/>" +
                         data
                         );
 

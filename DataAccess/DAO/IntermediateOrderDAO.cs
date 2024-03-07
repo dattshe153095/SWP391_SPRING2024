@@ -169,7 +169,7 @@ namespace DataAccess.DAO
                 List<IntermediateOrder> orders = new List<IntermediateOrder>();
                 using (var context = new Web_Trung_GianContext())
                 {
-                    orders = context.IntermediateOrders.Where(x => 
+                    orders = context.IntermediateOrders.Where(x =>
                     x.status == IntermediateOrderEnum.BEN_MUA_KIEM_TRA_HANG ||
                     x.status == IntermediateOrderEnum.CHO_BEN_MUA_XAC_NHAN
                     ).ToList();
@@ -233,9 +233,9 @@ namespace DataAccess.DAO
                 List<IntermediateOrder> orders = new List<IntermediateOrder>();
                 using (var context = new Web_Trung_GianContext())
                 {
-                    orders = context.IntermediateOrders.Where(x => 
+                    orders = context.IntermediateOrders.Where(x =>
                     x.status == IntermediateOrderEnum.BEN_BAN_DANH_DAU_KHIEU_NAI ||
-                    x.status == IntermediateOrderEnum.YEU_CAU_QUAN_TRI  
+                    x.status == IntermediateOrderEnum.YEU_CAU_QUAN_TRI
                     ).ToList();
 
                 }
@@ -308,6 +308,81 @@ namespace DataAccess.DAO
                     ).ToList();
             }
             return list;
+        }
+
+        public void ConfirmInterOrderComplete(string id)
+        {
+            try
+            {
+                IntermediateOrder order = GetIntermediateOrderById(id);
+                if (order != null)
+                {
+                    if (order.status == IntermediateOrderEnum.BEN_MUA_KIEM_TRA_HANG)
+                    {
+                        order.status = IntermediateOrderEnum.HOAN_THANH;
+                        using (var context = new Web_Trung_GianContext())
+                        {
+                            var intermediateOrders = context.Set<IntermediateOrder>();
+                            intermediateOrders.Update(order);
+                            context.SaveChanges();
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        public void ReportInterOrder(string id)
+        {
+            try
+            {
+                IntermediateOrder order = GetIntermediateOrderById(id);
+                if (order != null)
+                {
+                    if (order.status == IntermediateOrderEnum.BEN_MUA_KIEM_TRA_HANG)
+                    {
+                        order.status = IntermediateOrderEnum.BEN_MUA_KHIEU_NAI;
+                        using (var context = new Web_Trung_GianContext())
+                        {
+                            var intermediateOrders = context.Set<IntermediateOrder>();
+                            intermediateOrders.Update(order);
+                            context.SaveChanges();
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        public void ReportAdminInterOrder(string id)
+        {
+            try
+            {
+                IntermediateOrder order = GetIntermediateOrderById(id);
+                if (order != null)
+                {
+                    if (order.status == IntermediateOrderEnum.BEN_MUA_KHIEU_NAI)
+                    {
+                        order.status = IntermediateOrderEnum.YEU_CAU_QUAN_TRI;
+                        using (var context = new Web_Trung_GianContext())
+                        {
+                            var intermediateOrders = context.Set<IntermediateOrder>();
+                            intermediateOrders.Update(order);
+                            context.SaveChanges();
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
 
     }

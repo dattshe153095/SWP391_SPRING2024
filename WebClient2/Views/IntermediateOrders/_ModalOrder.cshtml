@@ -1,8 +1,8 @@
 ﻿@using DataAccess.Library;
 @model DataAccess.ViewModel.OrderViewModel;
-
-
-
+@{
+    var account_id = ViewContext.HttpContext.Session.GetInt32("Account");
+}
 <div class="row">
     <div class="col-md-12">
         <form method="post" asp-controller="IntermediateOrders" asp-action="Edit">
@@ -67,6 +67,15 @@
                 <input asp-for="contact" class="form-control" disabled />
                 <span asp-validation-for="contact" class="text-danger"></span>
             </div>
+            @{
+                if (account_id == Model.account_buy.id)
+                {
+                    <div class="form-group">
+                        <label class="control-label">Phương thức liên lạc</label>
+                        <textarea class="form-control" asp-for="hi" rows="3"></textarea>
+                    </div>
+                }
+            }
             <div class="form-group">
                 <label class="control-label">Công khai (*)</label>
                 <div>
@@ -93,10 +102,10 @@
                 <input type="text" asp-for="link_share" class="form-control" disabled />
                 <span asp-validation-for="link_share" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" >
                 @if (Model.status == IntermediateOrderEnum.SAN_SANG_GIAO_DICH && Model.account_buy == null)
                 {
-                    <a  class="btn btn-success buyButton" data-url="@Url.Action("Buy", "IntermediateOrders", new { id = Model.id })">Mua đơn hàng</a>
+                    <a class="btn btn-success buyButton" data-url="@Url.Action("Buy", "IntermediateOrders", new { id = Model.id })">Mua đơn hàng</a>
                 }
             </div>
 
