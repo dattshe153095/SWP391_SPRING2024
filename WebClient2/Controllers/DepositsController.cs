@@ -7,16 +7,21 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Business;
 using Business.Models;
+using WebClient2.Services;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
+using DataAccess.DAO;
 
 namespace WebClient2.Controllers
 {
     public class DepositsController : Controller
     {
         private readonly Web_Trung_GianContext _context;
-
-        public DepositsController(Web_Trung_GianContext context)
+        private readonly IVnPayService _vpnPayService;
+        public DepositsController(Web_Trung_GianContext context, IVnPayService vnPayServices)
         {
             _context = context;
+            _vpnPayService = vnPayServices;
         }
 
         // GET: Deposits
@@ -159,5 +164,52 @@ namespace WebClient2.Controllers
         {
             return (_context.Deposits?.Any(e => e.id == id)).GetValueOrDefault();
         }
+
+
+        #region VNPAY
+        public IActionResult VnPay(Deposit deposit)
+        {
+            if (ModelState.IsValid)
+            {
+                var vnPayModel = new VnPaymentRequestModel
+                {
+                    Amount = deposit.amount,
+                    CreatedDate = DateTime.Now,
+                    Description = deposit.description,
+                    Id = deposit.id,
+                };
+                return Redirect(_vpnPayService.CreatePaymentUrl(HttpContext, vnPayModel));
+            }
+            return NotFound();
+        }
+
+        public IActionResult PaymentFail()
+        {
+            return View();
+        }
+
+        public IActionResult PaymentSuccess()
+        {
+            return View("PaymentSuccess");
+        }
+
+        public IActionResult PaymentCallBack()
+        {
+            var response = _vpnPayService.PaymentExecute(Request.Query);
+
+            if (response == null || response.VnPayReponseCode!="00") // Gia tri 00 la thanh cong
+            {
+                TempData["Message"] = $"Lỗi thanh toán VN Pay: {response.VnPayReponseCode}";
+                return RedirectToAction("PaymentFail");
+            }
+
+            //Lưu đơn hàng cho Database
+            //Deposit d = new Deposit { };
+           // DepositDAO.CreateDeposit();
+
+            TempData["Message"] = $"Thanh toán VN Pay thành công";
+            return RedirectToAction("PaymentSuccess");
+        }
+        #endregion
     }
 }
