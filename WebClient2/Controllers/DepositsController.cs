@@ -195,20 +195,31 @@ namespace WebClient2.Controllers
 
         public IActionResult PaymentCallBack()
         {
-            var response = _vpnPayService.PaymentExecute(Request.Query);
-
-            if (response == null || response.VnPayReponseCode!="00") // Gia tri 00 la thanh cong
+            if (Request.Query.Count == 0)
             {
-                TempData["Message"] = $"Lỗi thanh toán VN Pay: {response.VnPayReponseCode}";
-                return RedirectToAction("PaymentFail");
+                TempData["Message"] = $"Lỗi thanh toán VN Pay"; return RedirectToAction("PaymentFail");
             }
 
-            //Lưu đơn hàng cho Database
-            //Deposit d = new Deposit { };
-           // DepositDAO.CreateDeposit();
+            var response = _vpnPayService.PaymentExecute(Request.Query);
+            try
+            {
 
-            TempData["Message"] = $"Thanh toán VN Pay thành công";
-            return RedirectToAction("PaymentSuccess");
+
+                if (response == null || response.VnPayReponseCode != "00") // Gia tri 00 la thanh cong
+                {
+                    TempData["Message"] = $"Lỗi thanh toán VN Pay: {response.VnPayReponseCode}";
+                    return RedirectToAction("PaymentFail");
+                }
+
+                //Lưu đơn hàng cho Database
+                //Deposit d = new Deposit { };
+                // DepositDAO.CreateDeposit();
+
+                TempData["Message"] = $"Thanh toán VN Pay thành công";
+                return RedirectToAction("PaymentSuccess");
+            }
+            catch (Exception ex) { TempData["Message"] = $"Lỗi thanh toán VN Pay: {response.VnPayReponseCode}"; return RedirectToAction("PaymentFail"); }
+
         }
         #endregion
     }
