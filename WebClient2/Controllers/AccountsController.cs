@@ -10,6 +10,7 @@ using Business.Models;
 
 namespace WebClient2.Controllers
 {
+
     public class AccountsController : Controller
     {
         private readonly Web_Trung_GianContext _context;
