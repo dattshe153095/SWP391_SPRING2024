@@ -214,6 +214,8 @@ namespace WebClient2.Controllers
                 //Lưu đơn hàng cho Database
                 //Deposit d = new Deposit { };
                 // DepositDAO.CreateDeposit();
+                //string id = 
+                //WalletDAO.UpdateWalletDepositBalance(deposit.wallet_id, deposit.amount);
 
                 TempData["Message"] = $"Thanh toán VN Pay thành công";
                 return RedirectToAction("PaymentSuccess");

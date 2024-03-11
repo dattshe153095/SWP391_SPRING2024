@@ -68,7 +68,7 @@
                 <span asp-validation-for="contact" class="text-danger"></span>
             </div>
             @{
-                if (account_id == Model.account_buy.id)
+                if (Model.account_buy !=null && ViewContext.HttpContext.Session.GetInt32("Account") != null && ViewContext.HttpContext.Session.GetInt32("Account") == Model.account_buy.id)
                 {
                     <div class="form-group">
                         <label class="control-label">Nội dung ẩn</label>
