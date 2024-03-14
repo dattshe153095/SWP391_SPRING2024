@@ -1,0 +1,160 @@
+﻿@using Business.Models;
+@using DataAccess.DAO;
+@using WebClient2
+@using WebClient2.Models
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    Account user = AccountDAO.GetAccountWithId(ViewBag.accountId);
+
+}
+<div class="container">
+    <main role="main" class="main">
+
+        <div class="text-center">
+            <!-- Phần chứa bảng User Table -->
+            <div class="user-table-container">
+                <nav class="user-table">
+                    <h2>User Table</h2>
+                    <table border="1">
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Username</th>
+                            <th>Email</th>
+
+                            <th>Created At</th>
+                            <th>Updated At</th>
+                            <th>Description</th>
+                        </tr>
+                        <!-- Replace the data below with your actual data -->
+                        <tr>
+                            <td>@user.id</td>
+                            <td>@user.name</td>
+                            <td>@user.username</td>
+                            <td>@user.email</td>
+
+                            <td>@user.create_at</td>
+                            <td>@user.update_at</td>
+                            <td>@user.description</td>
+                        </tr>
+                        <!-- Add more rows as needed -->
+                    </table>
+                </nav>
+            </div>
+
+            <!-- Phần chứa biểu mẫu UpdateProfile và ChangePassword -->
+            <div class="forms-container">
+                <!-- Biểu mẫu UpdateProfile -->
+                <div class="update-profile-form">
+                    <h3>Update Profile</h3>
+                    <form method="post" asp-controller="Account" asp-action="UpdateProfile">
+                        <div class="form-group">
+                            <label for="id">Id:</label>
+                            <input type="number" name="id" value="@user.id" readonly />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name">Name:</label>
+                            <input type="text" id="name" name="name" value="@user.name" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name">Phone Number:</label>
+                            <input type="text" id="phone" name="phone" value="@user.phone" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="text" id="email" name="email" value="@user.email" readonly />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description">Description:</label>
+                            <input type="text" id="description" name="description" value="@user.description" placeholder="Giới thiệu bản thân" required />
+                        </div>
+
+
+                        <button type="submit">Update</button>
+
+                    </form>
+                </div>
+
+                <!-- Biểu mẫu ChangePassword -->
+                <div class="change-password-form">
+                    <h3>Change Password</h3>
+                    @if (ViewBag.ChangePasswordSuccess != null)
+                    {
+                        <div class="alert alert-success" role="alert">
+                            @ViewBag.ChangePasswordSuccess
+                        </div>
+                    }
+                    <form method="post" asp-controller="Account" asp-action="ChangePassword">
+                        <div class="form-group">
+                            <label for="UserName">UserName:</label>
+                            <input type="text" id="UserName" name="UserName" value="@user.username" readonly />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="old_password">Old Password:</label>
+                            <input type="password" id="old_password" name="old_password" placeholder="Password" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="new_password">Password:</label>
+                            <input type="password" id="new_password" name="new_password" placeholder="New Password" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm Password:</label>
+                            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Re-type new Password" required />
+                        </div>
+
+
+                        <div class="captcha-div">
+                            <span id="Captcha-image">
+                                <img id="captchaImage" src="data:image/png;base64,@ViewBag.CaptchaImageBytes"
+                                     alt="Captcha Image" />
+                            </span>
+
+                            <input type="text" id="captcha" name="captcha" class="captcha-form form-control" placeholder="Input capcha">
+
+                            <button type="button" id="refreshCaptcha">Refresh Captcha</button>
+                        </div>
+
+                        <button type="submit">Change Password</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        // Gán sự kiện click cho nút refresh captcha
+        $("#refreshCaptcha").on("click", function () {
+            refreshCaptchaImage();
+        });
+    });
+
+    function refreshCaptchaImage() {
+        $.ajax({
+            type: "POST",
+            url: "/Account/RefreshCaptcha", // Thay thế bằng đường dẫn của action cập nhật captcha
+            success: function (result) {
+                // Cập nhật ảnh captcha mới
+                $("#captchaImage").attr("src", "data:image/png;base64," + result);
+                $('#captcha').val('');
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+</script>
+
+
+
+
