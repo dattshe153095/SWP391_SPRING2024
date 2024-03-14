@@ -17,6 +17,7 @@ namespace WebClient2.Controllers
         public IActionResult Profile()
         {
             ViewBag.accountId = HttpContext.Session.GetInt32("Account");
+            int accountId = HttpContext.Session.GetInt32("Account").Value;
             //CAPTCHA
             Captcha oCaptcha = new Captcha();
             Random rnd = new Random();
@@ -39,7 +40,7 @@ namespace WebClient2.Controllers
 
             //MESSAGE
             ViewBag.ChangePasswordSuccess = TempData["SuccessMessage"];
-            return View();
+            return View(AccountDAO.GetAccountWithId(accountId));
         }
 
         [HttpPost]
