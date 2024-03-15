@@ -59,6 +59,7 @@ namespace WebClient2.Services
             var vnp_SecureHash = collection.FirstOrDefault(p => p.Key == "vnp_SecureHash").Value;
             var vnp_ResponseCode = vnpay.GetResponseData("vnp_ResponseCode");
             var vnp_OrderInfo = vnpay.GetResponseData("vnp_OrderInfo");
+            var vnp_Amount = vnpay.GetResponseData("vnp_Amount");
 
             bool checkSignature = vnpay.ValidateSignature(vnp_SecureHash, _config["VNPay:HashSecret"]);
             if (!checkSignature)
@@ -73,8 +74,9 @@ namespace WebClient2.Services
             {
                 Success = true,
                 PaymentMethod = "VnPay",
-                OrderDescription = vnp_OrderInfo,
-                OrderId = vnp_orderId.ToString(),
+                OrderDescription = vnp_orderId.ToString(),
+                OrderId = vnp_OrderInfo,
+                Amount = Convert.ToInt32(vnp_Amount)/100,
                 TransactionId = vnp_TransactionId.ToString(),
                 Token  = vnp_SecureHash,
                 VnPayReponseCode = vnp_ResponseCode.ToString(),

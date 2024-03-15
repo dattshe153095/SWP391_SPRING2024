@@ -80,7 +80,6 @@ namespace DataAccess.DAO
         }
 
 
-
         public static void DepositAction()
         {
             List<Deposit> deposits = GetAllDeposit().Where(x => x.status == StatusEnum.XAC_NHAN_THANH_CONG).ToList();
