@@ -301,5 +301,6 @@ namespace WebClient2.Controllers
             }
             return Json(imageCaptcha);
         }
+
     }
 }

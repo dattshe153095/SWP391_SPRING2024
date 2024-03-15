@@ -19,14 +19,10 @@ namespace Business.Models
 
         //===TRACKING===
         #region TRACKING
-        [ForeignKey(nameof(AccountUpdate))]
         public int update_by { get; set; }
         public DateTime update_at { get; set; } = DateTime.Now;
-        public virtual Account? AccountUpdate { get; set; }
         #endregion
 
-        public virtual ICollection<Deposit>? Deposits { get; set; }
-        public virtual ICollection<Withdrawal>? Withdrawals { get; set; }
     }
 }
 

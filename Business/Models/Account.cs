@@ -28,29 +28,13 @@ namespace Business.Models
         [Column(TypeName = "nvarchar")]
         [MaxLength(200)]
         public string? description { get; set; }
-        [ForeignKey(nameof(Role))]
         public int role_id { get; set; }
-        public virtual Role? Role { get; set; }
         //==TRACK==
         public DateTime create_at { get; set; } = DateTime.Now;
         public DateTime update_at { get; set; } = DateTime.Now;
         public bool is_delete { get; set; } = false;
 
-        //======== Many ======
 
-        public virtual ICollection<DepositResponse>? DepositResponseCreates { get; set; }
-        public virtual ICollection<DepositResponse>? DepositResponseUpdates { get; set; }
-        public virtual ICollection<WithdrawalResponse>? WithdrawalResponseCreates { get; set; }
-        public virtual ICollection<WithdrawalResponse>? WithdrawalResponseUpdates { get; set; }
-        public virtual ICollection<Wallet>? Wallets { get; set; }
-        public virtual ICollection<Wallet>? WalletUpdates { get; set; }
-        public virtual ICollection<Deposit>? DepositCreates { get; set; }
-        public virtual ICollection<Deposit>? DepositUpdates { get; set; }
-        public virtual ICollection<Withdrawal>? WithdrawalCreates { get; set; }
-        public virtual ICollection<Withdrawal>? WithdrawalUpdates { get; set; }
-        public virtual ICollection<IntermediateOrder>? IntermediateOrderCreates { get; set; }
-        public virtual ICollection<IntermediateOrder>? IntermediateOrderBuys { get; set; }
-        public virtual ICollection<IntermediateOrder>? IntermediateOrderUpdates { get; set; }
     }
 
 }

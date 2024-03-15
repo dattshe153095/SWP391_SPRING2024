@@ -1,4 +1,5 @@
-﻿using DataAccess.DAO;
+﻿using Business.Models;
+using DataAccess.DAO;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Threading;
@@ -28,6 +29,10 @@ namespace WebClient2.BackGroundServices
                     //CHECK IntermediateOrderDAO
                     IntermediateOrderDAO.HandleIntermediateOrderCreate();
 
+                    //CHECK STATE INTERMEDIATE ORDER
+                    IntermediateOrderDAO.CheckOrderKiemTraHang();
+                    IntermediateOrderDAO.CheckOrderKhieuNai();
+                    IntermediateOrderDAO.CheckOrderDanhDauKhieuNai();
 
                     // Đợi 3 phút trước khi thực hiện lại công việc
                     await Task.Delay(TimeSpan.FromSeconds(10), stoppingToken);

@@ -100,8 +100,8 @@ namespace WebClient2.Controllers
 
         private bool CheckIfUserNameExists(string userName)
         {
+            return AccountDAO.CheckAccountExist(userName);
             // Sử dụng đối tượng DbContext để kiểm tra tồn tại của userName trong cơ sở dữ liệu
-            return false;
         }
 
         [HttpPost]
@@ -201,6 +201,7 @@ namespace WebClient2.Controllers
             return View();
         }
         #endregion
+
 
     }
 }

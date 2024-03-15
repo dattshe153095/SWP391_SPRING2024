@@ -7,6 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\Admin\**" />
+    <Content Remove="Controllers\Admin\**" />
+    <EmbeddedResource Remove="Controllers\Admin\**" />
+    <None Remove="Controllers\Admin\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Views\Home\ForgotPassword.cshtml~RF6ce6c8c.TMP" />
+    <None Remove="Views\Home\Login.cshtml~RF6e44840.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.27" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.27">
       <PrivateAssets>all</PrivateAssets>
