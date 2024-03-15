@@ -65,12 +65,12 @@ namespace WebClient2.Controllers
 
         public IActionResult PaymentFail()
         {
-            return View("Payment Fail");
+            return View();
         }
 
         public IActionResult PaymentSuccess()
         {
-            return View("Payment Success");
+            return View();
         }
 
         public IActionResult PaymentCallBack()
