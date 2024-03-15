@@ -117,6 +117,7 @@ namespace WebClient2.Controllers
                 sb.Append(s[rnd.Next(1, s.Length)]);
             }
             Bitmap bm = oCaptcha.MakeCaptchaImage(sb.ToString(), 200, 100, "Arial");
+
             HttpContext.Session.SetString("CaptchaChangePass", sb.ToString());
 
             string imageCaptcha = "";
