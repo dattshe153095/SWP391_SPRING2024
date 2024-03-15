@@ -151,7 +151,7 @@ namespace DataAccess.DAO
                 name = order.name,
                 price = order.price,
                 fee_type = order.fee_type,
-                fee_amount = order.fee_rate* order.price,
+                fee_amount = order.fee_rate * order.price,
                 pay_amount = order.payment_amount,
                 earn_amount = order.earn_amount,
                 description = order.description,
@@ -338,7 +338,7 @@ namespace DataAccess.DAO
             }
         }
 
-        public void ReportInterOrder(string id)
+        public static void ReportInterOrder(string id)
         {
             try
             {
@@ -348,6 +348,7 @@ namespace DataAccess.DAO
                     if (order.status == IntermediateOrderEnum.BEN_MUA_KIEM_TRA_HANG)
                     {
                         order.status = IntermediateOrderEnum.BEN_MUA_KHIEU_NAI;
+                        order.update_at = DateTime.Now;
                         using (var context = new Web_Trung_GianContext())
                         {
                             var intermediateOrders = context.Set<IntermediateOrder>();
@@ -363,7 +364,7 @@ namespace DataAccess.DAO
             }
         }
 
-        public void ReportAdminInterOrder(string id)
+        public static void ReportAdminInterOrder(string id)
         {
             try
             {
@@ -373,6 +374,34 @@ namespace DataAccess.DAO
                     if (order.status == IntermediateOrderEnum.BEN_MUA_KHIEU_NAI)
                     {
                         order.status = IntermediateOrderEnum.YEU_CAU_QUAN_TRI;
+                        order.update_at = DateTime.Now;
+                        using (var context = new Web_Trung_GianContext())
+                        {
+                            var intermediateOrders = context.Set<IntermediateOrder>();
+                            intermediateOrders.Update(order);
+                            context.SaveChanges();
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        public static void DeleteInterOrder(string id)
+        {
+            try
+            {
+                IntermediateOrder order = GetIntermediateOrderById(id);
+                if (order != null)
+                {
+                    if (order.status != IntermediateOrderEnum.HOAN_THANH && order.state != StateEnum.THANH_CONG)
+                    {
+                        order.status = IntermediateOrderEnum.HUY;
+                        order.state = IntermediateOrderEnum.HUY;
+                        order.update_at = DateTime.Now;
                         using (var context = new Web_Trung_GianContext())
                         {
                             var intermediateOrders = context.Set<IntermediateOrder>();

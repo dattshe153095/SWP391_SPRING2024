@@ -43,19 +43,18 @@
 <!-- Modal -->
 <div class="modal fade" id="DetailOrderModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
+        @*<div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Thông tin đơn trung gian</h1>
-              @*  <a class="btn btn-primary" asp-action="ReportInterOrder" asp-route-id ="@Model."></a>*@
+                <a class="btn btn-primary" asp-action="ReportInterOrder" asp-route-id="@Model."></a>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
-        </div>
+        </div>*@
     </div>
 </div>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -73,9 +72,9 @@
                 url: '/IntermediateOrders/MarketDetail',
                 data: { id: id },
                 success: function (data) {
-                    $(".modal-body").html(
+                    $(".modal-dialog").html(
                         data
-                        );
+                    );
 
                     // Mở modal
                     $("#DetailOrderModal").modal('show');

@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Business;
 using Business.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace WebClient2.Controllers
 {
+    [Authorize(Roles = "Admin,User")]
     public class WithdrawalsController : Controller
     {
         private readonly Web_Trung_GianContext _context;
