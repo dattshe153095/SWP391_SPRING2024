@@ -14,9 +14,7 @@ namespace Business.Models
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
 
-        [ForeignKey(nameof(Withdrawal))]
-        public int withdrawal_id { get; set; }
-        public virtual Withdrawal? Withdrawal { get; set; }
+        public string withdrawal_id { get; set; }
 
         [Required]
         [Column(TypeName = "nvarchar")]
@@ -39,14 +37,9 @@ namespace Business.Models
 
         //==TRACK==
         #region TRACKING
-        [ForeignKey(nameof(AccountCreate))]
         public int create_by { get; set; }
-        public virtual Account? AccountCreate { get; set; }
         public DateTime create_at { get; set; } = DateTime.Now;
-
-        [ForeignKey(nameof(AccountUpdate))]
         public int update_by { get; set; }
-        public virtual Account? AccountUpdate { get; set; }
         public DateTime update_at { get; set; } = DateTime.Now;
 
         public bool is_delete { get; set; } = false;

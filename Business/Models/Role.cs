@@ -13,7 +13,6 @@ namespace Business.Models
         [MaxLength(500)]
         [Column(TypeName = "nvarchar")]
         public string? desctiption { get; set; }
-        public virtual ICollection<Account>? Accounts { get; set; }
 
     }
 

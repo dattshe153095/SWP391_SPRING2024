@@ -7,177 +7,113 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Business;
 using Business.Models;
+using WebClient2.Services;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
+using DataAccess.DAO;
+using WebClient2.Models;
+using DataAccess.Library;
 using WebClient2.BackGroundServices;
 
 namespace WebClient2.Controllers
 {
 
     [ServiceFilter(typeof(SemaphoreActionFilter))]
+    [Authorize(Roles = "Admin,User")]
     public class DepositsController : Controller
     {
-        private readonly Web_Trung_GianContext _context;
-
-        public DepositsController(Web_Trung_GianContext context)
+        private readonly IVnPayService _vpnPayService;
+        public DepositsController(IVnPayService vnPayServices)
         {
-            _context = context;
-        }
-
-        // GET: Deposits
-        public async Task<IActionResult> Index()
-        {
-            var web_Trung_GianContext = _context.Deposits.Include(d => d.AccountCreate).Include(d => d.AccountUpdate).Include(d => d.Wallet);
-            return View(await web_Trung_GianContext.ToListAsync());
-        }
-
-        // GET: Deposits/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _context.Deposits == null)
-            {
-                return NotFound();
-            }
-
-            var deposit = await _context.Deposits
-                .Include(d => d.AccountCreate)
-                .Include(d => d.AccountUpdate)
-                .Include(d => d.Wallet)
-                .FirstOrDefaultAsync(m => m.id == id);
-            if (deposit == null)
-            {
-                return NotFound();
-            }
-
-            return View(deposit);
+            _vpnPayService = vnPayServices;
         }
 
         // GET: Deposits/Create
         public IActionResult Create()
         {
-            ViewData["create_by"] = new SelectList(_context.Accounts, "id", "email");
-            ViewData["update_by"] = new SelectList(_context.Accounts, "id", "email");
-            ViewData["wallet_id"] = new SelectList(_context.Wallets, "id", "id");
+            if (HttpContext.Session.GetInt32("Account") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            int account_id = HttpContext.Session.GetInt32("Account").Value;
             return View();
         }
 
-        // POST: Deposits/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        #region VNPAY
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,wallet_id,amount,trans_code,status,state,description,create_by,create_at,update_by,update_at,is_delete")] Deposit deposit)
+        public IActionResult VnPay(DepositModel deposit)
         {
+            if (HttpContext.Session.GetInt32("Account") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            int account_id = HttpContext.Session.GetInt32("Account").Value;
             if (ModelState.IsValid)
             {
-                _context.Add(deposit);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["create_by"] = new SelectList(_context.Accounts, "id", "email", deposit.create_by);
-            ViewData["update_by"] = new SelectList(_context.Accounts, "id", "email", deposit.update_by);
-            ViewData["wallet_id"] = new SelectList(_context.Wallets, "id", "id", deposit.wallet_id);
-            return View(deposit);
-        }
-
-        // GET: Deposits/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null || _context.Deposits == null)
-            {
-                return NotFound();
-            }
-
-            var deposit = await _context.Deposits.FindAsync(id);
-            if (deposit == null)
-            {
-                return NotFound();
-            }
-            ViewData["create_by"] = new SelectList(_context.Accounts, "id", "email", deposit.create_by);
-            ViewData["update_by"] = new SelectList(_context.Accounts, "id", "email", deposit.update_by);
-            ViewData["wallet_id"] = new SelectList(_context.Wallets, "id", "id", deposit.wallet_id);
-            return View(deposit);
-        }
-
-        // POST: Deposits/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,wallet_id,amount,trans_code,status,state,description,create_by,create_at,update_by,update_at,is_delete")] Deposit deposit)
-        {
-            if (id != deposit.id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
+                string id = Gencode.GenerateCodeDeposit();
+                var vnPayModel = new VnPaymentRequestModel
                 {
-                    _context.Update(deposit);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
+                    Amount = deposit.amount,
+                    CreatedDate = DateTime.Now,
+                    Description = deposit.description == null ? "" : deposit.description,
+                    Id = id,
+                };
+                return Redirect(_vpnPayService.CreatePaymentUrl(HttpContext, vnPayModel));
+            }
+            return RedirectToAction(nameof(Create));
+        }
+
+        public IActionResult PaymentFail()
+        {
+            return View("Payment Fail");
+        }
+
+        public IActionResult PaymentSuccess()
+        {
+            return View("Payment Success");
+        }
+
+        public IActionResult PaymentCallBack()
+        {
+            if (Request.Query.Count == 0)
+            {
+                TempData["Message"] = $"Lỗi thanh toán VN Pay"; return RedirectToAction("PaymentFail");
+            }
+
+            var response = _vpnPayService.PaymentExecute(Request.Query);
+            try
+            {
+
+
+                if (response == null || response.VnPayReponseCode != "00") // Gia tri 00 la thanh cong
                 {
-                    if (!DepositExists(deposit.id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    TempData["Message"] = $"Lỗi thanh toán VN Pay: {response.VnPayReponseCode}";
+                    return RedirectToAction("PaymentFail");
                 }
-                return RedirectToAction(nameof(Index));
+                int user_id = HttpContext.Session.GetInt32("Account").Value;
+                //Lưu đơn hàng cho Database
+                Deposit d = new Deposit
+                {
+                    id = response.OrderId,
+                    wallet_id = WalletDAO.GetWalletByAccountId(user_id).id,
+                    amount = response.Amount,
+                    status = StatusEnum.HOAN_THANH,
+                    state = StateEnum.THANH_CONG,
+                    description = response.OrderDescription,
+                    create_by = user_id,
+                    create_at = DateTime.Now,
+                    update_by = user_id,
+                    update_at = DateTime.Now,
+                };
+                DepositDAO.CreateDeposit(d);
+                WalletDAO.UpdateWalletDepositBalance(d.wallet_id, d.amount);
+
+                TempData["Message"] = $"Thanh toán VN Pay thành công";
+                return RedirectToAction("PaymentSuccess");
             }
-            ViewData["create_by"] = new SelectList(_context.Accounts, "id", "email", deposit.create_by);
-            ViewData["update_by"] = new SelectList(_context.Accounts, "id", "email", deposit.update_by);
-            ViewData["wallet_id"] = new SelectList(_context.Wallets, "id", "id", deposit.wallet_id);
-            return View(deposit);
+            catch (Exception ex) { TempData["Message"] = $"Lỗi thanh toán VN Pay: {response.VnPayReponseCode}"; return RedirectToAction("PaymentFail"); }
+
         }
-
-        // GET: Deposits/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null || _context.Deposits == null)
-            {
-                return NotFound();
-            }
-
-            var deposit = await _context.Deposits
-                .Include(d => d.AccountCreate)
-                .Include(d => d.AccountUpdate)
-                .Include(d => d.Wallet)
-                .FirstOrDefaultAsync(m => m.id == id);
-            if (deposit == null)
-            {
-                return NotFound();
-            }
-
-            return View(deposit);
-        }
-
-        // POST: Deposits/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            if (_context.Deposits == null)
-            {
-                return Problem("Entity set 'Web_Trung_GianContext.Deposits'  is null.");
-            }
-            var deposit = await _context.Deposits.FindAsync(id);
-            if (deposit != null)
-            {
-                _context.Deposits.Remove(deposit);
-            }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool DepositExists(int id)
-        {
-          return (_context.Deposits?.Any(e => e.id == id)).GetValueOrDefault();
-        }
+        #endregion
     }
 }

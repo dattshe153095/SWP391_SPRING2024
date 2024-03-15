@@ -70,14 +70,14 @@ namespace WebClient2.Controllers
         public async Task<IActionResult> Login(string username, string password, string captcha)
         {
             //If not invalid info return Page
-            if ( HttpContext.Session.GetString("CaptchaLogin") != captcha) return RedirectToAction("Login", "Home");
+            if (HttpContext.Session.GetString("CaptchaLogin") != captcha) return RedirectToAction("Login", "Home");
 
 
             Account account = new Account();
-            
-            
+
+
             account = AccountDAO.Login(username, password);
-            if (account != null )
+            if (account != null)
             {
                 HttpContext.Session.SetInt32("Account", account.id);
                 string role = "User";
@@ -160,7 +160,8 @@ namespace WebClient2.Controllers
         public IActionResult Register(RegisterViewModel model)
         {
             var sessionVerificationCode = HttpContext.Session.GetString("VerificationCode");
-            if (ModelState.IsValid && model.CodeValidate == sessionVerificationCode)
+            var sessionVerificationGmail = HttpContext.Session.GetString("VerificationGmail");
+            if (ModelState.IsValid && model.CodeValidate == sessionVerificationCode && model.Email == sessionVerificationGmail)
             {
                 Account account = new Account()
                 {
@@ -169,10 +170,10 @@ namespace WebClient2.Controllers
                     email = model.Email,
                     password = model.Password,
                     phone = model.Phone,
-                    role_id=2
-                };  
+                    role_id = 2
+                };
 
-                
+
                 return RedirectToAction("Login", "Home");
             }
             else
@@ -191,6 +192,7 @@ namespace WebClient2.Controllers
         public IActionResult SendEmail(string email)
         {
             HttpContext.Session.SetString("VerificationCode", EmailSender.SendEmailAsync(email, "", ""));
+            HttpContext.Session.SetString("VerificationGmail", email);
             return Json(new { success = true, message = "Email sent successfully!" });
         }
 
@@ -230,14 +232,14 @@ namespace WebClient2.Controllers
         }
 
         [HttpPost]
-        public IActionResult ForgotPassword( string email, string code, string password, string cfpassword, string captcha)
+        public IActionResult ForgotPassword(string email, string code, string password, string cfpassword, string captcha)
         {
             var sessionVerificationCode = HttpContext.Session.GetString("ForgotPassword");
             var captchaForgot = HttpContext.Session.GetString("CaptchaForgot");
             if (code == sessionVerificationCode && captcha == captchaForgot)
             {
 
-                Account account = AccountDAO.GetAccountWithUsernameMail( email);
+                Account account = AccountDAO.GetAccountWithUsernameMail(email);
                 if (account == null)
                 {
                     return RedirectToAction("ForgotPassword", "Home");

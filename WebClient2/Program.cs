@@ -2,6 +2,7 @@ using Business;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using WebClient2.BackGroundServices;
+using WebClient2.Services;
 
 namespace WebClient2
 {
@@ -14,7 +15,7 @@ namespace WebClient2
             builder.Services.AddScoped<SemaphoreActionFilter>();
 
             builder.Services.AddDbContext<Web_Trung_GianContext>(options => options.UseSqlServer("server=localhost;database=Web_Trung_Gian;uid=sa;pwd=123;TrustServerCertificate=True;"));
-
+            builder.Services.AddSingleton<IVnPayService,VnPayService>();
             builder.Services.Configure<CookiePolicyOptions>(options =>
             {
                 options.MinimumSameSitePolicy = SameSiteMode.None;
@@ -68,7 +69,6 @@ namespace WebClient2
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
-
             app.Run();
         }
     }

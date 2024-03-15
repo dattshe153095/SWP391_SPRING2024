@@ -11,10 +11,6 @@ namespace DataAccess.DAO
 {
     public class DepositDAO
     {
-        private static Queue<Deposit> depositQueue = new Queue<Deposit>();
-        private static object queueLock = new object();
-        private static bool isProcessing = false;
-
         public static List<Deposit> GetAllDeposit()
         {
             List<Deposit> list = new List<Deposit>();
@@ -26,14 +22,14 @@ namespace DataAccess.DAO
             return list;
         }
 
-        public static Deposit GetDepositById(int id)
+        public static Deposit GetDepositById(string id)
         {
             return GetAllDeposit().FirstOrDefault(x => x.id == id);
         }
 
-        public static Deposit GetDepositTransactionCode(int wallet_id, string code)
+        public static Deposit GetDepositTransactionCode(int wallet_id, string id)
         {
-            return GetAllDeposit().FirstOrDefault(x => x.wallet_id == wallet_id && x.trans_code == code);
+            return GetAllDeposit().FirstOrDefault(x => x.wallet_id == wallet_id && x.id == id);
         }
 
         public static void UpdateDeposit(Deposit deposit)
@@ -53,57 +49,36 @@ namespace DataAccess.DAO
 
         public static void CreateDeposit(Deposit deposit)
         {
-            deposit.status = StatusEnum.DANG_XU_LI;
+
+            deposit.status = StatusEnum.DANG_CHO_XAC_NHAN;
             deposit.create_at = DateTime.Now;
             deposit.update_at = DateTime.Now;
 
-            lock (queueLock)
+            using (var context = new Web_Trung_GianContext())
             {
-                depositQueue.Enqueue(deposit); // Thêm deposit vào hàng đợi
-                if (!isProcessing)
-                {
-                    isProcessing = true;
-                    ProcessDeposits(); // Bắt đầu xử lý hàng đợi nếu chưa có công việc nào đang được xử lý
-                }
+                var deposits = context.Set<Deposit>();
+                deposits.Add(deposit);
+                context.SaveChanges();
             }
         }
 
-        private static void ProcessDeposits()
+        public static void UpdateStatusDeposit()
         {
-            while (true)
-            {
-                Deposit deposit;
-                lock (queueLock)
-                {
-                    if (depositQueue.Count == 0)
-                    {
-                        isProcessing = false;
-                        return; // Kết thúc nếu không còn deposit nào trong hàng đợi
-                    }
-                    deposit = depositQueue.Dequeue(); // Lấy deposit đầu tiên từ hàng đợi
-                }
+            //Deposit d = GetDepositById(deposit.id);
+            //if (d != null)
+            //{
+            //    deposit.status = StatusEnum.XAC_NHAN_THANH_CONG;
+            //    deposit.update_at = DateTime.Now;
 
-                try
-                {
-                    if (deposit.status == StatusEnum.DANG_XU_LI)
-                    {
-                        deposit.status = StatusEnum.DANG_CHO_XAC_NHAN;
-                        using (var context = new Web_Trung_GianContext())
-                        {
-                            var deposits = context.Set<Deposit>();
-                            deposits.Add(deposit);
-                            context.SaveChanges();
-                        }
-                    }
-
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Error creating deposit: " + ex.Message);
-                    // Xử lý lỗi tạo deposit ở đây nếu cần thiết
-                }
-            }
+            //    using (var context = new Web_Trung_GianContext())
+            //    {
+            //        var deposits = context.Set<Deposit>();
+            //        deposits.Update(deposit);
+            //        context.SaveChanges();
+            //    }
+            //}
         }
+
 
         public static void DepositAction()
         {

@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\Wallet\**" />
+    <Content Remove="Views\Wallet\**" />
+    <EmbeddedResource Remove="Views\Wallet\**" />
+    <None Remove="Views\Wallet\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Controllers\OrderController.cs~RF9ebf167.TMP" />
     <None Remove="Views\Account\CreateDeposit.cshtml~RF9a71682.TMP" />
   </ItemGroup>
@@ -27,10 +34,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Views\Wallet\" />
   </ItemGroup>
 
 </Project>
