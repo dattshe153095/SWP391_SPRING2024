@@ -83,7 +83,7 @@ namespace DataAccess.DAO
             return list;
         }
 
-        public static Withdrawal GetWithdrawalById(int id)
+        public static Withdrawal GetWithdrawalById(string id)
         {
             return GetAllWithdrawal().FirstOrDefault(x => x.id == id);
         }
@@ -105,7 +105,7 @@ namespace DataAccess.DAO
 
         public static Withdrawal GetWithdrawalTransactionCode(int wallet_id, string code)
         {
-            return GetAllWithdrawal().FirstOrDefault(x => x.wallet_id == wallet_id && x.trans_code == code);
+            return GetAllWithdrawal().FirstOrDefault(x => x.wallet_id == wallet_id && x.id == code);
         }
 
     }

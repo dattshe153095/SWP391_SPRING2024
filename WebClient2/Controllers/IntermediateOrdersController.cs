@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Business;
+﻿using Microsoft.AspNetCore.Mvc;
 using Business.Models;
 using DataAccess.Library;
 using WebClient2.BackGroundServices;
@@ -17,30 +10,22 @@ namespace WebClient2.Controllers
     [ServiceFilter(typeof(SemaphoreActionFilter))]
     public class IntermediateOrdersController : Controller
     {
-        private readonly Web_Trung_GianContext _context;
-
-        public IntermediateOrdersController(Web_Trung_GianContext context)
+        #region VIEW INTER ORDER
+        public IActionResult Market()
         {
-            _context = context;
-        }
-
-        // GET: IntermediateOrders
-        public async Task<IActionResult> Index()
-        {
-            ViewBag.account_id = HttpContext.Session.GetInt32("Account");
-            var web_Trung_GianContext = _context.IntermediateOrders.Include(i => i.AccountBuy).Include(i => i.AccountCreate).Include(i => i.AccountUpdate);
-            return View(await web_Trung_GianContext.ToListAsync());
+            List<IntermediateOrder> order = IntermediateOrderDAO.GetInterAbleToSell();
+            return View(order);
         }
 
         // GET: IntermediateOrders/Details/5
-        public IActionResult Details(int? id)
+        public IActionResult MarketDetail(string? id)
         {
-            if (id == null || _context.IntermediateOrders == null)
+            if (id == null)
             {
                 return NotFound();
             }
             IntermediateOrder intermediateOrder = new IntermediateOrder();
-            intermediateOrder = IntermediateOrderDAO.GetIntermediateOrderById(id.Value);
+            intermediateOrder = IntermediateOrderDAO.GetIntermediateOrderById(id);
             OrderViewModel order = new OrderViewModel();
 
             //MapData
@@ -51,9 +36,12 @@ namespace WebClient2.Controllers
                 return NotFound();
             }
 
-            return View(order);
+            //return View(order);
+            return PartialView("_ModalOrder", order);
         }
+        #endregion
 
+        #region CREATE INTER ORDER
         // GET: IntermediateOrders/Create
         public IActionResult Create()
         {
@@ -65,34 +53,43 @@ namespace WebClient2.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(string name, int price, bool fee_type, string description, string contact, string hidden_content, bool is_public)
         {
+            if (HttpContext.Session.GetInt32("Account") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            int account_id = HttpContext.Session.GetInt32("Account").Value;
+
             IntermediateOrder order = new IntermediateOrder();
             if (ModelState.IsValid)
             {
-                //int user_id = HttpContext.Session.GetInt32("Account").Value;
-
-                if (WalletDAO.GetWalletByAccountId(14).balance < 500)
+                if (WalletDAO.GetWalletByAccountId(account_id).balance < 500)
                 {
-                    ModelState.AddModelError(string.Empty, "Không đủ tiền trong tài khoản! Tài khoản hiện tại có: " + WalletDAO.GetWalletByAccountId(14).balance);
+                    ModelState.AddModelError(string.Empty, "Không đủ tiền trong tài khoản! Tài khoản hiện tại có: " + WalletDAO.GetWalletByAccountId(account_id).balance);
                 }
                 else
                 {
-                    WalletDAO.UpdateWalletBuyOrder(WalletDAO.GetWalletByAccountId(14).id, 500);
+                    //Tieu tien de tao order
+                    WalletDAO.UpdateWalletBuyOrder(WalletDAO.GetWalletByAccountId(account_id).id, 500);
+                    string code = Gencode.GenerateUniqueId();
+                    //Tao Order
                     order = new IntermediateOrder()
                     {
+                        id = code,
                         name = name,
                         price = price,
+                        fee_rate = Constant.FEE,
                         fee_type = fee_type,
                         description = description,
                         contact = contact,
                         hidden_content = hidden_content,
                         is_public = is_public,
-                        fee = 500,
                         status = IntermediateOrderEnum.MOI_TAO,
                         state = StateEnum.DANG_XU_LI,
-                        create_by = 14,
+                        create_by = account_id,
                         create_at = DateTime.Now,
-                        update_by = 14,
+                        update_by = account_id,
                         update_at = DateTime.Now,
+                        link_product = "/Details/" + code
                     };
 
                     IntermediateOrderDAO.CreateIntermediateOrder(order);
@@ -102,78 +99,53 @@ namespace WebClient2.Controllers
             }
             return View(order);
         }
+        #endregion
 
-
-
-        // POST: IntermediateOrders/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        #region EDIT INTER ORDER
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, [Bind("id,name,price,fee_type,description,contact,hidden_content,is_public,fee,status,state,create_by,create_at,buy_by,update_by,update_at,is_delete")] IntermediateOrder intermediateOrder)
+        public IActionResult Edit(string id, string name, int price, bool fee_type, string description, string contact, string hidden_content, bool is_public)
         {
-            if (id != intermediateOrder.id)
+            if (HttpContext.Session.GetInt32("Account") == null)
             {
-                return NotFound();
+                return RedirectToAction("Login", "Home");
             }
+            int account_id = HttpContext.Session.GetInt32("Account").Value;
+
+
+            IntermediateOrder order = new IntermediateOrder();
+            order = IntermediateOrderDAO.GetIntermediateOrderById(id);
+            if (order == null) { return NotFound(); }
 
             if (ModelState.IsValid)
             {
-                intermediateOrder.update_by = 13;
-                IntermediateOrderDAO.UpdateIntermediateOrder(intermediateOrder);
+                order.name = name;
+                order.price = price;
+                order.fee_type = fee_type;
+                order.payment_amount = fee_type ? price : price + (int)(price * Constant.FEE);
+                order.earn_amount = fee_type ? price - (int)(price * Constant.FEE) : price;
+                order.description = description;
+                order.contact = contact;
+                order.hidden_content = hidden_content;
+                order.is_public = is_public;
+                order.update_by = account_id;
+                IntermediateOrderDAO.UpdateIntermediateOrder(order);
                 return RedirectToAction(nameof(Index));
             }
-            return View(intermediateOrder);
+            return View(order);
         }
+        #endregion
 
-        // GET: IntermediateOrders/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null || _context.IntermediateOrders == null)
-            {
-                return NotFound();
-            }
-
-            var intermediateOrder = await _context.IntermediateOrders
-                .Include(i => i.AccountBuy)
-                .Include(i => i.AccountCreate)
-                .Include(i => i.AccountUpdate)
-                .FirstOrDefaultAsync(m => m.id == id);
-            if (intermediateOrder == null)
-            {
-                return NotFound();
-            }
-
-            return View(intermediateOrder);
-        }
-
-        // POST: IntermediateOrders/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            if (_context.IntermediateOrders == null)
-            {
-                return Problem("Entity set 'Web_Trung_GianContext.IntermediateOrders'  is null.");
-            }
-            var intermediateOrder = await _context.IntermediateOrders.FindAsync(id);
-            if (intermediateOrder != null)
-            {
-                _context.IntermediateOrders.Remove(intermediateOrder);
-            }
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        public IActionResult Buy(int? id)
+        #region BUY INTER ORDER
+        [HttpGet]
+        public IActionResult BuyDetail(string? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            IntermediateOrder intermediateOrder = IntermediateOrderDAO.GetIntermediateOrderById(id.Value);
+            IntermediateOrder intermediateOrder = IntermediateOrderDAO.GetIntermediateOrderById(id);
 
             if (intermediateOrder == null)
             {
@@ -183,32 +155,78 @@ namespace WebClient2.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Buy(int id, [Bind("id,name,price,fee_type,description,contact,hidden_content,is_public,fee,status,state,create_by,create_at,buy_by,update_by,update_at,is_delete")] IntermediateOrder intermediateOrder)
+        public IActionResult Buy(string id)
         {
-            if (id != intermediateOrder.id)
+            if (HttpContext.Session.GetInt32("Account") == null)
+            {
+                return RedirectToAction("Login","Home");
+            }
+            int account_id = HttpContext.Session.GetInt32("Account").Value;
+
+            IntermediateOrder order = IntermediateOrderDAO.GetIntermediateOrderById(id);
+            //CALCULATE PRICE
+
+            //MapData
+            if (WalletDAO.GetWalletByAccountId(account_id).balance < order.payment_amount)
+            {
+                return Json(new { success = false, message = "Không đủ tiền trong tài khoản! Tài khoản hiện tại có: " + WalletDAO.GetWalletByAccountId(account_id).balance });
+            }
+            WalletDAO.UpdateWalletBuyOrder(WalletDAO.GetWalletByAccountId(account_id).id, (int)order.payment_amount);
+
+            order.update_by = account_id;
+            order.buy_user = account_id;
+            order.buy_at = DateTime.Now;
+            IntermediateOrderDAO.BuyIntermediateOrder(account_id, order);
+            return Json(new { success = true, message = "Mua hàng thành công" });
+        }
+        #endregion
+
+        #region VIEW ORDER BY TYPE SELL AND BUYED
+        [HttpGet]
+        public IActionResult OrderBuy()
+        {
+            int account_id = HttpContext.Session.GetInt32("Account").Value;
+            if (account_id == null)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
-                //CALCULATE PRICE
-                OrderViewModel order = new OrderViewModel();
-                //MapData
-                order = IntermediateOrderDAO.GetOrderViewModel(intermediateOrder);
-                if (WalletDAO.GetWalletByAccountId(14).balance < order.earn_amount)
-                {
-                    ModelState.AddModelError(string.Empty, "Không đủ tiền trong tài khoản! Tài khoản hiện tại có: " + WalletDAO.GetWalletByAccountId(14).balance);
-                }
-                WalletDAO.UpdateWalletBuyOrder(WalletDAO.GetWalletByAccountId(14).id, intermediateOrder.price + 500);
+            List<IntermediateOrder> intermediateOrder = new List<IntermediateOrder>();
+            intermediateOrder = IntermediateOrderDAO.GetIntermediateOrderBuyed(account_id);
 
-                intermediateOrder.update_by = 14;
-                intermediateOrder.buy_by = 14;
-                IntermediateOrderDAO.BuyIntermediateOrder(intermediateOrder);
-                return RedirectToAction(nameof(Index));
+            if (intermediateOrder == null)
+            {
+                return NotFound();
             }
             return View(intermediateOrder);
+        }
+
+        [HttpGet]
+        public IActionResult OrderSell()
+        {
+            int account_id = HttpContext.Session.GetInt32("Account").Value;
+            if (account_id == null)
+            {
+                return NotFound();
+            }
+
+            List<IntermediateOrder> intermediateOrder = new List<IntermediateOrder>();
+            intermediateOrder = IntermediateOrderDAO.GetIntermediateOrderCreated(account_id);
+
+            if (intermediateOrder == null)
+            {
+                return NotFound();
+            }
+            return View(intermediateOrder);
+        }
+        #endregion
+
+        [HttpGet]
+        public IActionResult CheckSession()
+        {
+            bool loggedIn = HttpContext.Session.GetInt32("Account") != null;
+
+            return Json(new { loggedIn = loggedIn });
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model Business.Models.Deposit
+﻿@model Business.Models.Withdrawal
 
 @{
     ViewData["Title"] = "Create";
@@ -6,11 +6,11 @@
 
 <h1>Create</h1>
 
-<h4>Deposit</h4>
+<h4>Withdrawal</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="VnPay">
+        <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="id" class="control-label"></label>
@@ -19,13 +19,27 @@
             </div>
             <div class="form-group">
                 <label asp-for="wallet_id" class="control-label"></label>
-                <input asp-for="wallet_id" class="form-control" />
-                <span asp-validation-for="wallet_id" class="text-danger"></span>
+                <select asp-for="wallet_id" class ="form-control" asp-items="ViewBag.wallet_id"></select>
             </div>
             <div class="form-group">
                 <label asp-for="amount" class="control-label"></label>
                 <input asp-for="amount" class="form-control" />
                 <span asp-validation-for="amount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="bank_number" class="control-label"></label>
+                <input asp-for="bank_number" class="form-control" />
+                <span asp-validation-for="bank_number" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="bank_user" class="control-label"></label>
+                <input asp-for="bank_user" class="form-control" />
+                <span asp-validation-for="bank_user" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="bank_name" class="control-label"></label>
+                <input asp-for="bank_name" class="form-control" />
+                <span asp-validation-for="bank_name" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="status" class="control-label"></label>
@@ -36,11 +50,6 @@
                 <label asp-for="state" class="control-label"></label>
                 <input asp-for="state" class="form-control" />
                 <span asp-validation-for="state" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="description" class="control-label"></label>
-                <input asp-for="description" class="form-control" />
-                <span asp-validation-for="description" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="create_by" class="control-label"></label>
@@ -72,11 +81,12 @@
             </div>
         </form>
     </div>
-    <div>
-        <a asp-action="VnPay">VNPAY</a>
-    </div>
 </div>
 
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

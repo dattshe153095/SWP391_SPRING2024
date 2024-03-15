@@ -125,5 +125,9 @@ namespace DataAccess.DAO
         {
             return GetAllAccount().FirstOrDefault(x => x.username == username);
         }
+        public static Account GetAccountWithRole(int role)
+        {
+            return GetAllAccount().FirstOrDefault(x => x.role_id == role);
+        }
     }
 }

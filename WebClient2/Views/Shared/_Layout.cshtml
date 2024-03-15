@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using DataAccess.DAO;
+@{
+    var account_id = ViewContext.HttpContext.Session.GetInt32("Account");
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -22,9 +26,49 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                            <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="IntermediateOrders" asp-action="Create">IntermediateOrders</a>
+                        @if (account_id != null)
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" asp-area="" asp-controller="IntermediateOrders" asp-action="Market" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Quản lý thanh toán
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Deposits" asp-action="Create">Nạp tiền</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Withdrawal" asp-action="Create">Lịch sử giao dịch</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Withdrawal" asp-action="Create">Yêu cầu rút tiền</a></li>
+                                </ul>
                             </li>
+                        }
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" asp-area="" asp-controller="IntermediateOrders" asp-action="Market" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Chợ Trung Gian
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" asp-area="" asp-controller="IntermediateOrders" asp-action="Market">Chợ Trung Gian</a></li>
+                                @if (account_id != null)
+                                {
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="IntermediateOrders" asp-action="OrderSell">Đơn đã tạo</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="IntermediateOrders" asp-action="OrderBuy">Đơn đã mua</a></li>
+                                }
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            @if (account_id == null)
+                            {
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Đăng Nhập</a>
+                            }
+                            else
+                            {
+                                <a class="nav-link dropdown-toggle" asp-area="" asp-controller="Account" asp-action="Profile" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    @AccountDAO.GetAccountWithId(account_id).name
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="Profile" asp-route-id="@account_id">Thông tin</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="Wallet" asp-route-id="@account_id">Ví</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Logout">Đăng Xuất</a></li>
+                                </ul>
+                            }
+                        </li>
 
                     </ul>
                 </div>
@@ -46,5 +90,6 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+
 </body>
 </html>
