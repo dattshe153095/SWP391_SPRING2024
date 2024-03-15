@@ -11,186 +11,65 @@ using WebClient2.Services;
 using Microsoft.AspNetCore.Authorization;
 using System.Data;
 using DataAccess.DAO;
+using WebClient2.Models;
+using DataAccess.Library;
+using WebClient2.BackGroundServices;
 
 namespace WebClient2.Controllers
 {
+    [ServiceFilter(typeof(SemaphoreActionFilter))]
+    [Authorize(Roles = "Admin,User")]
     public class DepositsController : Controller
     {
-        private readonly Web_Trung_GianContext _context;
         private readonly IVnPayService _vpnPayService;
-        public DepositsController(Web_Trung_GianContext context, IVnPayService vnPayServices)
+        public DepositsController(IVnPayService vnPayServices)
         {
-            _context = context;
             _vpnPayService = vnPayServices;
-        }
-
-        // GET: Deposits
-        public async Task<IActionResult> Index()
-        {
-            return _context.Deposits != null ?
-                        View(await _context.Deposits.ToListAsync()) :
-                        Problem("Entity set 'Web_Trung_GianContext.Deposits'  is null.");
-        }
-
-        // GET: Deposits/Details/5
-        public async Task<IActionResult> Details(string id)
-        {
-            if (id == null || _context.Deposits == null)
-            {
-                return NotFound();
-            }
-
-            var deposit = await _context.Deposits
-                .FirstOrDefaultAsync(m => m.id == id);
-            if (deposit == null)
-            {
-                return NotFound();
-            }
-
-            return View(deposit);
         }
 
         // GET: Deposits/Create
         public IActionResult Create()
         {
+            if (HttpContext.Session.GetInt32("Account") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            int account_id = HttpContext.Session.GetInt32("Account").Value;
             return View();
         }
 
-        // POST: Deposits/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,wallet_id,amount,status,state,description,create_by,create_at,update_by,update_at,is_delete")] Deposit deposit)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(deposit);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(deposit);
-        }
-
-        // GET: Deposits/Edit/5
-        public async Task<IActionResult> Edit(string id)
-        {
-            if (id == null || _context.Deposits == null)
-            {
-                return NotFound();
-            }
-
-            var deposit = await _context.Deposits.FindAsync(id);
-            if (deposit == null)
-            {
-                return NotFound();
-            }
-            return View(deposit);
-        }
-
-        // POST: Deposits/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("id,wallet_id,amount,status,state,description,create_by,create_at,update_by,update_at,is_delete")] Deposit deposit)
-        {
-            if (id != deposit.id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(deposit);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!DepositExists(deposit.id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(deposit);
-        }
-
-        // GET: Deposits/Delete/5
-        public async Task<IActionResult> Delete(string id)
-        {
-            if (id == null || _context.Deposits == null)
-            {
-                return NotFound();
-            }
-
-            var deposit = await _context.Deposits
-                .FirstOrDefaultAsync(m => m.id == id);
-            if (deposit == null)
-            {
-                return NotFound();
-            }
-
-            return View(deposit);
-        }
-
-        // POST: Deposits/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
-        {
-            if (_context.Deposits == null)
-            {
-                return Problem("Entity set 'Web_Trung_GianContext.Deposits'  is null.");
-            }
-            var deposit = await _context.Deposits.FindAsync(id);
-            if (deposit != null)
-            {
-                _context.Deposits.Remove(deposit);
-            }
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool DepositExists(string id)
-        {
-            return (_context.Deposits?.Any(e => e.id == id)).GetValueOrDefault();
-        }
-
-
         #region VNPAY
-        public IActionResult VnPay(Deposit deposit)
+        [HttpPost]
+        public IActionResult VnPay(DepositModel deposit)
         {
+            if (HttpContext.Session.GetInt32("Account") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            int account_id = HttpContext.Session.GetInt32("Account").Value;
             if (ModelState.IsValid)
             {
+                string id = Gencode.GenerateCodeDeposit();
                 var vnPayModel = new VnPaymentRequestModel
                 {
                     Amount = deposit.amount,
                     CreatedDate = DateTime.Now,
-                    Description = deposit.description,
-                    Id = deposit.id,
+                    Description = deposit.description == null ? "" : deposit.description,
+                    Id = id,
                 };
                 return Redirect(_vpnPayService.CreatePaymentUrl(HttpContext, vnPayModel));
             }
-            return NotFound();
+            return RedirectToAction(nameof(Create));
         }
 
         public IActionResult PaymentFail()
         {
-            return View();
+            return View("Payment Fail");
         }
 
         public IActionResult PaymentSuccess()
         {
-            return View("PaymentSuccess");
+            return View("Payment Success");
         }
 
         public IActionResult PaymentCallBack()
@@ -210,10 +89,23 @@ namespace WebClient2.Controllers
                     TempData["Message"] = $"Lỗi thanh toán VN Pay: {response.VnPayReponseCode}";
                     return RedirectToAction("PaymentFail");
                 }
-
+                int user_id = HttpContext.Session.GetInt32("Account").Value;
                 //Lưu đơn hàng cho Database
-                //Deposit d = new Deposit { };
-                // DepositDAO.CreateDeposit();
+                Deposit d = new Deposit
+                {
+                    id = response.OrderId,
+                    wallet_id = WalletDAO.GetWalletByAccountId(user_id).id,
+                    amount = response.Amount,
+                    status = StatusEnum.HOAN_THANH,
+                    state = StateEnum.THANH_CONG,
+                    description = response.OrderDescription,
+                    create_by = user_id,
+                    create_at = DateTime.Now,
+                    update_by = user_id,
+                    update_at = DateTime.Now,
+                };
+                DepositDAO.CreateDeposit(d);
+                WalletDAO.UpdateWalletDepositBalance(d.wallet_id, d.amount);
 
                 TempData["Message"] = $"Thanh toán VN Pay thành công";
                 return RedirectToAction("PaymentSuccess");

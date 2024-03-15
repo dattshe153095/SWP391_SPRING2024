@@ -4,6 +4,8 @@ using DataAccess.Library;
 using WebClient2.BackGroundServices;
 using DataAccess.DAO;
 using DataAccess.ViewModel;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace WebClient2.Controllers
 {
@@ -43,12 +45,14 @@ namespace WebClient2.Controllers
 
         #region CREATE INTER ORDER
         // GET: IntermediateOrders/Create
+        [Authorize(Roles = "Admin,User")]
         public IActionResult Create()
         {
             return View();
         }
 
         // POST: IntermediateOrders/Create
+        [Authorize(Roles = "Admin,User")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(string name, int price, bool fee_type, string description, string contact, string hidden_content, bool is_public)
@@ -102,6 +106,7 @@ namespace WebClient2.Controllers
         #endregion
 
         #region EDIT INTER ORDER
+        [Authorize(Roles = "Admin,User")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(string id, string name, int price, bool fee_type, string description, string contact, string hidden_content, bool is_public)
@@ -137,6 +142,7 @@ namespace WebClient2.Controllers
         #endregion
 
         #region BUY INTER ORDER
+        [Authorize(Roles = "Admin,User")]
         [HttpGet]
         public IActionResult BuyDetail(string? id)
         {
@@ -154,6 +160,7 @@ namespace WebClient2.Controllers
             return View(intermediateOrder);
         }
 
+        [Authorize(Roles = "Admin,User")]
         [HttpPost]
         public IActionResult Buy(string id)
         {
@@ -182,6 +189,7 @@ namespace WebClient2.Controllers
         #endregion
 
         #region VIEW ORDER BY TYPE SELL AND BUYED
+        [Authorize(Roles = "Admin,User")]
         [HttpGet]
         public IActionResult OrderBuy()
         {
@@ -202,6 +210,7 @@ namespace WebClient2.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin,User")]
         public IActionResult OrderSell()
         {
             int account_id = HttpContext.Session.GetInt32("Account").Value;
@@ -227,6 +236,50 @@ namespace WebClient2.Controllers
             bool loggedIn = HttpContext.Session.GetInt32("Account") != null;
 
             return Json(new { loggedIn = loggedIn });
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin,User")]
+        public IActionResult KhieuNaiInterOrder(string id)
+        {
+
+            int account_id = HttpContext.Session.GetInt32("Account").Value;
+
+            IntermediateOrder order = IntermediateOrderDAO.GetIntermediateOrderById(id);
+
+            IntermediateOrderDAO.ReportInterOrder(id);
+            return Json(new { success = true, message = "Khiếu nại thành công" });
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin,User")]
+        public IActionResult KhieuNaiAdminInterOrder(string id)
+        {
+
+            int account_id = HttpContext.Session.GetInt32("Account").Value;
+
+            IntermediateOrder order = IntermediateOrderDAO.GetIntermediateOrderById(id);
+
+            IntermediateOrderDAO.ReportAdminInterOrder(id);
+            return Json(new { success = true, message = "Khiếu nại lên Admin thành công" });
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin,User")]
+        public IActionResult DeleteInterOrder(string id)
+        {
+
+            int account_id = HttpContext.Session.GetInt32("Account").Value;
+       
+
+            IntermediateOrder order = IntermediateOrderDAO.GetIntermediateOrderById(id);
+            if(account_id != order.create_by)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
+            IntermediateOrderDAO.DeleteInterOrder(id);
+            return Json(new { success = true, message = "Hủy hàng thành công" });
         }
     }
 }

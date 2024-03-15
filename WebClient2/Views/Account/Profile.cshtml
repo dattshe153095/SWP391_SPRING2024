@@ -1,0 +1,128 @@
+﻿@using Business.Models;
+@using DataAccess.DAO;
+@using DataAccess.Library;
+@using WebClient2
+@using WebClient2.Models
+@model Business.Models.Account;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    var account_id = ViewContext.HttpContext.Session.GetInt32("Account");
+    Account user = AccountDAO.GetAccountWithId(account_id);
+}
+<div class="row">
+    <div class="col-md-6">
+        <h3>Thông tin</h3>
+        <form method="post" asp-controller="Account" asp-action="UpdateProfile">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label">ID</label>
+                <input asp-for="id" class="form-control" disabled />
+                <span asp-validation-for="id" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Tên</label>
+                <input asp-for="name" class="form-control" disabled />
+                <span asp-validation-for="name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Tài Khoản</label>
+                <input asp-for="username" class="form-control" disabled />
+            </div>
+            <div class="form-group">
+                <label class="control-label">Email</label>
+                <input asp-for="email" class="form-control" disabled />
+                <span asp-validation-for="email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Số điện thoại</label>
+                <input asp-for="phone" class="form-control" />
+                <span asp-validation-for="phone" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Chỉnh sửa</button>
+            </div>
+
+        </form>
+    </div>
+
+    <!-- Biểu mẫu ChangePassword -->
+    <div class="col-md-6">
+        <h3>Đổi mật khẩu</h3>
+        <form method="post" asp-controller="Account" asp-action="ChangePassword">
+            <div class="form-group">
+                <label class="control-label">UserName:</label>
+                <input type="text" class="form-control" id="UserName" name="UserName" value="@user.username" readonly />
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Old Password:</label>
+                <input type="password" class="form-control" id="old_password" name="old_password" placeholder="Password" required />
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Password:</label>
+                <input type="password" class="form-control" id="new_password" name="new_password" placeholder="New Password" required />
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Confirm Password:</label>
+                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Re-type new Password" required />
+            </div>
+
+
+            <div class="form-group">
+                <label class="control-label">Code</label>
+                <div id="Captcha-image">
+                    <img id="captchaImage" src="data:image/png;base64,@ViewBag.CaptchaImageBytes"
+                         alt="Captcha Image" />
+                    <button type="button" class="btn btn-outline-secondary" id="refreshCaptcha">Refresh Captcha</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <div>
+                    <input type="text" class="form-control" id="captcha" name="captcha" placeholder="Input capcha">
+
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Change Password</button>
+        </form>
+    </div>
+
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script src="https://kit.fontawesome.com/6ae4d71e22.js" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function () {
+        // Gán sự kiện click cho nút refresh captcha
+        $("#refreshCaptcha").on("click", function () {
+            refreshCaptchaImage();
+        });
+    });
+
+    function refreshCaptchaImage() {
+        $.ajax({
+            type: "POST",
+            url: "/Account/RefreshCaptcha", // Thay thế bằng đường dẫn của action cập nhật captcha
+            success: function (result) {
+                // Cập nhật ảnh captcha mới
+                $("#captchaImage").attr("src", "data:image/png;base64," + result);
+                $('#captcha').val('');
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+</script>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }
