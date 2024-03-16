@@ -20,6 +20,13 @@ namespace WebClient2.Controllers
     [Authorize(Roles = "Admin,User")]
     public class WithdrawalsController : Controller
     {
+        public IActionResult List()
+        {
+            int account_id = HttpContext.Session.GetInt32("Account").Value;
+
+            List<Withdrawal> withdrawals = WithdrawalDAO.GetAllWithdrawalByWalletId(WalletDAO.GetWalletByAccountId(account_id).id);
+            return View(withdrawals);
+        }
         // GET: Withdrawals/Create
         public IActionResult Create()
         {

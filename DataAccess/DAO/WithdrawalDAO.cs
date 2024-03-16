@@ -40,6 +40,18 @@ namespace DataAccess.DAO
             return list;
         }
 
+        public static List<Withdrawal> GetAllWithdrawalByWalletId(int id)
+        {
+            List<Withdrawal> list = new List<Withdrawal>();
+
+            using (var context = new Web_Trung_GianContext())
+            {
+                list = context.Withdrawals.Where(x=>x.wallet_id == id).ToList();
+
+            }
+            return list;
+        }
+
         public static Withdrawal GetWithdrawalById(string id)
         {
             return GetAllWithdrawal().FirstOrDefault(x => x.id == id);
