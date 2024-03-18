@@ -172,7 +172,7 @@ namespace WebClient2.Controllers
                     role_id = 2
                 };
 
-
+                AccountDAO.Register(account);   
                 return RedirectToAction("Login", "Home");
             }
             else

@@ -3,7 +3,7 @@
 @model DataAccess.ViewModel.OrderViewModel;
 @using DataAccess.DAO;
 @{
-    int account_id = ViewContext.HttpContext.Session.GetInt32("Account").Value;
+    var account_id = ViewContext.HttpContext.Session.GetInt32("Account");
     IntermediateOrder order = IntermediateOrderDAO.GetIntermediateOrderById(Model.id);
 }
 <div class="row">
@@ -11,30 +11,6 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Thông tin đơn trung gian</h1>
-                @if (order != null && order.buy_user == account_id && order.create_by != account_id)
-                {
-                    if (order.buy_user == account_id)
-                    {
-                        switch (order.status)
-                        {
-                            case IntermediateOrderEnum.BEN_MUA_KIEM_TRA_HANG:
-                                <a class="btn btn-success" asp-action="KhieuNaiInterOrder" asp-route-id="@Model.id">Đơn hàng không đúng</a>
-                                break;
-                            case IntermediateOrderEnum.BEN_MUA_KHIEU_NAI:
-                                <a class="btn btn-success" asp-action="KhieuNaiAdminInterOrder" asp-route-id="@Model.id">Yêu cầu quản trị</a>
-                                break;
-                        }
-                    }
-                    if (order.create_by == account_id)
-                    {
-                        switch (order.status)
-                        {
-                            case IntermediateOrderEnum.BEN_MUA_KHIEU_NAI:
-                                <a class="btn btn-success" asp-action="HEHE" asp-route-id="@Model.id">Đơn hàng không đúng</a>
-                                break;
-                        }
-                    }
-                }
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -100,15 +76,10 @@
                         <input asp-for="contact" class="form-control" disabled />
                         <span asp-validation-for="contact" class="text-danger"></span>
                     </div>
-                    @{
-                        if (Model.account_buy != null && ViewContext.HttpContext.Session.GetInt32("Account") != null && ViewContext.HttpContext.Session.GetInt32("Account") == Model.account_buy.id)
-                        {
-                            <div class="form-group">
-                                <label class="control-label">Nội dung ẩn</label>
-                                <textarea class="form-control" asp-for="hidden_content" rows="3"></textarea>
-                            </div>
-                        }
-                    }
+                    <div class="form-group">
+                        <label class="control-label">Nội dung ẩn</label>
+                        <textarea class="form-control" asp-for="hidden_content" rows="3"></textarea>
+                    </div>
                     <div class="form-group">
                         <label class="control-label">Công khai (*)</label>
                         <div>
@@ -136,28 +107,9 @@
                         <span asp-validation-for="link_share" class="text-danger"></span>
                     </div>
                     <div class="row form-group">
-                        @if (Model.status == IntermediateOrderEnum.SAN_SANG_GIAO_DICH && Model.account_buy == null)
-                        {
-                            <div class="col">
-                                <a class="btn btn-success buyButton" data-url="@Url.Action("Buy", "IntermediateOrders", new { id = Model.id })">Mua đơn hàng</a>
-
-                            </div>
-                        }
-                        @if (order != null && order.buy_user != null && order.create_by != account_id &&
-                         ( order.status == IntermediateOrderEnum.BEN_MUA_KHIEU_NAI
-                        || order.status == IntermediateOrderEnum.YEU_CAU_QUAN_TRI
-                        || order.status == IntermediateOrderEnum.BEN_BAN_DANH_DAU_KHIEU_NAI))
-                        {
-                            <div class="col">
-                                <a class="btn btn-success" asp-action="DeleteInterOrder" asp-route-id="@Model.id">Hủy đơn hàng</a>
-                            </div>
-                        }
-                        @if (order != null && order.buy_user == null&&  order.create_by == account_id)
-                        {
-                            <div class="col">
-                                <a class="btn btn-success" asp-action="MarketDetail" asp-route-id="@Model.id">Chỉnh sửa</a>
-                            </div>
-                        }
+                        <div class="col">
+                            <a class="btn btn-success" asp-action="DeleteInterOrder" asp-route-id="@Model.id">Hủy đơn hàng</a>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -190,54 +142,6 @@
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>
 <script src="https://kit.fontawesome.com/6ae4d71e22.js" crossorigin="anonymous"></script>
-<script>
-    $(document).ready(function () {
-        $('.buyButton').click(function (e) {
-            e.preventDefault(); // Chặn sự kiện mặc định của thẻ <a>
-
-            console.log("HELLO");
-
-            // Kiểm tra session bằng AJAX
-            $.ajax({
-                type: 'GET',
-                url: '/IntermediateOrders/CheckSession', // Thay đổi đường dẫn tùy thuộc vào route của bạn
-                success: function (response) {
-                    if (response.loggedIn) {
-                        var url = $('.buyButton').data('url');
-
-                        // Tiến hành mua hàng nếu đã đăng nhập
-                        $.post(url, function (data) {
-                            if (data.success) {
-                                // Hiển thị thông báo mua hàng thành công
-                                $('#modalMessage').html(data.message);
-                                $('#myModal').modal('show');
-
-                                // Refresh trang sau 2 giây
-                                setTimeout(function () {
-                                    location.reload();
-                                }, 2000);
-                            } else {
-                                // Hiển thị thông báo lỗi
-                                $('#modalMessage').html(data.message);
-                                $('#myModal').modal('show');
-                            }
-                        }).fail(function (xhr, status, error) {
-                            // Xử lý lỗi nếu có
-                            console.error(xhr.responseText);
-                        });
-                    } else {
-                        // Chuyển hướng đến trang đăng nhập nếu session là null
-                        window.location.href = '/Home/Login'; // Thay đổi đường dẫn tùy thuộc vào route của bạn
-                    }
-                },
-                error: function (xhr, status, error) {
-                    // Xử lý lỗi nếu có
-                    console.error(xhr.responseText);
-                }
-            });
-        });
-    });
-</script>
 
 @section Scripts {
     @{

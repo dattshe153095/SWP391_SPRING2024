@@ -1,7 +1,7 @@
-﻿@model DepositModel;
+﻿@model WebClient2.ViewModel.DepositModel;
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create Deposit";
 }
 
 <h1>Create Deposit</h1>
@@ -32,3 +32,8 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,18 +1,18 @@
 ﻿@using DataAccess.DAO;
-@model IEnumerable<Business.Models.IntermediateOrder>
+@model IEnumerable<Business.Models.Withdrawal>
 
+<a class="btn btn-primary open-modal">Tạo đơn rút tiền</a>
 <table class="table table-hover">
     <thead>
         <tr>
-            <th>Mã trung gian</th>
-            <th>Chủ đề trung gian</th>
-            <th>Giá tiền</th>
-            <th>Bên chịu phí trung gian</th>
-            <th>Tổng phí cần mua</th>
-            <th>Người bán</th>
+            <th>Mã yêu cầu</th>
+            <th>Trạng thái</th>
+            <th>Số tiền rút</th>
+            <th>Số tài khoản</th>
+            <th>Chủ tài khoản</th>
+            <th>Tên ngân hàng</th>
             <th>Thời gian tạo</th>
             <th>Cập nhật cuối</th>
-            <th>Hành động</th>
 
         </tr>
     </thead>
@@ -21,28 +21,21 @@
         {
             <tr>
                 <td>@item.id</td>
-                <td>@item.name</td>
-                <td>@item.price</td>
-                @if (item.fee_type)
-                {
-                    <td>Bên bán</td>
-                }
-                else
-                {
-                    <td>Bên mua</td>
-                }
-                <td>@item.payment_amount</td>
-                <td>@AccountDAO.GetAccountWithId(item.create_by).name</td>
+                <td>@item.state</td>
+                <td>@item.amount</td>
+                <td>@item.bank_number</td>
+                <td>@item.bank_user</td>
+                <td>@item.bank_name</td>
                 <td>@item.create_at.ToString("dd/MM/yyyy")</td>
                 <td>@item.update_at.ToString("dd/MM/yyyy")</td>
-                <td><a class="btn btn-primary open-modal" data-id="@item.id">Chi tiết</a></td>
+
             </tr>
         }
     </tbody>
 </table>
+<!-- Modal -->
 <div class="modal fade" id="DetailOrderModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
-
     </div>
 </div>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -76,7 +69,6 @@
     });
 
 </script>
-
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
