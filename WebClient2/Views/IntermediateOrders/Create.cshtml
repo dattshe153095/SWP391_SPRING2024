@@ -1,7 +1,7 @@
 ﻿@model Business.Models.IntermediateOrder
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create Intermediate Order";
 }
 
 <h1>Create</h1>
@@ -9,7 +9,7 @@
 <h4>IntermediateOrder</h4>
 <hr />
 <div class="row">
-    <div class="col-md-10">
+    <div class="col-md-10 mx-auto">
         <form method="post" asp-controller="IntermediateOrders" asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -61,7 +61,7 @@
                 <span asp-validation-for="is_public" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Tạo đơn" class="btn btn-primary" />
             </div>
         </form>
     </div>

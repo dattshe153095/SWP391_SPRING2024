@@ -9,42 +9,62 @@ using Business;
 using Business.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Data;
+using WebClient2.BackGroundServices;
+using WebClient2.ViewModel;
+using DataAccess.DAO;
+using DataAccess.Library;
 
 namespace WebClient2.Controllers
 {
+    [ServiceFilter(typeof(SemaphoreActionFilter))]
     [Authorize(Roles = "Admin,User")]
     public class WithdrawalsController : Controller
     {
-        private readonly Web_Trung_GianContext _context;
-
-        public WithdrawalsController(Web_Trung_GianContext context)
+        public IActionResult List()
         {
-            _context = context;
-        }
+            int account_id = HttpContext.Session.GetInt32("Account").Value;
 
-        // GET: Withdrawals
-       
+            List<Withdrawal> withdrawals = WithdrawalDAO.GetAllWithdrawalByWalletId(WalletDAO.GetWalletByAccountId(account_id).id);
+            return View(withdrawals);
+        }
         // GET: Withdrawals/Create
         public IActionResult Create()
         {
-            ViewData["wallet_id"] = new SelectList(_context.Wallets, "id", "id");
             return View();
         }
 
         // POST: Withdrawals/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,wallet_id,amount,bank_number,bank_user,bank_name,status,state,create_by,create_at,update_by,update_at,is_delete")] Withdrawal withdrawal)
+        public IActionResult Create(WithdrawalModel withdrawal)
         {
+            int account_id = HttpContext.Session.GetInt32("Account").Value;
             if (ModelState.IsValid)
             {
-                _context.Add(withdrawal);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (withdrawal.amount <= WalletDAO.GetWalletByAccountId(account_id).balance)
+                {
+                    WalletDAO.UpdateWalletWithdrawalBalance(WalletDAO.GetWalletByAccountId(account_id).id, withdrawal.amount);
+                    Withdrawal w = new Withdrawal
+                    {
+                        id = Gencode.GenerateCodeWithdrawal(),
+                        wallet_id = WalletDAO.GetWalletByAccountId(account_id).id,
+                        amount = withdrawal.amount,
+                        bank_number = withdrawal.bank_number,
+                        bank_name = withdrawal.bank_name,
+                        create_by = account_id,
+                        update_by = account_id,
+                    };
+
+                    WithdrawalDAO.CreateWithdrawal(w);
+
+                }
+                else
+                {
+                    TempData["Message"] = $"Không đủ tiền thanh toán";
+                    return RedirectToAction(nameof(Create));
+                }
+
             }
-            ViewData["wallet_id"] = new SelectList(_context.Wallets, "id", "id", withdrawal.wallet_id);
             return View(withdrawal);
         }
 

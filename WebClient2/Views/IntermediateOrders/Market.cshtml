@@ -86,7 +86,7 @@
             <th>Mã trung gian</th>
             <th>Chủ đề trung gian</th>
             <th>Giá tiền</th>
-            <th>Bên chịu phí trung gian</th>
+            <th>Trạng Thái</th>
             <th>Tổng phí cần mua</th>
             <th>Người bán</th>
             <th>Thời gian tạo</th>
@@ -102,14 +102,7 @@
                 <td>@item.id</td>
                 <td>@item.name</td>
                 <td>@item.price</td>
-                @if (item.fee_type)
-                {
-                    <td>Bên bán</td>
-                }
-                else
-                {
-                    <td>Bên mua</td>
-                }
+                <td>@item.status</td>
                 <td>@item.payment_amount</td>
                 <td>@AccountDAO.GetAccountWithId(item.create_by).name</td>
                 <td>@item.create_at.ToString("dd/MM/yyyy")</td>

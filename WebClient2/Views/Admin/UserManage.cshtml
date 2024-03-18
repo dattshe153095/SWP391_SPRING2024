@@ -1,0 +1,50 @@
+﻿@using DataAccess.DAO;
+@model IEnumerable<Business.Models.Account>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th><input class="form-control" value="" placeholder="Search Id" /></th>
+            <th><input class="form-control" value="" placeholder="Search tên" /></th>
+            <th><input class="form-control" value="" placeholder="Search username" /></th>
+            <th><input class="form-control" value="" placeholder="Search quyền" /></th>
+            <th><input type="datetime" class="form-control" value="" placeholder="Ngày tạo" /></th>
+            <th><input type="datetime" class="form-control" value="" placeholder="Thời gian cập nhật" /></th>
+            <th></th>
+
+        </tr>
+        <tr>
+            <th>Mã người dùng</th>
+            <th>Họ và tên</th>
+            <th>Tài khoản</th>
+            <th>Quyền</th>
+            <th>Ngày tạo</th>
+            <th>Ngày cập nhật</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.id</td>
+                <td>@item.name</td>
+                <td>@item.username</td>
+                <td>@RoleDAO.GetAccountRoleById(item.id).desctiption</td>
+                <td>@item.create_at.ToString("dd/MM/yyyy")</td>
+                <td>@item.update_at.ToString("dd/MM/yyyy")</td>
+                <td><a class="btn btn-primary open-modal" asp-action="DetailUser" asp-route-itemid="@item.id">Chi tiết</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script src="https://kit.fontawesome.com/6ae4d71e22.js" crossorigin="anonymous"></script>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
