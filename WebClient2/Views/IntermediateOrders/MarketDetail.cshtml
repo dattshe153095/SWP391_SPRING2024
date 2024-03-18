@@ -4,7 +4,19 @@
 @{
     ViewData["Title"] = "Details";
 }
+<style>
+    .modal-body {
+        max-height: 300px; /* Đặt chiều cao tối đa của phần modal-body */
+        overflow-y: auto; /* Thêm thanh cuộn dọc nếu nội dung vượt quá kích thước */
+    }
 
+    .form-group textarea {
+        max-height: 100px; /* Đặt chiều cao tối đa của textarea */
+        overflow-y: auto; /* Thêm thanh cuộn dọc nếu nội dung vượt quá kích thước */
+        border: 1px solid #ccc; /* Đặt đường viền cho textarea */
+        padding: 5px; /* Đặt padding cho textarea */
+    }
+</style>
 <h1>Details</h1>
 
 <h4>IntermediateOrder</h4>
