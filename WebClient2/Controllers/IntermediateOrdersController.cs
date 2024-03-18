@@ -41,6 +41,28 @@ namespace WebClient2.Controllers
             //return View(order);
             return PartialView("_ModalOrder", order);
         }
+
+        public IActionResult Details(string? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            IntermediateOrder intermediateOrder = new IntermediateOrder();
+            intermediateOrder = IntermediateOrderDAO.GetIntermediateOrderById(id);
+            OrderViewModel order = new OrderViewModel();
+
+            //MapData
+            order = IntermediateOrderDAO.GetOrderViewModel(intermediateOrder);
+
+            if (intermediateOrder == null)
+            {
+                return NotFound();
+            }
+
+            //return View(order);
+            return View(order);
+        }
         #endregion
 
         #region CREATE INTER ORDER
@@ -109,7 +131,7 @@ namespace WebClient2.Controllers
         [Authorize(Roles = "Admin,User")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(string id, string name, int price, bool fee_type, string description, string contact, string hidden_content, bool is_public)
+        public IActionResult Edit(OrderViewModel orderView/*string id, string name, int price, bool fee_type, string description, string contact, string hidden_content, bool is_public*/)
         {
             if (HttpContext.Session.GetInt32("Account") == null)
             {
@@ -119,20 +141,20 @@ namespace WebClient2.Controllers
 
 
             IntermediateOrder order = new IntermediateOrder();
-            order = IntermediateOrderDAO.GetIntermediateOrderById(id);
+            order = IntermediateOrderDAO.GetIntermediateOrderById(order.id);
             if (order == null) { return NotFound(); }
 
             if (ModelState.IsValid)
             {
-                order.name = name;
-                order.price = price;
-                order.fee_type = fee_type;
-                order.payment_amount = fee_type ? price : price + (int)(price * Constant.FEE);
-                order.earn_amount = fee_type ? price - (int)(price * Constant.FEE) : price;
-                order.description = description;
-                order.contact = contact;
-                order.hidden_content = hidden_content;
-                order.is_public = is_public;
+                order.name = orderView.name;
+                order.price = orderView.price;
+                order.fee_type = orderView.fee_type;
+                order.payment_amount = orderView.fee_type ? orderView.price : orderView.price + (int)(orderView.price * Constant.FEE);
+                order.earn_amount = orderView.fee_type ? orderView.price - (int)(orderView.price * Constant.FEE) : orderView.price;
+                order.description = orderView.description;
+                order.contact = orderView.contact;
+                order.hidden_content = orderView.hidden_content;
+                order.is_public = orderView.is_public;
                 order.update_by = account_id;
                 IntermediateOrderDAO.UpdateIntermediateOrder(order);
                 return RedirectToAction(nameof(Index));

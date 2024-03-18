@@ -3,7 +3,7 @@
 @model DataAccess.ViewModel.OrderViewModel;
 @using DataAccess.DAO;
 @{
-    int account_id = ViewContext.HttpContext.Session.GetInt32("Account").Value;
+    var account_id = ViewContext.HttpContext.Session.GetInt32("Account");
     IntermediateOrder order = IntermediateOrderDAO.GetIntermediateOrderById(Model.id);
 }
 <div class="row">
@@ -155,7 +155,7 @@
                         @if (order != null && order.buy_user == null&&  order.create_by == account_id)
                         {
                             <div class="col">
-                                <a class="btn btn-success" asp-action="MarketDetail" asp-route-id="@Model.id">Chỉnh sửa</a>
+                                <a class="btn btn-success" asp-action="Details" asp-route-id="@Model.id">Chỉnh sửa</a>
                             </div>
                         }
                     </div>

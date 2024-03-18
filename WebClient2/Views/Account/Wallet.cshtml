@@ -23,7 +23,7 @@
                                 <div class="position-relative row form-group">
                                     <div class="form-label-horizontal col-md-3">
                                         <label class=""><b>Tên ví: @AccountDAO.GetAccountWithId(ViewBag.accountId).name</b></label><br />
-                                        <label class=""><b>Số dư: @WalletDAO.GetWalletById(ViewBag.accountId).balance ₫</b></label>
+                                        <label class=""><b>Số dư: @WalletDAO.GetWalletByAccountId(ViewBag.accountId).balance ₫</b></label>
                                     </div>
                                     <div class="col-md-9"></div>
                                 </div>
