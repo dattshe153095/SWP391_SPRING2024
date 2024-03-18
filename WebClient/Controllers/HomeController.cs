@@ -169,8 +169,8 @@ namespace WebClient2.Controllers
                     password = model.Password,
                     phone = model.Phone,
                     role_id=2
-                };  
-
+                };
+                AccountDAO.Register(account);
                 
                 return RedirectToAction("Login", "Home");
             }
