@@ -34,6 +34,11 @@
                                                 <button class="btn btn-primary" type="button" onclick="sendEmail()">Send Email</button> <!-- Thêm nút gửi email -->
                                             </div>
                                             <div class="form-group mb-6">
+                                                <label class="control-label">Code confirm mail</label>
+                                                <input asp-for="CodeValidate" class="form-control" />
+                                                <span asp-validation-for="CodeValidate" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group mb-6">
                                                 <label class="control-label">Số điện thoại</label>
                                                 <input asp-for="Phone" class="form-control"/>
                                                 <span asp-validation-for="Phone" class="text-danger"></span>
