@@ -1,14 +1,48 @@
 ﻿@using DataAccess.DAO;
 @model IEnumerable<Business.Models.IntermediateOrder>
 <style>
-    body {
-        background-color: #87CEEB; /* Màu xanh dương */
-        border: 10px solid #000; /* Đóng khung ngoài bảng với độ dày 10px và màu đen */
-        padding: 20px; /* Khoảng cách giữa nội dung và khung */
+    .container {
+        border: 1px solid #ddd;
+        padding: 10px;
+        max-height: 700px; /* Đặt chiều cao tối đa cho khung */
+        overflow-y: auto; /* Thêm thanh cuộn dọc nếu nội dung vượt quá kích thước */
     }
 
-    /* Các quy tắc CSS khác ở đây */
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        .table th,
+        .table td {
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+
+        .table th {
+            background-color: #f2f2f2;
+            text-align: left;
+        }
+
+    .table-hover tbody tr:hover {
+        background-color: #f5f5f5;
+    }
+
+    .btn {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        text-decoration: none;
+        background-color: #007bff;
+        color: #fff;
+    }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
 </style>
+<h1>Chợ Trung Gian</h1>
 <table class="table table-hover">
     <thead>
         <tr>
