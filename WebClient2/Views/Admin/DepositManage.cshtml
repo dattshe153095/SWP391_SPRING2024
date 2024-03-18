@@ -1,0 +1,53 @@
+﻿@using DataAccess.DAO;
+@model IEnumerable<Business.Models.Deposit>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th><input class="form-control" value="" placeholder="Search Id" /></th>
+            <th><input class="form-control" value="" placeholder="Search số tiền" /></th>
+            <th><input class="form-control" value="" placeholder="Search trạng thái" /></th>
+            <th></th>
+            <th><input class="form-control" value="" placeholder="Người tạo" /></th>
+            <th><input type="datetime" class="form-control" value="" placeholder="Ngày tạo" /></th>
+            <th><input type="datetime" class="form-control" value="" placeholder="Thời gian cập nhật" /></th>
+            <th></th>
+
+        </tr>
+        <tr>
+            <th>Mã nạp tiền</th>
+            <th>Số tiền nạp</th>
+            <th>Trạng thái</th>
+            <th>Mô tả</th>
+            <th>Người tạo</th>
+            <th>Ngày tạo</th>
+            <th>Ngày cập nhật</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.id</td>
+                <td>@item.amount</td>
+                <td>@item.state</td>
+                <td>@item.description</td>
+                <td>@AccountDAO.GetAccountWithId(item.create_by).name</td>
+                <td>@item.create_at.ToString("dd/MM/yyyy")</td>
+                <td>@item.update_at.ToString("dd/MM/yyyy")</td>
+                <td><a class="btn btn-primary open-modal" asp-action="DetailDeposit" asp-route-itemid="@item.id">Chi tiết</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script src="https://kit.fontawesome.com/6ae4d71e22.js" crossorigin="anonymous"></script>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

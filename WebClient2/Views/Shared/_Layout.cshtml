@@ -35,7 +35,7 @@
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" asp-area="" asp-controller="Deposits" asp-action="Create">Nạp tiền</a></li>
                                     <li><a class="dropdown-item" asp-area="" asp-controller="Withdrawal" asp-action="Create">Lịch sử giao dịch</a></li>
-                                    <li><a class="dropdown-item" asp-area="" asp-controller="Withdrawal" asp-action="Create">Yêu cầu rút tiền</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Withdrawals" asp-action="Create">Yêu cầu rút tiền</a></li>
                                 </ul>
                             </li>
                         }
@@ -70,6 +70,21 @@
                                 </ul>
                             }
                         </li>
+                        @if (account_id != null && AccountDAO.GetAccountWithId(account_id).role_id == 1)
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" asp-area="" asp-controller="Account" asp-action="Profile" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Quản lý Admin
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Admin" asp-action="InterOrderManage">Quản lý đơn trung gian</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Admin" asp-action="DepositManage">Quản lí đơn nạp</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Admin" asp-action="WithdrawalManage">Quản lí đơn rút</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Admin" asp-action="UserManage">Quản lí người dùng</a></li>
+
+                                </ul>
+                            </li>
+                        }
 
                     </ul>
                 </div>

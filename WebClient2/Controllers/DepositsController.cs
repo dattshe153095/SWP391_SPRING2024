@@ -11,9 +11,9 @@ using WebClient2.Services;
 using Microsoft.AspNetCore.Authorization;
 using System.Data;
 using DataAccess.DAO;
-using WebClient2.Models;
 using DataAccess.Library;
 using WebClient2.BackGroundServices;
+using WebClient2.ViewModel;
 
 namespace WebClient2.Controllers
 {

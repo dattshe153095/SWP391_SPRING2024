@@ -17,46 +17,46 @@
                                     <h2 class="text-uppercase text-center mb-6">Create an account</h2>
                                     <form style="display: grid" method="post" asp-controller="Home" asp-action="Register">
                                         <div class="row">
-                                            <div class="form-outline mb-6">
-                                                <label class="control-label">Name</label>
+                                            <div class="form-group mb-6">
+                                                <label class="control-label">Họ và Tên</label>
                                                 <input asp-for="Name" type="text" class="form-control" placeholder="Name" />
                                                 <span asp-validation-for="Name" class="text-danger"></span>
                                             </div>
-                                            <div class="form-outline mb-6">
-                                                @Html.LabelFor(temp => temp.Username)
-                                                @Html.TextBoxFor(temp => temp.Username, new { placeholder = "Username", @class = "form-control" })
-                                                @Html.ValidationMessageFor(temp => temp.Username)
+                                            <div class="form-group mb-6">
+                                                <label class="control-label">Tài khoản</label>
+                                                <input asp-for="Username" class="form-control" />
+                                                <span asp-validation-for="Username" class="text-danger"></span>
                                             </div>
-                                            <div class="form-outline mb-6">
-                                                @Html.LabelFor(temp => temp.Email)
-                                                @Html.TextBoxFor(temp => temp.Email, new { placeholder = "Email", @class = "form-control" })
-                                                @Html.ValidationMessageFor(temp => temp.Email)
-                                                <button type="button" onclick="sendEmail()">Send Email</button> <!-- Thêm nút gửi email -->
+                                            <div class="form-group mb-6">
+                                                <label class="control-label">Email</label>
+                                                <input asp-for="Email" class="form-control email" id="email" />
+                                                <span asp-validation-for="Email" class="text-danger"></span>
+                                                <button class="btn btn-primary" type="button" onclick="sendEmail()">Send Email</button> <!-- Thêm nút gửi email -->
                                             </div>
-                                            <div class="form-outline mb-6">
-                                                @Html.LabelFor(temp => temp.Phone)
-                                                @Html.TextBoxFor(temp => temp.Phone, new { placeholder = "Phone", @class = "form-control" })
-                                                @Html.ValidationMessageFor(temp => temp.Phone)
+                                            <div class="form-group mb-6">
+                                                <label class="control-label">Số điện thoại</label>
+                                                <input asp-for="Phone" class="form-control"/>
+                                                <span asp-validation-for="Phone" class="text-danger"></span>
 
                                             </div>
-                                            <div class="password-fields-row">
+                                            <div class="form-group mb-6">
                                                 <div class="form-outline mb-6" style="margin-right: 15px">
-                                                    @Html.LabelFor(model => model.Password)
-                                                    @Html.PasswordFor(model => model.Password, new { placeholder = "Password", @class = "form-control" })
-                                                    @Html.ValidationMessageFor(model => model.Password)
+                                                <label class="control-label">Mật khẩu</label>
+                                                <input asp-for="Password" class="form-control"/>
+                                                <span asp-validation-for="Password" class="text-danger"></span>
                                                 </div>
-                                                <div class="form-outline mb-6">
-                                                    @Html.LabelFor(model => model.ConfirmPassword)  <!-- Corrected typo here -->
-                                                    @Html.PasswordFor(model => model.ConfirmPassword, new { placeholder = "Confirm Password", @class = "form-control" })
-                                                    @Html.ValidationMessageFor(model => model.ConfirmPassword)
+                                                <div class="form-group mb-6">
+                                                <label class="control-label">Xác nhận mật khẩu</label>
+                                                    <input asp-for="ConfirmPassword" class="form-control" />
+                                                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                                                 </div>
                                             </div>
-                                            <div class="captcha-div">
-                                                <span id="Captcha-image">
+                                            <div class="form-group row">
+                                                <div class="col" id="Captcha-image">
                                                     <img id="captchaImage" src="data:image/png;base64,@ViewBag.CaptchaImageBytes"
                                                          alt="Captcha Image" />
-                                                </span>
-                                                <div class="input-group">
+                                                </div>
+                                                <div class="col">
                                                     <input type="text" id="captcha" name="captcha" class="captcha-form form-control" placeholder="Input capcha" required>
                                                     <button type="button" id="refreshCaptcha"><i class="fa fa-refresh" aria-hidden="true"></i></button>
                                                 </div>
@@ -84,7 +84,7 @@
 <script>
     function sendEmail() {
         var email = $("#email").val();
-
+         alert("Đã gửi Mail");
         $.ajax({
             type: "POST", // hoặc "GET" tùy thuộc vào loại yêu cầu của bạn
             url: "/Home/SendEmail", // Thay thế bằng đường dẫn của action bạn muốn gọi
