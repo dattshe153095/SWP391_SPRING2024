@@ -253,6 +253,24 @@ namespace WebClient2.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Admin,User")]
+        public IActionResult DeleteInterOrder(string id)
+        {
+
+            int account_id = HttpContext.Session.GetInt32("Account").Value;
+
+
+            IntermediateOrder order = IntermediateOrderDAO.GetIntermediateOrderById(id);
+            if (account_id != order.create_by)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
+            IntermediateOrderDAO.DeleteInterOrder(id);
+            return Json(new { success = true, message = "Hủy hàng thành công" });
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin,User")]
         public IActionResult KhieuNaiAdminInterOrder(string id)
         {
 

@@ -6,12 +6,10 @@
         <form method="post" asp-controller="Home" asp-action="Login">
             <div class="mb-3">
                 <input type="text" placeholder="Username" id="username" class="form-control" name="username" required />
-                <div class="a-alert-content" id="usernameError" style="color: red;"></div>
 
             </div>
             <div class="mb-3">
                 <input type="password" placeholder="Password" id="password" class="form-control" name="password" required />
-                <div class="a-alert-content" id="passwordError" style="color: red;"></div>
             </div>
             <div class="captcha-div mb-3 row">
                 <span id="Captcha-image" class="col">
@@ -20,10 +18,11 @@
                 </span>
                 <div class="input-group col">
                     <input type="text" id="captcha" name="captcha" class=" form-control" placeholder="Input capcha" required>
-                </div>
-                <div class="col mb-3">
                     <button type="button" id="refreshCaptcha"><i class="fa fa-refresh" aria-hidden="true"></i></button>
                 </div>
+               @*  <div class="col mb-3">
+                    <button type="button" id="refreshCaptcha"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+                </div> *@
             </div>
             <div class="mb-3">
                 <input value="Login" type="submit" class="btn btn-primary" />
