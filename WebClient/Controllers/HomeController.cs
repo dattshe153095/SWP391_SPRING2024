@@ -169,8 +169,8 @@ namespace WebClient2.Controllers
                     password = model.Password,
                     phone = model.Phone,
                     role_id=2
-                };  
-
+                };
+                AccountDAO.Register(account);
                 
                 return RedirectToAction("Login", "Home");
             }
@@ -190,6 +190,7 @@ namespace WebClient2.Controllers
         public IActionResult SendEmail(string email)
         {
             HttpContext.Session.SetString("VerificationCode", EmailSender.SendEmailAsync(email, "", ""));
+            HttpContext.Session.SetString("VerificationEmail", EmailSender.SendEmailAsync(email, "", ""));
             return Json(new { success = true, message = "Email sent successfully!" });
         }
 
