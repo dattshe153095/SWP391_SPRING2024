@@ -49,18 +49,24 @@ namespace DataAccess.DAO
             account.create_at = DateTime.Now;
             account.update_at = DateTime.Now;
 
-            Wallet w = new Wallet()
-            {
-                account_id = account.id,
-                balance = 0,
-                update_at = DateTime.Now,
-                update_by = account.id,
-            };
             using (var context = new Web_Trung_GianContext())
             {
                 var accounts = context.Set<Account>();
                 accounts.Add(account);
-                var wallets= context.Set<Wallet>();
+                context.SaveChanges();
+            }
+
+            int id_wallet = Login(account.username, account.password).id;
+            Wallet w = new Wallet()
+            {
+                balance = 0,
+                account_id = account.id,
+                update_at = DateTime.Now,
+                update_by = id_wallet,
+            };
+            using (var context = new Web_Trung_GianContext())
+            {
+                var wallets = context.Set<Wallet>();
                 wallets.Add(w);
                 context.SaveChanges();
             }

@@ -29,7 +29,7 @@
                 <td>@item.id</td>
                 <td>@item.name</td>
                 <td>@item.username</td>
-                <td>@RoleDAO.GetAccountRoleById(item.id).desctiption</td>
+                <td>@RoleDAO.GetAccountRoleById(item.role_id).desctiption</td>
                 <td>@item.create_at.ToString("dd/MM/yyyy")</td>
                 <td>@item.update_at.ToString("dd/MM/yyyy")</td>
                 <td><a class="btn btn-primary open-modal" asp-action="DetailUser" asp-route-itemid="@item.id">Chi tiết</a></td>
