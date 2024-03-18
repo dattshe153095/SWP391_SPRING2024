@@ -42,17 +42,7 @@
 </table>
 <div class="modal fade" id="DetailOrderModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
-        @*<div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Thông tin đơn trung gian</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>*@
+
     </div>
 </div>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -70,13 +60,7 @@
                 url: '/IntermediateOrders/MarketDetail',
                 data: { id: id },
                 success: function (data) {
-                    // Xử lý dữ liệu trả về ở đây
-                    // data sẽ chứa thông tin của IntermediateOrder
-
-                    // Ví dụ: hiển thị thông tin trong modal body
-                    $(".modal-body").html(
-                        //"Mã trung gian: " + data.id + "<br/>" +
-                        //"Chủ đề trung gian: " + data.name + "<br/>" +
+                    $(".modal-dialog").html(
                         data
                     );
 

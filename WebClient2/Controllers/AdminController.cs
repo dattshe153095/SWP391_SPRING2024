@@ -18,31 +18,20 @@ namespace WebClient2.Controllers
             return View(order);
         }
 
-        public IActionResult OrderDetail(string? id)
+        public IActionResult DetailOrder(string? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-            IntermediateOrder intermediateOrder = new IntermediateOrder();
-            intermediateOrder = IntermediateOrderDAO.GetIntermediateOrderById(id);
-            OrderViewModel order = new OrderViewModel();
-
-            //MapData
-            order = IntermediateOrderDAO.GetOrderViewModel(intermediateOrder);
-
-            if (intermediateOrder == null)
-            {
-                return NotFound();
-            }
-
-            //return View(order);
-            return PartialView("_ModalOrder", order);
+            IntermediateOrder order = IntermediateOrderDAO.GetIntermediateOrderById(id);
+            return View(order);
         }
 
         public IActionResult DepositManage()
         {
             List<Deposit> deposits= DepositDAO.GetAllDeposit();
+            return View(deposits);
+        }
+        public IActionResult DetailDeposit(string? id)
+        {
+            List<Deposit> deposits = DepositDAO.GetAllDeposit();
             return View(deposits);
         }
 
@@ -51,10 +40,22 @@ namespace WebClient2.Controllers
             List<Withdrawal> withdrawals = WithdrawalDAO.GetAllWithdrawal();
             return View(withdrawals);
         }
+        public IActionResult DetailWithdrawal(string? id)
+        {
+            List<Deposit> deposits = DepositDAO.GetAllDeposit();
+            return View(deposits);
+        }
+
         public IActionResult UserManage()
         {
             List<Account> accounts = AccountDAO.GetAllAccount();
             return View(accounts);
+        }
+
+        public IActionResult DetailUser(int? id)
+        {
+            List<Deposit> deposits = DepositDAO.GetAllDeposit();
+            return View(deposits);
         }
 
 

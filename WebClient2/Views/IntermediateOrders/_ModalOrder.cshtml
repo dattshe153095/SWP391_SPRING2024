@@ -3,7 +3,7 @@
 @model DataAccess.ViewModel.OrderViewModel;
 @using DataAccess.DAO;
 @{
-    var account_id = ViewContext.HttpContext.Session.GetInt32("Account");
+    int account_id = ViewContext.HttpContext.Session.GetInt32("Account").Value;
     IntermediateOrder order = IntermediateOrderDAO.GetIntermediateOrderById(Model.id);
 }
 <div class="row">
@@ -143,7 +143,7 @@
 
                             </div>
                         }
-                        @if (order != null && order.buy_user != null &&
+                        @if (order != null && order.buy_user != null && order.create_by != account_id &&
                          ( order.status == IntermediateOrderEnum.BEN_MUA_KHIEU_NAI
                         || order.status == IntermediateOrderEnum.YEU_CAU_QUAN_TRI
                         || order.status == IntermediateOrderEnum.BEN_BAN_DANH_DAU_KHIEU_NAI))

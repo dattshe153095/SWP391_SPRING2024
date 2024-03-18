@@ -97,11 +97,11 @@ namespace WebClient2.Controllers
                     };
 
                     IntermediateOrderDAO.CreateIntermediateOrder(order);
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction("Market", "IntermediateOrders");
                 }
 
             }
-            return View(order);
+            return RedirectToAction("Market", "IntermediateOrders");
         }
         #endregion
 
@@ -166,7 +166,7 @@ namespace WebClient2.Controllers
         {
             if (HttpContext.Session.GetInt32("Account") == null)
             {
-                return RedirectToAction("Login","Home");
+                return RedirectToAction("Login", "Home");
             }
             int account_id = HttpContext.Session.GetInt32("Account").Value;
 
@@ -238,7 +238,7 @@ namespace WebClient2.Controllers
             return Json(new { loggedIn = loggedIn });
         }
 
-        [HttpPost]
+        //[HttpPost]
         [Authorize(Roles = "Admin,User")]
         public IActionResult KhieuNaiInterOrder(string id)
         {
@@ -248,10 +248,11 @@ namespace WebClient2.Controllers
             IntermediateOrder order = IntermediateOrderDAO.GetIntermediateOrderById(id);
 
             IntermediateOrderDAO.ReportInterOrder(id);
-            return Json(new { success = true, message = "Khiếu nại thành công" });
+            //return Json(new { success = true, message = "Khiếu nại thành công" });
+            return RedirectToAction("Market", "IntermediateOrders");
         }
 
-        [HttpPost]
+        //[HttpPost]
         [Authorize(Roles = "Admin,User")]
         public IActionResult KhieuNaiAdminInterOrder(string id)
         {
@@ -261,25 +262,27 @@ namespace WebClient2.Controllers
             IntermediateOrder order = IntermediateOrderDAO.GetIntermediateOrderById(id);
 
             IntermediateOrderDAO.ReportAdminInterOrder(id);
-            return Json(new { success = true, message = "Khiếu nại lên Admin thành công" });
+            //return Json(new { success = true, message = "Khiếu nại lên Admin thành công" });
+            return RedirectToAction("Market", "IntermediateOrders");
         }
 
-        [HttpPost]
+        //[HttpPost]
         [Authorize(Roles = "Admin,User")]
         public IActionResult DeleteInterOrder(string id)
         {
 
             int account_id = HttpContext.Session.GetInt32("Account").Value;
-       
+
 
             IntermediateOrder order = IntermediateOrderDAO.GetIntermediateOrderById(id);
-            if(account_id != order.create_by)
+            if (account_id != order.create_by)
             {
                 return RedirectToAction("Login", "Home");
             }
 
             IntermediateOrderDAO.DeleteInterOrder(id);
-            return Json(new { success = true, message = "Hủy hàng thành công" });
+            //return Json(new { success = true, message = "Hủy hàng thành công" });
+            return RedirectToAction("Market", "IntermediateOrders");
         }
     }
 }
