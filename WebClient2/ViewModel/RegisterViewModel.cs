@@ -9,7 +9,7 @@ namespace WebClient2.ViewModel
         public string Name { get; set; }
         
         [Required(ErrorMessage ="Username cannot be blank")]
-        [Remote(action: "UserNameIsExist", controller: "Account")]
+        [Remote(action: "UserNameIsExist", controller: "Home")]
         public string Username { get; set; }
 
         [Required(ErrorMessage = "Password cannot be blank")]
