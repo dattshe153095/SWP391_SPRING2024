@@ -6,20 +6,6 @@
     var account_id = ViewContext.HttpContext.Session.GetInt32("Account");
     IntermediateOrder order = IntermediateOrderDAO.GetIntermediateOrderById(Model.id);
 }
-<style>
-    .form-group .description-container {
-        max-height: 72px; /* Chiều cao tối đa tương ứng với 3 dòng văn bản */
-        overflow: hidden; /* Ẩn nội dung vượt quá kích thước */
-    }
-
-        .form-group .description-container:hover {
-            overflow: auto; /* Hiển thị thanh cuộn khi di chuột qua */
-        }
-
-        .form-group .description-container .description-text {
-            white-space: pre-line; /* Đảm bảo dòng mới được hiển thị */
-        }
-</style>
 <div class="row">
     <div class="col-md-12">
         <div class="modal-content">
