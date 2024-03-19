@@ -155,7 +155,7 @@
                         @if (order != null && order.buy_user == null&&  order.create_by == account_id)
                         {
                             <div class="col">
-                                <a class="btn btn-success" asp-action="Details" asp-route-id="@Model.id">Chỉnh sửa</a>
+                                <a class="btn btn-success" asp-action="Edit" asp-route-id="@Model.id">Chỉnh sửa</a>
                             </div>
                         }
                     </div>

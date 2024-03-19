@@ -14,7 +14,7 @@ namespace WebClient2.Controllers
     {
         public IActionResult InterOrderManage()
         {
-            List<IntermediateOrder> order = IntermediateOrderDAO.GetInterAbleToSell();
+            List<IntermediateOrder> order = IntermediateOrderDAO.GetAllIntermediateOrders();
             return View(order);
         }
 

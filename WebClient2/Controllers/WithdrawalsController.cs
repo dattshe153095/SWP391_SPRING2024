@@ -50,6 +50,7 @@ namespace WebClient2.Controllers
                         wallet_id = WalletDAO.GetWalletByAccountId(account_id).id,
                         amount = withdrawal.amount,
                         bank_number = withdrawal.bank_number,
+                        bank_user = withdrawal.bank_user,
                         bank_name = withdrawal.bank_name,
                         create_by = account_id,
                         update_by = account_id,
