@@ -42,6 +42,27 @@ namespace WebClient2.Controllers
             //return View(order);
             return PartialView("_ModalOrder", order);
         }
+
+        public IActionResult OrderDetail(string? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            IntermediateOrder intermediateOrder = new IntermediateOrder();
+            intermediateOrder = IntermediateOrderDAO.GetIntermediateOrderById(id);
+            OrderViewModel order = new OrderViewModel();
+
+            //MapData
+            order = IntermediateOrderDAO.GetOrderViewModel(intermediateOrder);
+
+            if (intermediateOrder == null)
+            {
+                return NotFound();
+            }
+
+            return View(order);
+        }
         #endregion
 
         #region CREATE INTER ORDER
@@ -174,6 +195,7 @@ namespace WebClient2.Controllers
             return RedirectToAction("Edit", "IntermediateOrders", new { id = orderView.id });
         }
 
+        [Authorize(Roles = "Admin,User")]
         public bool CheckInterOrderEdit(int create_user, string inter_order)
         {
             IntermediateOrder order = IntermediateOrderDAO.GetIntermediateOrderById(inter_order);
