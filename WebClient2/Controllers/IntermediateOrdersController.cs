@@ -121,6 +121,10 @@ namespace WebClient2.Controllers
             IntermediateOrder order = new IntermediateOrder();
             if (ModelState.IsValid)
             {
+                if (price < 0)
+                {
+                    ModelState.AddModelError(string.Empty, "Số tiền cần lớn hơn 0");
+                }
                 if (WalletDAO.GetWalletByAccountId(account_id).balance < 500)
                 {
                     ModelState.AddModelError(string.Empty, "Không đủ tiền trong tài khoản! Tài khoản hiện tại có: " + WalletDAO.GetWalletByAccountId(account_id).balance);
@@ -271,7 +275,10 @@ namespace WebClient2.Controllers
 
             IntermediateOrder order = IntermediateOrderDAO.GetIntermediateOrderById(id);
             //CALCULATE PRICE
-
+            if (order.buy_user != null)
+            {
+                return Json(new { success = true, message = "Hàng đã có người mua" });
+            }
             //MapData
             if (WalletDAO.GetWalletByAccountId(account_id).balance < order.payment_amount)
             {
