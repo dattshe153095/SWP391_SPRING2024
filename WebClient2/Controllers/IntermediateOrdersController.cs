@@ -21,24 +21,35 @@ namespace WebClient2.Controllers
             return View();
         }
 
-        public IActionResult ListOrders()
+        public IActionResult ListOrders(int page = 1, int itemsPerPage = 5)
         {
-            var data = IntermediateOrderDAO.GetInterAbleToSell(); // Đây là nơi bạn lấy dữ liệu từ cơ sở dữ liệu hoặc từ bất kỳ nguồn nào khác
+            var data = IntermediateOrderDAO.GetInterAbleToSell(); // Lấy dữ liệu từ cơ sở dữ liệu hoặc nguồn dữ liệu khác
 
-            // Biến đổi dữ liệu nếu cần thiết để trả về dưới dạng JSON
-            var jsonData = data.Select(item => new
+            // Tính toán số lượng trang dựa trên tổng số phần tử và số lượng phần tử trên mỗi trang
+            var totalPages = (int)Math.Ceiling((double)data.Count() / itemsPerPage);
+
+            // Phân trang dữ liệu
+            var pagedData = data.Skip((page - 1) * itemsPerPage)
+                                .Take(itemsPerPage)
+                                .Select(item => new
+                                {
+                                    id = item.id,
+                                    name = item.name,
+                                    price = item.price,
+                                    status = item.status,
+                                    payment_amount = item.payment_amount,
+                                    accountName = AccountDAO.GetAccountWithId(item.create_by).name,
+                                    create_at = item.create_at.ToString("dd/MM/yyyy"),
+                                    update_at = item.update_at.ToString("dd/MM/yyyy")
+                                });
+
+            // Trả về dữ liệu dưới dạng JSON cùng với thông tin phân trang
+            return Json(new
             {
-                id = item.id,
-                name = item.name,
-                price = item.price,
-                status = item.status,
-                payment_amount = item.payment_amount,
-                accountName = AccountDAO.GetAccountWithId(item.create_by).name,
-                create_at = item.create_at.ToString("dd/MM/yyyy"),
-                update_at = item.update_at.ToString("dd/MM/yyyy")
+                currentPage = page,
+                totalPages = totalPages,
+                items = pagedData
             });
-
-            return Json(jsonData);
         }
 
         // GET: IntermediateOrders/Details/5

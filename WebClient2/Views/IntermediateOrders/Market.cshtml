@@ -34,6 +34,17 @@
         }*@
     </tbody>
 </table>
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center" id="paginationList">
+        <li class="page-item disabled" id="prevPage">
+            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+        </li>
+        <!-- Các nút trang sẽ được thêm vào đây bằng mã JavaScript -->
+        <li class="page-item" id="nextPage">
+            <a class="page-link" href="#">Next</a>
+        </li>
+    </ul>
+</nav>
 <!-- Modal -->
 <div class="modal fade" id="DetailOrderModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
@@ -45,28 +56,90 @@
 <script src="https://kit.fontawesome.com/6ae4d71e22.js" crossorigin="anonymous"></script>
 <script>
     $(document).ready(function () {
-        $.ajax({
-            url: '/IntermediateOrders/ListOrders', // Thay ControllerName và ActionName bằng tên thực tế của controller và action xử lý yêu cầu
-            type: 'GET',
-            dataType: 'json',
-            success: function (data) {
-                // Xử lý dữ liệu trả về từ máy chủ
-                $.each(data, function (index, item) {
-                    var newRow = $('<tr>');
-                    newRow.append('<td>' + item.id + '</td>');
-                    newRow.append('<td>' + item.name + '</td>');
-                    newRow.append('<td>' + item.price + '</td>');
-                    newRow.append('<td>' + item.status + '</td>');
-                    newRow.append('<td>' + item.payment_amount + '</td>');
-                    newRow.append('<td>' + item.accountName + '</td>');
-                    newRow.append('<td>' + item.create_at + '</td>');
-                    newRow.append('<td>' + item.update_at + '</td>');
-                    newRow.append('<td><a class="btn btn-primary open-modal" data-id="' + item.id + '">Chi tiết</a></td>');
-                    $('tbody').append(newRow);
-                });
+        var currentPage = 1; // Trang hiện tại
+        var itemsPerPage = 5; // Số phần tử trên mỗi trang
+        var totalItems = 0; // Tổng số phần tử
+        var totalPages = 0; // Tổng số trang
+
+        // Hàm để tải dữ liệu cho trang cụ thể
+        function loadData(page) {
+            $.ajax({
+                url: '/IntermediateOrders/ListOrders', // Thay ControllerName và ActionName bằng tên thực tế của controller và action xử lý yêu cầu
+                type: 'GET',
+                dataType: 'json',
+                data: { page: page, itemsPerPage: itemsPerPage },
+                success: function (data) {
+                    $('tbody').empty(); // Xóa dữ liệu cũ trước khi thêm mới
+
+                    // Xử lý dữ liệu trả về từ máy chủ
+                    $.each(data.items, function (index, item) {
+                        var newRow = $('<tr>');
+                        newRow.append('<td>' + item.id + '</td>');
+                        newRow.append('<td>' + item.name + '</td>');
+                        newRow.append('<td>' + item.price + '</td>');
+                        newRow.append('<td>' + item.status + '</td>');
+                        newRow.append('<td>' + item.payment_amount + '</td>');
+                        newRow.append('<td>' + item.accountName + '</td>');
+                        newRow.append('<td>' + item.create_at + '</td>');
+                        newRow.append('<td>' + item.update_at + '</td>');
+                        newRow.append('<td><a class="btn btn-primary open-modal" data-id="' + item.id + '">Chi tiết</a></td>');
+                        $('tbody').append(newRow);
+                    });
+
+                    // Cập nhật thông tin phân trang
+                    currentPage = data.currentPage;
+                    totalPages = data.totalPages;
+
+                    // Xóa các nút trang hiện có trước khi thêm mới
+                    $('#paginationList').find('.page-number').remove();
+
+                    // Thêm các nút trang mới
+                    for (var i = 1; i <= totalPages; i++) {
+                        var pageItem = $('<li class="page-item page-number"><a class="page-link" href="#">' + i + '</a></li>');
+                        pageItem.click(function () {
+                            var pageNum = $(this).text();
+                            loadData(pageNum);
+                        });
+                        $('#nextPage').before(pageItem);
+                    }
+
+                    // Cập nhật trạng thái của nút "Previous" và "Next"
+                    if (currentPage === 1) {
+                        $('#prevPage').addClass('disabled');
+                    } else {
+                        $('#prevPage').removeClass('disabled');
+                    }
+
+                    if (currentPage === totalPages) {
+                        $('#nextPage').addClass('disabled');
+                    } else {
+                        $('#nextPage').removeClass('disabled');
+                    }
+                }
+            });
+        }
+
+        // Tải dữ liệu cho trang đầu tiên khi trang web được tải
+        loadData(currentPage);
+
+        // Sự kiện click cho nút Trang trước
+        $('#prevPage').click(function () {
+            if (currentPage > 1) {
+                currentPage--;
+                loadData(currentPage);
             }
         });
 
+        // Sự kiện click cho nút Trang tiếp theo
+        $('#nextPage').click(function () {
+            if (currentPage < totalPages) {
+                currentPage++;
+                loadData(currentPage);
+            }
+        });
+
+
+        //Load Event Buy
         $('tbody').on('click', '.open-modal', function () {
             console.log("HEHE")
             var id = $(this).data('id');
