@@ -314,8 +314,8 @@ namespace WebClient2.Controllers
             IntermediateOrder order = IntermediateOrderDAO.GetIntermediateOrderById(id);
 
             IntermediateOrderDAO.ReportInterOrder(id);
-            //return Json(new { success = true, message = "Khiếu nại thành công" });
-            return RedirectToAction("Market", "IntermediateOrders");
+            TempData["Message"] = "Đã gửi khiếu nại cho người bán";
+            return RedirectToAction("OrderDetail", "IntermediateOrders");
         }
 
         //[HttpPost]
@@ -328,8 +328,8 @@ namespace WebClient2.Controllers
             IntermediateOrder order = IntermediateOrderDAO.GetIntermediateOrderById(id);
 
             IntermediateOrderDAO.ReportAdminInterOrder(id);
-            //return Json(new { success = true, message = "Khiếu nại lên Admin thành công" });
-            return RedirectToAction("Market", "IntermediateOrders");
+            TempData["Message"] = "Đã gửi khiếu nại lên admin đơn hàng thành công";
+            return RedirectToAction("OrderDetail", "IntermediateOrders");
         }
 
         //[HttpPost]
@@ -347,8 +347,12 @@ namespace WebClient2.Controllers
             }
 
             IntermediateOrderDAO.DeleteInterOrder(id);
-            //return Json(new { success = true, message = "Hủy hàng thành công" });
-            return RedirectToAction("Market", "IntermediateOrders");
+            if (order.buy_user != null)
+            {
+                WalletDAO.UpdateWalletDepositBalance(order.buy_user.Value, (int)order.payment_amount);
+            }
+            TempData["Message"] = "Hủy đơn hàng thành công";
+            return RedirectToAction("OrderDetail", "IntermediateOrders");
         }
     }
 }

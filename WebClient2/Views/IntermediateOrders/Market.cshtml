@@ -1,10 +1,6 @@
 ﻿@using DataAccess.DAO;
 @model IEnumerable<Business.Models.IntermediateOrder>
-<style>
 
-
-    
-</style>
 <h1>Chợ Trung Gian</h1>
 <table class="table table-hover">
     <thead>
@@ -41,18 +37,7 @@
 <!-- Modal -->
 <div class="modal fade" id="DetailOrderModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
-        @*<div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Thông tin đơn trung gian</h1>
-                <a class="btn btn-primary" asp-action="ReportInterOrder" asp-route-id="@Model."></a>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>*@
+
     </div>
 </div>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -86,11 +71,6 @@
     });
 
 </script>
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="~/js/site.js" asp-append-version="true"></script>
-<script src="https://kit.fontawesome.com/6ae4d71e22.js" crossorigin="anonymous"></script>
-
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");

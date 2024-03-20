@@ -151,7 +151,7 @@
 
                             </div>
                         }
-                        @if (order != null && order.buy_user != null && order.create_by != account_id &&
+                        @if (order != null && order.buy_user != null && order.create_by == account_id &&
                         (order.status == IntermediateOrderEnum.BEN_MUA_KHIEU_NAI
                         || order.status == IntermediateOrderEnum.YEU_CAU_QUAN_TRI
                         || order.status == IntermediateOrderEnum.BEN_BAN_DANH_DAU_KHIEU_NAI))

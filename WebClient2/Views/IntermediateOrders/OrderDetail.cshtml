@@ -9,9 +9,8 @@
     IntermediateOrder order = IntermediateOrderDAO.GetIntermediateOrderById(Model.id);
     var localhostAddress = $"{ViewContext.HttpContext.Request.Scheme}:/{ViewContext.HttpContext.Request.Host}" + "/IntermediateOrders/OrderDetail/" + $"{Model.id}";
 }
-<h1>Details</h1>
-
-<h4>IntermediateOrder</h4>
+<h3>Thông tin đơn trung gian</h3>
+<h4 class="text-danger">@TempData["Message"]</h4>
 <hr />
 
 <div class="row">
@@ -141,7 +140,7 @@
 
                             </div>
                         }
-                        @if (order != null && order.buy_user != null && order.create_by != account_id &&
+                        @if (order != null && order.buy_user != null && order.create_by == account_id &&
                         (order.status == IntermediateOrderEnum.BEN_MUA_KHIEU_NAI
                         || order.status == IntermediateOrderEnum.YEU_CAU_QUAN_TRI
                         || order.status == IntermediateOrderEnum.BEN_BAN_DANH_DAU_KHIEU_NAI))
