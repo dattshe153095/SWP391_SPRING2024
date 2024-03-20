@@ -1,0 +1,86 @@
+﻿@using Business.Models;
+@using DataAccess.Library;
+@using DataAccess.DAO;
+@model Business.Models.Withdrawal;
+
+@{
+    var account_id = ViewContext.HttpContext.Session.GetInt32("Account");
+}
+
+<h3 class="text-danger">@TempData["Message"]</h3>
+<div class="row align-items-center">
+    <div class="col-md-6">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Thông tin đơn rút tiền</h1>
+            </div>
+            <div class="modal-body">
+                <form method="post" asp-controller="Admin" asp-action="EditWithdrawal">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label class="control-label">Mã rút tiền</label>
+                        <input asp-for="id" class="form-control" disabled />
+                        <span asp-validation-for="id" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Người tạo đơn</label>
+                        <input value="@(Model.create_by+" | " + AccountDAO.GetAccountWithId(Model.create_by).name)" class="form-control" disabled />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Trạng thái</label>
+                        <input asp-for="state" class="form-control" disabled />
+                        <span asp-validation-for="state" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Số tiền rút</label>
+                        <input asp-for="amount" class="form-control" disabled />
+                        <span asp-validation-for="amount" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Số tài khoản</label>
+                        <input asp-for="bank_number" class="form-control" disabled />
+                        <span asp-validation-for="bank_number" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Tên ngân hàng</label>
+                        <input asp-for="bank_name" class="form-control" disabled />
+                        <span asp-validation-for="bank_name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Thời gian tạo</label>
+                        <input type="datetime" asp-for="create_at" class="form-control" disabled />
+                        <span asp-validation-for="create_at" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Cập nhật cuối</label>
+                        <input type="datetime" asp-for="update_at" class="form-control" disabled />
+                        <span asp-validation-for="update_at" class="text-danger"></span>
+                    </div>
+                    <div class="row form-group">
+                        @if (Model.state == StateEnum.DANG_XU_LI)
+                        {
+                            <div class="col">
+                                <a class="btn btn-success" asp-action="CompleteWithdrawal" asp-route-id="@Model.id">Xác nhận thành công</a>
+                            </div>
+                            <div class="col">
+                                <a class="btn btn-success" asp-action="UnCompleteWithdrawal" asp-route-id="@Model.id">Xác nhận thất bại</a>
+                            </div>
+                        }
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script src="https://kit.fontawesome.com/6ae4d71e22.js" crossorigin="anonymous"></script>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,89 @@
+﻿@using Business.Models;
+@using DataAccess.Library;
+@using DataAccess.DAO;
+@model Business.Models.Account;
+
+@{
+    var account_id = ViewContext.HttpContext.Session.GetInt32("Account");
+}
+
+<h3 class="text-danger">@TempData["Message"]</h3>
+<div class="row align-items-center">
+    <div class="col-md-6">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Thông tin người dùng</h1>
+            </div>
+            <div class="modal-body">
+                <form method="post" asp-controller="Admin" asp-action="EditUser">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label class="control-label">Người tạo đơn</label>
+                        <input value="@(Model.id+" | " + Model.name)" class="form-control" disabled />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Tài Khoản</label>
+                        <input asp-for="username" class="form-control" disabled />
+                        <span asp-validation-for="username" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Email</label>
+                        <input asp-for="email" class="form-control" disabled />
+                        <span asp-validation-for="email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Số điện thoại</label>
+                        <input asp-for="phone" class="form-control" disabled />
+                        <span asp-validation-for="phone" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Vai trò</label>
+                        <input class="form-control" value="@RoleDAO.GetAccountRoleById(Model.role_id).desctiption" disabled />
+                        <span asp-validation-for="password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Thời gian tạo</label>
+                        <input type="datetime" asp-for="create_at" class="form-control" disabled />
+                        <span asp-validation-for="create_at" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Cập nhật cuối</label>
+                        <input type="datetime" asp-for="update_at" class="form-control" disabled />
+                        <span asp-validation-for="update_at" class="text-danger"></span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <h4>Cho tiền người dùng</h4>
+        <form method="post" asp-action="AddMoneyForUser">
+            <div class="form-group">
+                <input type="hidden" value="@Model.id" name="id" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label class="control-label">Số tiền trong ví</label>
+                <input value="@WalletDAO.GetWalletByAccountId(Model.id).balance" class="form-control" disabled />
+            </div>
+            <div class="form-group">
+                <label class="control-label">Thời gian tạo</label>
+                <input type="number" name="amount" class="form-control" />
+                <p class="text-danger">@TempData["ErrorAmount"]</p>
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script src="https://kit.fontawesome.com/6ae4d71e22.js" crossorigin="anonymous"></script>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

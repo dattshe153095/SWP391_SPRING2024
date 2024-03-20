@@ -17,6 +17,7 @@ using WebClient2.ViewModel;
 
 namespace WebClient2.Controllers
 {
+
     [ServiceFilter(typeof(SemaphoreActionFilter))]
     [Authorize(Roles = "Admin,User")]
     public class DepositsController : Controller

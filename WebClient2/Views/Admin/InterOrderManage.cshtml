@@ -16,6 +16,7 @@
             <th>Mã trung gian</th>
             <th>Chủ đề trung gian</th>
             <th>Giá tiền</th>
+            <th>Trạng thái</th>
             <th>Người bán</th>
             <th>Thời gian tạo</th>
             <th>Cập nhật</th>
@@ -30,10 +31,11 @@
                 <td>@item.id</td>
                 <td>@item.name</td>
                 <td>@item.price</td>
+                <td>@item.status</td>
                 <td>@AccountDAO.GetAccountWithId(item.create_by).name</td>
                 <td>@item.create_at.ToString("dd/MM/yyyy")</td>
                 <td>@item.update_at.ToString("dd/MM/yyyy")</td>
-                <td><a class="btn btn-primary open-modal" asp-action="DetailOrder" asp-route-itemid="@item.id">Chi tiết</a></td>
+                <td><a class="btn btn-primary open-modal" asp-action="DetailOrder" asp-route-id="@item.id">Chi tiết</a></td>
             </tr>
         }
     </tbody>

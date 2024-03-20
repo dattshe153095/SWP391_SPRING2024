@@ -22,6 +22,7 @@ namespace Business
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
@@ -40,6 +41,8 @@ namespace Business
         public virtual DbSet<DepositResponse> DepositResponses { get; set; }
         public virtual DbSet<WithdrawalResponse> WithdrawalResponses { get; set; }
         public virtual DbSet<IntermediateOrder> IntermediateOrders { get; set; }
+        public virtual DbSet<Notifi> Notifis { get; set; }
+        public virtual DbSet<Transaction> Transactions { get; set; }
 
 
 

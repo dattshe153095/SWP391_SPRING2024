@@ -6,12 +6,12 @@
     var account_id = ViewContext.HttpContext.Session.GetInt32("Account");
     IntermediateOrder order = IntermediateOrderDAO.GetIntermediateOrderById(Model.id);
 }
+<h3 class="text-danger">@TempData["Message"]</h3>
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-6">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Thông tin đơn trung gian</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h1 class="modal-title fs-5">Thông tin đơn trung gian</h1>
             </div>
             <div class="modal-body">
                 <form method="post" asp-controller="IntermediateOrders" asp-action="Edit">
@@ -27,8 +27,8 @@
                     </div>
                     <div class="form-group">
                         <label class="control-label">Trạng thái</label>
-                        <input asp-for="status" class="form-control" disabled />
-                        <span asp-validation-for="status" class="text-danger"></span>
+                        <input asp-for="state" class="form-control" disabled />
+                        <span asp-validation-for="state" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label class="control-label">Chủ đề trung gian (*)</label>
@@ -107,34 +107,18 @@
                         <span asp-validation-for="link_share" class="text-danger"></span>
                     </div>
                     <div class="row form-group">
-                        <div class="col">
-                            <a class="btn btn-success" asp-action="DeleteInterOrder" asp-route-id="@Model.id">Hủy đơn hàng</a>
-                        </div>
+                        @if (order != null && order.buy_user != null && order.create_by != account_id &&
+                        (order.status == IntermediateOrderEnum.YEU_CAU_QUAN_TRI))
+                        {
+                            <div class="col">
+                                <a class="btn btn-success" asp-action="DeleteInterOrder" asp-route-id="@Model.id">Hủy đơn hàng</a>
+                            </div>
+                        }
                     </div>
                 </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
         </div>
 
-    </div>
-</div>
-
-<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Thông báo</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-mess modal-body">
-                <!-- Nội dung thông báo sẽ được cập nhật ở đây -->
-                <div class="alert alert-success" role="alert" id="modalMessage"></div>
-            </div>
-        </div>
     </div>
 </div>
 

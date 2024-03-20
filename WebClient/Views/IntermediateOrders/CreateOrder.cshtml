@@ -2,15 +2,18 @@
 @{
     var account_id = ViewContext.HttpContext.Session.GetInt32("Account");
 }
+@model Business.Models.IntermediateOrder
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Trade&DealHub</title>
+    
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/WebClient2.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/WebClient.styles.css" asp-append-version="true" />
 </head>
 <body>
     <header>
@@ -34,7 +37,7 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" asp-area="" asp-controller="Deposits" asp-action="Create">Nạp tiền</a></li>
-                                  @*  <li><a class="dropdown-item" asp-area="" asp-controller="Withdrawal" asp-action="Create">Lịch sử giao dịch</a></li>*@
+                                    @*  <li><a class="dropdown-item" asp-area="" asp-controller="Withdrawal" asp-action="Create">Lịch sử giao dịch</a></li>*@
                                     <li><a class="dropdown-item" asp-area="" asp-controller="Withdrawals" asp-action="Create">Yêu cầu rút tiền</a></li>
                                     <li><a class="dropdown-item" asp-area="" asp-controller="Withdrawals" asp-action="List">Lịch sử rút tiền</a></li>
                                 </ul>
@@ -82,9 +85,11 @@
                                     <li><a class="dropdown-item" asp-area="" asp-controller="Admin" asp-action="DepositManage">Quản lí đơn nạp</a></li>
                                     <li><a class="dropdown-item" asp-area="" asp-controller="Admin" asp-action="WithdrawalManage">Quản lí đơn rút</a></li>
                                     <li><a class="dropdown-item" asp-area="" asp-controller="Admin" asp-action="UserManage">Quản lí người dùng</a></li>
+
                                 </ul>
                             </li>
                         }
+
                     </ul>
                 </div>
             </div>
@@ -92,7 +97,83 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
-            @RenderBody()
+            <h1>Create</h1>
+
+            <h4>IntermediateOrder</h4>
+            <hr />
+            <div class="row">
+                <div class="col-md-10 mx-auto">
+                    <form method="post" asp-controller="IntermediateOrders" asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label class="control-label">Chủ đề trung gian (*)</label>
+                            <input asp-for="name" class="form-control" />
+                            <span asp-validation-for="name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Giá tiền (*)</label>
+                            <input asp-for="price" class="form-control" />
+                            <span asp-validation-for="price" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Bên chịu phí (*)</label>
+                            <div>
+                                <input type="radio" class="btn-check" asp-for="fee_type" name="fee_type" id="fee_type_1" autocomplete="off" value="true">
+                                <label class="btn btn-outline-success" for="fee_type_1"> Bên bán chịu phí </label>
+
+                                <input type="radio" class="btn-check" asp-for="fee_type" name="fee_type" id="fee_type_2" autocomplete="off" value="false">
+                                <label class="btn btn-outline-danger" for="fee_type_2"> Bên bán mua phí </label>
+                            </div>
+                            <span asp-validation-for="fee_type" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">Mô tả</label>
+                            <input asp-for="description" class="form-control" />
+                            <span asp-validation-for="description" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Phương thức liên lạc (*)</label>
+                            <input asp-for="contact" class="form-control" />
+                            <span asp-validation-for="contact" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Nội dung ẩn (*)</label>
+                            <textarea asp-for="hidden_content" class="form-control" id="hidden_content" name="hidden_content" rows="5"></textarea>
+                            <span asp-validation-for="hidden_content" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Công khai (*)</label>
+                            <div>
+                                <input type="radio" class="btn-check" asp-for="is_public" name="is_public" id="success-outlined" autocomplete="off" value="true">
+                                <label class="btn btn-outline-success" for="success-outlined">Hiện công khai</label>
+
+                                <input type="radio" class="btn-check" asp-for="is_public" name="is_public" id="danger-outlined" autocomplete="off" value="false">
+                                <label class="btn btn-outline-danger" for="danger-outlined"> Ẩn giới hạn</label>
+                            </div>
+                            <span asp-validation-for="is_public" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Tạo đơn" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="alert alert-danger" role="alert">
+                    @foreach (var modelState in ViewData.ModelState.Values)
+                    {
+                        foreach (var error in modelState.Errors)
+                        {
+                            <span>@error.ErrorMessage</span>
+                        }
+                    }
+                </div>
+            }
+            <div>
+                <a asp-action="Market">Back to List</a>
+            </div>
         </main>
     </div>
 
@@ -104,6 +185,11 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
+
 </body>
 </html>

@@ -6,7 +6,7 @@
     var account_id = ViewContext.HttpContext.Session.GetInt32("Account").Value;
 }
 
-<h1>Create</h1>
+<h1>Tạo đơn rút tiền (phí là 500đ)</h1>
 
 <h4>Withdrawal</h4>
 <hr />
@@ -42,7 +42,10 @@
         </form>
     </div>
 </div>
-
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script src="https://kit.fontawesome.com/6ae4d71e22.js" crossorigin="anonymous"></script>
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");

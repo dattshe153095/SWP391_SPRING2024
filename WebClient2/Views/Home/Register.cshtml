@@ -40,20 +40,20 @@
                                             </div>
                                             <div class="form-group mb-6">
                                                 <label class="control-label">Số điện thoại</label>
-                                                <input asp-for="Phone" class="form-control"/>
+                                                <input asp-for="Phone" class="form-control" />
                                                 <span asp-validation-for="Phone" class="text-danger"></span>
 
                                             </div>
                                             <div class="form-group mb-6">
                                                 <div class="form-outline mb-6" style="margin-right: 15px">
-                                                <label class="control-label">Mật khẩu</label>
-                                                <input asp-for="Password" class="form-control"/>
-                                                <span asp-validation-for="Password" class="text-danger"></span>
+                                                    <label class="control-label">Mật khẩu</label>
+                                                    <input type="password" asp-for="Password" class="form-control" />
+                                                    <span asp-validation-for="Password" class="text-danger"></span>
                                                 </div>
                                                 <div class="form-group mb-6">
-                                                <label class="control-label">Xác nhận mật khẩu</label>
-                                                    <input asp-for="ConfirmPassword" class="form-control" />
-                                                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                                                    <label class="control-label">Xác nhận mật khẩu</label>
+                                                    <input type="password" asp-for="ConfirmPassword" class="form-control" />
+                                                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -66,9 +66,10 @@
                                                     <button type="button" id="refreshCaptcha"><i class="fa fa-refresh" aria-hidden="true"></i></button>
                                                 </div>
                                             </div>
-
+                                            <div class="form-group mb-6">
+                                                <button type="submit" class="btn btn-success">Register</button>
+                                            </div>
                                         </div>
-                                        <button type="submit" class="btn btn-success">Register</button>
                                     </form>
                                 </div>
                             </div>
@@ -89,7 +90,7 @@
 <script>
     function sendEmail() {
         var email = $("#email").val();
-         alert("Đã gửi Mail");
+        alert("Đã gửi Mail");
         $.ajax({
             type: "POST", // hoặc "GET" tùy thuộc vào loại yêu cầu của bạn
             url: "/Home/SendEmail", // Thay thế bằng đường dẫn của action bạn muốn gọi

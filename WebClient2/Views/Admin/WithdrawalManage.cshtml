@@ -8,7 +8,6 @@
             <th><input class="form-control" value="" placeholder="Search số tiền" /></th>
             <th><input class="form-control" value="" placeholder="Bank name" /></th>
             <th><input class="form-control" value="" placeholder="Search trạng thái" /></th>
-            <th></th>
             <th><input class="form-control" value="" placeholder="Người tạo" /></th>
             <th><input type="datetime" class="form-control" value="" placeholder="Ngày tạo" /></th>
             <th><input type="datetime" class="form-control" value="" placeholder="Thời gian cập nhật" /></th>
@@ -36,7 +35,7 @@
                 <td>@AccountDAO.GetAccountWithId(item.create_by).name</td>
                 <td>@item.create_at.ToString("dd/MM/yyyy")</td>
                 <td>@item.update_at.ToString("dd/MM/yyyy")</td>
-                <td><a class="btn btn-primary open-modal" asp-action="DetailWithdrawal" asp-route-itemid="@item.id">Chi tiết</a></td>
+                <td><a class="btn btn-primary open-modal" asp-action="DetailWithdrawal" asp-route-id="@item.id">Chi tiết</a></td>
             </tr>
         }
     </tbody>

@@ -20,6 +20,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace WebClient2.Controllers
 {
+
     public class HomeController : Controller
     {
         private readonly IWebHostEnvironment webHostEnvironment;
@@ -303,5 +304,23 @@ namespace WebClient2.Controllers
             }
             return Json(imageCaptcha);
         }
+
+        [HttpGet]
+        public IActionResult UserNameIsExist(string userName)
+        {
+            // Kiểm tra xem userName có tồn tại trong cơ sở dữ liệu hay không
+            bool isExist = CheckUserExist(userName);
+
+            // Trả về kết quả kiểm tra dưới dạng JSON
+            //Nếu tồn tại thì trả về false để username k hợp lệ
+            return Json(!isExist);
+        }
+
+        private bool CheckUserExist(string userName)
+        {
+            return AccountDAO.CheckAccountExist(userName);
+            // Sử dụng đối tượng DbContext để kiểm tra tồn tại của userName trong cơ sở dữ liệu
+        }
+
     }
 }

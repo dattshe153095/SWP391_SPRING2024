@@ -1,8 +1,8 @@
 ﻿@using DataAccess.Library;
-@model DataAccess.ViewModel.OrderViewModel;
+@model WebClient2.ViewModel.UpdateOrderView;
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Edit";
 }
 
 <h1>Details</h1>
@@ -11,20 +11,12 @@
 <hr />
 <div class="row">
     <div class="col-md-6">
+        <form method="post" asp-controller="IntermediateOrders" asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label class="control-label">Mã Trung Gian</label>
-                <input asp-for="id" class="form-control" disabled readonly />
+                <input asp-for="id" class="form-control" readonly />
                 <span asp-validation-for="id" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Người bán</label>
-                <input value="@(Model.account_create.id+" | " + Model.account_create.name)" class="form-control" disabled />
-            </div>
-            <div class="form-group">
-                <label class="control-label">Trạng thái</label>
-                <input asp-for="state" class="form-control" disabled />
-                <span asp-validation-for="state" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label class="control-label">Chủ đề trung gian (*)</label>
@@ -48,21 +40,6 @@
                 <span asp-validation-for="fee_type" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label class="control-label">Phí trung gian</label>
-                <input type="number" asp-for="fee_amount" class="form-control" disabled />
-                <span asp-validation-for="fee_amount" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Tổng tiền bên mua cần thanh toán</label>
-                <input type="number" asp-for="pay_amount" class="form-control" disabled />
-            <span asp-validation-for="pay_amount" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Tiền bên bán thực nhận </label>
-                <input type="number" asp-for="earn_amount" class="form-control" disabled />
-                <span asp-validation-for="earn_amount" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label class="control-label">Mô tả</label>
                 <input asp-for="description" class="form-control" />
                 <span asp-validation-for="description" class="text-danger"></span>
@@ -71,6 +48,11 @@
                 <label class="control-label">Phương thức liên lạc</label>
                 <input asp-for="contact" class="form-control" />
                 <span asp-validation-for="contact" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Nội dung ẩn</label>
+                <input asp-for="hidden_content" class="form-control" />
+                <span asp-validation-for="hidden_content" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label class="control-label">Công khai (*)</label>
@@ -84,38 +66,18 @@
                 <span asp-validation-for="is_public" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label class="control-label">Thời gian tạo</label>
-                <input type="datetime" asp-for="create_at" class="form-control" disabled />
-                <span asp-validation-for="create_at" class="text-danger"></span>
+                <input type="submit" value="Chỉnh sửa" class="btn btn-primary" />
             </div>
-            <div class="form-group">
-                <label class="control-label">Cập nhật cuối</label>
-                <input type="datetime" asp-for="update_at" class="form-control" disabled />
-                <span asp-validation-for="update_at" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Thời gian tạo</label>
-                <input type="text" asp-for="link_share" class="form-control" disabled readonly />
-                <span asp-validation-for="link_share" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                @if (Model.status == IntermediateOrderEnum.SAN_SANG_GIAO_DICH && Model.account_buy == null)
-                {
-                    <input type="submit" value="Mua" class="btn btn-primary" />
-                }
-            </div>
-            <div class="form-group">
-                @if (Model.status == IntermediateOrderEnum.SAN_SANG_GIAO_DICH && Model.account_buy == null)
-                {
-                    <a class="btn btn-success" asp-controller="IntermediateOrders" asp-action="Buy" asp-route-id="@Model.id">Mua đơn hàng</a>
-                }
-            </div>
+        </form>
 
     </div>
 </div>
 <div>
 </div>
-
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script src="https://kit.fontawesome.com/6ae4d71e22.js" crossorigin="anonymous"></script>
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
