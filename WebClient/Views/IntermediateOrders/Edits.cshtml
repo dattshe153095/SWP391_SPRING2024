@@ -1,11 +1,15 @@
 ﻿@using DataAccess.DAO;
+@using DataAccess.Library;
 @{
     var account_id = ViewContext.HttpContext.Session.GetInt32("Account");
 }
 @model Business.Models.IntermediateOrder
 
+
+@model WebClient2.ViewModel.UpdateOrderView;
+
 @{
-    ViewData["Title"] = "Edit Intermediate Order";
+    ViewData["Title"] = "Edit";
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -99,14 +103,19 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
-            <h1>Create</h1>
+            <h1>Details</h1>
 
             <h4>IntermediateOrder</h4>
             <hr />
             <div class="row">
-                <div class="col-md-10 mx-auto">
-                    <form method="post" asp-controller="IntermediateOrders" asp-action="Create">
+                <div class="col-md-6">
+                    <form method="post" asp-controller="IntermediateOrders" asp-action="Edit">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label class="control-label">Mã Trung Gian</label>
+                            <input asp-for="id" class="form-control" readonly />
+                            <span asp-validation-for="id" class="text-danger"></span>
+                        </div>
                         <div class="form-group">
                             <label class="control-label">Chủ đề trung gian (*)</label>
                             <input asp-for="name" class="form-control" />
@@ -114,7 +123,7 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label">Giá tiền (*)</label>
-                            <input asp-for="price" class="form-control" />
+                            <input type="number" asp-for="price" class="form-control" />
                             <span asp-validation-for="price" class="text-danger"></span>
                         </div>
                         <div class="form-group">
@@ -128,20 +137,19 @@
                             </div>
                             <span asp-validation-for="fee_type" class="text-danger"></span>
                         </div>
-
                         <div class="form-group">
                             <label class="control-label">Mô tả</label>
                             <input asp-for="description" class="form-control" />
                             <span asp-validation-for="description" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Phương thức liên lạc (*)</label>
+                            <label class="control-label">Phương thức liên lạc</label>
                             <input asp-for="contact" class="form-control" />
                             <span asp-validation-for="contact" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Nội dung ẩn (*)</label>
-                            <textarea asp-for="hidden_content" class="form-control" id="hidden_content" name="hidden_content" rows="5"></textarea>
+                            <label class="control-label">Nội dung ẩn</label>
+                            <input asp-for="hidden_content" class="form-control" />
                             <span asp-validation-for="hidden_content" class="text-danger"></span>
                         </div>
                         <div class="form-group">
@@ -156,26 +164,18 @@
                             <span asp-validation-for="is_public" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <input type="submit" value="Tạo đơn" class="btn btn-primary" />
+                            <input type="submit" value="Chỉnh sửa" class="btn btn-primary" />
                         </div>
                     </form>
+
                 </div>
             </div>
-            @if (!ViewData.ModelState.IsValid)
-            {
-                <div class="alert alert-danger" role="alert">
-                    @foreach (var modelState in ViewData.ModelState.Values)
-                    {
-                        foreach (var error in modelState.Errors)
-                        {
-                            <span>@error.ErrorMessage</span>
-                        }
-                    }
-                </div>
-            }
             <div>
-                <a asp-action="Market">Back to List</a>
             </div>
+            <script src="~/lib/jquery/dist/jquery.min.js"></script>
+            <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="~/js/site.js" asp-append-version="true"></script>
+            <script src="https://kit.fontawesome.com/6ae4d71e22.js" crossorigin="anonymous"></script>
         </main>
     </div>
 
@@ -187,17 +187,17 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    @section Scripts {
-        @{
-            await Html.RenderPartialAsync("_ValidationScriptsPartial");
-        }
-    }
+    
 
 
 </body>
 </html>
 
-
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
 
 
 
