@@ -78,10 +78,10 @@
         }
     </div>
 }
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="~/js/site.js" asp-append-version="true"></script>
-<script src="https://kit.fontawesome.com/6ae4d71e22.js" crossorigin="anonymous"></script>
+<div>
+    <a asp-action="Market">Back to List</a>
+</div>
+
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
