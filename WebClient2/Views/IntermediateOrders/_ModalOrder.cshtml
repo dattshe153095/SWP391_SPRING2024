@@ -228,6 +228,10 @@
                                 // Hiển thị thông báo lỗi
                                 $('#modalMessage').html(data.message);
                                 $('#myModal').modal('show');
+
+                                setTimeout(function () {
+                                    location.reload();
+                                }, 2000);
                             }
                         }).fail(function (xhr, status, error) {
                             // Xử lý lỗi nếu có
