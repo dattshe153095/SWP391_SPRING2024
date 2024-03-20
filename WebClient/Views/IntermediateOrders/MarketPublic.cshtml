@@ -1,0 +1,207 @@
+﻿@using DataAccess.DAO;
+@{
+    var account_id = ViewContext.HttpContext.Session.GetInt32("Account");
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - WebClient2</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/WebClient.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WebClient2</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        @if (account_id != null)
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" asp-area="" asp-controller="IntermediateOrders" asp-action="Market" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Quản lý thanh toán
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Deposits" asp-action="Create">Nạp tiền</a></li>
+                                    @*  <li><a class="dropdown-item" asp-area="" asp-controller="Withdrawal" asp-action="Create">Lịch sử giao dịch</a></li>*@
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Withdrawals" asp-action="Create">Yêu cầu rút tiền</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Withdrawals" asp-action="List">Lịch sử rút tiền</a></li>
+                                </ul>
+                            </li>
+                        }
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" asp-area="" asp-controller="IntermediateOrders" asp-action="Market" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Chợ Trung Gian
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" asp-area="" asp-controller="IntermediateOrders" asp-action="Market">Chợ Trung Gian</a></li>
+                                @if (account_id != null)
+                                {
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="IntermediateOrders" asp-action="OrderSell">Đơn đã tạo</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="IntermediateOrders" asp-action="OrderBuy">Đơn đã mua</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="IntermediateOrders" asp-action="Create">Tạo đơn trung gian</a></li>
+                                }
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            @if (account_id == null)
+                            {
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Đăng Nhập</a>
+                            }
+                            else
+                            {
+                                <a class="nav-link dropdown-toggle" asp-area="" asp-controller="Account" asp-action="Profile" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    @AccountDAO.GetAccountWithId(account_id).name
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="Profile" asp-route-id="@account_id">Thông tin</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="Wallet" asp-route-id="@account_id">Ví</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Logout">Đăng Xuất</a></li>
+                                </ul>
+                            }
+                        </li>
+                        @if (account_id != null && AccountDAO.GetAccountWithId(account_id).role_id == 1)
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" asp-area="" asp-controller="Account" asp-action="Profile" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Quản lý Admin
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Admin" asp-action="InterOrderManage">Quản lý đơn trung gian</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Admin" asp-action="DepositManage">Quản lí đơn nạp</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Admin" asp-action="WithdrawalManage">Quản lí đơn rút</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Admin" asp-action="UserManage">Quản lí người dùng</a></li>
+
+                                </ul>
+                            </li>
+                        }
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            <h1>Chợ Trung Gian</h1>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Mã trung gian</th>
+                        <th>Chủ đề trung gian</th>
+                        <th>Giá tiền</th>
+                        <th>Trạng Thái</th>
+                        <th>Tổng phí cần mua</th>
+                        <th>Người bán</th>
+                        <th>Thời gian tạo</th>
+                        <th>Cập nhật cuối</th>
+                        <th>Hành động</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @*        @foreach (var item in Model)
+                    {
+                    <tr>
+                    <td>@item.id</td>
+                    <td>@item.name</td>
+                    <td>@item.price</td>
+                    <td>@item.status</td>
+                    <td>@item.payment_amount</td>
+                    <td>@AccountDAO.GetAccountWithId(item.create_by).name</td>
+                    <td>@item.create_at.ToString("dd/MM/yyyy")</td>
+                    <td>@item.update_at.ToString("dd/MM/yyyy")</td>
+                    <td><a class="btn btn-primary open-modal" data-id="@item.id">Chi tiết</a></td>
+                    </tr>
+                    }*@
+                </tbody>
+            </table>
+            <!-- Modal -->
+            <div class="modal fade" id="DetailOrderModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog">
+                </div>
+            </div>
+            <script src="~/lib/jquery/dist/jquery.min.js"></script>
+            <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="~/js/site.js" asp-append-version="true"></script>
+            <script src="https://kit.fontawesome.com/6ae4d71e22.js" crossorigin="anonymous"></script>
+            <script>
+                $(document).ready(function () {
+                    $.ajax({
+                        url: '/IntermediateOrders/ListOrders', // Thay ControllerName và ActionName bằng tên thực tế của controller và action xử lý yêu cầu
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (data) {
+                            // Xử lý dữ liệu trả về từ máy chủ
+                            $.each(data, function (index, item) {
+                                var newRow = $('<tr>');
+                                newRow.append('<td>' + item.id + '</td>');
+                                newRow.append('<td>' + item.name + '</td>');
+                                newRow.append('<td>' + item.price + '</td>');
+                                newRow.append('<td>' + item.status + '</td>');
+                                newRow.append('<td>' + item.payment_amount + '</td>');
+                                newRow.append('<td>' + item.accountName + '</td>');
+                                newRow.append('<td>' + item.create_at + '</td>');
+                                newRow.append('<td>' + item.update_at + '</td>');
+                                newRow.append('<td><a class="btn btn-primary open-modal" data-id="' + item.id + '">Chi tiết</a></td>');
+                                $('tbody').append(newRow);
+                            });
+                        }
+                    });
+
+                    $('tbody').on('click', '.open-modal', function () {
+                        console.log("HEHE")
+                        var id = $(this).data('id');
+
+                        // Gửi yêu cầu AJAX để lấy thông tin của IntermediateOrder
+                        $.ajax({
+                            type: 'GET',
+                            url: '/IntermediateOrders/MarketDetail',
+                            data: { id: id },
+                            success: function (data) {
+                                $(".modal-dialog").html(
+                                    data
+                                );
+
+                                // Mở modal
+                                $("#DetailOrderModal").modal('show');
+                            },
+                            error: function (xhr, status, error) {
+                                // Xử lý lỗi nếu có
+                                console.error(xhr.responseText);
+                            }
+                        });
+                    });
+                });
+
+            </script>
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2024 - Trade&DueHub - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
+
+</body>
+</html>
