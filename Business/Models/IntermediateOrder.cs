@@ -42,7 +42,7 @@ namespace Business.Models
         public int create_by { get; set; }
         public DateTime create_at { get; set; } = DateTime.Now;
         public int? buy_user { get; set; }
-        public DateTime? buy_at { get; set; } = DateTime.Now;
+        public DateTime? buy_at { get; set; }
         public int update_by { get; set; }
         public DateTime update_at { get; set; } = DateTime.Now;
         [Column(TypeName = "nvarchar")]

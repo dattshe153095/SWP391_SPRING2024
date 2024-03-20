@@ -22,13 +22,14 @@ namespace Business
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
             IConfigurationRoot configuration = builder.Build();
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("server=localhost;database=Web_Trung_Gian;uid=sa;pwd=123;TrustServerCertificate=True;");
+                optionsBuilder.UseSqlServer("server=localhost;database=Web_Trung_Gian;uid=sa;pwd=123456;TrustServerCertificate=True;");
             }
         }
 
@@ -40,6 +41,8 @@ namespace Business
         public virtual DbSet<DepositResponse> DepositResponses { get; set; }
         public virtual DbSet<WithdrawalResponse> WithdrawalResponses { get; set; }
         public virtual DbSet<IntermediateOrder> IntermediateOrders { get; set; }
+        public virtual DbSet<Notifi> Notifis { get; set; }
+        public virtual DbSet<Transaction> Transactions { get; set; }
 
 
 

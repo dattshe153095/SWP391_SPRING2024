@@ -1,5 +1,135 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using Business.Models;
+@using DataAccess.Library;
+@model DataAccess.ViewModel.OrderViewModel;
+@using DataAccess.DAO;
 @{
+    var account_id = ViewContext.HttpContext.Session.GetInt32("Account");
+    IntermediateOrder order = IntermediateOrderDAO.GetIntermediateOrderById(Model.id);
 }
+<h3 class="text-danger">@TempData["Message"]</h3>
+<div class="row">
+    <div class="col-md-6">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Thông tin đơn trung gian</h1>
+            </div>
+            <div class="modal-body">
+                <form method="post" asp-controller="IntermediateOrders" asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label class="control-label">Mã Trung Gian</label>
+                        <input asp-for="id" class="form-control" disabled />
+                        <span asp-validation-for="id" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Người bán</label>
+                        <input value="@(Model.account_create.id+" | " + Model.account_create.name)" class="form-control" disabled />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Trạng thái</label>
+                        <input asp-for="state" class="form-control" disabled />
+                        <span asp-validation-for="state" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Chủ đề trung gian (*)</label>
+                        <input asp-for="name" class="form-control" disabled />
+                        <span asp-validation-for="name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Giá tiền (*)</label>
+                        <input type="number" asp-for="price" class="form-control" disabled />
+                        <span asp-validation-for="price" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Bên chịu phí (*)</label>
+                        <div>
+                            <input type="radio" class="btn-check" asp-for="fee_type" name="fee_type" id="fee_type_1" autocomplete="off" value="true" disabled>
+                            <label class="btn btn-outline-success" for="fee_type_1"> Bên bán chịu phí </label>
+
+                            <input type="radio" class="btn-check" asp-for="fee_type" name="fee_type" id="fee_type_2" autocomplete="off" value="false" disabled>
+                            <label class="btn btn-outline-danger" for="fee_type_2"> Bên bán mua phí </label>
+                        </div>
+                        <span asp-validation-for="fee_type" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Phí trung gian</label>
+                        <input type="number" asp-for="fee_amount" class="form-control" disabled />
+                        <span asp-validation-for="fee_amount" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Tổng tiền bên mua cần thanh toán</label>
+                        <input type="number" asp-for="pay_amount" class="form-control" disabled />
+                        <span asp-validation-for="pay_amount" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Tiền bên bán thực nhận </label>
+                        <input type="number" asp-for="earn_amount" class="form-control" disabled />
+                        <span asp-validation-for="earn_amount" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Mô tả</label>
+                        <input asp-for="description" class="form-control" disabled />
+                        <span asp-validation-for="description" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Phương thức liên lạc</label>
+                        <input asp-for="contact" class="form-control" disabled />
+                        <span asp-validation-for="contact" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Nội dung ẩn</label>
+                        <textarea class="form-control" asp-for="hidden_content" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Công khai (*)</label>
+                        <div>
+                            <input type="radio" class="btn-check" asp-for="is_public" name="is_public" id="success-outlined" autocomplete="off" value="true" disabled>
+                            <label class="btn btn-outline-success" for="success-outlined">Hiện công khai</label>
+
+                            <input type="radio" class="btn-check" asp-for="is_public" name="is_public" id="danger-outlined" autocomplete="off" value="false" disabled>
+                            <label class="btn btn-outline-danger" for="danger-outlined"> Ẩn giới hạn</label>
+                        </div>
+                        <span asp-validation-for="is_public" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Thời gian tạo</label>
+                        <input type="datetime" asp-for="create_at" class="form-control" disabled />
+                        <span asp-validation-for="create_at" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Cập nhật cuối</label>
+                        <input type="datetime" asp-for="update_at" class="form-control" disabled />
+                        <span asp-validation-for="update_at" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Thời gian tạo</label>
+                        <input type="text" asp-for="link_share" class="form-control" disabled />
+                        <span asp-validation-for="link_share" class="text-danger"></span>
+                    </div>
+                    <div class="row form-group">
+                        @if (order != null && order.buy_user != null && order.create_by != account_id &&
+                        (order.status == IntermediateOrderEnum.YEU_CAU_QUAN_TRI))
+                        {
+                            <div class="col">
+                                <a class="btn btn-success" asp-action="DeleteInterOrder" asp-route-id="@Model.id">Hủy đơn hàng</a>
+                            </div>
+                        }
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script src="https://kit.fontawesome.com/6ae4d71e22.js" crossorigin="anonymous"></script>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+

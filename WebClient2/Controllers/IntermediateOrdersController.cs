@@ -6,6 +6,7 @@ using DataAccess.DAO;
 using DataAccess.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using System.Data;
+using WebClient2.ViewModel;
 
 namespace WebClient2.Controllers
 {
@@ -15,8 +16,29 @@ namespace WebClient2.Controllers
         #region VIEW INTER ORDER
         public IActionResult Market()
         {
-            List<IntermediateOrder> order = IntermediateOrderDAO.GetInterAbleToSell();
-            return View(order);
+            //List<IntermediateOrder> order = IntermediateOrderDAO.GetInterAbleToSell();
+            //return View(order);
+            return View();
+        }
+
+        public IActionResult ListOrders()
+        {
+            var data = IntermediateOrderDAO.GetInterAbleToSell(); // Đây là nơi bạn lấy dữ liệu từ cơ sở dữ liệu hoặc từ bất kỳ nguồn nào khác
+
+            // Biến đổi dữ liệu nếu cần thiết để trả về dưới dạng JSON
+            var jsonData = data.Select(item => new
+            {
+                id = item.id,
+                name = item.name,
+                price = item.price,
+                status = item.status,
+                payment_amount = item.payment_amount,
+                accountName = AccountDAO.GetAccountWithId(item.create_by).name,
+                create_at = item.create_at.ToString("dd/MM/yyyy"),
+                update_at = item.update_at.ToString("dd/MM/yyyy")
+            });
+
+            return Json(jsonData);
         }
 
         // GET: IntermediateOrders/Details/5
@@ -38,8 +60,30 @@ namespace WebClient2.Controllers
                 return NotFound();
             }
 
+
             //return View(order);
             return PartialView("_ModalOrder", order);
+        }
+
+        public IActionResult OrderDetail(string? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            IntermediateOrder intermediateOrder = new IntermediateOrder();
+            intermediateOrder = IntermediateOrderDAO.GetIntermediateOrderById(id);
+            OrderViewModel order = new OrderViewModel();
+
+            //MapData
+            order = IntermediateOrderDAO.GetOrderViewModel(intermediateOrder);
+
+            if (intermediateOrder == null)
+            {
+                return NotFound();
+            }
+
+            return View(order);
         }
         #endregion
 
@@ -107,9 +151,42 @@ namespace WebClient2.Controllers
 
         #region EDIT INTER ORDER
         [Authorize(Roles = "Admin,User")]
+        public IActionResult Edit(string? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            IntermediateOrder intermediateOrder = new IntermediateOrder();
+            intermediateOrder = IntermediateOrderDAO.GetIntermediateOrderById(id);
+            OrderViewModel order = new OrderViewModel();
+
+            //MapData
+            order = IntermediateOrderDAO.GetOrderViewModel(intermediateOrder);
+
+            if (intermediateOrder == null)
+            {
+                return NotFound();
+            }
+            UpdateOrderView update = new UpdateOrderView()
+            {
+                id = order.id,
+                name = order.name,
+                price = order.price,
+                fee_type = order.fee_type,
+                description = order.description,
+                contact = order.contact,
+                hidden_content = order.hidden_content,
+                is_public = order.is_public,
+            };
+
+            //return View(order);
+            return View(update);
+        }
+
+        [Authorize(Roles = "Admin,User")]
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Edit(string id, string name, int price, bool fee_type, string description, string contact, string hidden_content, bool is_public)
+        public IActionResult Edit(UpdateOrderView orderView)
         {
             if (HttpContext.Session.GetInt32("Account") == null)
             {
@@ -119,25 +196,36 @@ namespace WebClient2.Controllers
 
 
             IntermediateOrder order = new IntermediateOrder();
-            order = IntermediateOrderDAO.GetIntermediateOrderById(id);
+            order = IntermediateOrderDAO.GetIntermediateOrderById(orderView.id);
             if (order == null) { return NotFound(); }
 
             if (ModelState.IsValid)
             {
-                order.name = name;
-                order.price = price;
-                order.fee_type = fee_type;
-                order.payment_amount = fee_type ? price : price + (int)(price * Constant.FEE);
-                order.earn_amount = fee_type ? price - (int)(price * Constant.FEE) : price;
-                order.description = description;
-                order.contact = contact;
-                order.hidden_content = hidden_content;
-                order.is_public = is_public;
+                order.name = orderView.name;
+                order.price = orderView.price;
+                order.fee_type = orderView.fee_type;
+                order.payment_amount = orderView.fee_type ? orderView.price : orderView.price + (int)(orderView.price * Constant.FEE);
+                order.earn_amount = orderView.fee_type ? orderView.price - (int)(orderView.price * Constant.FEE) : orderView.price;
+                order.description = orderView.description;
+                order.contact = orderView.contact;
+                order.hidden_content = orderView.hidden_content;
+                order.is_public = orderView.is_public;
                 order.update_by = account_id;
                 IntermediateOrderDAO.UpdateIntermediateOrder(order);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Edit", "IntermediateOrders", new { id = orderView.id });
             }
-            return View(order);
+            return RedirectToAction("Edit", "IntermediateOrders", new { id = orderView.id });
+        }
+
+        [Authorize(Roles = "Admin,User")]
+        public bool CheckInterOrderEdit(int create_user, string inter_order)
+        {
+            IntermediateOrder order = IntermediateOrderDAO.GetIntermediateOrderById(inter_order);
+            if (order.buy_user == null && order.create_by == create_user)
+            {
+                return true;
+            }
+            return false;
         }
         #endregion
 
@@ -248,8 +336,8 @@ namespace WebClient2.Controllers
             IntermediateOrder order = IntermediateOrderDAO.GetIntermediateOrderById(id);
 
             IntermediateOrderDAO.ReportInterOrder(id);
-            //return Json(new { success = true, message = "Khiếu nại thành công" });
-            return RedirectToAction("Market", "IntermediateOrders");
+            TempData["Message"] = "Đã gửi khiếu nại cho người bán";
+            return RedirectToAction("OrderDetail", "IntermediateOrders", new { id = id });
         }
 
         //[HttpPost]
@@ -262,8 +350,8 @@ namespace WebClient2.Controllers
             IntermediateOrder order = IntermediateOrderDAO.GetIntermediateOrderById(id);
 
             IntermediateOrderDAO.ReportAdminInterOrder(id);
-            //return Json(new { success = true, message = "Khiếu nại lên Admin thành công" });
-            return RedirectToAction("Market", "IntermediateOrders");
+            TempData["Message"] = "Đã gửi khiếu nại lên admin đơn hàng thành công";
+            return RedirectToAction("OrderDetail", "IntermediateOrders", new { id = id });
         }
 
         //[HttpPost]
@@ -281,8 +369,12 @@ namespace WebClient2.Controllers
             }
 
             IntermediateOrderDAO.DeleteInterOrder(id);
-            //return Json(new { success = true, message = "Hủy hàng thành công" });
-            return RedirectToAction("Market", "IntermediateOrders");
+            if (order.buy_user != null)
+            {
+                WalletDAO.UpdateWalletDepositBalance(order.buy_user.Value, (int)order.payment_amount);
+            }
+            TempData["Message"] = "Hủy đơn hàng thành công";
+            return RedirectToAction("OrderDetail", "IntermediateOrders", new { id = id });
         }
     }
 }

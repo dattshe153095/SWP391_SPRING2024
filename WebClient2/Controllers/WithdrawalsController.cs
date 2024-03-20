@@ -41,15 +41,16 @@ namespace WebClient2.Controllers
             int account_id = HttpContext.Session.GetInt32("Account").Value;
             if (ModelState.IsValid)
             {
-                if (withdrawal.amount <= WalletDAO.GetWalletByAccountId(account_id).balance)
+                if (withdrawal.amount + 500 <= WalletDAO.GetWalletByAccountId(account_id).balance)
                 {
-                    WalletDAO.UpdateWalletWithdrawalBalance(WalletDAO.GetWalletByAccountId(account_id).id, withdrawal.amount);
+                    WalletDAO.UpdateWalletWithdrawalBalance(WalletDAO.GetWalletByAccountId(account_id).id, withdrawal.amount+ 500);
                     Withdrawal w = new Withdrawal
                     {
                         id = Gencode.GenerateCodeWithdrawal(),
                         wallet_id = WalletDAO.GetWalletByAccountId(account_id).id,
                         amount = withdrawal.amount,
                         bank_number = withdrawal.bank_number,
+                        bank_user = withdrawal.bank_user,
                         bank_name = withdrawal.bank_name,
                         create_by = account_id,
                         update_by = account_id,

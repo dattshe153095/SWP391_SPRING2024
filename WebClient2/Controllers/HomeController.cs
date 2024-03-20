@@ -20,6 +20,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace WebClient2.Controllers
 {
+
     public class HomeController : Controller
     {
         private readonly IWebHostEnvironment webHostEnvironment;
