@@ -1,0 +1,368 @@
+﻿@using DataAccess.DAO;
+@using Business.Models;
+@using DataAccess.Library;
+@model DataAccess.ViewModel.OrderViewModel;
+
+@{
+    int account_id = ViewContext.HttpContext.Session.GetInt32("Account").Value;
+    IntermediateOrder order = IntermediateOrderDAO.GetIntermediateOrderById(Model.id);
+}
+@{
+    var account_id = ViewContext.HttpContext.Session.GetInt32("Account");
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - WebClient2</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/WebClient2.styles.css" asp-append-version="true" />
+</head>
+<style>
+    .form-group .description-container {
+        max-height: 72px; /* Chiều cao tối đa tương ứng với 3 dòng văn bản */
+        overflow: hidden; /* Ẩn nội dung vượt quá kích thước */
+    }
+
+        .form-group .description-container:hover {
+            overflow: auto; /* Hiển thị thanh cuộn khi di chuột qua */
+        }
+
+        .form-group .description-container .description-text {
+            white-space: pre-line; /* Đảm bảo dòng mới được hiển thị */
+        }
+</style>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WebClient2</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        @if (account_id != null)
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" asp-area="" asp-controller="IntermediateOrders" asp-action="Market" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Quản lý thanh toán
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Deposits" asp-action="Create">Nạp tiền</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Withdrawal" asp-action="Create">Lịch sử giao dịch</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Withdrawals" asp-action="Create">Yêu cầu rút tiền</a></li>
+                                </ul>
+                            </li>
+                        }
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" asp-area="" asp-controller="IntermediateOrders" asp-action="Market" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Chợ Trung Gian
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" asp-area="" asp-controller="IntermediateOrders" asp-action="Market">Chợ Trung Gian</a></li>
+                                @if (account_id != null)
+                                {
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="IntermediateOrders" asp-action="OrderSell">Đơn đã tạo</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="IntermediateOrders" asp-action="OrderBuy">Đơn đã mua</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="IntermediateOrders" asp-action="Create">Tạo đơn trung gian</a></li>
+                                }
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            @if (account_id == null)
+                            {
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Đăng Nhập</a>
+                            }
+                            else
+                            {
+                                <a class="nav-link dropdown-toggle" asp-area="" asp-controller="Account" asp-action="Profile" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    @AccountDAO.GetAccountWithId(account_id).name
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="Profile" asp-route-id="@account_id">Thông tin</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="Wallet" asp-route-id="@account_id">Ví</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Logout">Đăng Xuất</a></li>
+                                </ul>
+                            }
+                        </li>
+                        @if (account_id != null && AccountDAO.GetAccountWithId(account_id).role_id == 1)
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" asp-area="" asp-controller="Account" asp-action="Profile" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Quản lý Admin
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Admin" asp-action="InterOrderManage">Quản lý đơn trung gian</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Admin" asp-action="DepositManage">Quản lí đơn nạp</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Admin" asp-action="WithdrawalManage">Quản lí đơn rút</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Admin" asp-action="UserManage">Quản lí người dùng</a></li>
+
+                                </ul>
+                            </li>
+                        }
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Thông tin đơn trung gian</h1>
+                            @if (order != null && order.buy_user == account_id && order.create_by != account_id)
+                            {
+                                if (order.buy_user == account_id)
+                                {
+                                    switch (order.status)
+                                    {
+                                        case IntermediateOrderEnum.BEN_MUA_KIEM_TRA_HANG:
+                                            <a class="btn btn-success" asp-action="KhieuNaiInterOrder" asp-route-id="@Model.id">Đơn hàng không đúng</a>
+                                            break;
+                                        case IntermediateOrderEnum.BEN_MUA_KHIEU_NAI:
+                                            <a class="btn btn-success" asp-action="KhieuNaiAdminInterOrder" asp-route-id="@Model.id">Yêu cầu quản trị</a>
+                                            break;
+                                    }
+                                }
+                                if (order.create_by == account_id)
+                                {
+                                    switch (order.status)
+                                    {
+                                        case IntermediateOrderEnum.BEN_MUA_KHIEU_NAI:
+                                            <a class="btn btn-success" asp-action="HEHE" asp-route-id="@Model.id">Đơn hàng không đúng</a>
+                                            break;
+                                    }
+                                }
+                            }
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="post" asp-controller="IntermediateOrders" asp-action="Edit">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="form-group">
+                                    <label class="control-label">Mã Trung Gian</label>
+                                    <input asp-for="id" class="form-control" disabled />
+                                    <span asp-validation-for="id" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Người bán</label>
+                                    <input value="@(Model.account_create.id+" | " + Model.account_create.name)" class="form-control" disabled />
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Trạng thái</label>
+                                    <input asp-for="state" class="form-control" disabled />
+                                    <span asp-validation-for="state" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Chủ đề trung gian (*)</label>
+                                    <input asp-for="name" class="form-control" disabled />
+                                    <span asp-validation-for="name" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Giá tiền (*)</label>
+                                    <input type="number" asp-for="price" class="form-control" disabled />
+                                    <span asp-validation-for="price" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Bên chịu phí (*)</label>
+                                    <div>
+                                        <input type="radio" class="btn-check" asp-for="fee_type" name="fee_type" id="fee_type_1" autocomplete="off" value="true" disabled>
+                                        <label class="btn btn-outline-success" for="fee_type_1"> Bên bán chịu phí </label>
+
+                                        <input type="radio" class="btn-check" asp-for="fee_type" name="fee_type" id="fee_type_2" autocomplete="off" value="false" disabled>
+                                        <label class="btn btn-outline-danger" for="fee_type_2"> Bên bán mua phí </label>
+                                    </div>
+                                    <span asp-validation-for="fee_type" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Phí trung gian</label>
+                                    <input type="number" asp-for="fee_amount" class="form-control" disabled />
+                                    <span asp-validation-for="fee_amount" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Tổng tiền bên mua cần thanh toán</label>
+                                    <input type="number" asp-for="pay_amount" class="form-control" disabled />
+                                    <span asp-validation-for="pay_amount" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Tiền bên bán thực nhận </label>
+                                    <input type="number" asp-for="earn_amount" class="form-control" disabled />
+                                    <span asp-validation-for="earn_amount" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Mô tả</label>
+                                    <input asp-for="description" class="form-control" disabled />
+                                    <span asp-validation-for="description" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Phương thức liên lạc</label>
+                                    <input asp-for="contact" class="form-control" disabled />
+                                    <span asp-validation-for="contact" class="text-danger"></span>
+                                </div>
+                                @{
+                                    if (Model.account_buy != null && ViewContext.HttpContext.Session.GetInt32("Account") != null && ViewContext.HttpContext.Session.GetInt32("Account") == Model.account_buy.id)
+                                    {
+                                        <div class="form-group">
+                                            <label class="control-label">Nội dung ẩn</label>
+                                            <textarea class="form-control" asp-for="hidden_content" rows="3"></textarea>
+                                        </div>
+                                    }
+                                }
+                                <div class="form-group">
+                                    <label class="control-label">Công khai (*)</label>
+                                    <div>
+                                        <input type="radio" class="btn-check" asp-for="is_public" name="is_public" id="success-outlined" autocomplete="off" value="true" disabled>
+                                        <label class="btn btn-outline-success" for="success-outlined">Hiện công khai</label>
+
+                                        <input type="radio" class="btn-check" asp-for="is_public" name="is_public" id="danger-outlined" autocomplete="off" value="false" disabled>
+                                        <label class="btn btn-outline-danger" for="danger-outlined"> Ẩn giới hạn</label>
+                                    </div>
+                                    <span asp-validation-for="is_public" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Thời gian tạo</label>
+                                    <input type="datetime" asp-for="create_at" class="form-control" disabled />
+                                    <span asp-validation-for="create_at" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Cập nhật cuối</label>
+                                    <input type="datetime" asp-for="update_at" class="form-control" disabled />
+                                    <span asp-validation-for="update_at" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Thời gian tạo</label>
+                                    <input type="text" asp-for="link_share" class="form-control" disabled />
+                                    <span asp-validation-for="link_share" class="text-danger"></span>
+                                </div>
+                                <div class="row form-group">
+                                    @if (Model.status == IntermediateOrderEnum.SAN_SANG_GIAO_DICH && Model.account_buy == null)
+                                    {
+                                        <div class="col">
+                                            <a class="btn btn-success buyButton" data-url="@Url.Action("Buy", "IntermediateOrders", new { id = Model.id })">Mua đơn hàng</a>
+
+                                        </div>
+                                    }
+                                    @if (order != null && order.buy_user != null && order.create_by != account_id &&
+                                    (order.status == IntermediateOrderEnum.BEN_MUA_KHIEU_NAI
+                                    || order.status == IntermediateOrderEnum.YEU_CAU_QUAN_TRI
+                                    || order.status == IntermediateOrderEnum.BEN_BAN_DANH_DAU_KHIEU_NAI))
+                                    {
+                                        <div class="col">
+                                            <a class="btn btn-success" asp-action="DeleteInterOrder" asp-route-id="@Model.id">Hủy đơn hàng</a>
+                                        </div>
+                                    }
+                                    @if (order != null && order.buy_user == null && order.create_by == account_id)
+                                    {
+                                        <div class="col">
+                                            <a class="btn btn-success" asp-action="MarketDetail" asp-route-id="@Model.id">Chỉnh sửa</a>
+                                        </div>
+                                    }
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Thông báo</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-mess modal-body">
+                            <!-- Nội dung thông báo sẽ được cập nhật ở đây -->
+                            <div class="alert alert-success" role="alert" id="modalMessage"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script src="~/lib/jquery/dist/jquery.min.js"></script>
+            <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="~/js/site.js" asp-append-version="true"></script>
+            <script src="https://kit.fontawesome.com/6ae4d71e22.js" crossorigin="anonymous"></script>
+            <script>
+                $(document).ready(function () {
+                    $('.buyButton').click(function (e) {
+                        e.preventDefault(); // Chặn sự kiện mặc định của thẻ <a>
+
+                        console.log("HELLO");
+
+                        // Kiểm tra session bằng AJAX
+                        $.ajax({
+                            type: 'GET',
+                            url: '/IntermediateOrders/CheckSession', // Thay đổi đường dẫn tùy thuộc vào route của bạn
+                            success: function (response) {
+                                if (response.loggedIn) {
+                                    var url = $('.buyButton').data('url');
+
+                                    // Tiến hành mua hàng nếu đã đăng nhập
+                                    $.post(url, function (data) {
+                                        if (data.success) {
+                                            // Hiển thị thông báo mua hàng thành công
+                                            $('#modalMessage').html(data.message);
+                                            $('#myModal').modal('show');
+
+                                            // Refresh trang sau 2 giây
+                                            setTimeout(function () {
+                                                location.reload();
+                                            }, 2000);
+                                        } else {
+                                            // Hiển thị thông báo lỗi
+                                            $('#modalMessage').html(data.message);
+                                            $('#myModal').modal('show');
+                                        }
+                                    }).fail(function (xhr, status, error) {
+                                        // Xử lý lỗi nếu có
+                                        console.error(xhr.responseText);
+                                    });
+                                } else {
+                                    // Chuyển hướng đến trang đăng nhập nếu session là null
+                                    window.location.href = '/Home/Login'; // Thay đổi đường dẫn tùy thuộc vào route của bạn
+                                }
+                            },
+                            error: function (xhr, status, error) {
+                                // Xử lý lỗi nếu có
+                                console.error(xhr.responseText);
+                            }
+                        });
+                    });
+                });
+            </script>
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2024 - Trade&DueHub - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
+
+</body>
+</html>
