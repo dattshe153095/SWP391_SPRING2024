@@ -22,7 +22,7 @@ namespace WebClient2.BackGroundServices
                 try
                 {
                     // Thực hiện công việc của bạn ở đây
-                    _logger.LogInformation("Đây là công việc được thực hiện mỗi 3 phút.");
+                    _logger.LogInformation("Cap nhat Database after 10s");
                     Console.WriteLine("Cap Nhat Data base");
                     //CHECK DEPOSIT
                     DepositDAO.DepositAction();

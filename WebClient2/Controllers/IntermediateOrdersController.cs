@@ -16,8 +16,29 @@ namespace WebClient2.Controllers
         #region VIEW INTER ORDER
         public IActionResult Market()
         {
-            List<IntermediateOrder> order = IntermediateOrderDAO.GetInterAbleToSell();
-            return View(order);
+            //List<IntermediateOrder> order = IntermediateOrderDAO.GetInterAbleToSell();
+            //return View(order);
+            return View();
+        }
+
+        public IActionResult ListOrders()
+        {
+            var data = IntermediateOrderDAO.GetInterAbleToSell(); // Đây là nơi bạn lấy dữ liệu từ cơ sở dữ liệu hoặc từ bất kỳ nguồn nào khác
+
+            // Biến đổi dữ liệu nếu cần thiết để trả về dưới dạng JSON
+            var jsonData = data.Select(item => new
+            {
+                id = item.id,
+                name = item.name,
+                price = item.price,
+                status = item.status,
+                payment_amount = item.payment_amount,
+                accountName = AccountDAO.GetAccountWithId(item.create_by).name,
+                create_at = item.create_at.ToString("dd/MM/yyyy"),
+                update_at = item.update_at.ToString("dd/MM/yyyy")
+            });
+
+            return Json(jsonData);
         }
 
         // GET: IntermediateOrders/Details/5
@@ -316,7 +337,7 @@ namespace WebClient2.Controllers
 
             IntermediateOrderDAO.ReportInterOrder(id);
             TempData["Message"] = "Đã gửi khiếu nại cho người bán";
-            return RedirectToAction("OrderDetail", "IntermediateOrders");
+            return RedirectToAction("OrderDetail", "IntermediateOrders", new { id = id });
         }
 
         //[HttpPost]
@@ -330,7 +351,7 @@ namespace WebClient2.Controllers
 
             IntermediateOrderDAO.ReportAdminInterOrder(id);
             TempData["Message"] = "Đã gửi khiếu nại lên admin đơn hàng thành công";
-            return RedirectToAction("OrderDetail", "IntermediateOrders");
+            return RedirectToAction("OrderDetail", "IntermediateOrders", new { id = id });
         }
 
         //[HttpPost]
@@ -353,7 +374,7 @@ namespace WebClient2.Controllers
                 WalletDAO.UpdateWalletDepositBalance(order.buy_user.Value, (int)order.payment_amount);
             }
             TempData["Message"] = "Hủy đơn hàng thành công";
-            return RedirectToAction("OrderDetail", "IntermediateOrders");
+            return RedirectToAction("OrderDetail", "IntermediateOrders", new { id = id });
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿@using DataAccess.DAO;
-@model IEnumerable<Business.Models.IntermediateOrder>
+@*@model IEnumerable<Business.Models.IntermediateOrder>*@
 
 <h1>Chợ Trung Gian</h1>
 <table class="table table-hover">
@@ -18,26 +18,25 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @*        @foreach (var item in Model)
         {
-            <tr>
-                <td>@item.id</td>
-                <td>@item.name</td>
-                <td>@item.price</td>
-                <td>@item.status</td>
-                <td>@item.payment_amount</td>
-                <td>@AccountDAO.GetAccountWithId(item.create_by).name</td>
-                <td>@item.create_at.ToString("dd/MM/yyyy")</td>
-                <td>@item.update_at.ToString("dd/MM/yyyy")</td>
-                <td><a class="btn btn-primary open-modal" data-id="@item.id">Chi tiết</a></td>
-            </tr>
-        }
+        <tr>
+        <td>@item.id</td>
+        <td>@item.name</td>
+        <td>@item.price</td>
+        <td>@item.status</td>
+        <td>@item.payment_amount</td>
+        <td>@AccountDAO.GetAccountWithId(item.create_by).name</td>
+        <td>@item.create_at.ToString("dd/MM/yyyy")</td>
+        <td>@item.update_at.ToString("dd/MM/yyyy")</td>
+        <td><a class="btn btn-primary open-modal" data-id="@item.id">Chi tiết</a></td>
+        </tr>
+        }*@
     </tbody>
 </table>
 <!-- Modal -->
 <div class="modal fade" id="DetailOrderModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
-
     </div>
 </div>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -46,7 +45,30 @@
 <script src="https://kit.fontawesome.com/6ae4d71e22.js" crossorigin="anonymous"></script>
 <script>
     $(document).ready(function () {
-        $(".open-modal").click(function () {
+        $.ajax({
+            url: '/IntermediateOrders/ListOrders', // Thay ControllerName và ActionName bằng tên thực tế của controller và action xử lý yêu cầu
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                // Xử lý dữ liệu trả về từ máy chủ
+                $.each(data, function (index, item) {
+                    var newRow = $('<tr>');
+                    newRow.append('<td>' + item.id + '</td>');
+                    newRow.append('<td>' + item.name + '</td>');
+                    newRow.append('<td>' + item.price + '</td>');
+                    newRow.append('<td>' + item.status + '</td>');
+                    newRow.append('<td>' + item.payment_amount + '</td>');
+                    newRow.append('<td>' + item.accountName + '</td>');
+                    newRow.append('<td>' + item.create_at + '</td>');
+                    newRow.append('<td>' + item.update_at + '</td>');
+                    newRow.append('<td><a class="btn btn-primary open-modal" data-id="' + item.id + '">Chi tiết</a></td>');
+                    $('tbody').append(newRow);
+                });
+            }
+        });
+
+        $('tbody').on('click', '.open-modal', function () {
+            console.log("HEHE")
             var id = $(this).data('id');
 
             // Gửi yêu cầu AJAX để lấy thông tin của IntermediateOrder
