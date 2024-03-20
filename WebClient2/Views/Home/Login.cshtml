@@ -15,14 +15,12 @@
                 <span id="Captcha-image" class="col">
                     <img id="captchaImage" src="data:image/png;base64,@ViewBag.CaptchaImageBytes"
                          alt="Captcha Image" />
+                    <button type="button" id="refreshCaptcha"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+
                 </span>
                 <div class="input-group col">
                     <input type="text" id="captcha" name="captcha" class=" form-control" placeholder="Input capcha" required>
-                    <button type="button" id="refreshCaptcha"><i class="fa fa-refresh" aria-hidden="true"></i></button>
                 </div>
-               @*  <div class="col mb-3">
-                    <button type="button" id="refreshCaptcha"><i class="fa fa-refresh" aria-hidden="true"></i></button>
-                </div> *@
             </div>
             <div class="mb-3">
                 <input value="Login" type="submit" class="btn btn-primary" />
