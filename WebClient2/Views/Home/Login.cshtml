@@ -1,41 +1,58 @@
 ﻿@{
     ViewData["Title"] = "Login Page";
 }
-<div class="row">
-    <div class="col-md-6">
-        <form method="post" asp-controller="Home" asp-action="Login">
-            <div class="mb-3">
-                <input type="text" placeholder="Username" id="username" class="form-control" name="username" required />
+<style>
+    form{
+        background-color: #00C2FF;
+    }
 
-            </div>
-            <div class="mb-3">
-                <input type="password" placeholder="Password" id="password" class="form-control" name="password" required />
-            </div>
-            <div class="captcha-div mb-3 row">
-                <span id="Captcha-image" class="col">
-                    <img id="captchaImage" src="data:image/png;base64,@ViewBag.CaptchaImageBytes"
-                         alt="Captcha Image" />
-                    <button type="button" id="refreshCaptcha"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+</style>
 
-                </span>
-                <div class="input-group col">
-                    <input type="text" id="captcha" name="captcha" class=" form-control" placeholder="Input capcha" required>
+<main class="row pb-3" role="main">
+    <div class="col-md-6 offset-md-3">
+        <div class="card my-5">
+            <form method="post" asp-controller="Home" asp-action="Login"
+                  class="card-body cardbody-color p-lg-5">
+                <div class="text-center">
+                    <img src="~/image/Trade&DealHubicon.png"
+                         class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3" width="200px"
+                         alt="profile">
                 </div>
-            </div>
-            <div class="mb-3">
-                <input value="Login" type="submit" class="btn btn-primary" />
-            </div>
-            <div id="emailHelp" class="form-group">
-                <div>
-                    @Html.ActionLink("Register", "Register", "Home")
+                <div class="mb-3">
+                    <input type="text" placeholder="Username" id="username" class="form-control" name="username" required />
+                    <div class="a-alert-content" id="usernameError" style="color: red;"></div>
+
                 </div>
-                <div>
-                    <a asp-action="ForgotPassword">Forgot Password?</a>
+                <div class="mb-3">
+                    <input type="password" placeholder="Password" id="password" class="form-control" name="password" required />
+                    <div class="a-alert-content" id="passwordError" style="color: red;"></div>
                 </div>
-            </div>
-        </form>
+                <div class="captcha-div" style="display: flex; padding-bottom: 10px;">
+                    <span id="Captcha-image" class="captcha-image">
+                        <img id="captchaImage" src="data:image/png;base64,@ViewBag.CaptchaImageBytes"
+                             alt="Captcha Image" />
+                    </span>
+                    <div class="input-group" >
+                        <input type="text" id="captcha" name="captcha" class="captcha-form form-control" placeholder="Input capcha" required>
+                        <button type="button" id="refreshCaptcha"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+                <div class="text-center" style="background-color: aliceblue; height: 37px;">
+                    <input value="Đăng Nhập" type="submit"
+                           class="btn btn-color px-5 mb-5 w-100" />
+                </div>
+                <div id="emailHelp" class="form-text text-center mb-5 text-dark">
+                    @Html.ActionLink("Đăng Ký", "Register", "Home")
+                    <div>
+                        <a asp-action="ForgotPassword">Quên Mật Khẩu?</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+
     </div>
-</div>
+</main>
+
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>
