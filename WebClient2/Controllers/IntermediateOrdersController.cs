@@ -124,6 +124,7 @@ namespace WebClient2.Controllers
                 if (price < 0)
                 {
                     ModelState.AddModelError(string.Empty, "Số tiền cần lớn hơn 0");
+                    return RedirectToAction("Create", "IntermediateOrders");
                 }
                 if (WalletDAO.GetWalletByAccountId(account_id).balance < 500)
                 {
