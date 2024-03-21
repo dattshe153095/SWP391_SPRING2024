@@ -345,6 +345,31 @@ namespace WebClient2.Controllers
             return Json(new { loggedIn = loggedIn });
         }
 
+        [Authorize(Roles = "Admin,User")]
+        public IActionResult ConfirmInterOrderComplete(string id)
+        {
+            int account_id = HttpContext.Session.GetInt32("Account").Value;
+            IntermediateOrder order = IntermediateOrderDAO.GetIntermediateOrderById(id);
+
+
+            if (order.buy_user == null)
+            {
+                TempData["Message"] = "Lỗi xảy ra";
+                return RedirectToAction("OrderDetail", "IntermediateOrders", new { id = id });
+            }
+            else
+            {
+                if (order.status == IntermediateOrderEnum.BEN_MUA_KIEM_TRA_HANG)
+                {
+                    IntermediateOrderDAO.ConfirmInterOrderComplete(id);
+                    WalletDAO.UpdateWalletDepositBalance(order.buy_user.Value, (int)order.earn_amount);
+                }
+            }
+
+            TempData["Message"] = "Đã xác nhận thông tin đúng";
+            return RedirectToAction("OrderDetail", "IntermediateOrders", new { id = id });
+        }
+
         //[HttpPost]
         [Authorize(Roles = "Admin,User")]
         public IActionResult KhieuNaiInterOrder(string id)
