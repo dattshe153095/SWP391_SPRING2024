@@ -362,7 +362,7 @@ namespace WebClient2.Controllers
                 if (order.status == IntermediateOrderEnum.BEN_MUA_KIEM_TRA_HANG)
                 {
                     IntermediateOrderDAO.ConfirmInterOrderComplete(id);
-                    WalletDAO.UpdateWalletDepositBalance(order.buy_user.Value, (int)order.earn_amount);
+                    WalletDAO.UpdateWalletDepositBalance(order.create_by, (int)order.earn_amount);
                 }
             }
 
