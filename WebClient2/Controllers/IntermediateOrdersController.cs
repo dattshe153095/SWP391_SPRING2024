@@ -82,8 +82,11 @@ namespace WebClient2.Controllers
             {
                 return NotFound();
             }
+
             IntermediateOrder intermediateOrder = new IntermediateOrder();
             intermediateOrder = IntermediateOrderDAO.GetIntermediateOrderById(id);
+
+
             OrderViewModel order = new OrderViewModel();
 
             //MapData
@@ -169,6 +172,10 @@ namespace WebClient2.Controllers
         [Authorize(Roles = "Admin,User")]
         public IActionResult Edit(string? id)
         {
+            if (HttpContext.Session.GetInt32("Account") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             if (id == null)
             {
                 return NotFound();
@@ -183,6 +190,15 @@ namespace WebClient2.Controllers
             if (intermediateOrder == null)
             {
                 return NotFound();
+            }
+
+            if (intermediateOrder.buy_user != null)
+            {
+                return RedirectToAction("Market");
+            }
+            if (intermediateOrder.create_by != HttpContext.Session.GetInt32("Account").Value)
+            {
+                return RedirectToAction("Market");
             }
             UpdateOrderView update = new UpdateOrderView()
             {
@@ -214,7 +230,14 @@ namespace WebClient2.Controllers
             IntermediateOrder order = new IntermediateOrder();
             order = IntermediateOrderDAO.GetIntermediateOrderById(orderView.id);
             if (order == null) { return NotFound(); }
-
+            if (order.buy_user != null)
+            {
+                return RedirectToAction("Market");
+            }
+            if (order.create_by != account_id)
+            {
+                return RedirectToAction("Market");
+            }
             if (ModelState.IsValid)
             {
                 order.name = orderView.name;
