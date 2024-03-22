@@ -41,6 +41,87 @@ namespace WebClient2.Controllers
             ViewBag.ChangePasswordSuccess = TempData["SuccessMessage"];
             return View();
         }
+        public IActionResult Profile1()
+        {
+            ViewBag.accountId = HttpContext.Session.GetInt32("Account");
+            //CAPTCHA
+            Captcha oCaptcha = new Captcha();
+            Random rnd = new Random();
+            string[] s = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" };
+            int i;
+            StringBuilder sb = new StringBuilder(4);
+            for (i = 0; i <= 4; i++)
+            {
+                sb.Append(s[rnd.Next(1, s.Length)]);
+            }
+            Bitmap bm = oCaptcha.MakeCaptchaImage(sb.ToString(), 200, 100, "Arial");
+            HttpContext.Session.SetString("CaptchaChangePass", sb.ToString());
+
+            using (MemoryStream ms = new MemoryStream())
+            {
+                bm.Save(ms, ImageFormat.Png);
+                byte[] imageBytes = ms.ToArray();
+                ViewBag.CaptchaImageBytes = Convert.ToBase64String(imageBytes);
+            }
+
+            //MESSAGE
+            ViewBag.ChangePasswordSuccess = TempData["SuccessMessage"];
+            return View();
+        }
+        public IActionResult Profile2()
+        {
+            ViewBag.accountId = HttpContext.Session.GetInt32("Account");
+            //CAPTCHA
+            Captcha oCaptcha = new Captcha();
+            Random rnd = new Random();
+            string[] s = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" };
+            int i;
+            StringBuilder sb = new StringBuilder(4);
+            for (i = 0; i <= 4; i++)
+            {
+                sb.Append(s[rnd.Next(1, s.Length)]);
+            }
+            Bitmap bm = oCaptcha.MakeCaptchaImage(sb.ToString(), 200, 100, "Arial");
+            HttpContext.Session.SetString("CaptchaChangePass", sb.ToString());
+
+            using (MemoryStream ms = new MemoryStream())
+            {
+                bm.Save(ms, ImageFormat.Png);
+                byte[] imageBytes = ms.ToArray();
+                ViewBag.CaptchaImageBytes = Convert.ToBase64String(imageBytes);
+            }
+
+            //MESSAGE
+            ViewBag.ChangePasswordSuccess = TempData["SuccessMessage"];
+            return View();
+        }
+        public IActionResult Profile3()
+        {
+            ViewBag.accountId = HttpContext.Session.GetInt32("Account");
+            //CAPTCHA
+            Captcha oCaptcha = new Captcha();
+            Random rnd = new Random();
+            string[] s = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" };
+            int i;
+            StringBuilder sb = new StringBuilder(4);
+            for (i = 0; i <= 4; i++)
+            {
+                sb.Append(s[rnd.Next(1, s.Length)]);
+            }
+            Bitmap bm = oCaptcha.MakeCaptchaImage(sb.ToString(), 200, 100, "Arial");
+            HttpContext.Session.SetString("CaptchaChangePass", sb.ToString());
+
+            using (MemoryStream ms = new MemoryStream())
+            {
+                bm.Save(ms, ImageFormat.Png);
+                byte[] imageBytes = ms.ToArray();
+                ViewBag.CaptchaImageBytes = Convert.ToBase64String(imageBytes);
+            }
+
+            //MESSAGE
+            ViewBag.ChangePasswordSuccess = TempData["SuccessMessage"];
+            return View();
+        }
 
         [HttpPost]
         public IActionResult UpdateProfile(string name, string description, String phone)
