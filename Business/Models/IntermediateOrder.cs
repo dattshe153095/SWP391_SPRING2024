@@ -17,6 +17,7 @@ namespace Business.Models
         [Column(TypeName = "nvarchar")]
         [MaxLength(200)]
         public string name { get; set; }
+        [Range(0, int.MaxValue, ErrorMessage = "Số tiền phải lớn hơn 0")]
         public float price { get; set; }
         public float fee_rate { get; set; } = 0.05f;
         public bool fee_type { get; set; }

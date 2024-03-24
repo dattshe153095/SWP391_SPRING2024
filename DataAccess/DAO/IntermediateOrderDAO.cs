@@ -18,7 +18,7 @@ namespace DataAccess.DAO
 
             using (var context = new Web_Trung_GianContext())
             {
-                list = context.IntermediateOrders.Where(x => x.is_delete == false).ToList();
+                list = context.IntermediateOrders.Where(x => x.is_delete == false).OrderByDescending(x=>x.update_at).ToList();
             }
             return list;
         }
@@ -34,7 +34,7 @@ namespace DataAccess.DAO
                     && x.buy_user == null
                     && x.is_public == true
                     && x.status == IntermediateOrderEnum.SAN_SANG_GIAO_DICH
-                    )
+                    ).OrderByDescending(x => x.update_at)
                     .ToList();
             }
             return list;
@@ -294,7 +294,7 @@ namespace DataAccess.DAO
                 list = context.IntermediateOrders.
                     Where(x => x.is_delete == false
                     && x.buy_user == user_id
-                    ).ToList();
+                    ).OrderByDescending(x => x.update_at).ToList();
             }
             return list;
         }
@@ -308,12 +308,12 @@ namespace DataAccess.DAO
                 list = context.IntermediateOrders.
                     Where(x => x.is_delete == false
                     && x.create_by == user_id
-                    ).ToList();
+                    ).OrderByDescending(x => x.update_at).ToList();
             }
             return list;
         }
 
-        public void ConfirmInterOrderComplete(string id)
+        public static void ConfirmInterOrderComplete(string id)
         {
             try
             {
