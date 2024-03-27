@@ -21,7 +21,7 @@ namespace WebClient2.Controllers
             return View();
         }
 
-        public IActionResult ListOrders(int page = 1, int itemsPerPage = 5)
+        public IActionResult ListOrders(int page = 1, int itemsPerPage = 8)
         {
             var data = IntermediateOrderDAO.GetInterAbleToSell(); // Lấy dữ liệu từ cơ sở dữ liệu hoặc nguồn dữ liệu khác
 
