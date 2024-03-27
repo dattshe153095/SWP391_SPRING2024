@@ -24,6 +24,7 @@ namespace Business
         {
             if (!optionsBuilder.IsConfigured)
             {
+                //File appsettings.json in Webclient2 project
                 var config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
                 optionsBuilder.UseSqlServer(config.GetConnectionString("ConnectionString"));
             }
