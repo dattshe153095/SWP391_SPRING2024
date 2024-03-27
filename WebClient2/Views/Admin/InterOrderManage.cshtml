@@ -1,6 +1,34 @@
 ﻿@using DataAccess.DAO;
 @model IEnumerable<Business.Models.IntermediateOrder>
+<style>
+    <style >
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
 
+    th, td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    input[type="text"] {
+        width: 100%;
+        box-sizing: border-box; /* make sure the input includes padding and border in its total width */
+    }
+</style>
+
+
+<div>
+    <h1>
+        Quản Lý đơn trung gian
+    </h1>
+</div>
 <table class="table table-hover">
     <thead>
         <tr>
