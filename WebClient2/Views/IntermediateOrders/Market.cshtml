@@ -28,11 +28,11 @@
         background-color: #f5f5f5;
     }
 
-    
 
-        .btn:hover {
-            background-color: #0056b3;
-        }
+
+    .btn:hover {
+        background-color: #0056b3;
+    }
 
     .container {
         border: 1px solid #ddd;
@@ -113,6 +113,18 @@
 <div><h1>Chợ Trung Gian</h1></div>
 <table class="table table-hover">
     <thead>
+        <tr>
+            <th><input class="form-control" value="" placeholder="Search Id" /></th>
+            <th><input class="form-control" value="" placeholder="Chủ đề trung gian" /></th>
+            <th><input class="form-control" value="" placeholder="Giá tiền" /></th>
+            <th><input class="form-control" value="" placeholder="Trạng thái" /></th>
+            <th></th>
+            <th><input class="form-control" value="" placeholder="Người bán" /></th>
+            <th><input class="form-control" value="" placeholder="Thời gian tạo" /></th>
+            <th><input class="form-control" value="" placeholder="Thời gian cập nhật" /></th>
+            <th><button class="btn btn-primary" id="searchButton">Tìm kiếm</button></th>
+
+        </tr>
         <tr>
             <th>Mã trung gian</th>
             <th>Chủ đề trung gian</th>
@@ -245,6 +257,12 @@
                 currentPage++;
                 loadData(currentPage);
             }
+        });
+
+        // Sự kiện click cho nút tìm kiếm
+        $('#searchButton').click(function () {
+            var searchText = $('#searchInput').val();
+            loadData(1, searchText); // Bắt đầu từ trang đầu tiên khi thực hiện tìm kiếm
         });
 
 

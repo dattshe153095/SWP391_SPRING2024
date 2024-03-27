@@ -48,8 +48,12 @@ namespace WebClient2.Controllers
             IntermediateOrder order = IntermediateOrderDAO.GetIntermediateOrderById(id);
             if (order.status == IntermediateOrderEnum.YEU_CAU_QUAN_TRI)
             {
+                if (order.buy_user != null)
+                {
+                    WalletDAO.UpdateWalletDepositBalance(order.buy_user.Value, (int)order.payment_amount);
+                }
                 IntermediateOrderDAO.DeleteInterOrder(id);
-                TempData["Message"] = "Hủy đơn hàng thành công";
+                TempData["Message"] = "Hủy đơn hàng thành công trả tiền cho người mua";
                 return RedirectToAction("DetailOrder", new { id = id });
             }
             return RedirectToAction("DetailOrder", new { id = id });

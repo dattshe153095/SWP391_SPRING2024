@@ -19,6 +19,7 @@ namespace Business.Models
         [ForeignKey(nameof(Wallet))]
         public int wallet_id { get; set; }
         public virtual Wallet? Wallet { get; set; }
+        [Range(20000, 500000, ErrorMessage = "Số tiền chỉ trong khoảng từ 20,000 đến 500,000")]
         public int amount { get; set; }
 
         [Required]

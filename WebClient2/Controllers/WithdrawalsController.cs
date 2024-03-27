@@ -61,8 +61,10 @@ namespace WebClient2.Controllers
                 }
                 else
                 {
+
                     TempData["Message"] = $"Không đủ tiền thanh toán";
                     return RedirectToAction(nameof(Create));
+
                 }
 
             }

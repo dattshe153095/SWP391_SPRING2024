@@ -4,10 +4,10 @@
     ViewData["Title"] = "Create Intermediate Order";
 }
 
-<h1>Create</h1>
+<h1>Tạo Đơn Hàng</h1>
 
-<h4>IntermediateOrder</h4>
-<hr />
+<h4>Đơn hàng trung gian<h4>
+
 <div class="row">
     <div class="col-md-10 mx-auto">
         <form method="post" asp-controller="IntermediateOrders" asp-action="Create">
@@ -51,7 +51,7 @@
             </div>
             <div class="form-group">
                 <label class="control-label">Công khai (*)</label>
-                <div>
+                <div style="padding-bottom: 10px;">
                     <input type="radio" class="btn-check" asp-for="is_public" name="is_public" id="success-outlined" autocomplete="off" value="true">
                     <label class="btn btn-outline-success" for="success-outlined">Hiện công khai</label>
 
@@ -79,8 +79,10 @@
     </div>
 }
 <div>
-    <a asp-action="Market">Back to List</a>
+            <h5>@Html.ActionLink("Chợ Trung Gian", "Market", "IntermediateOrders")</h5>
 </div>
+        
+
 
 @section Scripts {
     @{

@@ -26,6 +26,7 @@
                         {
                             case IntermediateOrderEnum.BEN_MUA_KIEM_TRA_HANG:
                                 <a class="btn btn-success" asp-action="KhieuNaiInterOrder" asp-route-id="@Model.id">Đơn hàng không đúng</a>
+                                <a class="btn btn-success" asp-action="ConfirmInterOrderComplete" asp-route-id="@Model.id">Đơn hàng đúng</a>
                                 break;
                             case IntermediateOrderEnum.BEN_MUA_KHIEU_NAI:
                                 <a class="btn btn-success" asp-action="KhieuNaiAdminInterOrder" asp-route-id="@Model.id">Yêu cầu quản trị</a>

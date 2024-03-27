@@ -82,8 +82,11 @@ namespace WebClient2.Controllers
             {
                 return NotFound();
             }
+
             IntermediateOrder intermediateOrder = new IntermediateOrder();
             intermediateOrder = IntermediateOrderDAO.GetIntermediateOrderById(id);
+
+
             OrderViewModel order = new OrderViewModel();
 
             //MapData
@@ -124,6 +127,7 @@ namespace WebClient2.Controllers
                 if (price < 0)
                 {
                     ModelState.AddModelError(string.Empty, "Số tiền cần lớn hơn 0");
+                    return RedirectToAction("Create", "IntermediateOrders");
                 }
                 if (WalletDAO.GetWalletByAccountId(account_id).balance < 500)
                 {
@@ -168,6 +172,10 @@ namespace WebClient2.Controllers
         [Authorize(Roles = "Admin,User")]
         public IActionResult Edit(string? id)
         {
+            if (HttpContext.Session.GetInt32("Account") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             if (id == null)
             {
                 return NotFound();
@@ -182,6 +190,15 @@ namespace WebClient2.Controllers
             if (intermediateOrder == null)
             {
                 return NotFound();
+            }
+
+            if (intermediateOrder.buy_user != null)
+            {
+                return RedirectToAction("Market");
+            }
+            if (intermediateOrder.create_by != HttpContext.Session.GetInt32("Account").Value)
+            {
+                return RedirectToAction("Market");
             }
             UpdateOrderView update = new UpdateOrderView()
             {
@@ -213,7 +230,14 @@ namespace WebClient2.Controllers
             IntermediateOrder order = new IntermediateOrder();
             order = IntermediateOrderDAO.GetIntermediateOrderById(orderView.id);
             if (order == null) { return NotFound(); }
-
+            if (order.buy_user != null)
+            {
+                return RedirectToAction("Market");
+            }
+            if (order.create_by != account_id)
+            {
+                return RedirectToAction("Market");
+            }
             if (ModelState.IsValid)
             {
                 order.name = orderView.name;
@@ -342,6 +366,31 @@ namespace WebClient2.Controllers
             bool loggedIn = HttpContext.Session.GetInt32("Account") != null;
 
             return Json(new { loggedIn = loggedIn });
+        }
+
+        [Authorize(Roles = "Admin,User")]
+        public IActionResult ConfirmInterOrderComplete(string id)
+        {
+            int account_id = HttpContext.Session.GetInt32("Account").Value;
+            IntermediateOrder order = IntermediateOrderDAO.GetIntermediateOrderById(id);
+
+
+            if (order.buy_user == null)
+            {
+                TempData["Message"] = "Lỗi xảy ra";
+                return RedirectToAction("OrderDetail", "IntermediateOrders", new { id = id });
+            }
+            else
+            {
+                if (order.status == IntermediateOrderEnum.BEN_MUA_KIEM_TRA_HANG)
+                {
+                    IntermediateOrderDAO.ConfirmInterOrderComplete(id);
+                    WalletDAO.UpdateWalletDepositBalance(order.create_by, (int)order.earn_amount);
+                }
+            }
+
+            TempData["Message"] = "Đã xác nhận thông tin đúng";
+            return RedirectToAction("OrderDetail", "IntermediateOrders", new { id = id });
         }
 
         //[HttpPost]

@@ -14,7 +14,6 @@ namespace WebClient2
 
             builder.Services.AddScoped<SemaphoreActionFilter>();
 
-            builder.Services.AddDbContext<Web_Trung_GianContext>(options => options.UseSqlServer("server=localhost;database=Web_Trung_Gian;uid=sa;pwd=123;TrustServerCertificate=True;"));
             builder.Services.AddSingleton<IVnPayService,VnPayService>();
             builder.Services.Configure<CookiePolicyOptions>(options =>
             {

@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - WebClient2</title>
+    <title>@ViewData["Title"] - Trade&DealHub</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/WebClient2.styles.css" asp-append-version="true" />
@@ -16,7 +16,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WebClient2</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Trade&Deal Hub</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -34,7 +34,7 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" asp-area="" asp-controller="Deposits" asp-action="Create">Nạp tiền</a></li>
-                                  @*  <li><a class="dropdown-item" asp-area="" asp-controller="Withdrawal" asp-action="Create">Lịch sử giao dịch</a></li>*@
+                                    @*  <li><a class="dropdown-item" asp-area="" asp-controller="Withdrawal" asp-action="Create">Lịch sử giao dịch</a></li>*@
                                     <li><a class="dropdown-item" asp-area="" asp-controller="Withdrawals" asp-action="Create">Yêu cầu rút tiền</a></li>
                                     <li><a class="dropdown-item" asp-area="" asp-controller="Withdrawals" asp-action="List">Lịch sử rút tiền</a></li>
                                 </ul>
@@ -58,6 +58,7 @@
                             @if (account_id == null)
                             {
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Đăng Nhập</a>
+
                             }
                             else
                             {
@@ -69,6 +70,11 @@
                                     <li><a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="Wallet" asp-route-id="@account_id">Ví</a></li>
                                     <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Logout">Đăng Xuất</a></li>
                                 </ul>
+
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Wallet">Balance: @WalletDAO.GetWalletByAccountId(account_id.Value).balance</a>
+                            </li>
                             }
                         </li>
                         @if (account_id != null && AccountDAO.GetAccountWithId(account_id).role_id == 1)
@@ -82,11 +88,9 @@
                                     <li><a class="dropdown-item" asp-area="" asp-controller="Admin" asp-action="DepositManage">Quản lí đơn nạp</a></li>
                                     <li><a class="dropdown-item" asp-area="" asp-controller="Admin" asp-action="WithdrawalManage">Quản lí đơn rút</a></li>
                                     <li><a class="dropdown-item" asp-area="" asp-controller="Admin" asp-action="UserManage">Quản lí người dùng</a></li>
-
                                 </ul>
                             </li>
                         }
-
                     </ul>
                 </div>
             </div>
@@ -100,13 +104,12 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - Trade&DueHub - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2024 - Trade&Deal Hub - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
-
 </body>
 </html>
