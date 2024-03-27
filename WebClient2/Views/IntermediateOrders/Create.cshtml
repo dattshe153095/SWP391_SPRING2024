@@ -3,13 +3,68 @@
 @{
     ViewData["Title"] = "Create Intermediate Order";
 }
+<style>
+    /* Đóng khung cho phần tạo đơn */
+    .col-md-10.mx-auto {
+        max-width: 100%;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
 
-<h1>Tạo Đơn Hàng</h1>
+    /* Định dạng input, textarea */
+    input.form-control, textarea.form-control {
+        width: 100%;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        padding: 5px 10px;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+    }
 
-<h4>Đơn hàng trung gian<h4>
+    /* Định dạng các nút radio */
+    input[type="radio"].btn-check {
+        display: none; /* Ẩn input radio mặc định */
+    }
+
+    label.btn {
+        padding: 0.375rem 0.75rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        border-radius: 0.25rem;
+        cursor: pointer;
+    }
+
+        label.btn:hover {
+            opacity: 0.8; /* Giảm độ trong suốt khi di chuột qua */
+        }
+
+    /* Định dạng nút "Tạo đơn" */
+    input[type="submit"].btn-primary {
+        padding: 0.375rem 0.75rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        border-radius: 0.25rem;
+        cursor: pointer;
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+    }
+
+        input[type="submit"].btn-primary:hover {
+            color: #fff;
+            background-color: #0056b3;
+            border: none;
+        }
+</style>
+
 
 <div class="row">
     <div class="col-md-10 mx-auto">
+        <h1>Tạo Đơn Hàng Trung Gian</h1>
+
+        
         <form method="post" asp-controller="IntermediateOrders" asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
