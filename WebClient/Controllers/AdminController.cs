@@ -10,6 +10,7 @@ using DataAccess.Captcha;
 using System.Drawing.Imaging;
 using System.Drawing;
 using System.Text;
+using DataAccess.ViewModel;
 
 namespace WebClient2.Controllers
 {
@@ -38,7 +39,25 @@ namespace WebClient2.Controllers
             return View();
         }
 
+        public IActionResult DetailOrder(string? id)
+        {
+            IntermediateOrder order = IntermediateOrderDAO.GetIntermediateOrderById(id);
+            OrderViewModel orderView = new OrderViewModel();
 
+            OrderViewModel orderViewModel= IntermediateOrderDAO.GetOrderViewModel(order);
+            return View(orderView);
+
+        }
+        public IActionResult DepositManage()
+        {
+            List<Deposit> deposits = DepositDAO.GetAllDeposit();
+            return View(deposits);
+        }
+        public IActionResult DetailDeposit(string? id)
+        {
+            List<Deposit> deposits = DepositDAO.GetAllDeposit();
+            return View(deposits);
+        }
     }
 
 
