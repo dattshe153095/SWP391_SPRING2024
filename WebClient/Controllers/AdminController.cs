@@ -23,6 +23,21 @@ namespace WebClient2.Controllers
             ViewBag.accountId = HttpContext.Session.GetInt32("Account");
             return View();
         }
+        public IActionResult Index2()
+        {
+            ViewBag.accountId = HttpContext.Session.GetInt32("Account");
+            return View();
+        }
+        public IActionResult Index3()
+        {
+            ViewBag.accountId = HttpContext.Session.GetInt32("Account");
+            return View();
+        }
+        public IActionResult Index4()
+        {
+            ViewBag.accountId = HttpContext.Session.GetInt32("Account");
+            return View();
+        }
 
         public IActionResult DetailOrder(string? id)
         {

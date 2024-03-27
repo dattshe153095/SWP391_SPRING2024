@@ -64,5 +64,46 @@ namespace WebClient2.Controllers
 
 
         #endregion
+
+        public IActionResult Index()
+        {
+            ViewBag.accountId = HttpContext.Session.GetInt32("Account");
+            return View();
+        }
+        public IActionResult Index2()
+        {
+            ViewBag.accountId = HttpContext.Session.GetInt32("Account");
+            return View();
+        }
+        public IActionResult Index3()
+        {
+            ViewBag.accountId = HttpContext.Session.GetInt32("Account");
+            return View();
+        }
+        public IActionResult Index4()
+        {
+            ViewBag.accountId = HttpContext.Session.GetInt32("Account");
+            return View();
+        }
+        public IActionResult Index5()
+        {
+            ViewBag.accountId = HttpContext.Session.GetInt32("Account");
+            return View();
+        }
+        public IActionResult Index6()
+        {
+            ViewBag.accountId = HttpContext.Session.GetInt32("Account");
+            return View();
+        }
+        public IActionResult Index7()
+        {
+            ViewBag.accountId = HttpContext.Session.GetInt32("Account");
+            return View();
+        }
+        public IActionResult Index8()
+        {
+            ViewBag.accountId = HttpContext.Session.GetInt32("Account");
+            return View();
+        }
     }
 }

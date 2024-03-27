@@ -29,7 +29,9 @@ namespace Business
             IConfigurationRoot configuration = builder.Build();
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("server=localhost;database=Web_Trung_Gian;uid=sa;pwd=123;TrustServerCertificate=True;");
+                //File appsettings.json in Webclient2 project
+                var config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+                optionsBuilder.UseSqlServer(config.GetConnectionString("ConnectionString"));
             }
         }
 
