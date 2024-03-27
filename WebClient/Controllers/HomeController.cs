@@ -130,6 +130,50 @@ namespace WebClient2.Controllers
             }
             return Json(imageCaptcha);
         }
+        public IActionResult RefreshCaptchaLogin1()
+        {
+            Captcha oCaptcha = new Captcha();
+            Random rnd = new Random();
+            string[] s = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" };
+            int i;
+            StringBuilder sb = new StringBuilder(4);
+            for (i = 0; i <= 4; i++)
+            {
+                sb.Append(s[rnd.Next(1, s.Length)]);
+            }
+            Bitmap bm = oCaptcha.MakeCaptchaImage(sb.ToString(), 200, 100, "Arial");
+            HttpContext.Session.SetString("CaptchaLogin", sb.ToString());
+            string imageCaptcha = "";
+            using (MemoryStream ms = new MemoryStream())
+            {
+                bm.Save(ms, ImageFormat.Png);
+                byte[] imageBytes = ms.ToArray();
+                imageCaptcha = Convert.ToBase64String(imageBytes);
+            }
+            return Json(imageCaptcha);
+        }
+        public IActionResult RefreshCaptchaLogin2()
+        {
+            Captcha oCaptcha = new Captcha();
+            Random rnd = new Random();
+            string[] s = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" };
+            int i;
+            StringBuilder sb = new StringBuilder(4);
+            for (i = 0; i <= 4; i++)
+            {
+                sb.Append(s[rnd.Next(1, s.Length)]);
+            }
+            Bitmap bm = oCaptcha.MakeCaptchaImage(sb.ToString(), 200, 100, "Arial");
+            HttpContext.Session.SetString("CaptchaLogin", sb.ToString());
+            string imageCaptcha = "";
+            using (MemoryStream ms = new MemoryStream())
+            {
+                bm.Save(ms, ImageFormat.Png);
+                byte[] imageBytes = ms.ToArray();
+                imageCaptcha = Convert.ToBase64String(imageBytes);
+            }
+            return Json(imageCaptcha);
+        }
 
         [HttpGet]
         public IActionResult Register()
