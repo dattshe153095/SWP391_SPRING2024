@@ -25,7 +25,7 @@
 
     /* Định dạng các nút radio */
     input[type="radio"].btn-check {
-        display: none; 
+        display: none;
     }
 
     label.btn {
@@ -64,7 +64,7 @@
     <div class="col-md-10 mx-auto">
         <h1>Tạo Đơn Hàng Trung Gian</h1>
 
-        
+
         <form method="post" asp-controller="IntermediateOrders" asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -86,13 +86,41 @@
                     <input type="radio" class="btn-check" asp-for="fee_type" name="fee_type" id="fee_type_2" autocomplete="off" value="false">
                     <label class="btn btn-outline-danger" for="fee_type_2"> Bên bán mua phí </label>
                 </div>
+                <span asp-validation-for="fee_type" class="text-danger"></span>
             </div>
-        </div>
+
+            <div class="form-group">
+                <label class="control-label">Mô tả</label>
+                <input asp-for="description" class="form-control" />
+                <span asp-validation-for="description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Phương thức liên lạc (*)</label>
+                <input asp-for="contact" class="form-control" />
+                <span asp-validation-for="contact" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Nội dung ẩn (*)</label>
+                <textarea asp-for="hidden_content" class="form-control" id="hidden_content" name="hidden_content" rows="5"></textarea>
+                <span asp-validation-for="hidden_content" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Công khai (*)</label>
+                <div style="padding-bottom: 10px;">
+                    <input type="radio" class="btn-check" asp-for="is_public" name="is_public" id="success-outlined" autocomplete="off" value="true">
+                    <label class="btn btn-outline-success" for="success-outlined">Hiện công khai</label>
+
+                    <input type="radio" class="btn-check" asp-for="is_public" name="is_public" id="danger-outlined" autocomplete="off" value="false">
+                    <label class="btn btn-outline-danger" for="danger-outlined"> Ẩn giới hạn</label>
+                </div>
+                <span asp-validation-for="is_public" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Tạo đơn" class="btn btn-primary" />
+            </div>
+        </form>
     </div>
 </div>
-
-
-
 @if (!ViewData.ModelState.IsValid)
 {
     <div class="alert alert-danger" role="alert">
@@ -106,9 +134,9 @@
     </div>
 }
 <div>
-            <h5>@Html.ActionLink("Chợ Trung Gian", "Market", "IntermediateOrders")</h5>
+    <h5>@Html.ActionLink("Chợ Trung Gian", "Market", "IntermediateOrders")</h5>
 </div>
-        
+
 
 
 @section Scripts {
