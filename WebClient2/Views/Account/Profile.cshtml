@@ -10,8 +10,18 @@
     var account_id = ViewContext.HttpContext.Session.GetInt32("Account");
     Account user = AccountDAO.GetAccountWithId(account_id);
 }
+@* <style>
+    .form-container {
+        background-color: #ffffff; /* Màu nền cho container */
+        border: 2px solid black; /* Viền khung màu xanh, độ dày 2px */
+        border-radius: 10px; /* Bo góc */
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Bóng đổ */
+        padding: 20px; /* Padding để nội dung không dính vào cạnh */
+        margin: 20px 0; /* Khoảng cách giữa các container và các thành phần xung quanh */
+    }
+</style> *@
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-6 form-container">
         <h3>Thông tin</h3>
         <form method="post" asp-controller="Account" asp-action="UpdateProfile">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -49,7 +59,7 @@
     </div>
 
     <!-- Biểu mẫu ChangePassword -->
-    <div class="col-md-6">
+    <div class="col-md-6 form-container">
         <h3>Đổi mật khẩu</h3>
         <form method="post" asp-controller="Account" asp-action="ChangePassword">
             <div class="form-group">
