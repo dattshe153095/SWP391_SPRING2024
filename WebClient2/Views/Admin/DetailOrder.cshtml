@@ -113,6 +113,9 @@
                             <div class="col">
                                 <a class="btn btn-success" asp-action="DeleteInterOrder" asp-route-id="@Model.id">Hủy đơn hàng</a>
                             </div>
+                            <div class="col">
+                                <a class="btn btn-success" asp-action="ConfirmInterOrderComplete" asp-route-id="@Model.id">Đơn hàng đúng</a>
+                            </div>
                         }
                     </div>
                 </form>
