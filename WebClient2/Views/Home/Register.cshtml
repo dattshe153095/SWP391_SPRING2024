@@ -15,7 +15,7 @@
                         <div class="col-12 col-md-9 col-lg-7 col-xl-6">
                             <div class="card" style="border-radius: 15px;">
                                 <div class="card-body p-5">
-                                    <h2 class="text-uppercase text-center mb-6">Create an account</h2>
+                                    <h2 class="text-uppercase text-center mb-6">Tạo tài khoản</h2>
                                     <form style="display: grid" method="post" asp-controller="Home" asp-action="Register">
                                         <div class="row">
                                             <div class="form-group mb-6">
@@ -32,10 +32,10 @@
                                                 <label class="control-label">Email</label>
                                                 <input asp-for="Email" class="form-control email" id="email" />
                                                 <span asp-validation-for="Email" class="text-danger"></span>
-                                                <button class="btn btn-primary" type="button" onclick="sendEmail()">Send Email</button> <!-- Thêm nút gửi email -->
+                                                <button class="btn btn-primary" type="button" onclick="sendEmail()">Gửi mã</button> <!-- Thêm nút gửi email -->
                                             </div>
                                             <div class="form-group mb-6">
-                                                <label class="control-label">Code confirm mail</label>
+                                                <label class="control-label">Xác nhận mã</label>
                                                 <input asp-for="CodeValidate" class="form-control" />
                                                 <span asp-validation-for="CodeValidate" class="text-danger"></span>
                                             </div>
@@ -57,18 +57,18 @@
                                                     <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                                                 </div>
                                             </div>
-                                            <div class="form-group row">
+                                            <div class="form-group row" >
                                                 <div class="col" id="Captcha-image">
                                                     <img id="captchaImage" src="data:image/png;base64,@ViewBag.CaptchaImageBytes"
                                                          alt="Captcha Image" />
                                                 </div>
-                                                <div class="col">
-                                                    <input type="text" id="captcha" name="captcha" class="captcha-form form-control" placeholder="Input capcha" required>
+                                            <div class="col" style="display: flex;">
+                                                    <input type="text" id="captcha" name="captcha" class="captcha-form form-control" required>
                                                     <button type="button" id="refreshCaptcha"><i class="fa fa-refresh" aria-hidden="true"></i></button>
                                                 </div>
                                             </div>
                                             <div class="form-group mb-6">
-                                                <button type="submit" class="btn btn-success">Register</button>
+                                                <button type="submit" class="btn btn-success">Đăng Ký</button>
                                             </div>
                                         </div>
                                     </form>
