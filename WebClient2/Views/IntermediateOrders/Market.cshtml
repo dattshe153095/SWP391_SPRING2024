@@ -4,8 +4,8 @@
     .container {
         border: 1px solid #ddd;
         padding: 10px;
-        max-height: 700px; 
-        overflow-y: auto; 
+        max-height: 700px;
+        overflow-y: auto;
     }
 
     .table {
@@ -37,8 +37,8 @@
     .container {
         border: 1px solid #ddd;
         padding: 10px;
-        max-height: 700px; 
-        overflow-y: auto; 
+        max-height: 700px;
+        overflow-y: auto;
     }
 
     .table {
@@ -85,7 +85,7 @@
     .container {
         border: 1px solid #ddd;
         padding: 10px;
-        max-height: 700px; 
+        max-height: 700px;
         overflow-y: auto; /* Thêm thanh cuộn dọc nếu nội dung vượt quá kích thước */
     }
 
@@ -114,14 +114,14 @@
 <table class="table table-hover">
     <thead>
         <tr>
-            <th><input class="form-control" value="" placeholder="Search Id" /></th>
-            <th><input class="form-control" value="" placeholder="Chủ đề trung gian" /></th>
-            <th><input class="form-control" value="" placeholder="Giá tiền" /></th>
-            <th><input class="form-control" value="" placeholder="Trạng thái" /></th>
+            <th><input id="idInput" class="form-control" value="" placeholder="Search Id" /></th>
+            <th><input id="nameInput" class="form-control" value="" placeholder="Chủ đề trung gian" /></th>
+            <th><input id="priceInput" class="form-control" value="" placeholder="Giá tiền" /></th>
+            <th><input id="statusInput" class="form-control" value="" placeholder="Trạng thái" /></th>
             <th></th>
-            <th><input class="form-control" value="" placeholder="Người bán" /></th>
-            <th><input class="form-control" value="" placeholder="Thời gian tạo" /></th>
-            <th><input class="form-control" value="" placeholder="Thời gian cập nhật" /></th>
+            <th><input id="userInput" class="form-control" value="" placeholder="Người bán" /></th>
+            <th></th>
+            <th></th>
             <th><button class="btn btn-primary" id="searchButton">Tìm kiếm</button></th>
 
         </tr>
@@ -240,6 +240,7 @@
             });
         }
 
+
         // Tải dữ liệu cho trang đầu tiên khi trang web được tải
         loadData(currentPage);
 
@@ -261,10 +262,72 @@
 
         // Sự kiện click cho nút tìm kiếm
         $('#searchButton').click(function () {
-            var searchText = $('#searchInput').val();
-            loadData(1, searchText); // Bắt đầu từ trang đầu tiên khi thực hiện tìm kiếm
+            var id = $('#idInput').val();
+            var name = $('#nameInput').val();
+            var price = $('#priceInput').val();
+            var status = $('#statusInput').val();
+            var user = $('#userInput').val();
+            loadData(1, id, name, price, status, user); // Bắt đầu từ trang đầu tiên khi thực hiện tìm kiếm
         });
+        //Search
+        function loadData(page, id, name, price, status, user) {
+            $.ajax({
+                url: '/IntermediateOrders/SearchOrders', // Thay ControllerName và ActionName bằng tên thực tế của controller và action xử lý yêu cầu
+                type: 'GET',
+                dataType: 'json',
+                data: { page: page, itemsPerPage: itemsPerPage, id: id, name: name, price: price, status: status, user: user },
+                success: function (data) {
+                    $('tbody').empty(); // Xóa dữ liệu cũ trước khi thêm mới
 
+                    // Xử lý dữ liệu trả về từ máy chủ
+                    $.each(data.items, function (index, item) {
+                        var newRow = $('<tr>');
+                        newRow.append('<td>' + item.id + '</td>');
+                        newRow.append('<td>' + item.name + '</td>');
+                        newRow.append('<td>' + item.price + '</td>');
+                        newRow.append('<td>' + item.status + '</td>');
+                        newRow.append('<td>' + item.payment_amount + '</td>');
+                        newRow.append('<td>' + item.accountName + '</td>');
+                        newRow.append('<td>' + item.create_at + '</td>');
+                        newRow.append('<td>' + item.update_at + '</td>');
+                        newRow.append('<td><a class="btn btn-primary open-modal" data-id="' + item.id + '">Chi tiết</a></td>');
+                        $('tbody').append(newRow);
+                    });
+
+                    // Cập nhật thông tin phân trang
+                    currentPage = data.currentPage;
+                    totalPages = data.totalPages;
+
+                    // Xóa các nút trang hiện có trước khi thêm mới
+                    $('#paginationList').find('.page-number').remove();
+
+                    // Thêm các nút trang mới
+                    for (var i = 1; i <= totalPages; i++) {
+                        var pageItem = $('<li class="page-item page-number"><a class="page-link" href="#">' + i + '</a></li>');
+                        pageItem.click(function () {
+                            var pageNum = $(this).text();
+                            loadData(pageNum);
+                        });
+                        $('#nextPage').before(pageItem);
+                    }
+
+                    // Cập nhật trạng thái của nút "Previous" và "Next"
+                    if (currentPage === 1) {
+                        $('#prevPage').addClass('disabled');
+                    } else {
+                        $('#prevPage').removeClass('disabled');
+                    }
+
+                    if (currentPage === totalPages) {
+                        $('#nextPage').addClass('disabled');
+                    } else {
+                        $('#nextPage').removeClass('disabled');
+                    }
+                }
+            });
+        }
+
+        //===============
 
         //Load Event Buy
         $('tbody').on('click', '.open-modal', function () {
