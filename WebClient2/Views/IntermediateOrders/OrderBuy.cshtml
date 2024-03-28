@@ -122,8 +122,8 @@
             <th>Bên chịu phí trung gian</th>
             <th>Tổng phí cần mua</th>
             <th>Người bán</th>
-            <th>Thời gian tạo</th>
-            <th>Cập nhật cuối</th>
+            <th>Trạng thái</th>
+            <th>Cập nhật</th>
             <th>Hành động</th>
 
         </tr>
@@ -145,7 +145,7 @@
                 }
                 <td>@item.payment_amount</td>
                 <td>@AccountDAO.GetAccountWithId(item.create_by).name</td>
-                <td>@item.create_at.ToString("dd/MM/yyyy")</td>
+                <td>@item.status</td>
                 <td>@item.update_at.ToString("dd/MM/yyyy")</td>
                 <td><a class="btn btn-primary open-modal" data-id="@item.id">Chi tiết</a></td>
             </tr>

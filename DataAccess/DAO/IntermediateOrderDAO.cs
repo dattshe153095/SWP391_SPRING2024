@@ -237,8 +237,7 @@ namespace DataAccess.DAO
                 using (var context = new Web_Trung_GianContext())
                 {
                     orders = context.IntermediateOrders.Where(x =>
-                    x.status == IntermediateOrderEnum.BEN_BAN_DANH_DAU_KHIEU_NAI ||
-                    x.status == IntermediateOrderEnum.YEU_CAU_QUAN_TRI
+                    x.status == IntermediateOrderEnum.BEN_BAN_DANH_DAU_KHIEU_NAI
                     ).ToList();
 
                 }
