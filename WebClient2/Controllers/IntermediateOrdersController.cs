@@ -82,10 +82,8 @@ namespace WebClient2.Controllers
             {
                 return NotFound();
             }
-
             IntermediateOrder intermediateOrder = new IntermediateOrder();
             intermediateOrder = IntermediateOrderDAO.GetIntermediateOrderById(id);
-
 
             OrderViewModel order = new OrderViewModel();
 
@@ -96,6 +94,27 @@ namespace WebClient2.Controllers
             {
                 return NotFound();
             }
+
+
+            if (intermediateOrder.buy_user != null)
+            {
+                if (HttpContext.Session.GetInt32("Account").Value != null)
+                {
+                    int account_id = HttpContext.Session.GetInt32("Account").Value;
+                    if (account_id == intermediateOrder.buy_user
+                        || account_id == intermediateOrder.create_by
+                        || AccountDAO.GetAccountWithId(account_id).role_id == 1)
+                    {
+                        return View(order);
+                    }
+                    else { return RedirectToAction("ListOrders"); }
+                }
+                else
+                {
+                    return RedirectToAction("ListOrders");
+                }
+            }
+
 
             return View(order);
         }

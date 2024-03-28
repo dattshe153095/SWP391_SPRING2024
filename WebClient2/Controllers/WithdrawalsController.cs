@@ -56,13 +56,14 @@ namespace WebClient2.Controllers
                         update_by = account_id,
                     };
 
+                    TempData["Message"] = $"Đã gửi đơn rút tiền";
                     WithdrawalDAO.CreateWithdrawal(w);
 
                 }
                 else
                 {
 
-                    TempData["Message"] = $"Không đủ tiền thanh toán";
+                    TempData["Message"] = $"Không đủ tiền thanh toán gồm cả 500đ phí";
                     return RedirectToAction(nameof(Create));
 
                 }
