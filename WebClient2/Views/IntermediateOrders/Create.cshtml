@@ -4,78 +4,87 @@
     ViewData["Title"] = "Create Intermediate Order";
 }
 <style>
-    .form-container {
-        background-color: #f5f5f5; /* Màu nền cho khung */
-        border-radius: 10px; /* Bo góc cho khung */
-        padding: 20px; /* Thêm padding cho nội dung bên trong */
-        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); /* Thêm bóng đổ để tăng độ nổi bật */
-        max-width: 900px; /* Giới hạn độ rộng tối đa của form */
-        margin: auto; /* Căn giữa khung trên trang */
-        margin-top: 30px; /* Thêm khoảng cách từ top */
+    /* Đóng khung cho phần tạo đơn */
+    .col-md-10.mx-auto {
+        max-width: 100%;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
     }
+
+    /* Định dạng input, textarea */
+    input.form-control, textarea.form-control {
+        width: 100%;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        padding: 5px 10px;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+    }
+
+    /* Định dạng các nút radio */
+    input[type="radio"].btn-check {
+        display: none; 
+    }
+
+    label.btn {
+        padding: 0.375rem 0.75rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        border-radius: 0.25rem;
+        cursor: pointer;
+    }
+
+        label.btn:hover {
+            opacity: 0.8; /* Giảm độ trong suốt khi di chuột qua */
+        }
+
+    /* Định dạng nút "Tạo đơn" */
+    input[type="submit"].btn-primary {
+        padding: 0.375rem 0.75rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        border-radius: 0.25rem;
+        cursor: pointer;
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+    }
+
+        input[type="submit"].btn-primary:hover {
+            color: #fff;
+            background-color: #0056b3;
+            border: none;
+        }
 </style>
-<div class="form-container">
-    <h2>Tạo Đơn Hàng</h2>
-    <h4>Đơn hàng trung gian</h4>
-    <div class="row">
-        <div class="col-md-12 mx-auto">
-            <!-- Nội dung form của bạn ở đây -->
-            <div class="row">
-                <div class="col-md-10 mx-auto">
-                    <form method="post" asp-controller="IntermediateOrders" asp-action="Create">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <div class="form-group">
-                            <label class="control-label">Chủ đề trung gian (*)</label>
-                            <input asp-for="name" class="form-control" />
-                            <span asp-validation-for="name" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Giá tiền (*)</label>
-                            <input asp-for="price" class="form-control" />
-                            <span asp-validation-for="price" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Bên chịu phí (*)</label>
-                            <div>
-                                <input type="radio" class="btn-check" asp-for="fee_type" name="fee_type" id="fee_type_1" autocomplete="off" value="true">
-                                <label class="btn btn-outline-success" for="fee_type_1"> Bên bán chịu phí </label>
 
-                                <input type="radio" class="btn-check" asp-for="fee_type" name="fee_type" id="fee_type_2" autocomplete="off" value="false">
-                                <label class="btn btn-outline-danger" for="fee_type_2"> Bên bán mua phí </label>
-                            </div>
-                            <span asp-validation-for="fee_type" class="text-danger"></span>
-                        </div>
 
-                        <div class="form-group">
-                            <label class="control-label">Mô tả</label>
-                            <input asp-for="description" class="form-control" />
-                            <span asp-validation-for="description" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Phương thức liên lạc (*)</label>
-                            <input asp-for="contact" class="form-control" />
-                            <span asp-validation-for="contact" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Nội dung ẩn (*)</label>
-                            <textarea asp-for="hidden_content" class="form-control" id="hidden_content" name="hidden_content" rows="5"></textarea>
-                            <span asp-validation-for="hidden_content" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Công khai (*)</label>
-                            <div style="padding-bottom: 10px;">
-                                <input type="radio" class="btn-check" asp-for="is_public" name="is_public" id="success-outlined" autocomplete="off" value="true">
-                                <label class="btn btn-outline-success" for="success-outlined">Hiện công khai</label>
+<div class="row">
+    <div class="col-md-10 mx-auto">
+        <h1>Tạo Đơn Hàng Trung Gian</h1>
 
-                                <input type="radio" class="btn-check" asp-for="is_public" name="is_public" id="danger-outlined" autocomplete="off" value="false">
-                                <label class="btn btn-outline-danger" for="danger-outlined"> Ẩn giới hạn</label>
-                            </div>
-                            <span asp-validation-for="is_public" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <input type="submit" value="Tạo đơn" class="btn btn-primary" />
-                        </div>
-                    </form>
+        
+        <form method="post" asp-controller="IntermediateOrders" asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label">Chủ đề trung gian (*)</label>
+                <input asp-for="name" class="form-control" />
+                <span asp-validation-for="name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Giá tiền (*)</label>
+                <input asp-for="price" class="form-control" />
+                <span asp-validation-for="price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Bên chịu phí (*)</label>
+                <div>
+                    <input type="radio" class="btn-check" asp-for="fee_type" name="fee_type" id="fee_type_1" autocomplete="off" value="true">
+                    <label class="btn btn-outline-success" for="fee_type_1"> Bên bán chịu phí </label>
+
+                    <input type="radio" class="btn-check" asp-for="fee_type" name="fee_type" id="fee_type_2" autocomplete="off" value="false">
+                    <label class="btn btn-outline-danger" for="fee_type_2"> Bên bán mua phí </label>
                 </div>
             </div>
         </div>
