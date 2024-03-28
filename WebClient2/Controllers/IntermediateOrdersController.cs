@@ -52,6 +52,65 @@ namespace WebClient2.Controllers
             });
         }
 
+        public IActionResult SearchOrders(int page = 1, int itemsPerPage = 8, string? id = null, string? name = null, int? price = null, string? status = null, string? user = null)
+        {
+            List<IntermediateOrder> data = new List<IntermediateOrder>();
+            data = IntermediateOrderDAO.GetInterAbleToSell(); // Lấy dữ liệu từ cơ sở dữ liệu hoặc nguồn dữ liệu khác
+
+            //Seach By Id
+            if (!string.IsNullOrEmpty(id))
+            {
+                data = data.Where(o => o.id.ToLower().Contains(id.ToLower().Trim())).ToList();
+            }
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                data = data.Where(o => o.name.ToLower().Contains(name.ToLower().Trim())).ToList();
+            }
+
+            if (price != null)
+            {
+                data = data.Where(o => o.price <= price).ToList();
+            }
+
+            if (!string.IsNullOrEmpty(status))
+            {
+                data = data.Where(o => o.status.ToLower().Contains(status.ToLower().Trim())).ToList();
+            }
+
+            if (!string.IsNullOrEmpty(user))
+            {
+                data = data.Where(o => AccountDAO.GetAccountWithId(o.create_by).name.ToLower().Contains(user.ToLower().Trim())).ToList();
+            }
+
+
+            // Tính toán số lượng trang dựa trên tổng số phần tử và số lượng phần tử trên mỗi trang
+            var totalPages = (int)Math.Ceiling((double)data.Count() / itemsPerPage);
+
+            // Phân trang dữ liệu
+            var pagedData = data.Skip((page - 1) * itemsPerPage)
+                                .Take(itemsPerPage)
+                                .Select(item => new
+                                {
+                                    id = item.id,
+                                    name = item.name,
+                                    price = item.price,
+                                    status = item.status,
+                                    payment_amount = item.payment_amount,
+                                    accountName = AccountDAO.GetAccountWithId(item.create_by).name,
+                                    create_at = item.create_at.ToString("dd/MM/yyyy"),
+                                    update_at = item.update_at.ToString("dd/MM/yyyy")
+                                });
+
+            // Trả về dữ liệu dưới dạng JSON cùng với thông tin phân trang
+            return Json(new
+            {
+                currentPage = page,
+                totalPages = totalPages,
+                items = pagedData
+            });
+        }
+
         // GET: IntermediateOrders/Details/5
         public IActionResult MarketDetail(string? id)
         {
