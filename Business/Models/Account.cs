@@ -15,7 +15,7 @@ namespace Business.Models
         [Column(TypeName = "nvarchar")]
         [MaxLength(50)]
         public string name { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Username cannot be blank")]
         [Column(TypeName = "varchar")]
         [MaxLength(50)]
         public string username { get; set; }
