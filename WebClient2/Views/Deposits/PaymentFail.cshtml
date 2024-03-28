@@ -4,6 +4,17 @@
 @{
     ViewData["Title"] = "Fail";
 }
+<style>
+    .error-message {
+        color: #D8000C;
+        background-color: #FFD2D2;
+        border: 1px solid;
+        margin: 10px 0;
+        padding: 15px 10px;
+        border-radius: 5px;
+        box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    }
+</style>
 
 <h1>Fail</h1>
 <h3 class="text-danger">@TempData["Message"]</h3>
