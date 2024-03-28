@@ -270,8 +270,11 @@ namespace WebClient2.Controllers
                 order.is_public = orderView.is_public;
                 order.update_by = account_id;
                 IntermediateOrderDAO.UpdateIntermediateOrder(order);
+
+                TempData["Message"] = $"Edit thành công";
                 return RedirectToAction("Edit", "IntermediateOrders", new { id = orderView.id });
             }
+            TempData["Message"] = $"Edit thất bại";
             return RedirectToAction("Edit", "IntermediateOrders", new { id = orderView.id });
         }
 
