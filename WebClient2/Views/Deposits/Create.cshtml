@@ -3,36 +3,56 @@
 @{
     ViewData["Title"] = "Create Deposit";
 }
+<style>
+    .card {
+        border: 1px solid #ccc;
+        border-radius: 10px; /* Bạn có thể điều chỉnh theo ý muốn */
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); /* Tạo hiệu ứng đổ bóng cho khung */
+    }
 
-<h1>Create Deposit</h1>
+    .btn-vnpay {
+        margin-top: 10px;
+    }
 
-
-<div class="row">
+    
+   
+</style>
+<div class="row justify-content-center">
     <div class="col-md-4">
-        <form asp-action="VnPay">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="amount" class="control-label"></label>
-                <input asp-for="amount" type="number" class="form-control" />
-                <span asp-validation-for="amount" class="text-danger"></span>
+        <div class="card p-3">
+            <!-- Form nạp tiền  -->
+            <h1>Create Deposit</h1>
+            <div class="row">
+                <div class="col-md-4">
+                    <form asp-action="VnPay">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="amount" class="control-label"></label>
+                            <input asp-for="amount" type="number" class="form-control" />
+                            <span asp-validation-for="amount" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="description" class="control-label"></label>
+                            <input asp-for="description" class="form-control" />
+                            <span asp-validation-for="description" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="VnPay" class="btn btn-primary btn-vnpay" />
+                        </div>
+                    </form>
+                </div>
+                <div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="description" class="control-label"></label>
-                <input asp-for="description" class="form-control" />
-                <span asp-validation-for="description" class="text-danger"></span>
+            <div>
+                <a asp-action="Index">Back to List</a>
             </div>
-            <div class="form-group">
-                <input type="submit" value="VnPay" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-    <div>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
+
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
