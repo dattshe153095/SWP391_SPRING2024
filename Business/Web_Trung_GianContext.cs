@@ -22,16 +22,13 @@ namespace Business
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-
             var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+                            .SetBasePath(Directory.GetCurrentDirectory())
+                            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
             IConfigurationRoot configuration = builder.Build();
             if (!optionsBuilder.IsConfigured)
             {
-                //File appsettings.json in Webclient2 project
-                var config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
-                optionsBuilder.UseSqlServer(config.GetConnectionString("ConnectionString"));
+                optionsBuilder.UseSqlServer("server=localhost;database=Web_Trung_Gian;uid=sa;pwd=123;TrustServerCertificate=True;");
             }
         }
 
