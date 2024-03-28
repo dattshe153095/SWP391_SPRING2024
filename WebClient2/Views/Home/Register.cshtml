@@ -4,6 +4,75 @@
 @using WebClient2.Models
 @model WebClient2.ViewModel.RegisterViewModel
 
+<style>
+    /* Thêm padding cho form */
+    .card-body {
+        padding: 30px;
+    }
+
+    /* Làm tròn góc cho input */
+    .form-control {
+        border-radius: 10px;
+    }
+
+    /* Customize button "Gửi mã" */
+    button.btn-primary {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        /* Hover effect cho button */
+        button.btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+    /* Customize button "Đăng Ký" */
+    button.btn-success {
+        background-color: #28a745;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        /* Hover effect cho button */
+        button.btn-success:hover {
+            background-color: #218838;
+        }
+
+    /* Thay đổi màu chữ và kích thước font */
+    label.control-label {
+        color: #333;
+        font-size: 16px;
+    }
+
+    span.text-danger {
+        font-size: 12px;
+    }
+
+    /* Custom styling cho captcha */
+    #Captcha-image {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #captcha {
+        border-radius: 5px;
+        margin-right: 10px;
+    }
+
+    #refreshCaptcha {
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+</style>
 
 <div class="row">
     <div class="col-md-10">

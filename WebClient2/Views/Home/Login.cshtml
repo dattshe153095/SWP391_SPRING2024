@@ -2,14 +2,31 @@
     ViewData["Title"] = "Login Page";
 }
 <style>
-    form{
-        background-color: #00C2FF;
+    .card{
+        background-color: #74C7FF;
     }
 
     .form-text a{
         color: black;
         text-decoration: none;
     }
+        #refreshCaptcha {
+        
+        border: none;
+        cursor: pointer;
+    }
+    /* Điều chỉnh kích thước của hình captcha */
+    .captcha-image img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 5px;
+    }
+
+    /* Điều chỉnh độ rộng tối đa của input captcha */
+    .input-group input.captcha-form {
+        max-width: calc(100% - 38px); /* 38px là kích thước của nút refresh */
+    }
+
 
 </style>
 
@@ -30,17 +47,17 @@
                 <div class="mb-3">
                     <input type="password" placeholder="password" id="password" class="form-control" name="password" required />
                 </div>
-                <div class="captcha-div" style="display: flex; padding-bottom: 10px;">
+                <div class="captcha-div mb-3" style="display: flex; padding-bottom: 10px;">
                     <span id="Captcha-image" class="captcha-image">
                         <img id="captchaImage" src="data:image/png;base64,@ViewBag.CaptchaImageBytes"
                              alt="Captcha Image" />
                     </span>
-                    <div class="input-group" >
-                        <input type="text" id="captcha" name="captcha" class="captcha-form form-control"  required>
+                    <div class="input-group" style="padding-left:50px;">
+                        <input type="text" id="captcha" name="captcha" class="captcha-form form-control" placeholder="captcha" required>
                         <button type="button" id="refreshCaptcha"><i class="fa fa-refresh" aria-hidden="true"></i></button>
                     </div>
                 </div>
-                <div class="text-center" style="background-color: aliceblue; height: 37px;">
+                <div class="text-center mb-3" style="background-color: aliceblue; height: 37px;">
                     <input value="Đăng Nhập" type="submit"
                            class="btn btn-color px-5 mb-5 w-100" />
                 </div>
