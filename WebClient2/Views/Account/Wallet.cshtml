@@ -24,7 +24,7 @@
                     <div class="form-group row">
                         <label for="walletBalance" class="col-sm-3 col-form-label"><strong>Số dư:</strong></label>
                         <div class="col-sm-9">
-                            <p class="form-control-plaintext">@WalletDAO.GetWalletByAccountId(ViewBag.accountId).balance ₫</p>
+                            <p class="form-control-plaintext">@WalletDAO.GetWalletByAccountId(ViewBag.accountId).balance.ToString("#,##0") ₫</p>
                         </div>
                     </div>
                 </div>

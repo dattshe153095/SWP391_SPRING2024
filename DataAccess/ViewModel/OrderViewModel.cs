@@ -23,6 +23,5 @@ namespace DataAccess.ViewModel
         public DateTime create_at { get; set; }
         public DateTime update_at { get; set; }
         public string link_share { get; set; }
-
     }
 }

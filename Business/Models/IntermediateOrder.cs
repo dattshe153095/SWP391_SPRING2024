@@ -50,5 +50,12 @@ namespace Business.Models
         [MaxLength(500)]
         public string? link_product { get; set; } = "#";
         public bool is_delete { get; set; } = false;
+        public string fmprice
+        {
+            get
+            {
+                return price.ToString("#,##0");
+            }
+        }
     }
 }
