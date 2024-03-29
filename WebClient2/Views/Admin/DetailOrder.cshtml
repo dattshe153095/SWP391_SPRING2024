@@ -111,10 +111,10 @@
                         (order.status == IntermediateOrderEnum.YEU_CAU_QUAN_TRI))
                         {
                             <div class="col">
-                                <a class="btn btn-success" asp-action="DeleteInterOrder" asp-route-id="@Model.id">Hủy đơn hàng</a>
+                                <a class="btn btn-successt" asp-controller="IntermediateOrders" asp-action="DeleteInterOrder" asp-route-id="@Model.id">Hủy đơn hàng</a>
                             </div>
                             <div class="col">
-                                <a class="btn btn-success" asp-action="ConfirmInterOrderComplete" asp-route-id="@Model.id">Đơn hàng đúng</a>
+                                <a class="btn btn-success" asp-controller="IntermediateOrders" asp-action="ConfirmInterOrderComplete" asp-route-id="@Model.id">Đơn hàng đúng</a>
                             </div>
                         }
                     </div>

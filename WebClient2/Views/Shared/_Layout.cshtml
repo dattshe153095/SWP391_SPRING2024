@@ -31,7 +31,7 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Trang Chủ</a>
                         </li>
                         @if (account_id != null)
                         {
@@ -82,7 +82,9 @@
 
 
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Wallet">Balance: @WalletDAO.GetWalletByAccountId(account_id.Value).balance</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Wallet">Số dư: @WalletDAO.GetWalletByAccountId(account_id.Value).balance₫</a>
+                                    @* @WalletDAO.GetWalletByAccountId(account_id.Value).balance.ToString("#,##0") tien them dau phay*@
+
                             </li>
                             }
                         </li>
