@@ -4,38 +4,31 @@
 @using WebClient2.Models
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
-<div class="row">
-
+<div class="container mt-5">
     <marquee behavior="sroll" direction="left">
         <h6 style="color: red;">Thông báo: Hiện hệ thống VNPay đang bảo trì trong 1 khoảng thời gian ngắn. Hãy chú ý thời gian bảo trì để không bị gián đoạn giao dịch của mình nhé! Cảm ơn tất cả các bạn đã tin tưởng và sử dụng dịch vụ<br />Vui lòng liên hệ vào email trade.dealhub@gmail.com nếu bạn có bất kỳ thắc mắc nào</h6>
     </marquee>
-
-    <div class="card-body">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card-group">
-                    <div class="card">
-
-                        <div class="card-header">
-                            <div class="pull-left"><h3 class="mb-0">Ví của tôi</h3></div>
-                            <div class="pull-right"></div>
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">Thông tin ví của bạn</h3>
+                </div>
+                <div class="card-body">
+                    <div class="form-group row">
+                        <label for="walletName" class="col-sm-3 col-form-label"><strong>Tên ví:</strong></label>
+                        <div class="col-sm-9">
+                            <p class="form-control-plaintext">@AccountDAO.GetAccountWithId(ViewBag.accountId).name</p>
                         </div>
-
-                        <div class="card-body" style="background-color: aliceblue;">
-                            <div autocomplete="off">
-                                <div class="position-relative row form-group">
-                                    <div class="form-label-horizontal col-md-3">
-                                        <label class=""><b>Tên ví: @AccountDAO.GetAccountWithId(ViewBag.accountId).name</b></label><br />
-                                        <label class=""><b>Số dư: @WalletDAO.GetWalletByAccountId(ViewBag.accountId).balance ₫</b></label>
-                                    </div>
-                                    <div class="col-md-9"></div>
-                                </div>
-                            </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="walletBalance" class="col-sm-3 col-form-label"><strong>Số dư:</strong></label>
+                        <div class="col-sm-9">
+                            <p class="form-control-plaintext">@WalletDAO.GetWalletByAccountId(ViewBag.accountId).balance ₫</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
