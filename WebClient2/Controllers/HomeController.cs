@@ -159,6 +159,23 @@ namespace WebClient2.Controllers
         [HttpPost]
         public IActionResult Register(RegisterViewModel model)
         {
+            Captcha oCaptcha = new Captcha();
+            Random rnd = new Random();
+            string[] s = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" };
+            int i;
+            StringBuilder sb = new StringBuilder(4);
+            for (i = 0; i <= 4; i++)
+            {
+                sb.Append(s[rnd.Next(1, s.Length)]);
+            }
+            Bitmap bm = oCaptcha.MakeCaptchaImage(sb.ToString(), 200, 100, "Arial");
+
+            using (MemoryStream ms = new MemoryStream())
+            {
+                bm.Save(ms, ImageFormat.Png);
+                byte[] imageBytes = ms.ToArray();
+                ViewBag.CaptchaImageBytes = Convert.ToBase64String(imageBytes);
+            }
             var sessionVerificationCode = HttpContext.Session.GetString("VerificationCode");
             var sessionVerificationGmail = HttpContext.Session.GetString("VerificationGmail");
             if (ModelState.IsValid && model.CodeValidate == sessionVerificationCode && model.Email == sessionVerificationGmail)

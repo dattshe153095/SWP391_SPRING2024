@@ -157,7 +157,7 @@ namespace WebClient2.Controllers
 
             if (intermediateOrder.buy_user != null)
             {
-                if (HttpContext.Session.GetInt32("Account").Value != null)
+                if (HttpContext.Session.GetInt32("Account") != null)
                 {
                     int account_id = HttpContext.Session.GetInt32("Account").Value;
                     if (account_id == intermediateOrder.buy_user
@@ -166,11 +166,11 @@ namespace WebClient2.Controllers
                     {
                         return View(order);
                     }
-                    else { return RedirectToAction("ListOrders"); }
+                    else { return RedirectToAction("Market"); }
                 }
                 else
                 {
-                    return RedirectToAction("ListOrders");
+                    return RedirectToAction("Market");
                 }
             }
 
@@ -204,12 +204,13 @@ namespace WebClient2.Controllers
             {
                 if (price < 0)
                 {
-                    ModelState.AddModelError(string.Empty, "Số tiền cần lớn hơn 0");
+                    TempData["Message"] = ( "Số tiền cần lớn hơn 0");
                     return RedirectToAction("Create", "IntermediateOrders");
                 }
                 if (WalletDAO.GetWalletByAccountId(account_id).balance < 500)
                 {
-                    ModelState.AddModelError(string.Empty, "Không đủ tiền trong tài khoản! Tài khoản hiện tại có: " + WalletDAO.GetWalletByAccountId(account_id).balance);
+                    TempData["Message"] = ("Không đủ tiền trong tài khoản! Tài khoản hiện tại có: " + WalletDAO.GetWalletByAccountId(account_id).balance);
+                    return RedirectToAction("Create", "IntermediateOrders");
                 }
                 else
                 {
@@ -330,10 +331,10 @@ namespace WebClient2.Controllers
                 order.update_by = account_id;
                 IntermediateOrderDAO.UpdateIntermediateOrder(order);
 
-                TempData["Message"] = $"Edit thành công";
+                TempData["Message"] = $"Chỉnh đơn hàng thành công";
                 return RedirectToAction("Edit", "IntermediateOrders", new { id = orderView.id });
             }
-            TempData["Message"] = $"Edit thất bại";
+            TempData["Message"] = $"Chỉnh đơn hàng thất bại";
             return RedirectToAction("Edit", "IntermediateOrders", new { id = orderView.id });
         }
 
