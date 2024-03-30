@@ -261,6 +261,70 @@ namespace DataAccess.DAO
                 throw new Exception(e.Message);
             }
         }
+        public static void CheckKhieuNaiTest()
+        {
+            try
+            {
+                List<IntermediateOrder> orders = new List<IntermediateOrder>();
+                using (var context = new Web_Trung_GianContext())
+                {
+                    orders = context.IntermediateOrders.Where(x => x.status == IntermediateOrderEnum.BEN_MUA_KHIEU_NAI).ToList();
+
+                }
+                foreach (IntermediateOrder o in orders)
+                {
+                    TimeSpan khoangCach = DateTime.Now - o.update_at;
+                    int days = (int)khoangCach.TotalDays;
+                    if (days >= 2 && o.buy_at < o.update_at)
+                    {
+                        WalletDAO.UpdateWalletDepositBalance(o.buy_user.Value, (int)o.payment_amount);
+                        o.state = StateEnum.THAT_BAI;
+                        o.status = IntermediateOrderEnum.HUY;
+                        o.update_at = DateTime.Now;
+                        o.update_by = AccountDAO.GetAccountWithRole(1).id;
+                        UpdateIntermediateOrderState(o);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        public static void CheckDanhDauKhieuNaiTest()
+        {
+            try
+            {
+                List<IntermediateOrder> orders = new List<IntermediateOrder>();
+                using (var context = new Web_Trung_GianContext())
+                {
+                    orders = context.IntermediateOrders.Where(x =>
+                    x.status == IntermediateOrderEnum.BEN_BAN_DANH_DAU_KHIEU_NAI
+                    ).ToList();
+
+                }
+                foreach (IntermediateOrder o in orders)
+                {
+                    TimeSpan khoangCach = DateTime.Now - o.update_at;
+                    int days = (int)khoangCach.TotalDays;
+                    if (days >= 2 && o.buy_at < o.update_at)
+                    {
+                        WalletDAO.UpdateWalletDepositBalance(o.buy_user.Value, (int)o.payment_amount);
+                        o.state = StateEnum.THAT_BAI;
+                        o.status = IntermediateOrderEnum.HUY;
+                        o.update_at = DateTime.Now;
+                        o.update_by = AccountDAO.GetAccountWithRole(1).id;
+                       
+                        UpdateIntermediateOrderState(o);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
 
         public static void UpdateIntermediateOrderState(IntermediateOrder intermediateOrder)
         {
