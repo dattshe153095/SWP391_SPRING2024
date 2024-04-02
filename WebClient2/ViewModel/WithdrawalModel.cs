@@ -10,7 +10,7 @@ namespace WebClient2.ViewModel
         public string bank_number { get; set; }
         [MaxLength(50, ErrorMessage = "Số kí tự dưới 50 kí hiệu")]
         public string bank_user { get; set; }
-        [MaxLength(100, ErrorMessage = "Số kí tự dưới 50 kí hiệu")]
+        [MaxLength(100, ErrorMessage = "Số kí tự dưới 100 kí hiệu")]
         public string bank_name { get; set; }
     }
 }
